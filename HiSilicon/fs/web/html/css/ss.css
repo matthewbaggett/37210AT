@@ -1,0 +1,60 @@
+.tb_background
+{
+    padding-left:10px;
+    padding-right:10px;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+ul{
+  border:0px solid yellow;}
+ul,li{padding:0px 0px 0px 0px;list-style:none;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 2px;
+}
+li{width:100%;height:25px;line-height:23px; text-align:right;}
+
+a {
+  display:block;
+  
+ font-family:Arial;
+ font-size:14px;
+ color:#000000;
+  width:100%;
+  
+  text-align:center;
+  text-decoration:none;
+  
+  }
+
+.img_background_lfet {
+	/*background-image:url(../image/adminb.gif);
+	background-repeat:no-repeat;
+	background:url(../image/adminb.gif) no-repeat 50% 50%;*/
+	
+    background:url(../image/adminb.gif) no-repeat center center; 
+	width:230px;
+	height:25px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	font-weight: normal;
+	color:#000000;
+	text-align:center;
+	
+}
+li a:active 
+{
+/*	filter: progid:dximagetransform.microsoft.alphaimageloader(src='image/adminb.gif',sizingMethod='scale');
+ background:url(../image/adminbg.gif) no-repeat 50% 50%;*/
+ 
+ background:url(../image/adminbg.gif) no-repeat 100% bottom; 
+ width:100%;
+ height:25px;
+  border:0px solid red;
+  background-position:right; 
+ /*Êó±êµã»÷ÑÕÉ«*/
+}
+a:active 
+{
+  outline:none;
+    }  

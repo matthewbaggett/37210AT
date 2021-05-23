@@ -1,0 +1,234 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <script language="javascript" src="../js/clearcache.js"></script>
+
+    <link href="../css/new.css" rel="stylesheet" type="text/css" />
+    <link href="../css/ceshi.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        body
+        {
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+           
+        }
+       
+    </style>
+    <title></title>
+
+   <script type="text/javascript">
+
+       document.write('<script src="/cgi-bin/get_audio_alarm_hisi.cgi?user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+//       document.write('<script src="/cgi-bin/get_params.cgi?type=16&user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+</script>
+
+</head>
+
+<script type="text/javascript">
+    if (ret_alias_name == '') {
+        ret_alias_name = top.str_anonymous;
+    }
+    top.document.title = top.str_device + '(' + ret_alias_name + ')';
+
+    function body_onload() {
+        document.getElementById("ChekMax").value = aualarm_enable; //是否启用声音报警
+
+        document.getElementById("Select1").value = byaualarmSensitive;  //灵敏度 
+
+        document.getElementById("Checkbox3").checked = aumail_enable == 1 ? true : false;   //发送邮件 
+        document.getElementById("Checkbox4").checked = aucap_enable == 1 ? true : false;   //抓拍图片 
+        document.getElementById("Select2").value = au_interval;   //时间间隔 
+
+        document.getElementById("Checkbox5").checked = aurec_enable == 1 ? true : false;   //录像 
+            
+      
+    }
+
+  
+    function set_devinfo() {
+        var aualarm_enable1 = document.getElementById("ChekMax").value;
+        var byaualarmSensitive1 = document.getElementById("Select1").value;
+        var au_interval = document.getElementById("Select2").value;
+
+        var aumail_enable1 = document.getElementById("Checkbox3").checked == true ? 1 : 0; au_interval
+
+        var aucap_enable1 = document.getElementById("Checkbox4").checked == true ? 1 : 0;
+
+        var aurec_enable1 = document.getElementById("Checkbox5").checked == true ? 1 : 0;
+
+        var url = "/cgi-bin/set_audio_alarm_hisi.cgi?next_url=setmenu/VoiceSense.htm&aualarm_enable=" + aualarm_enable1 +
+                    "&byaualarmSensitive=" + byaualarmSensitive1 + "&au_interval=" + au_interval + "&aumail_enable=" + aumail_enable1 + "&aucap_enable=" + aucap_enable1 + 
+                    "&aurec_enable=" + aurec_enable1 + "&aualarmout_enable= " + "&user=" + top.user + "&pwd=" + top.pwd;
+       
+        location = url;
+    }
+
+</script>
+
+<body onload="body_onload()" class="body">
+     <table width="100%" cellpadding="0" cellspacing="0">
+        <tr class="adtop"><td>&nbsp;</td></tr>
+        <tr>
+            <td align="center" >
+                <table cellpadding="0" cellspacing="0" >
+                   <tr>
+                    <td colspan="3" class="mid03_1">
+                        <strong class="mid03">
+                            <script type="text/javascript">                                document.write(top.str_voicedetect);</script>
+                        </strong>
+                    </td>
+                   </tr>
+                  <tr  >
+                   <td class="lcorner" ></td>
+                   <td class="cbtop">
+                                 <table cellpadding="0" cellspacing="0" style=" width:730px">
+                                    <tr style=" width:100%">
+                                        <td style="text-align: right; " align="right">
+                                            <button class="resethbutton" onclick="set_devinfo()">
+                                                <script>                                                    document.write(top.str_save);</script>
+                                            </button>
+                                            <button class="resethbutton" onclick="location.reload()">
+                                                <script>                                                    document.write(top.str_refresh);</script>
+                                            </button>
+                             
+                                        </td>
+                      
+                                    </tr>
+                                 </table>
+                               </td>
+                               <td class="rcorner"></td>
+                              </tr>
+              
+                              <tr>
+                               <td class="lborder"></td>
+                               <td >
+                                   <table style="margin-top: 0px; width:100%; height: 20%;" class="admintr">
+               
+                           <!-- <table style="margin-top:10px;width:98%;height:70%;border:1px solid #EEE5DE;"  > --><!--solid black-->
+  
+                              <tr  style="height:35px">
+                                <td align="right" class="admintd"><strong class="mid04">
+                                  <script type="text/javascript">                                      document.write(top.str_s_sfqysybj);</script>
+                                </strong></td>
+                                <td style="padding-left:20px">
+                                  <select id="ChekMax">
+                        
+                                    <option value="1">
+
+                                        <script>document.write(top.str_open);</script>
+
+                                    </option>
+                                    <option value="0">
+
+                                        <script>document.write(top.str_close);</script>
+
+                                    </option>
+                        
+                                 </select>
+                                </td>
+                              </tr>
+                              <tr  style="height:35px">
+                                <td align="right" class="admintd"><strong  class="mid04">
+                                  <script type="text/javascript">                                      document.write(top.str_s_lmd);</script>
+                                </strong></td>
+                                <td style="padding-left:20px">
+                                    <select id="Select1">
+                        
+                        <option value="1">
+
+                            <script>                                document.write(top.str_s_v3);</script>
+
+                        </option>
+                        <option value="2">
+
+                            <script>                                document.write(top.str_s_v4);</script>
+
+                        </option>
+                        <option value="3">
+
+                            <script>                                document.write(top.str_s_v5);</script>
+
+                        </option>
+                    </select>
+                                &nbsp;</td>
+
+                              </tr>
+                              <tr>
+                <td rowspan="5" align="right" class="admintd">
+                    <!--报警联动策略-->
+                    <strong  class="mid04">
+                    <script>                        document.write(top.str_action_with_alarm);</script>
+                    </strong>
+                </td>
+            </tr>
+             <tr  style="height:35px">
+                                <td>
+                                    <!--时间间隔-->
+                                    <strong  class="mid04">
+                                    <script>document.write(top.str_s_bjcfjg);</script>
+                                    </strong>
+                                    <input id="Select2" type="text"  style=" width:85px" />
+                                    <!--<select id="Select2">
+                                       
+                                        <option value="30">30s</option>
+                                        <option value="45">45s</option>
+                                        <option value="60">60s</option> 
+                                    </select>-->
+                                </td>
+                              </tr>
+             
+             <tr>
+                <td>
+                    <!--发送邮件-->
+                    <strong  class="mid04">
+                    <script>                        document.write(top.str_s_fsyj);</script>
+                    </strong>
+                    <input type="checkbox" id="Checkbox3"  />
+                </td>
+            </tr>
+                             <tr>
+                <td>
+                    <!--图片-->
+                    <strong  class="mid04">
+                    <script>                        document.write(top.str_ftp_uploading); function Checkbox3_onclick() {
+
+                        }
+
+                    </script>
+                    </strong>
+                    <input type="checkbox" id="Checkbox4" />
+                </td>
+            </tr>
+                              <tr>
+                <td>
+                    <!--录像-->
+                    <strong  class="mid04">
+                    <script>                        document.write(top.str_sd_videotape);</script>
+                    </strong>
+                    <input type="checkbox" id="Checkbox5" />
+                </td>
+            </tr>
+                              
+                              <!--<tr style="height:5px">
+                                <td class="admintd" ></td>
+                                <td style=" height:5px"></td>
+                              </tr>-->
+                                </table>
+                   </td>
+                   <td  class="rborder"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="ldcorner"></td>
+                   <td class="cdow"></td>
+                   <td class="rdcorner"></td>
+                  </tr>
+           
+                </table>
+            </td>
+        </tr>
+     </table>
+</body>
+</html>

@@ -1,0 +1,325 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title></title>
+    <link href="../css/new.css" rel="stylesheet" type="text/css" />
+    <link href="../css/news.css" rel="stylesheet" type="text/css" />
+    <link href="../css/ceshi.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        body
+        {
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+        }
+    </style>
+
+    <script language="javascript" src="../js/public.js"></script>
+
+    <script>
+        document.write('<script src="/cgi-bin/get_motion_schedule.cgi"><\/script>');
+        document.write('<script src="/cgi-bin/get_dwdr.cgi?user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+    </script>
+
+</head>
+
+<script>
+    var first_update = 1;
+
+  
+    function parse_schedule_val(val, day, num) {
+        id = 'schedule_' + day;
+        num *= 32;
+        for (i = 0; i < 32; i++) {
+            h = Math.floor(num / 4);
+            q = num % 4;
+            obj = document.getElementById(id + '_' + h + '_' + q);
+            obj.style.backgroundColor = ((val >> i) & 1) ? '#4B6EB6' : '';
+            num++;
+        }
+    }
+    function make_schedule_val(day, num) {
+
+
+        id = 'schedule_' + day;
+        num *= 32;
+        val = 0;
+        for (i = 0; i < 32; i++) {
+            h = Math.floor(num / 4);
+            q = num % 4;
+            obj = document.getElementById(id + '_' + h + '_' + q);
+            val |= (obj.style.backgroundColor != '') ? (1 << i) : 0;
+            num++;
+        }
+        return val;
+    }
+   
+
+    function body_onload() {
+        //video.SetShowMode(3);
+        //alert(ret_dwdr_enable);
+        document.getElementById("selectret_dwdr_enable").value = ret_dwdr_enable; //dwdr
+        //document.getElementById("dwdrckb").checked = ret_dwdr_enable == 1 ? true : false;
+        //video.ConnectServer(location.hostname, top.video_port, top.user, top.pwd);
+        //timer_connect_camera();
+
+        //enable schedule
+        //set_schedule_enable(motion_schedule_enable);
+       // schedule_onclick();
+
+      
+    }
+    function body_onunload() {
+        //video.StartMotion(0);
+        //video.DisconnectServer();
+    }
+
+
+    function timer_connect_camera() {
+        setTimeout('connect_camera()', 500);
+    }
+    function connect_camera() {
+        video.SetShowMode(3);
+        video.ConnectServer(location.hostname, top.video_port, encodeURIComponent(top.user), encodeURIComponent(top.pwd));
+    }
+
+    function MotionEnableChange(v) {
+        if (v == 0) {
+           
+        }
+        else {
+           
+        }
+
+        video.StartMotion(v);
+    }
+    function MotionIndexChange(v) {
+        video.SetMotionCurIndex(v);
+    }
+
+
+    function UpdateMotion1() {
+        //document.getElementById("frame_update_schedule").src="get_schedule.htm";
+        window.frame_update_schedule.location = "get_schedule.htm";
+    }
+    function UpdateMotion2() {
+        first_update = 0;
+        UpdateMotion();
+    }
+    function UpdateMotion() {
+        var iret;
+        iret = video.AcceptMotionData();
+
+        if (iret == 0) {
+            //alert("AcceptMotionData ok");
+        }
+        else if (iret == 1) {
+            alert(top.str_usalerr_noobj);
+        }
+        else if (iret == 2) {
+            alert(top.str_login_fail);
+        }
+        else if (iret == 3) {
+            alert(top.str_send_acceptmotion_fail);
+        }
+    }
+
+    function SaveMotion() {
+        set_motion_schedule();
+
+        setTimeout('set_motion_vars()', 500);
+    }
+
+    function set_motion_vars() {
+       
+        var iret;
+        iret = video.SaveMotionData();
+        if (iret == 0) {
+            //alert("SaveMotionData ok");
+        }
+        else if (iret == 1) {
+            alert(top.str_usalerr_noobj);
+        }
+        else if (iret == 2) {
+            alert(top.str_login_fail);
+        }
+        else if (iret == 3) {
+            alert(top.str_send_savemotion_fail);
+        }
+    }
+
+
+    function video_OnConnectServerResult(result, right) {
+        if (0 == result) {
+            //succ
+            UpdateMotion();
+        }
+        else {
+            if (1 == result) {
+                alert(top.str_conterr_user);
+            }
+            else if (2 == result) {
+                alert(top.str_conterr_pwd);
+            }
+            else if (3 == result) {
+                alert(top.str_conterr_exmax);
+            }
+
+            top.location.reload("index.htm");
+        }
+    }
+    function video_OnNetworkErrorResult(result) {
+        video.DisconnectServer();
+
+        if (1 == result) {
+            alert(top.str_conterr_fail);
+        }
+        else if (2 == result) {
+            alert(top.str_exec_disconnect);
+        }
+        else if (3 == result) {
+            alert(top.str_acti_disconnect);
+        }
+
+        if (confirm(top.str_reagain_connect)) {
+            video.ConnectServer(location.hostname, top.video_port, encodeURIComponent(top.user), encodeURIComponent(top.pwd));
+        }
+    }
+    function video_OnRecvMotionDataResult(result) {
+        if (0 == result) {
+           
+
+            MotionEnableChange(video.MotionEnable);
+
+            if (first_update != 1) {
+                alert(top.str_ret_acceptmotion_succ);
+            }
+        }
+        else {
+            alert(top.str_ret_acceptmotion_fail);
+        }
+    }
+    function video_OnSendMotionDataResult(result) {
+        if (0 == result) {
+            alert(top.str_ret_savemotion_succ);
+        }
+        else if (1 == result) {
+            alert(top.str_ret_savemotion_fail);
+        }
+    }
+
+
+    function set_dwdrinfo() {
+
+        //var dwdrckb = document.getElementById("selectret_dwdr_enable").checked == true ? 1 : 0;
+        var dwdrckb = document.getElementById("selectret_dwdr_enable").value;
+        url = "/cgi-bin/set_dwdr.cgi?next_url=setmenu/Dwdr.htm&enable=" + dwdrckb + "&user=" + top.user + "&pwd=" + top.pwd;
+
+        location = url;
+    }
+</script>
+
+<script for="video" event="OnConnectServerResult(result, right)">video_OnConnectServerResult(result, right)</script>
+
+<script for="video" event="OnNetworkErrorResult(result)">video_OnNetworkErrorResult(result)</script>
+
+<script for="video" event="OnRecvMotionDataResult(result)">video_OnRecvMotionDataResult(result)</script>
+
+<script for="video" event="OnSendMotionDataResult(result)">video_OnSendMotionDataResult(result)</script>
+
+<body onload="body_onload()" onunload="body_onunload()" class="body">
+  <iframe id="frame_update_schedule" name="frame_update_schedule" style="display:none"></iframe>
+<iframe id="schedule_frame" name="schedule_frame" style="display:none"></iframe>
+    <table width="100%" cellpadding="0" cellspacing="0" style=" text-align:center">
+        <tr class="adtop"><td>&nbsp;</td></tr>
+        <tr>
+            <td align="center">
+                <table cellpadding="0" cellspacing="0" >
+                   <tr>
+                    <td colspan="3" class="mid03_1">
+                        <strong class="mid03">
+                            <script type="text/javascript">                                document.write(top.str_dwdr);</script>
+                        </strong>
+                    </td>
+                   </tr>
+                  <tr  >
+                   <td class="lcorner" ></td>
+                   <td class="cbtop">
+                     <table cellpadding="0" cellspacing="0" style=" width:730px">
+                        <tr style=" width:100%">
+                            <td style="text-align: right;" align="right">
+                                <button class="resethbutton" onclick="set_dwdrinfo()">
+                                    <script>                                        document.write(top.str_save);</script>
+                                </button>
+                                <button class="resethbutton" onclick="location.reload()">
+                                    <script>                                        document.write(top.str_refresh);</script>
+                                </button>    
+                             
+                            </td>
+                      
+                        </tr>
+                     </table>
+                   </td>
+                   <td class="rcorner"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="lborder"></td>
+                   <td style=" margin-top:0px">
+                        <table style="width: 730px; height:100%;"cellpadding="0" cellspacing="0" class="admintr">
+                        <tr >
+                            <td align="center" style="border-right-color: #ededed">
+                                <table border="0" class="admintr">
+                                    <tr style=" display:none">
+                                        <!--<table border="1" style="width:322px; height:242px; text-align:center" cellpadding="0" cellspacing="0" >-->
+                                        <td colspan="2" style="width: 322px; height: 242px; text-align: center; vertical-align: middle">
+                                            <div>
+                                                <span>
+                                                    <object id="video" style="left: 0px; top: 0px" codebase="HIPCamOcx.ocx#version=1,0,0,9"
+                                                        width="321" height="242" classid="clsid:8fbd5482-bb5d-42d6-8759-d4c6a67e5569">
+                                                    </object>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center">
+                                            <strong class="mid04">
+
+                                                <script>                                                    document.write(top.str_dwdr);</script>
+
+                                            </strong>&nbsp;&nbsp;&nbsp;
+                                        </td>
+                                        <td>
+                                            <!--<input type="checkbox" id="dwdrckb"  value="ckept" />-->
+                                          <select name="selectret_dwdr_enable" id="selectret_dwdr_enable" style="width: 80px" >
+                                            <option value="0"><script type="text/javascript">document.write(top.str_open);</script></option>
+                                            <option value="1"><script type="text/javascript">document.write(top.str_close);</script></option>&nbsp;
+                                           </select>
+                                        </td>
+                                    </tr>
+                                  
+                                </table>
+                            </td>
+                           
+                                  
+                        </tr>
+                        
+                    </table>
+                   
+                   </td>
+                   <td  class="rborder"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="ldcorner"></td>
+                   <td class="cdow"></td>
+                   <td class="rdcorner"></td>
+                  </tr>
+           
+                </table>
+            </td>
+        </tr>
+     </table>
+</body>
+</html>

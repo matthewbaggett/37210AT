@@ -1,0 +1,1302 @@
+﻿<html> 
+<head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+    <title></title> 
+    <link href="css/layout.css" rel="stylesheet" type="text/css" /> 
+    <link href="css/color.css" rel="stylesheet" type="text/css" /> 
+ 
+    <script type="text/javascript" src="js/public.js"></script> 
+ 
+    <link href="css/ss.css" rel="stylesheet" type="text/css" /> 
+    <link href="css/camera.css" rel="stylesheet" type="text/css" /> 
+    <!--<script type="text/javascript" src="js/ss.js"></script>--> 
+</head> 
+<style type="text/css"> 
+    body
+    {
+        margin-right: 0px;
+        margin-left: 0px;
+        margin-top: 0px;
+        background-image: url(image/bg.gif);
+    }
+    .cont
+    {
+        float: left;
+        margin-left: 150px;
+    }
+    #top_td
+    {
+        background-image: url(  'image/logo.jpg' );
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 20px;
+        text-align: left;
+    }
+    #Iframe1
+    {
+        width: 690px;
+        margin-right: 1px;
+    }
+    .logo
+    {
+        float: left;
+    }
+    .aa
+    {
+        float: right;
+        margin-top: 15px;
+        margin-right: 10px;
+        width: 140px;
+    }
+    .nn
+    {
+        margin-right: -3px;
+    }
+    #img_back
+    {
+        width: 5px;
+        height: 30px;
+    }
+    #img_div
+    {
+        border: 0px;
+    }
+    #span
+    {
+        margin-right: 13px;
+    }
+    #conten_frame
+    {
+        margin-left: 0px;
+        border: 0px;
+    }
+    .childmenu
+    {
+        color: #ffffff;
+        text-decoration: none;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        font-stretch: ultra-expanded;
+    }
+    .d1
+    {
+        width: 100%;
+        margin-top: 0px;
+        margin-right: auto;
+        margin-bottom: 0px;
+        margin-left: auto;
+    }
+    body
+    {
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+    .tt td
+    {
+        border: 0px solid red;
+    }
+    img
+    {
+        vertical-align: top;
+        border: 0px;
+        margin: 0px;
+        padding: 0px;
+    }
+    a:focus { outline:none;}
+</style> 
+  <script type="text/javascript">
+      document.write('<script src="/cgi-bin/get_dev_funclist.cgi?user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+      document.write('<script src="/cgi-bin/get_params.cgi?type=4&user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+</script>
+<script language="javascript" src="js/customer.js"></script>
+<script>
+
+    var e = navigator.userAgent.toLowerCase();
+    var isOpera = e.indexOf("opera") != -1;
+    var isChrome = e.indexOf("chrome") != -1;
+    var isIE = document.all && e.indexOf("msie") != -1 && !isOpera;
+    var isIE2 = e.indexOf("net clr") != -1;
+    var isIE3 = e.indexOf(".net") != -1;
+    var isSafari = e.indexOf("safari") != -1;
+
+    var customer = get_customer();
+
+    //*H264 2014-6-12 Jeen修改 Begin //
+    function body_onload() {
+
+        hide_all_submenu();
+        document.getElementById("LeftMenu").style.width = "300px";
+        if (isIE || isIE2 || isIE3) {
+            document.getElementById("img_tool_video").title = top.str_title_livevideo;
+            document.getElementById("img_tool_rec").title = top.str_replay_title;
+            document.getElementById("img_tool_set").title = top.str_title_setmenu;
+            //document.getElementById("img_tool_rec").style.width = '24px'; //img_tool_rec
+            //document.getElementById("admin_top_table").style.width='75%';
+        } else if (isChrome || isOpera || isSafari) {
+            document.getElementById("img_tool_video").title = top.str_title_livevideo;
+            document.getElementById("img_tool_set").title = top.str_title_setmenu;
+            document.getElementById("voice_cen").style.display = 'none';
+            document.getElementById("admin_top_botton").style.background = 'url(image/admin_Center2.gif)  no-repeat 50% bottom';
+            document.getElementById("admin_top_table").style.width = '54%';
+        }else {
+            document.getElementById("img_tool_video").title = top.str_title_livevideo;
+            document.getElementById("img_tool_set").title = top.str_title_setmenu;
+            document.getElementById("admin_top_table").style.width = '54%';
+
+        }
+    }
+
+
+    function goto_video() {
+        if (navigator.userAgent.indexOf("Window") > 0) {
+            if (isIE || isIE2 || isIE3) {
+                location = 'HIPCameramon.htm';
+            } else if (isChrome || isOpera || isSafari) {
+                location = 'HIPCameralive.htm';
+            } else {
+                location = 'HIPCamerafox.htm';
+            }
+        } else if (navigator.userAgent.indexOf("Mac OS X") > 0) {
+            location = 'HIPCameralive.htm';
+        } else if (navigator.userAgent.indexOf("Linux") > 0) {
+            location = 'HIPCameralive.htm';
+        } else {
+            console.log("无系统");
+        }
+    }
+
+    //*H264 2014-6-12 Jeen修改 End //
+
+
+    function setup_page() {
+        if (1 == Judge_Manage()) {
+            document.getElementById("href_setup").href = "admin.htm";
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+    function top_page() {
+        if (1 == Judge_Manage()) {
+            document.getElementById("href_top").href = "HIPCameramon.htm";
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+
+    function replay_page() {
+        if (1 == Judge_Manage()) {
+            document.getElementById("href_replay").href = "Playback.htm";
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+    function object_out_src(v, _v) {
+        v.src = _v;
+    }
+    function object_over_src(v, _v) {
+        v.src = _v;
+    }
+
+
+    function hide_all_submenu() {
+
+        document.getElementById("admindev_info").style.display = 'none';
+        document.getElementById("devid_unabto").style.display = 'none';
+        document.getElementById("adminState").style.display = 'none'; //*
+        document.getElementById("adminlog").style.display = 'none';
+
+        document.getElementById("adminuser").style.display = 'none';
+        // document.getElementById("adminmultidev").style.display = 'none';
+        document.getElementById("admintime").style.display = 'none';
+        document.getElementById("adminaudio").style.display = 'none';
+
+
+        document.getElementById("adminIP").style.display = 'none'; //* alert("h");
+        document.getElementById("adminwifi").style.display = 'none';
+        document.getElementById("adminupnp").style.display = 'none';
+        document.getElementById("adminddns").style.display = 'none';
+        document.getElementById("adminscc").style.display = 'none';
+        document.getElementById("adminptp").style.display = 'none';
+        document.getElementById("adminsmtp").style.display = 'none';
+        document.getElementById("admincloud").style.display = 'none';
+
+        document.getElementById("adminvideo").style.display = 'none';
+        document.getElementById("adminir").style.display = 'none';
+        document.getElementById("dwdr").style.display = 'none';
+        document.getElementById("adminlight").style.display = 'none';
+        //document.getElementById("adminPrivacy").style.display = 'none'; //*隐私遮盖
+        //document.getElementById("adminOSD").style.display = 'none'; //* OSD
+        document.getElementById("adminCapture").style.display = 'none'; //*抓拍
+        document.getElementById("adminangle").style.display = 'none';
+        document.getElementById("adminnight").style.display = 'none';
+
+        document.getElementById("adminmotion").style.display = 'none';
+        document.getElementById("adminpir").style.display = 'none';
+        document.getElementById("adminalarm").style.display = 'none';
+
+        //document.getElementById("adminlocal").style.display = 'none';
+        //document.getElementById("adminVideoTape").style.display = 'none'; //*
+        document.getElementById("adminsdcard").style.display = 'none';
+
+        if (ptz_support == 1) {
+            document.getElementById("cruise").style.display = '';
+        } else {
+            document.getElementById("cruise").style.display = 'none';
+        }
+
+        if (navigator.userAgent.indexOf("Window") > 0) {
+            if ((isIE || isIE2 || isIE3) || (!isChrome && !isOpera && !isSafari)) {
+                document.getElementById("record").style.display = '';
+            } else if (sd_support == 1) {
+                document.getElementById("record").style.display = '';
+            } else {
+                document.getElementById("record").style.display = 'none';
+            }
+        } else {
+            document.getElementById("record").style.display = 'none';
+        }
+        
+
+
+        document.getElementById("admincruise").style.display = 'none';
+
+        document.getElementById("adminIPVisit").style.display = 'none'; //*
+
+        document.getElementById("adminmaintain").style.display = 'none';
+        document.getElementById("adminbackup").style.display = 'none';
+        document.getElementById("adminsystem").style.display = 'none';
+        document.getElementById("voices_info").style.display = 'none'; //**
+
+        document.getElementById("temps_info").style.display = 'none'; //**
+
+        document.getElementById("temps_info").style.display = 'none'; //**
+        document.getElementById("hum_info").style.display = 'none'; //**
+        document.getElementById("adminlightdect").style.display = 'none'; //**
+
+        if ((isIE || isIE2 || isIE3) || (!isChrome && !isOpera && !isSafari)) {
+
+            iret = 0;
+            //iret = top.ShowCruiseSet(top.product_model);
+            if (0 == iret) {
+                document.getElementById("adminmultidev").style.display = 'none';
+            }
+
+            iret = 0;
+            iret = top.ShowPTZSet(top.product_model);
+            if (1 == iret) {
+                document.getElementById("ptz_info").style.display = 'none';
+            }
+
+            iret = 0;
+            //iret = top.ShowLightSet(top.product_model);
+            if (0 == iret) {
+                document.getElementById("adminlocal").style.display = 'none';
+            }
+
+
+        }
+        else {
+
+            iret = 0;
+            iret = top.ShowLightSet(top.product_model);
+            if (1 == iret) {
+                //document.getElementById("light_info").style.display = 'none';
+            }
+        }
+
+
+
+    }
+    function show_main_menu(val) {
+        hide_all_submenu();
+
+
+        switch (val) {
+            case 1:
+                {
+                    document.getElementById("admindev_info").style.display = '';
+
+                    if (customer == "unabto") {
+                        document.getElementById("devid_unabto").style.display = '';
+                    }
+                    // document.getElementById("adminState").style.display = 'none'; //*
+                    //            document.getElementById("adminlog").style.display = ''; 
+                }
+                break;
+            case 2:
+                {
+                    document.getElementById("adminuser").style.display = '';
+                    if ((isIE || isIE2 || isIE3) || (!isChrome && !isOpera && !isSafari)) {
+                        document.getElementById("adminmultidev").style.display = '';
+                    }
+                    if (navigator.userAgent.indexOf("Mac OS X") > 0 || navigator.userAgent.indexOf("Linux") > 0) {
+                        document.getElementById("adminmultidev").style.display = 'none';
+                    }
+                    //document.getElementById("adminmultidev").style.display = '';
+                    document.getElementById("admintime").style.display = '';
+
+                    if (listen_support == 1) {
+                        document.getElementById("adminaudio").style.display = '';
+                    }
+                    else {
+                        document.getElementById("adminaudio").style.display = 'none'; //**
+                    }
+                }
+                break;
+            case 3:
+                {
+                    document.getElementById("adminIP").style.display = ''; //*
+                    if (wifi_support == 1) {
+                        document.getElementById("adminwifi").style.display = '';
+                    } else {
+                        document.getElementById("adminwifi").style.display = 'none';
+                    }
+
+                    if (upnp_support == 1) {
+                        document.getElementById("adminupnp").style.display = '';
+                    }
+
+                    if (ddns_support == 1) {
+                        document.getElementById("adminddns").style.display = '';
+                    }
+
+                    if (p2p_support == 1) {
+                        document.getElementById("adminscc").style.display = '';
+                    }
+
+                    document.getElementById("adminptp").style.display = '';
+                    document.getElementById("adminsmtp").style.display = '';
+
+                    if (cloud_support == 1) {
+                        document.getElementById("admincloud").style.display = '';
+                    }
+                }
+                break;
+            case 4:
+                {
+                    document.getElementById("adminvideo").style.display = '';
+                    document.getElementById("adminir").style.display = '';
+                    var software_mode = softwareFVersion.replace(/\./g, ""); //????90630122
+                    var software_mode_number = software_mode.substring(0, 4); //????9063
+                    if (software_mode_number == '9063' || software_mode_number == '9163' || software_mode_number == '9263' || software_mode_number == "9065" || software_mode_number == "9067") {
+                        document.getElementById("adminnight").style.display = '';
+                        document.getElementById("adminangle").style.display = '';
+                    } else {
+                        document.getElementById("adminnight").style.display = 'none';
+                        document.getElementById("adminangle").style.display = 'none';
+                    }
+                    if (software_mode_number == "6310" || software_mode_number == "6234") {
+                        document.getElementById("adminnight").style.display = '';
+                    }
+
+                    if (dwdr_support == 1) {
+                        document.getElementById("dwdr").style.display = '';
+                    } else {
+                        document.getElementById("dwdr").style.display = 'none';
+                    }
+
+                    if (netled_support == 1) {
+                        document.getElementById("adminlight").style.display = '';
+                    }
+                    else {
+                        document.getElementById("adminlight").style.display = 'none';
+                    }
+                    //document.getElementById("adminPrivacy").style.display = ''; //*隐私遮盖
+                    //document.getElementById("adminOSD").style.display = ''; //* OSD
+                    //document.getElementById("adminCapture").style.display = ''; //*抓拍*   $$$$$$$$$$
+
+                }
+                break;
+            case 5:
+                {
+                    document.getElementById("adminmotion").style.display = '';
+
+                    if (pir_support == 0) {
+                        document.getElementById("adminpir").style.display = 'none';
+                    } else {
+                        document.getElementById("adminpir").style.display = '';
+                    }
+
+                    if (io_support == 0) {
+                        document.getElementById("adminalarm").style.display = 'none';
+                    } else {
+                        document.getElementById("adminalarm").style.display = '';
+                    }
+
+                    if (temhum_support == 1) {
+                        document.getElementById("temps_info").style.display = ''; //**
+                        document.getElementById("hum_info").style.display = '';
+                    } else {
+                        document.getElementById("temps_info").style.display = 'none'; //**hum_info
+                        document.getElementById("hum_info").style.display = 'none';
+                    }
+
+                    if (audetect_support == 1) {
+                        document.getElementById("voices_info").style.display = '';
+                    }
+                    else {
+                        document.getElementById("voices_info").style.display = 'none'; //**
+                    }
+
+                    if (lightdet_support == 1) {
+                        document.getElementById("adminlightdect").style.display = '';
+                    }
+                    else {
+                        document.getElementById("adminlightdect").style.display = 'none'; //**
+                    }
+
+                }
+                break;
+            case 6:
+                {
+
+                    //            document.getElementById("adminlocal").style.display = '';
+                    if ((isIE || isIE2 || isIE3) || (!isChrome && !isOpera && !isSafari)) {
+                        document.getElementById("adminlocal").style.display = '';
+                    }
+                    //document.getElementById("adminlocal").style.display = '';
+                    //document.getElementById("adminVideoTape").style.display = ''; //*$$$$$$$$$$
+                    if (sd_support == 1) {
+                        document.getElementById("adminsdcard").style.display = '';
+                    }
+                    else {
+                        document.getElementById("adminsdcard").style.display = 'none'; //#
+                    }
+                }
+                break;
+            case 7:
+                {
+                    if (ptz_support == 1) {
+                        document.getElementById("admincruise").style.display = '';
+                    } else {
+                        document.getElementById("admincruise").style.display = 'none';
+                    }
+                }
+                break;
+            case 7.1:
+                {
+
+                    //document.getElementById("adminIPVisit").style.display = '';//*$$$$$$$$$$
+
+                }
+                break;
+            case 8:
+                {
+
+                    document.getElementById("adminmaintain").style.display = '';
+                    document.getElementById("adminsystem").style.display = '';
+                    document.getElementById("adminlog").style.display = '';
+                    document.getElementById("adminbackup").style.display = '';
+                    // document.getElementById("admincloud").style.display = '';
+
+                }
+                break;
+            default:
+                break;
+        }
+    }
+    function show_option_menu(val) {
+        switch (val) {
+            case 1:
+                {
+                    window.iframe_option.location = "setmenu/DevInfo.htm";
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("admindev_info").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                }
+                break;
+            case 1.2:
+                {
+                    //            window.iframe_option.location = "setmenu/DeviceState.htm";
+                }
+                break;
+            case 1.3:
+                {
+                    window.iframe_option.location = "setmenu/DevIn.htm";
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("devid_unabto").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                }
+                break;
+            case 2:
+                {
+                    window.iframe_option.location = "setmenu/LogInfo.htm";
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("adminlog").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+
+                }
+                break;
+            case 3:
+                {
+                    window.iframe_option.location = "setmenu/UserSet.htm";
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("adminuser").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                }
+                break;
+            case 4:
+                {
+                    if (isIE || isIE2 || isIE3) {
+                        window.iframe_option.location = "setmenu/MultiDev1.htm";
+                        //                        delBackgroundColor();
+                        //                        document.getElementById("adminmotion").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                    } else if (!isChrome && !isOpera && !isSafari) {
+                        window.iframe_option.location = "setmenu/MultiDev2.htm";
+                    }
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("adminmultidev").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+
+                }
+                break;
+            case 4.1:
+                {
+
+                    window.iframe_option.location = "setmenu/VoiceSense.htm";
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("voices_info").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                }
+                break;
+            case 4.2:
+                {
+
+                    window.iframe_option.location = "setmenu/TempSense.htm";
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("temps_info").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                }
+                break;
+            case 4.3:
+                {
+
+                    window.iframe_option.location = "setmenu/Humidity.htm";
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("hum_info").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                }
+                break;
+            case 4.4:
+                {
+
+                    window.iframe_option.location = "setmenu/lightdect.htm";
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("adminlightdect").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                }
+                break;
+            case 5:
+                {
+                    window.iframe_option.location = "setmenu/TimeSet.htm";
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("admintime").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                }
+                break;
+            case 6:
+                {
+                    //window.iframe_option.location = "setmenu/VideoSet.htm";
+                    window.iframe_option.location = "setmenu/AudioSet.htm";
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("adminaudio").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+
+                }
+                break;
+            case 6.1:
+                {
+                    window.iframe_option.location = "setmenu/NetworkSet.htm"; //IP.htm
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("adminIP").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                }
+                break;
+            case 7:
+                {
+                    var software_mode = softwareFVersion.replace(/\./g, ""); //????90630122
+                    var software_mode_number = software_mode.substring(0, 4); //????9063
+                    if (software_mode_number == "9063" || software_mode_number == "6234" || software_mode_number == "7154" || software_mode_number == "8022" || software_mode_number == "9163" || software_mode_number == "9263" || software_mode_number == "9065" || software_mode_number == "9067" || software_mode_number == "7165" || software_mode_number == "8250" || software_mode_number == "6310" || software_mode_number=="8220") {
+                        window.iframe_option.location = "setmenu/WifiSet.htm";
+                    } else {
+                        window.iframe_option.location = "setmenu/WifiSet1.htm";
+                    }
+
+
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("adminwifi").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                }
+                break;
+            case 8:
+                {
+                    window.iframe_option.location = "setmenu/UpnpSet.htm";
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("adminupnp").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                }
+                break;
+            case 9:
+                {
+                    window.iframe_option.location = "setmenu/DdnsSet.htm";
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("adminddns").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                }
+                break;
+            case 10:
+                {
+                    //            window.iframe_option.location = "setmenu/FtpSet.htm";
+                    window.iframe_option.location = "setmenu/SccInfo.htm";
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("adminscc").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                }
+                break;
+            case 11:
+                {
+
+                    window.iframe_option.location = "setmenu/FtpSet.htm";
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("adminptp").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                }
+                break;
+            case 12:
+                {
+                    window.iframe_option.location = "setmenu/MailSet.htm";
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("adminsmtp").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                }
+                break;
+            case 13:
+                {
+                    window.iframe_option.location = "setmenu/VideoSet.htm";
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("adminvideo").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                }
+
+                break;
+            case 13.1:
+                {
+                    window.iframe_option.location = "setmenu/IR.htm";
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("adminir").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                }
+                break;
+            case 14.5:
+                {
+                    window.iframe_option.location = "setmenu/Angle.htm";
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("adminir").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                }
+                break;
+            case 14.6:
+                {
+                    window.iframe_option.location = "setmenu/Night.htm";
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("adminir").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                }
+                break;
+            case 14:
+                {
+                    window.iframe_option.location = "setmenu/Light.htm";
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("adminlight").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                }
+                break;
+            case 14.1:
+                {
+                    window.iframe_option.location = "setmenu/Privacy.htm";
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("adminPrivacy").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                }
+                break;
+            case 14.2:
+                {
+                    window.iframe_option.location = "setmenu/OSD.htm";
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("adminOSD").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                }
+                break;
+            case 14.3:
+                {
+                    window.iframe_option.location = "setmenu/Capture.htm";
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("adminCapture").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                }
+                break;
+            case 14.4:
+                {
+                    window.iframe_option.location = "setmenu/Dwdr.htm";
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("dwdr").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                }
+                break;
+            case 15:
+                {
+                    if (navigator.userAgent.indexOf("Window") > 0) {
+                        if (isIE || isIE2 || isIE3) {
+                            window.iframe_option.location = "setmenu/MotionAlarm1.htm";
+                            //                        delBackgroundColor();
+                            //                        document.getElementById("adminmotion").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                        } else if (isChrome || isOpera || isSafari) {
+                            window.iframe_option.location = "setmenu/MotionAlarm2.htm";
+                        }
+                        else {
+                            window.iframe_option.location = "setmenu/MotionAlarm3.htm";
+                            //                        delBackgroundColor();
+                            //                        document.getElementById("adminmotion").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                        }
+                    } else if (navigator.userAgent.indexOf("Mac OS X") > 0 || navigator.userAgent.indexOf("Linux") > 0) {
+                        window.iframe_option.location = "setmenu/MotionAlarm2.htm";
+                    } else {
+                        window.iframe_option.location = "setmenu/MotionAlarm2.htm";
+                        console.log("无系统");
+                    }
+
+                }
+                break;
+            case 15.1:
+                {
+                    window.iframe_option.location = "setmenu/PirAlarm.htm";
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("adminpir").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                }
+                break;
+            case 16:
+                {
+                    window.iframe_option.location = "setmenu/OuterAlarm.htm";
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("adminalarm").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                }
+                break;
+            case 17:
+                {
+                    if (isIE || isIE2 || isIE3) {
+                        window.iframe_option.location = "setmenu/LocalSet.htm";
+                    } else if (!isChrome && !isOpera && !isSafari) {
+                        window.iframe_option.location = "setmenu/LocalSet1.htm";
+                    }
+
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("adminlocal").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+
+                    //window.iframe_option.location = "setmenu/LocalSet.htm";
+                }
+                break;
+            case 17.1:
+                {
+                    window.iframe_option.location = "setmenu/PlanVideoTape.htm";
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("adminVideoTape").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                }
+                break;
+            case 18:
+                {
+                    window.iframe_option.location = "setmenu/SdInfo.htm";
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("adminsdcard").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                }
+                break;
+            case 19:
+                {
+                    window.iframe_option.location = "setmenu/CruiseSet.htm";
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("admincruise").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                }
+                break;
+            case 19.1:
+                {
+                    window.iframe_option.location = "setmenu/IPVisitRule.htm";
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("adminIPVisit").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                }
+                break;
+            case 20:
+                {
+                    window.iframe_option.location = "setmenu/Maintain.htm";
+                    //                    delBackgroundColor();
+                    //                    document.getElementById("adminmaintain").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                }
+                break;
+            case 21:
+                {
+
+                    if (isIE || isIE2 || isIE3) {
+                        window.iframe_option.location = "setmenu/SystemTool.htm";
+                        //                        delBackgroundColor();
+                        //                        document.getElementById("adminsystem").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                    }
+                    else {
+                        window.iframe_option.location = "setmenu/SystemTool.htm";
+                        //                        delBackgroundColor();
+                        //                        document.getElementById("adminsystem").style.background = 'url(image/adminbg.gif) no-repeat 100% bottom';
+                    }
+                    //window.iframe_option.location = "setmenu/SystemTool.htm";
+                }
+                break;
+            case 21.1:
+                {
+                    window.iframe_option.location = "setmenu/backup.htm";
+                }
+
+                break;
+            case 22:
+                {
+                    window.iframe_option.location = "music.htm";
+                }
+
+                break;
+            case 23:
+                {
+
+                    window.iframe_option.location = "recpath.htm";
+
+                }
+                break;
+            case 24:
+                {
+
+                    window.iframe_option.location = "PtzSet.htm";
+                }
+                break;
+            case 25:
+                {
+                    //alert("1");
+                    // window.iframe_option.location = "DevInfo.htm";
+                    //iframe_option.location.href = "DevInfo.htm";
+                }
+                break;
+            case 26:
+                {
+                    window.iframe_option.location = "setmenu/CloudInfo.htm";
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    function ExitLogin() {
+        location.href = "login.htm";
+    }
+
+    function goto_replay() {
+        //sd 回放
+        if (sd_support == 0) {
+            alert(top.str_paly);
+        } else {
+            if (isIE || isIE2 || isIE3) { //IE
+                document.getElementById("top_href_replay").href = "Playback.htm";
+            } else if (isChrome || isOpera || isSafari) {             //谷歌，欧朋
+                document.getElementById("top_href_replay").href = "HIPCameralive.htm";
+            } else {
+                document.getElementById("top_href_replay").href = "Playback_fox.htm";
+            }
+//            document.getElementById("top_href_replay").href = "Playback.htm";
+        }
+
+    }
+    function js(id) {
+        return document.getElementsByTagName(id);
+    }
+    //    function delBackgroundColor() {
+    //        for (var i = 0; i < js("li").length; i++) {
+    //            js("li")[i].style.background = '';
+    //        }
+    //    }
+</script> 
+ 
+<body onload="body_onload()"> 
+<div style=" width:100%; height:100%"> 
+    <table style="width: 100%; height: 100%" cellpadding="0" cellspacing="0" border="0"> 
+        <tr style="width: 100%;" class="topb"> 
+            <td style="width: 250px; text-align: left; border: 0px solid red;" width="250"> 
+                <!--<a style="width: 222px" href="http://www.apexis.com.cn/" target="_blank"> -->
+                    <img ondragstart="return false;" id="img_div" onclick="show_web()" border="0" src="image/apexislogo.gif" style="" /><!--</a> -->
+            </td> 
+            <td style="width: 50%; text-align: center; border: 0px solid red;" align="center"
+
+                valign="bottom"> 
+                <div style="width: 468px; height: 50px; border: 0px solid red; margin: auto; text-align: center;"
+
+                    class="diva" align="center" valign="bottom" id="admin_top_botton"> 
+                    <table cellpadding="0" cellspacing="0" style="width: 400px; height: 32px; margin: auto;
+
+                        border: 0px solid blue;" id="admin_top_table"> 
+                        <tr> 
+                            <td colspan="3" height="15"> 
+                            </td> 
+                        </tr> 
+                        <tr> 
+                            <td class="divb" align="center"> 
+                                <a id="top_href_video" onclick="goto_video()" onfocus="this.blur()" class="childmenu"> 
+                                    <img ondragstart="return false;" id="img_tool_video" style="border: 0;" src="image/tool_video_dis.gif" onmouseout="object_out_src(img_tool_video, 'image/tool_video_dis.gif')"
+
+                                        onmouseover="object_over_src(img_tool_video,'image/tool_video_sel.gif')" /></a> 
+                            </td> 
+                            <td class="divb" id="voice_cen" align="center"> 
+                                <a id="top_href_replay" onclick="goto_replay()" onfocus="this.blur()" align="center"> 
+                                    <img ondragstart="return false;" id="img_tool_rec" style="border: 0;" src="image/tool_rec_dis.gif" onmouseout="object_out_src(img_tool_rec, 'image/tool_rec_dis.gif')"
+
+                                        onmouseover="object_over_src(img_tool_rec,'image/tool_rec_sel.gif')" /></a> 
+                            </td> 
+                            <td class="divb"> 
+                                <a id="top_href_setup" href="#" onfocus="this.blur()" class=""> 
+                                    <img ondragstart="return false;" id="img_tool_set" style="border: 0;" src="image/tool_set_dis.gif" onmouseout="object_out_src(img_tool_set, 'image/tool_set_dis.gif')"
+
+                                        onmouseover="object_over_src(img_tool_set,'image/tool_set_sel.gif')" /></a> 
+                            </td> 
+                        </tr> 
+                    </table> 
+                </div> 
+                <!--     </td>
+                    </tr>
+                </table>--> 
+            </td> 
+            <td style="width: 100px;"> 
+                <a href="#"> 
+                    <img ondragstart="return false;" id="img1" src="image/camera.gif" style="border: 0px;" /></a> 
+            </td> 
+            <td style="width: 50px;" valign="middle"> 
+                <img ondragstart="return false;" id="img4" src="image/Exit.png" style="border: 0px; margin-left: 5px;" onclick="ExitLogin()" /> 
+            </td> 
+        </tr> 
+        <tr> 
+            <td colspan="4" style="border: 0px solid red; background: url(image/1111_05.gif) 50% top"
+
+                height="16"> 
+                <div style="width: 31; float: left; background: url(image/bk_left.gif) no-repeat 50% top;"
+
+                    border="0"> 
+                    <img ondragstart="return false;" src="image/bk_left.gif" /> 
+                </div> 
+                <div style="width: 187; float: left; background: url(image/1111_03.gif) no-repeat 50% top;"
+
+                    border="0"> 
+                    <img ondragstart="return false;" src="image/1111_03.gif" /> 
+                </div> 
+                <!-- <div style="width: 500; float: left; background: url(image/1111_05.gif) repeat-x 50% top;"
+                    id="mid">
+                </div>--> 
+                <div style="width: 31; float: right; background: url(image/bk_right.gif) no-repeat 50% top;
+
+                    border: 0px;" border="0"> 
+                    <img ondragstart="return false;" src="image/bk_right.gif" /> 
+                </div> 
+            </td> 
+        </tr> 
+        <tr> 
+            <td valign="top" align="right" style="width: 200px; height: 100%; border: 0px solid yellow;
+
+                background-image: url(image/adminbg1.gif);" id="LeftMenu"> 
+                <table style="margin-left: 0px; border: 0px solid blue; width: 250px;"> 
+                    <tr> 
+                        <td style="text-align: center"> 
+                            <!--<table width="214" border="0" cellpadding="0" cellspacing="0" style="margin-left: 10px;">--> 
+                            <ul> 
+                                <!---------------------------------状态-----------------------------------> 
+                                <li class="img_background_lfet" id="state" onclick="show_main_menu(1)"> 
+ 
+                                    <script>                                        document.write(top.str_state)</script> 
+ 
+                                </li> 
+                                <li  id="admindev_info" onclick="show_option_menu(1)"><a href="#" hidefocus="true"> 
+ 
+                                    <script clss=" mid04">                                        document.write(top.str_dev_info)</script> 
+ 
+                                </a></li> 
+								<li  id="devid_unabto" onclick="show_option_menu(1.3)"><a href="#" hidefocus="true"> 
+ 
+                                    <script clss=" mid04">                                        document.write(top.str_dev_id)</script> 
+ 
+                                </a></li> 
+                                <li  id="adminState" onclick="show_option_menu(1.2)"><a href="#" hidefocus="true"> 
+                                    <!--设备状态--> 
+ 
+                                    <script>                                        document.write(top.str_d_EquipmentState)</script> 
+ 
+                                </a></li> 
+                                <!--<li id="adminlog" onclick="show_option_menu(2)"><a href="#" hidefocus="true">
+ 
+                                    <script>document.write(top.str_log_set)</script>
+ 
+                                </a></li>--> 
+                                <!--------------------------------基本设置------------------------------------> 
+                                <li class="img_background_lfet" id="setup" onclick="show_main_menu(2)"> 
+ 
+                                    <script>                                        document.write(top.str_setup)</script> 
+ 
+                                </li> 
+                                <li id="adminuser" onclick="show_option_menu(3)"><a href="#" hidefocus="true"> 
+ 
+                                    <script>                                        document.write(top.str_user_set)</script> 
+ 
+                                </a></li> 
+                               <!-- <li id="adminmultidev" onclick="show_option_menu(4)"><a href="#" hidefocus="true"> -->
+                                    <script type="text/javascript">
+                                        document.open();
+                                        var iret = 0;
+                                        if ((isIE || isIE2 || isIE3) || (!isChrome && !isOpera && !isSafari)) {
+                                            document.write('<li id="adminmultidev" onclick="javascript:show_option_menu(4,this)"><a href="#" hidefocus="true"><div>');
+                                            document.write(top.str_multidev_set);
+                                            document.write('</div></a></li>');
+                                        }
+                                        document.close();
+                                   </script> 
+                                    <!--<script>document.write(top.str_multidev_set)</script> 
+                                </a></li>--> 
+                                <li id="admintime" onclick="show_option_menu(5)"><a href="#" hidefocus="true"> 
+ 
+                                    <script>                                        document.write(top.str_time_set)</script> 
+ 
+                                </a></li> 
+                                <li id="adminaudio" onclick="show_option_menu(6)"><a href="#" hidefocus="true"> 
+ 
+                                    <script>                                        document.write(top.str_audio_set)</script> 
+ 
+                                </a></li> 
+                                <!---------------------------------网络-----------------------------------> 
+                                <li class="img_background_lfet" id="basenet" onclick="show_main_menu(3)"> 
+ 
+                                    <script>                                        document.write(top.str_basenet_set)</script> 
+ 
+                                </li> 
+                                <li id="adminIP" onclick="show_option_menu(6.1)"><a href="#" hidefocus="true">IP </a> 
+                                </li> 
+                                <li id="adminwifi" onclick="show_option_menu(7)"><a href="#" hidefocus="true"> 
+ 
+                                    <script>                                        document.write(top.str_wifinet_set)</script> 
+ 
+                                </a></li> 
+                                <li id="adminupnp" onclick="show_option_menu(8)"><a href="#" hidefocus="true"> 
+ 
+                                    <script>                                        document.write(top.str_upnp_set)</script> 
+ 
+                                </a></li>
+                                <li id="adminddns" onclick="show_option_menu(9)"><a href="#" hidefocus="true"> 
+ 
+                                    <script>                                        document.write(top.str_ddns_set)</script> 
+ 
+                                </a></li> 
+                                <li id="adminscc" onclick="show_option_menu(10)"><a href="#" hidefocus="true"> 
+ 
+                                    <script>                                        document.write(top.str_scc)</script> 
+ 
+                                </a></li> 
+                                <li id="adminptp" onclick="show_option_menu(11)"><a href="#" hidefocus="true"> 
+ 
+                                    <script>                                        document.write(top.str_ftp_set)</script> 
+ 
+                                </a></li> 
+                                <li id="adminsmtp" onclick="show_option_menu(12)"><a href="#" hidefocus="true"> 
+ 
+                                    <script>                                        document.write(top.str_smtp_set)</script> 
+ 
+                                </a></li> 
+                                <li id="admincloud" onclick="show_option_menu(26)"><a href="#" hidefocus="true"> 
+ 
+                                    <script>                                        document.write(top.str_cloud_set)</script> 
+ 
+                                </a></li> 
+                                <!-------------------------------视频-------------------------------------> 
+                                <li class="img_background_lfet" id="video" onclick="show_main_menu(4)"> 
+ 
+                                    <script>                                        document.write(top.str_video)</script> 
+ 
+                                </li> 
+                                <li id="adminvideo" onclick="show_option_menu(13)"><a href="#" hidefocus="true"> 
+ 
+                                    <script>                                        document.write(top.str_video_info)</script> 
+ 
+                                </a></li> 
+                                <li id="adminir" onclick="show_option_menu(13.1)"><a href="#" hidefocus="true"> 
+ 
+                                    <script>                                        document.write(top.str_control)</script> 
+ 
+                                </a></li>
+                                <li id="adminlight" onclick="show_option_menu(14)"><a href="#" hidefocus="true">
+ 
+                                    <script>                                        document.write(top.str_light_config)</script>
+ 
+                                </a></li> 
+                                <!--<li id="adminPrivacy" onclick="show_option_menu(14.1)"><a href="#" hidefocus="true">
+                                    隐私遮盖 </a></li>--> 
+                                <!--<li id="adminOSD" onclick="show_option_menu(14.2)"><a href="#" hidefocus="true">OSD（屏幕
+                                    显示） </a></li>--> 
+                                <li id="adminCapture" onclick="show_option_menu(14.3)"><a href="#" hidefocus="true"> 
+                                    <!--抓拍--> 
+                                     <script>                                         document.write(top.str_c_Snap)</script> 
+                                    </a></li>
+                                    <li id="dwdr" onclick="show_option_menu(14.4)"><a href="#" hidefocus="true">
+ 
+                                    <script>                                        document.write(top.str_dwdr)</script>
+ 
+                                </a></li>
+                                <li id="adminangle" onclick="show_option_menu(14.5)"><a href="#" hidefocus="true"> 
+ 
+                                    <script>                                        document.write(top.str_adminangle)</script> 
+ 
+                                </a></li> 
+                                <li id="adminnight" onclick="show_option_menu(14.6)"><a href="#" hidefocus="true"> 
+ 
+                                    <script>                                        document.write(top.str_adminnight)</script> 
+ 
+                                </a></li>  
+                                <!----------------------------------报警----------------------------------> 
+                                <li class="img_background_lfet" id="alarm" onclick="show_main_menu(5)"> 
+ 
+                                    <script>                                        document.write(top.str_alarm_set)</script> 
+ 
+                                </li> 
+                                <li id="adminmotion" onclick="show_option_menu(15)"><a href="#" hidefocus="true"> 
+ 
+                                    <script>                                        document.write(top.str_motion_mt)</script> 
+ 
+                                </a></li> 
+                                <li id="adminpir" onclick="show_option_menu(15.1)"><a href="#" hidefocus="true"> 
+ 
+                                    <script>                                        document.write(top.str_pir_mt)</script> 
+ 
+                                </a></li> 
+                                <li id="adminalarm" onclick="show_option_menu(16)"><a href="#" hidefocus="true"> 
+ 
+                                    <script>                                        document.write(top.str_alarm_set)</script> 
+ 
+                                </a></li>
+                                <li id="temps_info" onclick="show_option_menu(4.2)"><a href="#" hidefocus="true"> 
+ 
+                                    <script>                                        document.write(top.str_w_Max)</script> 
+ 
+                                </a></li> 
+                                <li id="hum_info" onclick="show_option_menu(4.3)"><a href="#" hidefocus="true"> 
+ 
+                                    <script>                                        document.write(top.str_hum)</script> 
+ 
+                                </a></li>
+                                <li id="adminlightdect" onclick="show_option_menu(4.4)"><a href="#" hidefocus="true"> 
+ 
+                                    <script>                                        document.write(top.str_lightdect_enable)</script> 
+ 
+                                </a></li>  
+                                 <li id="voices_info" onclick="show_option_menu(4.1)"><a href="#" hidefocus="true"> 
+ 
+                                    <script>                                        document.write(top.str_voicedetect)</script> 
+ 
+                                </a></li> 
+                                <!--------------------------------录像------------------------------------> 
+                                <li class="img_background_lfet" id="record" onclick="show_main_menu(6)"> 
+ 
+                                    <script>                                        document.write(top.str_record)</script> 
+ 
+                                </li> 
+                               <!-- <li id="adminlocal" onclick="show_option_menu(17)"><a href="#" hidefocus="true"> -->
+                                     <script type="text/javascript">
+                                         document.open();
+
+                                         if ((isIE || isIE2 || isIE3) || (!isChrome && !isOpera && !isSafari)) {
+                                             document.write('<li id="adminlocal" onClick="javascript:show_option_menu(17,this)" ><a href="#" hidefocus="true"><div style="cursor:pointer" >');
+                                             document.write(top.str_local_set);
+                                             document.write('</div></a></li>');
+                                         }
+
+                                         document.close();
+                                     </script>            
+                                   <!-- <script>document.write(top.str_local_set)</script> 
+ 
+                                </a></li> -->
+                                <!--<li id="adminVideoTape" onclick="show_option_menu(17.1)"><a href="#" hidefocus="true"> 
+                                    <!--计划录像--> 
+ 
+                                    <!--<script>document.write(top.str_p_PlanToVideo)</script> 
+ 
+                                </a></li> -->
+                                <li id="adminsdcard" onclick="show_option_menu(18)"><a href="#" hidefocus="true"> 
+ 
+                                    <script>                                        document.write(top.str_sdcard_info)</script> 
+ 
+                                </a></li> 
+                                <!--------------------------------巡航------------------------------------> 
+                                <li class="img_background_lfet" id="cruise" onclick="show_main_menu(7)"> 
+ 
+                                    <script>                                        document.write(top.str_cruise_title)</script> 
+ 
+                                </li> 
+                                <script type="text/javascript">
+                                    document.open();
+
+                                    var iret = 0;
+
+                                    //ptz
+                                    iret = top.ShowPTZSet(top.product_model);
+                                    if (1 == iret) {
+                                        document.write('<li id="ptz_info" onclick="javascript:show_option_menu(24,this)" ><a href="#" hidefocus="true"><div style="cursor:pointer" >');
+                                        document.write(top.str_ptz_setting);
+                                        document.write('</div></a></li>');
+                                    }
+                                    document.close();
+                               </script> 
+                                <li id="admincruise" onclick="show_option_menu(19)"><a href="#" hidefocus="true"> 
+ 
+                                    <script>                                        document.write(top.str_Cruise_set)</script> 
+ 
+                                </a></li> 
+                                <!---------------------------------防火墙-----------------------------------> 
+                                <li class="img_background_lfet" id="Li2" onclick="show_main_menu(7.1)" style=" display:none;"> 
+                                    <!--防火墙 --> 
+ 
+                                    <script>                                        document.write(top.str_i_Firewall)</script> 
+ 
+                                </li> 
+                                <li id="adminIPVisit" onclick="show_option_menu(19.1)"><a href="#" hidefocus="true"> 
+                                    <!--IP访问规则  --> 
+ 
+                                    <script>                                        document.write(top.str_i_AccessRules)</script> 
+ 
+                                </a></li> 
+                                <!--------------------------------系统工具------------------------------------> 
+                                <li class="img_background_lfet" id="Li3" onclick="show_main_menu(8)"> 
+ 
+                                    <script>                                        document.write(top.str_systool_set)</script> 
+ 
+                                </li> 
+                                <li id="adminlog" onclick="show_option_menu(2)"><a href="#" hidefocus="true"> 
+ 
+                                    <script>                                        document.write(top.str_log_set)</script> 
+ 
+                                </a></li> 
+                                <li id="adminbackup" onclick="show_option_menu(21.1)"><a href="#" hidefocus="true"> 
+ 
+                                    <script>                                        document.write(top.str_backup_restore)</script> 
+ 
+                                </a></li>
+                                <li id="adminmaintain" onclick="show_option_menu(20)"><a href="#" hidefocus="true"> 
+ 
+                                    <script>                                        document.write(top.str_maintain_title)</script> 
+ 
+                                </a></li> 
+                                <li id="adminsystem" onclick="show_option_menu(21)"><a href="#" hidefocus="true"> 
+ 
+                                    <script>                                        document.write(top.str_systool_set);
+                                        function img_tool_video_onclick() {
+
+                                        }
+
+                                        function img_tool_rec_onclick() {
+
+                                        }
+ 
+                                    </script> 
+ 
+                                </a></li> 
+                              <!-- <li style="display:none" id="admincloud" onclick="show_option_menu(25)"><a href="#" hidefocus="true"> 
+ 
+                                    <script>document.write(top.str_cloud)</script> 
+ 
+                                </a></li> -->
+                            </ul> 
+                            <!-- </table>--> 
+                        </td> 
+                    </tr> 
+                </table> 
+            </td> 
+            <td colspan="3" width="90%" style="border: 0px solid red"> 
+                <iframe id="iframe_option" name="iframe_option" frameborder="0" width="100%" height="100%"
+
+                    src="setmenu/DevInfo.htm" style="border: 0px solid blue"></iframe> 
+            </td> 
+        </tr> 
+    </table> 
+</div> 
+</body> 
+</html> 
+ 
+ 

@@ -1,0 +1,13 @@
+enable_email 0
+from_name 
+from_addr 
+to_num 
+to_addr1 
+to_addr2 
+to_addr3 
+smtp_serv 
+smtp_port 25
+enable_auth 00
+smtp_user 
+smtp_pwd 
+sslenable 0

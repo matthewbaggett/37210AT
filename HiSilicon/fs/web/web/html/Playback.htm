@@ -1,0 +1,1452 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title></title>
+<link href="css/news.css" rel="stylesheet" type="text/css" />
+<link href="css/camera.css" rel="stylesheet" type="text/css" />
+<link href="css/serverpush.css" rel="stylesheet" type="text/css" />
+<!--
+<link href="css/styles.css" rel="stylesheet" type="text/css" />
+-->
+
+<style type="text/css">
+  .logo
+        {
+            float: left;
+        }
+        .cont
+        {
+            float: left;
+            margin-left: 150px;
+        }
+        .aa
+        {
+            float: right;
+            margin-top: 10px;
+            margin-right: 8px;
+            width: 140px;
+        }
+        .nn
+        {
+            margin-right: -3px;
+        }
+        .wh1
+        {
+            width: 5px;
+            height: 30px;
+        }
+        .wh2
+        {
+            margin-left: 10px;
+            width: 5px;
+            height: 30px;
+        }
+        body
+        {
+            margin-left: 0px;
+            margin-top: 0px;
+            margin-right: 0px;
+            margin-bottom: 0px;
+            background-color: #F9F9F9;
+             width:100%;
+             height:100%;
+         }
+        .childmenu
+        {
+            color: #ffffff;
+            text-decoration: none;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            font-stretch: ultra-expanded;
+        }
+        #top_td
+        {
+            background-image: url(       'image/logo.gif' );
+            background-position: top;
+            background-repeat: no-repeat;
+            height: 20px;
+            text-align: left;
+        }
+        .st_span1
+        {
+            margin-right: 22px;
+        }
+        .state-tr
+        {
+            /* background-image:url('image/below_tr.png');
+      width:191px;
+      background-position:center;
+     background-repeat:no-repeat;
+     */
+            background-color: #90908f;
+        }   
+        .contentb1
+        {
+            width: 100%;
+        }
+        img
+        {
+            vertical-align: top;
+            border: 0px;
+            background-repeat: no-repeat;
+            margin:0px;
+            padding:0px;
+        }
+      a.hidefocus  { outline: none; }
+      
+    .style4
+    {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        color: #ffffff;
+        font-weight: 400;
+        line-height: 18px;
+        text-decoration: none;
+        height: 20px;
+    }
+
+</style>
+<script language="javascript" src="js/customer.js"></script>
+
+<!--<script  for="video" event="OnConnectServerResult(result, right)">video_OnConnectServerResult(result, right)</script>-->
+<!--<script  for="video" event="OnNetworkErrorResult(result)">video_OnNetworkErrorResult(result)</script>-->
+
+<script for="video" event="OnSearchFileSuccResult(lCount,lFlag,lStatus,strFileName,lFileSize,lCurPage,lPageCount)">video_OnSearchFileSuccResult(lCount,lFlag,lStatus,strFileName,lFileSize,lCurPage,lPageCount)</script>
+<!--<script for="video" event="OnSearchFileFailResult(result)">video_OnSearchFileFailResult(result)</script>-->
+
+<!--<script for="video" event="OnDeleteFileResult(result)">video_OnDeleteFileResult(result)</script>-->
+
+<script for="video" event="OnGetPlayProgress(uCur,uTotal)">video_OnGetPlayProgress(uCur,uTotal)</script>
+<!--<script for="video" event="OnGetFastSlowValue(value)">video_OnGetFastSlowValue(value)</script>  --> 
+<!--<script for="video" event="OnReplaySizeChange(width,height)">video_OnReplaySizeChange(width,height)</script>-->
+
+<!--<script for="video" event="OnStartPlayResult(result)">video_OnStartPlayResult(result)</script>-->
+<!--<script for="video" event="OnStopPlayResult(result)">video_OnStopPlayResult(result)</script>-->
+<!--<script for="video" event="OnPausePlayResult(result)">video_OnPausePlayResult(result)</script>-->
+<!--<script for="video" event="OnResumePlayResult(result)">video_OnResumePlayResult(result)</script>-->
+<script language="javascript" event="OnLoad()" for="video">video_OnLoad(this.name)</script>
+<script language="javascript" event="OnSavePictureResult(lStatus,strName)" for="video">video_OnSavePictureResult(lStatus,strName)</script>
+<script type="text/javascript" src="js/public.js"></script>
+<script type="text/javascript" src="js/slider.js"></script>
+<script type="text/javascript" src="js/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="js/NewTime.js"></script>
+<script type="text/javascript">
+    var LINES_PAGE = 17;
+    var ob_sl_ptzs;
+    var PTZS_A_TPL =
+{
+    'b_vertical': false,
+    'b_watch': true,
+    'n_controlWidth': 490,
+    'n_controlHeight': 22,
+    'n_sliderWidth': 7,
+    'n_sliderHeight': 13,
+    'n_pathLeft': 10,
+    'n_pathTop': 1,
+    'n_pathLength': 464,
+    's_imgControl': 'image/below.jpg',
+    's_imgSlider': 'image/huadongtiao.gif',
+    //'s_imgAlt': '',
+    'n_zIndex': 1
+}
+    var PTZS_A_INIT =
+{
+    's_form': 0,
+    's_name': 'text_ptzs',
+    'n_minValue': 0,
+    'n_maxValue': 100,
+    'n_value': 1,
+    'n_step': 1
+}
+</script>
+<script language="javascript" type="text/javascript" for="video" event="onclick">
+// <![CDATA[
+return video_onclick()
+// ]]>
+</script>
+<script language="javascript" type="text/javascript" for="video" event="onclick">
+// <![CDATA[
+return video_onclick()
+// ]]>
+</script>
+<script language="javascript" type="text/javascript" for="video" event="onclick">
+// <![CDATA[
+return video_onclick()
+// ]]>
+</script>
+<script language="javascript" type="text/javascript" for="video" event="onclick">
+// <![CDATA[
+return video_onclick()
+// ]]>
+</script>
+<script language="javascript" type="text/javascript" for="video" event="onclick">
+// <![CDATA[
+return video_onclick()
+// ]]>
+</script>
+
+</head>
+
+<script type="text/javascript">
+    var search_files = {};
+    search_files.selindex = -1;                         //当前选中的索引( >=0可用 )
+    search_files.item = 0;                              //用于累加的索引号,从0开始
+    search_files.lCount = 0;                            //当前要返回的总页码数
+    search_files.lCurPage = 1;                          //当前页码  
+    search_files.lPageCount = 0;                        //总页数
+    search_files.lFlag = new Array();                   //文件状态，1--正在播放，0—没有播放
+    search_files.lStatus = new Array();                 //文件类型，1--移动侦测报警录像，2—外部报警录像
+    search_files.strFileName = new Array();             //文件名
+    search_files.lFileSize = new Array();               //文件大小
+
+    search_files.set_selindex = function (index) {
+        this.selindex = index;
+    }
+    search_files.set_item = function (index) {
+        this.item = index;
+    }
+    search_files.get_item = function () {
+        return (this.item);
+    }
+    search_files.set_count = function (lCount) {
+        this.lCount = lCount;
+    }
+    search_files.set_curpage = function (lCurPage) {
+        this.lCurPage = lCurPage;
+    }
+    search_files.set_allpage = function (lPageCount) {
+        this.lPageCount = lPageCount;
+    }
+    search_files.set_params = function (index, lFlag, lStatus, strFileName, lFileSize) {
+        if ((index >= 0) && (index < this.lCount)) {
+            this.lFlag[index] = lFlag;
+            this.lStatus[index] = lStatus;
+            this.strFileName[index] = strFileName;
+            this.lFileSize[index] = lFileSize;
+        }
+    }
+</script>
+
+<script type="text/javascript">
+    function getX(elem) {
+        var x = 0;
+        while (elem) {
+            x = x + elem.offsetLeft;
+            elem = elem.offsetParent;
+        }
+        return x;
+    }
+    function getY(elem) {
+        var y = 0;
+        while (elem) {
+            y = y + elem.offsetTop;
+            elem = elem.offsetParent;
+        }
+        return y;
+    }
+
+    function PtzsChg(v) {
+
+    }
+
+    function open_search_page() {
+        //var curpos = document.getElementById('img_search_file');
+        var nleft = getX(curpos);
+        var ntop = getY(curpos);
+
+        //document.getElementById("Div_search").style.left = nleft - 40;
+        //document.getElementById("Div_search").style.top = ntop + 5;
+        //
+        //document.getElementById("Div_search").style.display = "";
+    }
+    function close_search_page() {
+        //document.getElementById("Div_search").style.display = "none";
+        document.getElementById("a_str_cancel").style.color = "yellow";
+        // document.getElementById("a_str_ok").style.color = "yellow";
+    }
+    function on_search_onchange(value) {
+        clear_file_list();
+        $("#color_table .f5_0").css({ "color": "#3471c2" })
+        if (value == 1) {
+            document.getElementById("a_img_save").style.visibility = "hidden";
+            for (var i = 0; i < LINES_PAGE; i++) {
+                var td_filesize_id = "td_filesize_" + i;
+                document.getElementById(td_filesize_id).style.visibility = "visible";
+                document.getElementById("file_size").style.visibility = "visible";
+
+                var td_dlfile_id = "img_dlfile_" + i;
+                document.getElementById(td_dlfile_id).style.width = "16";
+                document.getElementById(td_dlfile_id).style.height = "16";
+            }
+            video.SetPlayBackModel(1);
+        } else {
+            document.getElementById("a_img_save").style.visibility = "visible";
+            for (var i = 0; i < LINES_PAGE; i++) {
+                var td_filesize_id = "td_filesize_" + i;
+                document.getElementById(td_filesize_id).style.visibility = "hidden";
+                document.getElementById("file_size").style.visibility = "hidden";
+
+                var td_dlfile_id = "img_dlfile_" + i;
+                document.getElementById(td_dlfile_id).style.width = "0";
+                document.getElementById(td_dlfile_id).style.height = "0";
+            }
+            video.SetPlayBackModel(2);
+        }
+    }
+
+    var maintype = 3;
+    var filetype = 1;
+    function search_onchange(value) {
+        var tmpmode = document.getElementById("select_mode").value;
+        var tmpftype = document.getElementById("select_ftype").value;
+        var timeBeg = document.getElementById("time_start").value;
+        var timeEnd = document.getElementById("time_end").value;
+        var valBeg = timeBeg.replace("-", "").replace("-", "").replace(" ", "").replace(":", "").replace(":", "");
+        var valEnd = timeEnd.replace("-", "").replace("-", "").replace(" ", "").replace(":", "").replace(":", "");
+        //file-type
+        if (value == 0) {
+            document.getElementById("select_ftype").disabled = "";
+            document.getElementById("time_start").disabled = "none";
+            document.getElementById("time_end").disabled = "none";
+            video.SearchStartTime = "0";
+            video.SearchEndTime = "0";
+        }
+        //time
+        else if (value == 1) {
+            document.getElementById("select_ftype").disabled = "none";
+            document.getElementById("time_start").disabled = "";
+            document.getElementById("time_end").disabled = "";
+        }
+        //file-type and time
+        else if (value == 2) {
+            document.getElementById("select_ftype").disabled = "";
+            document.getElementById("time_start").disabled = "";
+            document.getElementById("time_end").disabled = "";
+        }
+        //all
+        else if (value == 3) {
+            document.getElementById("select_ftype").disabled = "none";
+            document.getElementById("time_start").disabled = "none";
+            document.getElementById("time_end").disabled = "none";
+        }
+        video.SearchMainType = value;
+    }
+
+    function search_onchange1(value) {
+        filetype = value;
+        video.SearchFileType = value;
+    }
+
+    function show_pageinfo(lCurPage, lPageCount) {
+        var temp = "0";
+        if (lPageCount != 0) {
+            temp = lCurPage + 1;
+        }
+        temp += "/";
+        temp += lPageCount;
+
+        document.getElementById("lable_page").innerHTML = temp;
+    }
+    function show_progress_info(value) {
+    //    alert("uCur = " + uCur + "uTotal =" + uTotal);
+        ob_sl_ptzs.f_setValue(value, 1);
+    }
+//    function show_slowfast_info(value) {
+//        var temp = "";
+
+//        switch (value) {
+//            case -2:
+//                {
+//                    temp = "<-4x>";
+//                }
+//                break;
+//            case -1:
+//                {
+//                    temp = "<-2x>";
+//                }
+//                break;
+//            case 0:
+//                {
+//                    temp = "<1x>";
+//                }
+//                break;
+//            case 1:
+//                {
+//                    temp = "<2x>";
+//                }
+//                break;
+//            case 2:
+//                {
+//                    temp = "<4x>";
+//                }
+//                break;
+//            default:
+//                break;
+//        }
+
+        //document.getElementById("lable_fastslow").innerHTML=temp;
+        //document.getElementById("lable_fastslow").innerText = temp;
+//    }
+
+    function video_OnLoad() {
+        video.SetShowMode(2);
+        video.ConnectServer(location.hostname, top.video_port, encodeURIComponent(top.user), encodeURIComponent(top.pwd));
+        video.SetPlayBackModel(1);
+    }
+
+    function video_OnSavePictureResult(lStatus, strName) {
+        alert(str_save_succ + "! " + str_file_path + ": " + strName);
+    }
+
+    function body_onload() {
+        if (!video.IsInitialized() == 1) {
+            alert(str_onload);
+            return false;
+        }
+        document.getElementById("a_img_save").title = top.str_current_image;
+        show_ctrl_title();                      //显示所有参数      
+        clear_file_list();                      //清除列表
+        search_onchange(0);                     //还原选项
+        show_pageinfo(0, 0);                    //页码还原
+        show_progress_info(0);                //还原进度条
+//        show_slowfast_info(0);
+    }
+
+    //=============================================================//
+    //确定
+    function submit_search() {
+        if (typeof video == "undefined") {
+            alert(str_onload);
+            return false;
+        }
+
+        var tmpmode = document.getElementById("select_mode").value;
+        var timeBeg = document.getElementById("time_start").value;
+        var timeEnd = document.getElementById("time_end").value;
+        var type_mode = document.getElementById("select_ftype").value;
+        var valBeg = timeBeg.replace("-", "").replace("-", "").replace(" ", "").replace(":", "").replace(":", "");
+        var valEnd = timeEnd.replace("-", "").replace("-", "").replace(" ", "").replace(":", "").replace(":", "");
+
+        if (tmpmode == 1) {
+            document.getElementById("select_ftype").disabled = "none";
+            document.getElementById("time_start").disabled = "";
+            document.getElementById("time_end").disabled = "";
+            if (timeBeg == "" && timeEnd == "") {
+                alert(top.str_please_seltime);
+                return;
+            }
+            if ((timeBeg.replace(/-/g, "/")) > (timeEnd.replace(/-/g, "/"))) {
+                alert(top.str_endless_begtime);
+                return;
+            }
+            video.SearchStartTime = valBeg;
+            video.SearchEndTime = valEnd;
+        }
+
+        if (tmpmode == 2) {
+            document.getElementById("select_ftype").disabled = "";
+            document.getElementById("time_start").disabled = "";
+            document.getElementById("time_end").disabled = "";
+            if (timeBeg == "" && timeEnd == "") {
+                alert(top.str_please_seltime);
+                return;
+            }
+            if ((timeBeg.replace(/-/g, "/")) > (timeEnd.replace(/-/g, "/"))) {
+                alert(top.str_endless_begtime);
+                return;
+            }
+            video.SearchStartTime = valBeg;
+            video.SearchEndTime = valEnd;
+        }
+        video.SearchFileType = type_mode;
+        
+        clear_file_list();
+        
+        document.getElementById("a_str_ok").style.color = "yellow";
+        close_search_page();
+
+        video.SetLinesOfPage(LINES_PAGE);                   //设置页码12页
+        video.StartSearchFile();                            //开始查找
+
+        //console.log(video.SearchMainType + "," + video.SearchFileType + "," + video.SearchStartTime + "," + video.SearchEndTime);
+    }
+
+    function img_save() {
+        video.SaveCurrentPicture();
+    }
+
+    function video_OnSearchFileSuccResult(lCount, lFlag, lStatus, strFileName, lFileSize, lCurPage, lPageCount) {
+        show_pageinfo(lCurPage, lPageCount);
+
+        //console.log(lCount + " " + lFlag + " " + lStatus + " " + strFileName + " " + lFileSize + " " + lCurPage + " " + lPageCount)
+        if (lCount <= 0) {
+//            search_files.set_selindex(-1);
+//            search_files.set_item(0);
+//            search_files.set_count(0);
+//            search_files.set_curpage(0);
+//            search_files.set_allpage(0);
+
+            //clear list
+            clear_file_list();
+            ///////////////////////////////////
+
+            alert(top.str_search_result_null);
+        }
+        else {
+            var item = 0;
+
+            //μúò?ì?????
+            if (0 == lFlag) {
+                search_files.set_item(0);
+                search_files.set_count(lCount);
+                search_files.set_curpage(lCurPage);
+                search_files.set_allpage(lPageCount);
+
+                //selindex
+                if (!((search_files.selindex >= 0) && (search_files.selindex < lCount))) {
+                    search_files.set_selindex(-1);
+                }
+
+                //clear list
+                clear_file_list();
+                ///////////////////////////////////
+                item = 0;
+                search_files.set_item(item);
+            }
+
+            //?D??????
+            if (1 == lFlag) {
+                item = search_files.get_item();
+                item++;
+                search_files.set_item(item);
+            }
+
+            //×?oóò?ì?????
+            if (2 == lFlag) {
+                item = search_files.get_item();
+                item++;
+                search_files.set_item(item);
+            }
+
+            //add array
+            search_files.set_params(item, lFlag, lStatus, strFileName, lFileSize);
+            
+            //add list
+            insert_file_list(item, lStatus, strFileName, lFileSize);
+        }
+    }
+
+    function clear_file_list() {                    //清除列表
+        document.getElementById("chk_select_all").checked = false;
+
+        for (i = 0; i < LINES_PAGE; i++) {
+            var chk_id = "chk_file_" + i;
+            var img_id = "img_file_" + i;
+            var href_id = "href_file_" + i;
+            var td_id = "td_filesize_" + i;
+            var img_dload_id = "img_dlfile_" + i;
+
+            //chk
+            document.getElementById(chk_id).checked = false;
+            document.getElementById(chk_id).style.display = 'none';
+
+            //img
+            document.getElementById(img_id).style.display = 'none';
+
+            //img - download file
+            document.getElementById(img_dload_id).style.display = 'none';
+            document.getElementById(img_dload_id).title = "";
+
+            //href
+            document.getElementById(href_id).title = "";
+            document.getElementById(href_id).innerHTML = "";
+
+            //td
+            document.getElementById(td_id).title = "";
+            document.getElementById(td_id).innerHTML = "&nbsp;";
+        }
+    }
+
+    function insert_file_list(index, lStatus, strFileName, lFileSize) {                 //建立列表
+        var chk_id = "chk_file_" + index;
+        var img_id = "img_file_" + index;
+        var href_id = "href_file_" + index;
+        var td_id = "td_filesize_" + index;
+        var img_dload_id = "img_dlfile_" + index;
+
+        //chk
+        document.getElementById(chk_id).checked = false;
+        document.getElementById(chk_id).style.display = '';
+
+        //img - dloadfile
+        document.getElementById(img_dload_id).style.display = '';
+        document.getElementById(img_dload_id).title = top.str_download_title;
+
+        //img
+        document.getElementById(img_id).style.display = '';
+        if (0 == lStatus) {
+            document.getElementById(img_id).src = "image/play_play.gif";
+        }
+        else 
+        if (2 == lStatus) {
+                document.getElementById(img_id).src = "image/play_malarm.gif";
+                document.getElementById(img_id).title = top.str_Playback_icon;
+
+        }
+        else if (1 == lStatus) {
+            document.getElementById(img_id).src = "image/play_exalarm.gif";
+            document.getElementById(img_id).title = top.str_Playback_icon_1;
+        }
+
+        //href
+        document.getElementById(href_id).title = strFileName;
+
+        var tmpname = strFileName;
+//        var tmpname2 = '';
+//        if (tmpname.length > 10) {
+//            tmpname2 = tmpname.substring(0, 10) + "...";
+//        }
+        document.getElementById(href_id).innerHTML = tmpname;
+
+
+        //td
+        document.getElementById(td_id).title = lFileSize;
+        document.getElementById(td_id).innerHTML = lFileSize;
+    }
+
+    //′|àí???????t
+    function dloadfile_func(index) {
+        var url = '';
+        var href_id = "href_file_" + index;
+        var tmp_fname = document.getElementById(href_id).title;
+
+        if (location.port == '') {
+            url = "http://" + location.hostname;
+        }
+        else {
+            url = "http://" + location.hostname + ":" + location.port;
+        }
+
+        url += "/cgi-bin/download_sdcard_file.cgi?type=2&fname=" + tmp_fname + "&user=" + top.user + "&pwd=" + top.pwd;
+        window.open(url);
+    }
+
+    //=============================================================//
+    //添加待处理文件
+    function chk_file_click(v) {
+        var chk_id = "chk_file_" + v;
+        var selchk = document.getElementById(chk_id).checked;
+        if (selchk == true) {
+            video.AddDelIndex(v);
+            
+            if (1 == judge_allchk_check()) {
+                document.getElementById("chk_select_all").checked = true;
+            }
+        }
+        else {
+            video.RemoveDelIndex(v);
+            document.getElementById("chk_select_all").checked = false;
+        }
+    }
+
+    //添加所有到待处理文件
+    function selectall() {
+        var selall = document.getElementById("chk_select_all").checked;
+        if (selall == true) {
+            video.AddAllDelIndex();
+
+            set_allchk_check(true);
+        }
+        else {
+            video.RemoveAllDelIndex();
+
+            set_allchk_check(false);
+        }
+    }
+
+    function set_allchk_check(v) {
+        var i = 0;
+        var tmpcount = 0;
+        tmpcount = search_files.lCount;
+
+        for (i = 0; i < LINES_PAGE; i++) {
+            var chk_id = "chk_file_" + i;
+
+            if (i < tmpcount) {
+                document.getElementById(chk_id).checked = v;
+            }
+            else {
+                document.getElementById(chk_id).checked = false;
+            }
+        }
+    }
+
+    function judge_allchk_check() {
+        var i = 0;
+        var iret = 1;
+        var tmpcount = 0;
+        tmpcount = search_files.lCount;
+
+        for (i = 0; i < tmpcount; i++) {
+            var chk_id = "chk_file_" + i;
+            var seltmp = document.getElementById(chk_id).checked;
+
+            if (seltmp == false) {
+                iret = 0;
+                break;
+            }
+        }
+
+        return iret;
+    }
+
+    //删除所有已添加到待处理文件索引的文件
+    function DeleteFileBySel() {
+//        var tr1 = "td_filesize_" + index1;
+//        document.getElementById("tr1").parentNode.style.display = "none"; 
+        if (confirm(top.str_confirm_delsel)) {
+            iret = video.DeleteFileBySel();
+            if (1 == iret) {
+//                submit_search();
+                clear_file_list();
+                //alert("DeleteFileBySel succ");
+            }
+            else if (0 == iret) {
+                alert(top.str_send_delinfo_fail);
+            }
+        }
+    }
+
+    //删除当页文件
+    function DeleteAllFile() {
+        if (confirm(top.str_confirm_delall)) {
+            var iret = video.DeleteAllFile();
+        }
+    }
+
+    //进度
+    function video_OnGetPlayProgress(uCur, uTotal) {
+        var value = Math.round((uCur * 100) / uTotal);
+//        console.log(value);
+        show_progress_info(value);
+    }
+
+    /////////////////////////////////////////////////////////////
+    //2￥·?óD1?
+    function href_file_click(v) {
+        var id = "href_file_" + v;
+        $("#color_table .f5_0").css({ "color": "#3471c2" })
+        document.getElementById(id).style.color = "blue";
+        search_files.set_selindex(v);
+        $('#img_rec_play').trigger('onmousedown');
+        index1 = v;
+    }
+    function href_file_dbclick(v) {
+        var id = "href_file_" + v;
+        $("#color_table .f5_0").css({ "color": "#3471c2" })
+        document.getElementById(id).style.color = "blue";
+        search_files.set_selindex(v);
+        //document.getElementById('img_rec_play').onmousedown();
+        $('#img_rec_play').trigger('onmousedown');
+        index1 = v;
+        //StartPlay();
+    }
+    var star_play = false;
+    function StartPlay() {
+        if (star_play) {
+            video.StartPlay(-1);
+            star_play = false;
+        } else {
+            var index = search_files.selindex;
+            video.StartPlay(index);
+        }
+        
+    }
+
+    /////////////////////////////////////////////////////////////
+    //停止回放
+    function StopPlay() {
+        video.StopPlay();
+    }
+    /////////////////////////////////////////////////////////////
+    //暂停播放
+    function PausePlay() {
+        video.PausePlay();
+        star_play = true;
+    }
+
+    /////////////////////////////////////////////////////////////
+    
+//    index1 = search_files.selindex;
+    
+    //播放上一个文件
+    function PlayPrev() {
+        
+        
+        if (index1 == 0) {
+            return false;
+        } else {
+            index1 = index1 - 1;
+        }
+        var id = "href_file_" + index1;
+        $("#color_table .f5_0").css({ "color": "#3471c2" })
+        document.getElementById(id).style.color = "blue";
+   
+        video.PlayPrev();
+    }
+    //播放下一个文件
+    function PlayNext() {
+        if (index1 == 11) {
+            return false;
+        } else {
+            index1 = index1 + 1;
+        }
+        var id = "href_file_" + index1;
+        $("#color_table .f5_0").css({ "color": "#3471c2" })
+        document.getElementById(id).style.color = "blue";
+
+        video.PlayNext();
+    }
+    //慢速回放
+    function SlowPlay() {
+        video.SlowPlay();
+    }
+    //快速回放
+    function FastPlay() {
+        video.FastPlay();
+    }
+
+
+    /////////////////////////////////////////////////////////////
+    //跳转到第一页
+    function FirstPage() {
+        var iret = video.SwitchFirstPage();
+        if (1 == iret) {
+            //alert("SwitchFirstPage succ");
+        }
+        else if (0 == iret) {
+            alert(top.str_had_first_page);
+        }
+        //        href_file_click(index1);
+        $("#color_table .f5_0").css({ "color": "#3471c2" });
+    }
+    //跳转到上一页
+    function PrevPage() {
+        var iret = video.SwitchPrevPage();
+        if (1 == iret) {
+            //alert("SwitchPrevPage succ");
+        }
+        else if (0 == iret) {
+            alert(top.str_had_first_page);
+        }
+        //        href_file_click(index1);
+        $("#color_table .f5_0").css({ "color": "#3471c2" });
+    }
+    //跳转到下一页
+    function NextPage() {
+        var iret = video.SwitchNextPage();
+        if (1 == iret) {
+            //alert("SwitchNextPage succ");
+        }
+        else if (0 == iret) {
+            alert(top.str_had_first_page);
+        }
+        //        href_file_click(index1);
+        $("#color_table .f5_0").css({ "color": "#3471c2" });
+    }
+    //跳转到最后一页
+    function LastPage() {
+        var iret = video.SwitchLastPage();
+        if (1 == iret) {
+            //alert("SwitchLastPage succ");
+        }
+        else if (0 == iret) {
+            alert(top.str_had_first_page);
+        }
+        //        href_file_click(index1);
+        $("#color_table .f5_0").css({ "color": "#3471c2" });
+    }
+    ////·?′ó￡???D?
+    //function ZIF_Stop() {
+    //    if (1 == Judge_Operator()) {
+    //        ptz_control(PTZ_CMD_STOP);
+    //    }
+    //    else {
+    //        alert(top.str_authority_lack);
+    //    }
+    //}
+
+    //显示所有参数
+    function show_ctrl_title() {
+        //toolbar title
+        document.getElementById("img_tool_video").title = top.str_title_livevideo;
+        document.getElementById("img_tool_rec").title = top.str_replay_title;
+        document.getElementById("img_tool_set").title = top.str_title_setmenu;
+
+        document.getElementById("img_rec_play").title = top.str_play;
+        document.getElementById("img_rec_stop").title = top.str_stop;
+        document.getElementById("img_rec_pause").title = top.str_pause;
+        document.getElementById("img_rec_prev").title = top.str_prev_one;
+        document.getElementById("img_rec_next").title = top.str_next_one;
+        document.getElementById("img_rec_slow").title = top.str_slow_play;
+        document.getElementById("img_rec_fast").title = top.str_fast_play;
+
+        //document.getElementById("img_search_file").title = top.str_search_file;
+        document.getElementById("img_first_page").title = top.str_first_page;
+        document.getElementById("img_prev_page").title = top.str_prev_page;
+        document.getElementById("img_next_page").title = top.str_next_page;
+        document.getElementById("img_last_page").title = top.str_last_page;
+
+        //·?′ó￡???D?
+        /*document.getElementById("img_zoomdel").title = top.str_title_zoomdel;
+        document.getElementById("img_zoomadd").title = top.str_title_zoomadd;*/
+    }
+    //转换图片路径
+    function object_out_src(v, _v) {
+        v.src = _v;
+    }
+    function object_over_src(v, _v) {
+        v.src = _v;
+    }
+    //退出    
+    function ExitLogin() {
+        location.href = "login.htm";
+    }
+</script>
+
+
+<body style="" onload="body_onload()">
+  <div style=" height:100%; width:100%">
+   <table style="height: 100%; width: 100%; margin: 0px; padding: 0px; border: 0px solid yellow;"
+        cellpadding="0" cellspacing="0">
+        <tr>
+            <td colspan="2" height="79">
+                <!-------------------------头部开始--------------------------------->
+                <table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+                    <tr style="width: 100%;" class="topb">
+                        <td style="width: 250px; text-align: left; border: 0px solid red;" width="250">
+                            <img ondragstart="return false;" id="img_div" onclick="show_web()" border="0" src="image/apexislogo.gif" style="" />
+                        </td>
+                        <td style="width: 50%; text-align: center; border: 0px solid red;" align="center"
+                            valign="bottom">
+                            <div style="width: 500px; height: 50px; border: 0px solid red; margin: auto; text-align: center;"
+                                class="diva" align="center" valign="bottom" id="admin_top_botton">
+                                <table cellpadding="0" cellspacing="0" style="width: 82%; height: 32px; margin: auto;
+                                    border: 0px solid blue;" id="admin_top_table">
+                                    <tr>
+                                        <td colspan="3" height="15">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="divb" align="center">
+                                            <a id="top_href_video" href="HIPCameramon.htm" onfocus="this.blur()" class="childmenu">
+                                                <img ondragstart="return false;" id="img_tool_video" style="border: 0;" src="image/tool_video_dis.gif" onmouseout="object_out_src(img_tool_video, 'image/tool_video_dis.gif')"
+                                                    onmouseover="object_over_src(img_tool_video,'image/tool_video_sel.gif')" /></a>
+                                        </td>
+                                        <td class="divb" id="voice_cen" align="center">
+                                            <a id="top_href_replay" href="Playback.htm" onfocus="this.blur()">
+                                                <img ondragstart="return false;" id="img_tool_rec" style="border: 0;" src="image/tool_rec_dis.gif" onmouseout="object_out_src(img_tool_rec, 'image/tool_rec_dis.gif')"
+                                                    onmouseover="object_over_src(img_tool_rec,'image/tool_rec_sel.gif')" /></a>
+                                            </span>
+                                        </td>
+                                        <td class="divb">
+                                            <a id="top_href_setup" href="admin.htm" onfocus="this.blur()" class="">
+                                                <img ondragstart="return false;" id="img_tool_set" style="border: 0;" src="image/tool_set_dis.gif" onmouseout="object_out_src(img_tool_set, 'image/tool_set_dis.gif')"
+                                                    onmouseover="object_over_src(img_tool_set,'image/tool_set_sel.gif')" /></a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                        <td style="width: 100px;">
+                            <img ondragstart="return false;" id="img6" src="image/camera.gif" style="border: 0px;" />
+                        </td>
+                        <td style="width: 50px;" valign="middle">
+                            <img ondragstart="return false;" id="img7" src="image/Exit.png" style="border: 0px; margin-left: 5px;" onclick="ExitLogin()" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="border: 0px solid red; background: url(image/1111_05.gif) repeat-x 20% top;"
+                            height="16">
+                            <div style="width: 31; float: left; background: url(image/bk_left.gif) no-repeat 50% bottom;
+                                border: 0px solid blue;" border="0">
+                                <img ondragstart="return false;" src="image/bk_left.gif" style="margin-top: 0px; padding-top: 0px; border: 0px solid red;" />
+                            </div>
+                            <div style="width: 187; float: left; background: url(image/1111_03.gif) no-repeat 50% bottom;"
+                                border="0">
+                                <img ondragstart="return false;" src="image/1111_03.gif" style="margin-top: 0px; padding-top: 0px; border: 0px solid red;" />
+                            </div>
+                            <div style="width: 31; float: right; background: url(image/bk_right.gif) no-repeat 50% top;
+                                border: 0px;" border="0">
+                                <img ondragstart="return false;" src="image/bk_right.gif" />
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <!-------------------------头部结束--------------------------------->
+            </td>
+        </tr>
+        
+        <tr>
+           <td style="background: url(image/adminbg1.gif); text-align: center; height:100%;" " valign="top">
+                 <table style="width:215px;height:100%;margin-left:10px" cellpadding="0" cellspacing="0">
+                    <tr>
+            <td style="text-align: center; border: 0px solid red;
+                height: 140px;" align="center" valign="middle">
+                <table border="0" style=" margin-left:5px; height:100%;" cellpadding="5" cellspacing="5">
+                    <tr >
+                     
+                      <td align="center">
+                        <table border="0">
+                            <tr>
+                                <td class="f4_1_1" style=" width:100px"><script>                                                                            document.write(top.str_playback_mode);</script></td>
+                                <td>
+                                  <select id="select_playback_mode" onChange="on_search_onchange(this.value)" style="width:105px">
+                                    <option value="1"><script>                                                          document.write(top.str_playback_video);</script></option>
+                                    <option value="2"><script>                                                          document.write(top.str_Remote_capture_preview);</script></option>
+                                  </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="f4_1_1" style=" width:100px"><script>                                                                            document.write(top.str_search_mode);</script></td>
+                                <td>
+                                  <select id="select_mode" onChange="search_onchange(this.value)" style="width:105px">
+                                    <option value="0"><script>                                                          document.write(top.str_search_type);</script></option>
+                                    <option value="1"><script>                                                          document.write(top.str_search_time);</script></option>
+                                    <option value="2"><script>                                                          document.write(top.str_search_typetime);</script></option>
+                                    <option value="3"><script>                                                          document.write(top.str_search_all);</script></option>
+                                  </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="f4_1_1"><script>                                                       document.write(top.str_recfile_type);</script></td>
+                                <td>
+                                  <select id="select_ftype" onChange="search_onchange1(this.value)" style="width:105px">
+                                    <option value="1"><script>                                                          document.write(top.str_out_alerting);</script></option>
+                                    <option value="2"><script>                                                          document.write(top.str_motion_mt);</script></option>
+                                  </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="f4_1_1"><script>                                                       document.write(top.str_begin_time);</script></td>
+                                <td>
+                                    <input id="time_start" name="time_start" type="text" style="width:105px" readonly="readonly" onClick="setday(this)" />                                                 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="f4_1_1"><script>                                                       document.write(top.str_end_time);</script></td>
+                                <td>
+                                    <input id="time_end" name="time_end" type="text" style="width:105px" readonly="readonly" onClick="setday(this)" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                 <td colspan="2" style=" text-align:center">
+                                    <button class="playback_ok" id="a_str_ok" onClick="submit_search()"><script>document.write(top.str_ok);</script></button>
+                                    <button class="playback_ok" id="a_img_save" onClick="img_save()" style="visibility:hidden" title=""><script>document.write(top.str_save);</script></button>
+                                    <button style="display:none" class="playback_ok" id="a_str_cancel" onClick="close_search_page()"><script>document.write(top.str_cancel);</script></button>
+                                 </td>
+                                <!--<td  align="center" class="playback_ok"><a id="a_str_ok" href="#" onClick="submit_search()" class="f4_1"><script>document.write(top.str_ok);</script></a></td>
+                                <td style="display:none"  align="center" class="playback_ok"><a id="a_str_cancel" href="#" onClick="close_search_page()" class="f4_1"><script>document.write(top.str_cancel);</script></a></td>-->
+                            </tr>
+                        </table>
+                      </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+                    <tr>
+                              <td width="215px" colspan="2" style="background: url(image/Playlist_top.png) no-repeat;
+                                    height: 26px;"><table>
+                                <tr>
+                                  <td><input type="checkbox" id="chk_select_all" name="chk_select_all" onClick="selectall()" /></td>
+                                  <td><a href="javascript:DeleteFileBySel();" class="f4_0">
+                                    <script>                                        document.write(top.str_delete_sel)</script>
+                                  </a></td>
+                                  
+                                  <td>&nbsp;&nbsp;</td>
+                                </tr>
+                              </table></td>
+                            </tr>
+                    
+                    <tr>
+                    <td>
+                    
+                    <table id="color_table" border="0" style="width:215px;height:100%;border-left: 1px solid #696565; border-right: 1px solid #898991; text-align:center " cellpadding="0" cellspacing="0">
+                             
+                            <tr style="">
+                                <td width="250px" class="f4_2"><script>document.write(top.str_recfile_name)</script></td>
+                                <td style="display:none;" width="100px" class="f4_2" id="file_size"><script>document.write(top.str_recfile_size)</script></td>
+                            </tr>
+                            
+                            <tr class = "tr_file">
+                                <td>
+                                  <table>
+                                    <tr>
+                                      <td><input id="chk_file_0" style="display:none" type="checkbox" onClick="chk_file_click(0)" class="chk_size0" /></td>
+                                      <td><img ondragstart="return false;" id="img_dlfile_0" alt="" style="display:none" src="image/play_dload.gif" width="16" height="16" border="0" align="middle" onclick="dloadfile_func(0)" /></td>
+                                      <td><img ondragstart="return false;" id="img_file_0" style="display:none" src="image/play_malarm.gif" width="16" height="16" border="0" align="middle" /></td>
+                                      <td ><a id="href_file_0" href="#" onclick="href_file_click(0)" onDblClick="href_file_dbclick(0)" class="f4_0 f5_0" title=""></a></td>
+                                    </tr>
+                                  </table>                                </td>
+                                <td style="display:none;" id="td_filesize_0" border="1" class="f4_1" title="">&nbsp;</td>
+                            </tr>
+                            
+                            <tr class = "tr_file">
+                                <td>
+                                  <table>
+                                    <tr>
+                                      <td><input id="chk_file_1" style="display:none" type="checkbox" onClick="chk_file_click(1)" class="chk_size0" /></td>
+                                      <td><img ondragstart="return false;" id="img_dlfile_1" alt="" style="display:none" src="image/play_dload.gif" width="16" height="16" border="0" align="middle" onclick="dloadfile_func(1)" /></td>
+                                      <td><img ondragstart="return false;" id="img_file_1" style="display:none" src="image/play_malarm.gif" width="16" height="16" border="0" align="middle" /></td>
+                                      <td><a id="href_file_1" href="#" onclick="href_file_click(1)" onDblClick="href_file_dbclick(1)" class="f4_0 f5_0" title=""></a></td>
+                                    </tr>
+                                  </table>                                </td>
+                                <td style="display:none;" id="td_filesize_1" border="1" class="f4_1" title="">&nbsp;</td>
+                            </tr>
+                            
+                            <tr class = "tr_file">
+                                <td>
+                                  <table>
+                                    <tr>
+                                      <td><input id="chk_file_2" style="display:none" type="checkbox" onClick="chk_file_click(2)" class="chk_size0" /></td>
+                                      <td><img ondragstart="return false;" id="img_dlfile_2" alt="" style="display:none" src="image/play_dload.gif" width="16" height="16" border="0" align="middle" onclick="dloadfile_func(2)" /></td>
+                                      <td><img ondragstart="return false;" id="img_file_2" style="display:none" src="image/play_malarm.gif" width="16" height="16" border="0" align="middle" /></td>
+                                      <td><a id="href_file_2" href="#" onclick="href_file_click(2)" onDblClick="href_file_dbclick(2)" class="f4_0 f5_0" title=""></a></td>
+                                    </tr>
+                                  </table>                                </td>
+                                <td style="display:none;" id="td_filesize_2" border="1" class="f4_1" title="">&nbsp;</td> 
+                            </tr>
+                            
+                            <tr class = "tr_file">
+                                <td>
+                                  <table>
+                                    <tr>
+                                      <td><input id="chk_file_3" style="display:none" type="checkbox" onClick="chk_file_click(3)" class="chk_size0" /></td>
+                                      <td><img ondragstart="return false;" id="img_dlfile_3" alt="" style="display:none" src="image/play_dload.gif" width="16" height="16" border="0" align="middle" onclick="dloadfile_func(3)" /></td>
+                                      <td><img ondragstart="return false;" id="img_file_3" style="display:none" src="image/play_malarm.gif" width="16" height="16" border="0" align="middle" /></td>
+                                      <td><a id="href_file_3" href="#" onclick="href_file_click(3)" onDblClick="href_file_dbclick(3)" class="f4_0 f5_0" title=""></a></td>
+                                    </tr>
+                                  </table>                                </td>
+                                <td style="display:none;" id="td_filesize_3" border="1" class="f4_1" title="">&nbsp;</td>
+                            </tr>
+                            
+                            <tr class = "tr_file">
+                                <td>
+                                  <table>
+                                    <tr>
+                                      <td><input id="chk_file_4" style="display:none" type="checkbox" onClick="chk_file_click(4)" class="chk_size0" /></td>
+                                      <td><img ondragstart="return false;" id="img_dlfile_4" alt="" style="display:none" src="image/play_dload.gif" width="16" height="16" border="0" align="middle" onclick="dloadfile_func(4)" /></td>
+                                      <td><img ondragstart="return false;" id="img_file_4" style="display:none" src="image/play_malarm.gif" width="16" height="16" border="0" align="middle" /></td>
+                                      <td><a id="href_file_4" href="#" onclick="href_file_click(4)" onDblClick="href_file_dbclick(4)" class="f4_0 f5_0" title=""></a></td>
+                                    </tr>
+                                  </table>                                </td>
+                                <td style="display:none;" id="td_filesize_4" border="1" class="f4_1" title="">&nbsp;</td>
+                            </tr>
+                            
+                            <tr class = "tr_file">
+                                <td>
+                                  <table>
+                                    <tr>
+                                      <td><input id="chk_file_5" style="display:none" type="checkbox" onClick="chk_file_click(5)" class="chk_size0" /></td>
+                                      <td><img ondragstart="return false;" id="img_dlfile_5" alt="" style="display:none" src="image/play_dload.gif" width="16" height="16" border="0" align="middle" onclick="dloadfile_func(5)" /></td>
+                                      <td><img ondragstart="return false;" id="img_file_5" style="display:none" src="image/play_malarm.gif" width="16" height="16" border="0" align="middle" /></td>
+                                      <td><a id="href_file_5" href="#" onclick="href_file_click(5)" onDblClick="href_file_dbclick(5)" class="f4_0 f5_0" title=""></a></td>
+                                    </tr>
+                                  </table>                                </td>
+                                <td style="display:none;" id="td_filesize_5" border="1" class="f4_1" title="">&nbsp;</td>
+                            </tr>
+                            
+                            <tr class = "tr_file">
+                                <td>
+                                  <table>
+                                    <tr>
+                                      <td><input id="chk_file_6" style="display:none" type="checkbox" onClick="chk_file_click(6)" class="chk_size0" /></td>
+                                      <td><img ondragstart="return false;" id="img_dlfile_6" alt="" style="display:none" src="image/play_dload.gif" width="16" height="16" border="0" align="middle" onclick="dloadfile_func(6)" /></td>
+                                      <td><img ondragstart="return false;" id="img_file_6" style="display:none" src="image/play_malarm.gif" width="16" height="16" border="0" align="middle" /></td>
+                                      <td><a id="href_file_6" href="#" onclick="href_file_click(6)" onDblClick="href_file_dbclick(6)" class="f4_0 f5_0" title=""></a></td>
+                                    </tr>
+                                  </table>                                </td>
+                                <td style="display:none;" id="td_filesize_6" border="1" class="f4_1" title="">&nbsp;</td>
+                            </tr>
+                            
+                            <tr class = "tr_file">
+                                <td>
+                                  <table>
+                                    <tr>
+                                      <td><input id="chk_file_7" style="display:none" type="checkbox" onClick="chk_file_click(7)" class="chk_size0" /></td>
+                                      <td><img ondragstart="return false;" id="img_dlfile_7" alt="" style="display:none" src="image/play_dload.gif" width="16" height="16" border="0" align="middle" onclick="dloadfile_func(7)" /></td>
+                                      <td><img ondragstart="return false;" id="img_file_7" style="display:none" src="image/play_malarm.gif" width="16" height="16" border="0" align="middle" /></td>
+                                      <td><a id="href_file_7" href="#" onclick="href_file_click(7)" onDblClick="href_file_dbclick(7)" class="f4_0 f5_0" title=""></a></td>
+                                    </tr>
+                                  </table>                                </td>
+                                <td style="display:none;" id="td_filesize_7" border="1" class="f4_1" title="">&nbsp;</td>
+                            </tr>
+                            
+                            <tr class = "tr_file">
+                                <td>
+                                  <table>
+                                    <tr>
+                                      <td><input id="chk_file_8" style="display:none" type="checkbox" onClick="chk_file_click(8)" class="chk_size0" /></td>
+                                      <td><img ondragstart="return false;" id="img_dlfile_8" alt="" style="display:none" src="image/play_dload.gif" width="16" height="16" border="0" align="middle" onclick="dloadfile_func(8)" /></td>
+                                      <td><img ondragstart="return false;" id="img_file_8" style="display:none" src="image/play_malarm.gif" width="16" height="16" border="0" align="middle" /></td>
+                                      <td><a id="href_file_8" href="#" onclick="href_file_click(8)" onDblClick="href_file_dbclick(8)" class="f4_0 f5_0" title=""></a></td>
+                                    </tr>
+                                  </table>                                </td>
+                                <td style="display:none;" id="td_filesize_8" border="1" class="f4_1" title="">&nbsp;</td>
+                            </tr>
+                            
+                           <tr class = "tr_file">
+                                <td>
+                                  <table>
+                                    <tr>
+                                      <td><input id="chk_file_9" style="display:none" type="checkbox" onClick="chk_file_click(9)" class="chk_size0" /></td>
+                                      <td><img ondragstart="return false;" id="img_dlfile_9" alt="" style="display:none" src="image/play_dload.gif" width="16" height="16" border="0" align="middle" onclick="dloadfile_func(9)" /></td>
+                                      <td><img ondragstart="return false;" id="img_file_9" style="display:none" src="image/play_malarm.gif" width="16" height="16" border="0" align="middle" /></td>
+                                      <td><a id="href_file_9" href="#" onclick="href_file_click(9)" onDblClick="href_file_dbclick(9)" class="f4_0 f5_0" title=""></a></td>
+                                    </tr>
+                                  </table>                                </td>
+                                <td style="display:none;" id="td_filesize_9" border="1" class="f4_1" title="">&nbsp;</td>
+                            </tr>
+                            
+                            <tr class = "tr_file">
+                                <td>
+                                  <table>
+                                    <tr>
+                                      <td><input id="chk_file_10" style="display:none" type="checkbox" onClick="chk_file_click(10)" class="chk_size0" /></td>
+                                      <td><img ondragstart="return false;" id="img_dlfile_10" alt="" style="display:none" src="image/play_dload.gif" width="16" height="16" border="0" align="middle" onclick="dloadfile_func(10)" /></td>
+                                      <td><img ondragstart="return false;" id="img_file_10" style="display:none" src="image/play_malarm.gif" width="16" height="16" border="0" align="middle" /></td>
+                                      <td><a id="href_file_10" href="#" onclick="href_file_click(10)" onDblClick="href_file_dbclick(10)" class="f4_0 f5_0" title=""></a></td>
+                                    </tr>
+                                  </table>
+                                </td>
+                                <td style="display:none;" id="td_filesize_10" border="1" class="f4_1" title="">&nbsp;</td>
+                            </tr>
+                            
+                           <tr class = "tr_file">
+                                <td>
+                                  <table>
+                                    <tr>
+                                      <td><input id="chk_file_11" style="display:none" type="checkbox" onClick="chk_file_click(11)" class="chk_size0" /></td>
+                                      <td><img ondragstart="return false;" id="img_dlfile_11" alt="" style="display:none" src="image/play_dload.gif" width="16" height="16" border="0" align="middle" onclick="dloadfile_func(11)" /></td>
+                                      <td><img ondragstart="return false;" id="img_file_11" style="display:none" src="image/play_malarm.gif" width="16" height="16" border="0" align="middle" /></td>
+                                      <td><a id="href_file_11" href="#" onclick="href_file_click(11)" onDblClick="href_file_dbclick(11)" class="f4_0 f5_0" title=""></a></td>
+                                    </tr>
+                                  </table>
+                                </td>
+                                <td style="display:none;" id="td_filesize_11" border="1" class="f4_1" title="">&nbsp;</td>
+                            </tr>
+                            
+                            <tr class = "tr_file">
+                                <td>
+                                  <table>
+                                    <tr>
+                                      <td><input id="chk_file_12" style="display:none" type="checkbox" onClick="chk_file_click(12)" class="chk_size0" /></td>
+                                      <td><img ondragstart="return false;" id="img_dlfile_12" alt="" style="display:none" src="image/play_dload.gif" width="16" height="16" border="0" align="middle" onclick="dloadfile_func(12)" /></td>
+                                      <td><img ondragstart="return false;" id="img_file_12" style="display:none" src="image/play_malarm.gif" width="16" height="16" border="0" align="middle" /></td>
+                                      <td><a id="href_file_12" href="#" onclick="href_file_click(12)" onDblClick="href_file_dbclick(12)" class="f4_0 f5_0" title=""></a></td>
+                                    </tr>
+                                  </table>
+                                </td>
+                                <td style="display:none;" id="td_filesize_12" border="1" class="f4_1" title="">&nbsp;</td>
+                            </tr>
+
+                            <tr class = "tr_file">
+                                <td>
+                                  <table>
+                                    <tr>
+                                      <td><input id="chk_file_13" style="display:none" type="checkbox" onClick="chk_file_click(13)" class="chk_size0" /></td>
+                                      <td><img ondragstart="return false;" id="img_dlfile_13" alt="" style="display:none" src="image/play_dload.gif" width="16" height="16" border="0" align="middle" onclick="dloadfile_func(13)" /></td>
+                                      <td><img ondragstart="return false;" id="img_file_13" style="display:none" src="image/play_malarm.gif" width="16" height="16" border="0" align="middle" /></td>
+                                      <td><a id="href_file_13" href="#" onclick="href_file_click(13)" onDblClick="href_file_dbclick(13)" class="f4_0 f5_0" title=""></a></td>
+                                    </tr>
+                                  </table>
+                                </td>
+                                <td style="display:none;" id="td_filesize_13" border="1" class="f4_1" title="">&nbsp;</td>
+                            </tr>
+
+                            <tr class = "tr_file">
+                                <td>
+                                  <table>
+                                    <tr>
+                                      <td><input id="chk_file_14" style="display:none" type="checkbox" onClick="chk_file_click(14)" class="chk_size0" /></td>
+                                      <td><img ondragstart="return false;" id="img_dlfile_14" alt="" style="display:none" src="image/play_dload.gif" width="16" height="16" border="0" align="middle" onclick="dloadfile_func(14)" /></td>
+                                      <td><img ondragstart="return false;" id="img_file_14" style="display:none" src="image/play_malarm.gif" width="16" height="16" border="0" align="middle" /></td>
+                                      <td><a id="href_file_14" href="#" onclick="href_file_click(14)" onDblClick="href_file_dbclick(14)" class="f4_0 f5_0" title=""></a></td>
+                                    </tr>
+                                  </table>
+                                </td>
+                                <td style="display:none;" id="td_filesize_14" border="1" class="f4_1" title="">&nbsp;</td>
+                            </tr>
+
+                            <tr class = "tr_file">
+                                <td>
+                                  <table>
+                                    <tr>
+                                      <td><input id="chk_file_15" style="display:none" type="checkbox" onClick="chk_file_click(15)" class="chk_size0" /></td>
+                                      <td><img ondragstart="return false;" id="img_dlfile_15" alt="" style="display:none" src="image/play_dload.gif" width="16" height="16" border="0" align="middle" onclick="dloadfile_func(15)" /></td>
+                                      <td><img ondragstart="return false;" id="img_file_15" style="display:none" src="image/play_malarm.gif" width="16" height="16" border="0" align="middle" /></td>
+                                      <td><a id="href_file_15" href="#" onclick="href_file_click(15)" onDblClick="href_file_dbclick(15)" class="f4_0 f5_0" title=""></a></td>
+                                    </tr>
+                                  </table>
+                                </td>
+                                <td style="display:none;" id="td_filesize_15" border="1" class="f4_1" title="">&nbsp;</td>
+                            </tr>
+
+                            <tr class = "tr_file">
+                                <td>
+                                  <table>
+                                    <tr>
+                                      <td><input id="chk_file_16" style="display:none" type="checkbox" onClick="chk_file_click(16)" class="chk_size0" /></td>
+                                      <td><img ondragstart="return false;" id="img_dlfile_16" alt="" style="display:none" src="image/play_dload.gif" width="16" height="16" border="0" align="middle" onclick="dloadfile_func(16)" /></td>
+                                      <td><img ondragstart="return false;" id="img_file_16" style="display:none" src="image/play_malarm.gif" width="16" height="16" border="0" align="middle" /></td>
+                                      <td><a id="href_file_16" href="#" onclick="href_file_click(16)" onDblClick="href_file_dbclick(16)" class="f4_0 f5_0" title=""></a></td>
+                                    </tr>
+                                  </table>
+                                </td>
+                                <td style="display:none;" id="td_filesize_16" border="1" class="f4_1" title="">&nbsp;</td>
+                            </tr>
+
+                            <!--<tr class = "tr_file">
+                                <td>
+                                  <table>
+                                    <tr>
+                                      <td><input id="chk_file_17" style="display:none" type="checkbox" onClick="chk_file_click(17)" class="chk_size0" /></td>
+                                      <td><img ondragstart="return false;" id="img_dlfile_17" alt="" style="display:none" src="image/play_dload.gif" width="16" height="16" border="0" align="middle" onclick="dloadfile_func(17)" /></td>
+                                      <td><img ondragstart="return false;" id="img_file_17" style="display:none" src="image/play_malarm.gif" width="16" height="16" border="0" align="middle" /></td>
+                                      <td><a id="href_file_17" href="#" onclick="href_file_click(17)" onDblClick="href_file_dbclick(17)" class="f4_0 f5_0" title=""></a></td>
+                                    </tr>
+                                  </table>
+                                </td>
+                                <td style="display:none;" id="td_filesize_17" border="1" class="f4_1" title="">&nbsp;</td>
+                            </tr>-->
+                        
+                           
+                            <!--<tr style="background: url(image/Playlist_bottom.png) no-repeat 50% bottom">
+                                <td colspan="2" align="center">
+                                  <table>
+                                    <tr>
+                               
+                                     <td><a href="#"><img ondragstart="return false;" id="img_first_page" src="image/first_page.gif"  onClick="FirstPage()" /></a></td>
+                                     <td><a href="#"><img ondragstart="return false;" id="img_prev_page" src="image/prev_page.gif" onClick="PrevPage()" /></a></td>
+                                     <td><label id="lable_page" class="f4_2"></label></td>
+                                     <td><a href="#"><img ondragstart="return false;" id="img_next_page" src="image/next_page.gif" onClick="NextPage()" /></a></td>
+                                     <td><a href="#"><img ondragstart="return false;" id="img_last_page" src="image/last_page.gif" onClick="LastPage()" /></a></td> 
+                                    </tr>
+                                  </table>                                </td>
+                            </tr>-->
+                        </table>
+                </td>
+        </tr>
+                            <tr style="background: url(image/Playlist_bottom.png) no-repeat">
+                                <td colspan="2" align="center" valign="top">
+                                  <table cellpadding="0" cellspacing="0">
+                                    <tr >
+                               
+                                     <td ><a href="#" ><img ondragstart="return false;" id="img_first_page" src="image/first_page.gif"  onClick="FirstPage()" border="0"/></a></td>
+                                     <td>&nbsp;</td>
+                                     <td ><a href="#"><img ondragstart="return false;" id="img_prev_page" src="image/prev_page.gif" onClick="PrevPage()" border="0"/></a></td>
+                                     <td>&nbsp;</td>
+                                     <td ><label id="lable_page" class="f4_2"></label></td>
+                                     <td>&nbsp;</td>
+                                     <td ><a href="#"><img ondragstart="return false;" id="img_next_page" src="image/next_page.gif" onClick="NextPage()" border="0"/></a></td>
+                                     <td>&nbsp;</td>
+                                     <td ><a href="#"><img ondragstart="return false;" id="img_last_page" src="image/last_page.gif" onClick="LastPage()" border="0"/></a></td> 
+                                    </tr>
+                                  </table>                                </td>
+                            </tr>
+                            <!--<tr><td colspan="2" align="center"></td></tr>-->
+    </table>
+    </td>
+          
+            <td style="width: 100%; height: 100%; background-color: Black;"  valign="top">
+                <table  style="width: 100%; height: 100%; border: 0px solid #00A99E;" cellpadding="0"
+                    cellspacing="0">
+                    
+                    <tr   style="width: 100%; height: 100%;">
+                        <td style="width: 100%; height:100%; text-align: center; border: 0px solid blue;" valign="middle">
+                           
+                            <object id="video" style="margin-left: 0px; top: 0px; border: 0px solid red; width: 960px;
+                                height: 520px;" classid="clsid:33068ABD-A7FD-46F0-805F-637BE7AD1F49" viewastext>
+                            </object>
+                       
+                        </td>
+                    </tr>
+                    <tr style="width: 100%; height: 5%;">
+                        <td style="border: 0px solid red; background: url(image/PlayBg.gif) repeat-x;" class="tb1">
+                            <table cellpadding="0" cellspacing="0" style="height: 31px; margin-bottom: 0px; width: 35%;
+                                float: left;" id="player">
+                                <tr>
+                                    <td width="50" valign="middle">
+                                        <img ondragstart="return false;" style="" id="img_rec_stop" onmousedown="StopPlay()" border="0" src="image/player_stop_dis.gif"
+                                            onmouseout="object_out_src(img_rec_stop, 'image/player_stop_dis.gif')" onmouseover="object_over_src(img_rec_stop,'image/player_stop_sel.gif')" />
+                                    </td>
+                                    <td width="50" valign="middle">
+                                        <img ondragstart="return false;" style="" id="img_rec_pause" onmousedown="PausePlay()" border="0" src="image/player_pause_dis.gif"
+                                            onmouseout="object_out_src(img_rec_pause, 'image/player_pause_dis.gif')" onmouseover="object_over_src(img_rec_pause,'image/player_pause_sel.gif')" />
+                                    </td>
+                                    <td width="50" valign="middle">
+                                        <img ondragstart="return false;" style="" id="img_rec_play" onmousedown="StartPlay()" border="0" src="image/player_start_dis.gif"/>
+                                            <!--onmouseout="object_out_src(img_rec_play, 'image/player_start_dis.gif')" onmouseover="object_over_src(img_rec_play,'image/player_start_sel.gif')"--> 
+                                    </td>
+                                    <td width="50" valign="middle">
+                                        <img ondragstart="return false;" style="" id="img_rec_prev" onmousedown="PlayPrev()" border="0" src="image/player_pre_dis.gif"
+                                            onmouseout="object_out_src(img_rec_prev, 'image/player_pre_dis.gif')" onmouseover="object_over_src(img_rec_prev,'image/player_pre_sel.gif')" />
+                                    </td>
+                                    <td width="50">
+                                        <img ondragstart="return false;" style="height: 21px" id="img_rec_next" onmousedown="PlayNext()" border="0" src="image/player_next_dis.gif"
+                                            onmouseout="object_out_src(img_rec_next, 'image/player_next_dis.gif')" onmouseover="object_over_src(img_rec_next,'image/player_next_sel.gif')" />
+                                    </td>
+                                    <td width="50">
+                                        <img ondragstart="return false;" style="" id="img_rec_slow" onmousedown="SlowPlay()" border="0" src="image/player_backward_dis.gif"
+                                            onmouseout="object_out_src(img_rec_slow, 'image/player_backward_dis.gif')" onmouseover="object_over_src(img_rec_slow,'image/player_backward_sel.gif')" />
+                                    </td>
+                                    <td width="50">
+                                        <img ondragstart="return false;" style="" id="img_rec_fast" onmousedown="FastPlay()" border="0" src="image/player_forward_dis.gif"
+                                            onmouseout="object_out_src(img_rec_fast, 'image/player_forward_dis.gif')" onmouseover="object_over_src(img_rec_fast,'image/player_forward_sel.gif')" />
+                                    </td>
+                                    <td width="50" style="display:none">
+                                        <img ondragstart="return false;" style="" id="img_rec_volume" onmousedown="FastPlay1()" border="0" src="image/player_volume_dis.gif"
+                                            onmouseout="object_out_src(img_rec_volume, 'image/player_volume_dis.gif')" onmouseover="object_over_src(img_rec_volume,'image/player_volume_sel.gif')" />
+                                    </td>
+                                </tr>
+                            </table>
+                            <form id="form_slider" name="form_slider" style="height: 22px; padding: 0px; margin: 0px;
+                            margin-top: 4px; float: left;">
+                            <table width="490" height="22px" border="0" align="center" cellpadding="0" cellspacing="0"
+                                style="margin-left: 15px; margin-top: 0px; border: 0px solid yellow">
+                                <tr align="left">
+                                    <td width="220">
+
+                                        <script language="javaScript">
+                                            ob_sl_ptzs = new slider(PTZS_A_INIT, PTZS_A_TPL, PtzsChg);
+                                        </script>
+
+                                    </td>
+                                    <td align="right" valign="middle" style="display: none">
+                                        <input type="text" id="text_ptzs" name="text_ptzs" size="3" maxlength="3" readonly="readonly"
+                                            style="display: none" />
+                                    </td>
+                                </tr>
+                            </table>
+                            </form>
+                            <table cellpadding="0" cellspacing="0" style="height: 100%; float: right; display:none">
+                                <tr>
+                                    <td width="50">
+                                        <img ondragstart="return false;" style="" id="real_" onmousedown="FastPlay111()" border="0" src="image/real_dis.png"
+                                            onmouseout="object_out_src(real_, 'image/real_dis.png')" onmouseover="object_over_src(real_,'image/real_sel.png')" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>         
+ </div>
+</body>
+
+</html>

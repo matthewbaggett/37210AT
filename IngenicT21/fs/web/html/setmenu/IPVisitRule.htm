@@ -1,0 +1,261 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+
+    <script type="text/javascript" src="../js/clearcache.js"></script>
+
+    <link href="../css/new.css" rel="stylesheet" type="text/css" />
+    <link href="../css/ceshi.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        body
+        {
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+        }
+    </style>
+
+    <script> 
+        document.write('<script src="/cgi-bin/check_user.cgi?user='+top.user+'&pwd='+top.pwd+'"><\/script>');
+    </script>
+
+    <script type="text/javascript">
+     function body_onload(){  
+        var firewall_enable,ipfilter,ip1,ip2,ip3,ip4,ip5,ip6,ip7,ip8,ip9;
+        //document.write('<script src="/cgi-bin/set_ipfilter.cgi?user='+top.user+'&pwd='+top.pwd+'"><\/script>');//?user=admin&pwd=admin
+        // 是否开启防火墙
+        document.getElementById("slt_mtain_time").checked=firewall_enable?true:false;
+        
+        // 访问规则 
+        document.getElementById("slt_mtain_time").value=ipfilter;
+        
+        // ip1,ip2,ip3,ip4,ip5,ip6,ip7,ip8,ip9;
+        document.getElementById("ip1").value=ip1;
+        document.getElementById("ip2").value=ip2;
+        document.getElementById("ip3").value=ip3;
+        document.getElementById("ip4").value=ip4;
+        document.getElementById("ip5").value=ip5;
+        document.getElementById("ip6").value=ip6;
+        document.getElementById("ip7").value=ip7;
+        document.getElementById("ip8").value=ip8;
+        document.getElementById("ip9").value=ip9;
+     }
+     set_mtain_func(){
+         var firewall_enable,ipfilter,ip1,ip2,ip3,ip4,ip5,ip6,ip7,ip8,ip9;
+         
+         var loca="/cgi-bin/set_ipfilter.cgi?user="+top.user+"&pwd="+top.pwd+
+                        "&firewall_enable="+firewall_enable+"&ipfilter="+ipfilter+
+                        "&ip1="+ip1+"&ip2="+ip2+"&ip3="+ip3+"&ip4="+ip4+"&ip5="+ip5+"&ip6="+ip6+"&ip7="+ip7+"&ip8="+ip8+"&ip9" +ip9;
+        schedule_frame.location = loca;
+     }
+        
+           
+    </script>
+
+    <script type="text/javascript" src="/cgi-bin/get_maintain.cgi"></script>
+
+    <script src="/cgi-bin/get_ipfilter.cgi"></script>
+
+</head>
+<body onload="body_onload()" class="body">
+    <iframe id="frame_update_schedule" name="frame_update_schedule" style="display: none">
+    </iframe>
+    <iframe id="schedule_frame" name="schedule_frame" style="display: none"></iframe>
+     <table width="100%" cellpadding="0" cellspacing="0">
+        <tr class="adtop"><td>&nbsp;</td></tr>
+        <tr>
+            <td align="center">
+                <table cellpadding="0" cellspacing="0" >
+                   <tr>
+                    <td colspan="3" class="mid03_1">
+                        <strong class="mid03">
+                            <script type="text/javascript">document.write(top.str_i_AccessRules);</script>
+                        </strong>
+                    </td>
+                   </tr>
+                  <tr  >
+                   <td class="lcorner" ></td>
+                   <td class="cbtop">
+                     <table cellpadding="0" cellspacing="0" style=" width:730px">
+                        <tr style=" width:100%">
+                            <td style="text-align: right;" align="right">
+                                <button class="resethbutton" onclick="set_mtain_func()">
+                                    <script>document.write(top.str_save);</script>
+                                </button>
+                                <button class="resethbutton" onclick="location.reload()">
+                                    <script>document.write(top.str_refresh);</script>
+                                </button>
+                             
+                            </td>
+                      
+                        </tr>
+                     </table>
+                   </td>
+                   <td class="rcorner"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="lborder"></td>
+                   <td style=" margin-top:0px">
+                      <table style="margin-top: 0px; width: 730px; height: 20%;" class="admintr">
+           
+                        <tr>
+                            <td colspan="2" style="height: 35px;">
+                                <!--是否启用防火墙：-->
+
+                                <script>document.write(top.str_i_ISFirewall)</script>
+
+                                ：
+                                <input type="checkbox" id="cbois" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admintd" style="height: 35px; width: 300px">
+                                <!-- IP访问规则-->
+
+                                <script>document.write(top.str_i_AccessRules)</script>
+
+                            </td>
+                            <td>
+                                <select id="slt_mtain_time" name="slt_mtain_time" style="width: 400px">
+                                    <option value="0">
+
+                                        <script>document.write(top.str_i_AccessRules1)</script>
+
+                                    </option>
+                                    <option value="1">
+
+                                        <script>document.write(top.str_i_AccessRules2)</script>
+
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr style="height: 35px">
+                            <td class="admintd">
+                                <!--过滤P-->
+
+                                <script>document.write(top.str_i_Filter)</script>
+
+                                1
+                            </td>
+                            <td>
+                                <input type="text" style="width: 400px" id="ip1" />
+                            </td>
+                        </tr>
+                        <tr style="height: 35px">
+                            <td class="admintd">
+                                <!--过滤P-->
+
+                                <script>document.write(top.str_i_Filter)</script>
+
+                                2
+                            </td>
+                            <td>
+                                <input type="text" style="width: 400px" id="ip2" />
+                            </td>
+                        </tr>
+                        <tr style="height: 35px">
+                            <td class="admintd">
+                                <!--过滤P-->
+
+                                <script>document.write(top.str_i_Filter)</script>
+
+                                3
+                            </td>
+                            <td>
+                                <input type="text" style="width: 400px" id="ip3" />
+                            </td>
+                        </tr>
+                        <tr style="height: 35px">
+                            <td class="admintd">
+                                <!--过滤P-->
+
+                                <script>document.write(top.str_i_Filter)</script>
+
+                                4
+                            </td>
+                            <td>
+                                <input type="text" style="width: 400px" id="ip4" />
+                            </td>
+                        </tr>
+                        <tr style="height: 35px">
+                            <td class="admintd">
+                                <!--过滤P-->
+
+                                <script>document.write(top.str_i_Filter)</script>
+
+                                5
+                            </td>
+                            <td>
+                                <input type="text" style="width: 400px" id="ip5" />
+                            </td>
+                        </tr>
+                        <tr style="height: 35px">
+                            <td class="admintd">
+                                <!--过滤P-->
+
+                                <script>document.write(top.str_i_Filter)</script>
+
+                                6
+                            </td>
+                            <td>
+                                <input type="text" style="width: 400px" id="ip6" />
+                            </td>
+                        </tr>
+                        <tr style="height: 35px">
+                            <td class="admintd">
+                                <!--过滤P-->
+
+                                <script>document.write(top.str_i_Filter)</script>
+
+                                7
+                            </td>
+                            <td>
+                                <input type="text" style="width: 400px" id="ip7" />
+                            </td>
+                        </tr>
+                        <tr style="height: 35px">
+                            <td class="admintd">
+                                <!--过滤P-->
+
+                                <script>document.write(top.str_i_Filter)</script>
+
+                                8
+                            </td>
+                            <td>
+                                <input type="text" style="width: 400px" id="ip8" />
+                            </td>
+                        </tr>
+                        <tr style="height: 35px">
+                            <td class="admintd">
+                                <!--过滤P-->
+
+                                <script>document.write(top.str_i_Filter)</script>
+
+                                9
+                            </td>
+                            <td>
+                                <input type="text" style="width: 400px" id="ip9" />
+                            </td>
+                        </tr>
+                    </table>
+                   
+                   </td>
+                   <td  class="rborder"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="ldcorner"></td>
+                   <td class="cdow"></td>
+                   <td class="rdcorner"></td>
+                  </tr>
+           
+                </table>
+            </td>
+        </tr>
+     </table> 
+   
+</body>
+</html>

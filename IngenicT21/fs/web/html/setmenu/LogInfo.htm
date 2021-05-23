@@ -1,0 +1,752 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title></title>
+
+    <script language="javascript" src="../js/clearcache.js"></script>
+
+    <link href="../css/new.css" rel="stylesheet" type="text/css" />
+    <link href="../css/ceshi.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        body
+        {
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+        }
+    </style>
+
+    <script> 
+document.write('<script src="/cgi-bin/check_user.cgi?user='+top.user+'&pwd='+top.pwd+'"><\/script>');
+document.write('<script src="/cgi-bin/get_log_page.cgi?line='+top.line_num+'&user='+top.user+'&pwd='+top.pwd+'"><\/script>');  
+document.write('<script src="/cgi-bin/get_log_info.cgi?page='+top.cur_log_page+'&line='+top.line_num+'&user='+top.user+'&pwd='+top.pwd+'"><\/script>');  
+    </script>
+
+</head>
+
+<script>
+
+function body_onload()
+{   
+    show_page(0,0);
+    reset_info();
+    show_ctrl_title();
+
+    if(ret_logpage_result==0)
+    {
+        if(ret_logpage_num>0)
+        {
+            show_page(top.cur_log_page, ret_logpage_num);
+            
+            fillwrite_info();
+        }
+    }
+    else
+    {    
+        alert(top.str_failed);
+    }
+}
+function show_ctrl_title()
+{
+    document.getElementById("img_first_page").title=top.str_first_page;
+    document.getElementById("img_prev_page").title=top.str_prev_page;
+    document.getElementById("img_next_page").title=top.str_next_page;
+    document.getElementById("img_last_page").title=top.str_last_page;
+}
+
+
+
+function show_page(cur,all)
+{
+    var show_data=cur+"/"+all;
+    document.getElementById("td_show_page").innerHTML=show_data;
+}
+function reset_info()
+{
+    for(i=1; i<=19; i++)
+    {
+        var Usern = "User" + i;
+        var IpAddressn = "IpAddress" + i;
+        var Timen = "Time" + i;
+        var Typen = "Type" + i;
+        
+        document.getElementById(Usern).value="";
+        document.getElementById(IpAddressn).value="";
+        document.getElementById(Timen).value="";
+        document.getElementById(Typen).value="";
+    }
+}
+function fillwrite_info()
+{
+    document.getElementById("User1").value = ret_loginfo_user_1;
+    document.getElementById("IpAddress1").value = ret_loginfo_ip_1;
+    document.getElementById("Time1").value = ret_loginfo_time_1;
+    document.getElementById("Type1").value = get_type_str( ret_loginfo_type_1 );
+    
+    document.getElementById("User2").value = ret_loginfo_user_2;
+    document.getElementById("IpAddress2").value = ret_loginfo_ip_2;
+    document.getElementById("Time2").value = ret_loginfo_time_2;
+    document.getElementById("Type2").value = get_type_str( ret_loginfo_type_2 );
+    
+    document.getElementById("User3").value = ret_loginfo_user_3;
+    document.getElementById("IpAddress3").value = ret_loginfo_ip_3;
+    document.getElementById("Time3").value = ret_loginfo_time_3;
+    document.getElementById("Type3").value = get_type_str( ret_loginfo_type_3 );
+    
+    document.getElementById("User4").value = ret_loginfo_user_4;
+    document.getElementById("IpAddress4").value = ret_loginfo_ip_4;
+    document.getElementById("Time4").value = ret_loginfo_time_4;
+    document.getElementById("Type4").value = get_type_str( ret_loginfo_type_4 );
+    
+    document.getElementById("User5").value = ret_loginfo_user_5;
+    document.getElementById("IpAddress5").value = ret_loginfo_ip_5;
+    document.getElementById("Time5").value = ret_loginfo_time_5;
+    document.getElementById("Type5").value = get_type_str( ret_loginfo_type_5 );
+    
+    document.getElementById("User6").value = ret_loginfo_user_6;
+    document.getElementById("IpAddress6").value = ret_loginfo_ip_6;
+    document.getElementById("Time6").value = ret_loginfo_time_6;
+    document.getElementById("Type6").value = get_type_str( ret_loginfo_type_6 );
+    
+    document.getElementById("User7").value = ret_loginfo_user_7;
+    document.getElementById("IpAddress7").value = ret_loginfo_ip_7;
+    document.getElementById("Time7").value = ret_loginfo_time_7;
+    document.getElementById("Type7").value = get_type_str( ret_loginfo_type_7 );
+    
+    document.getElementById("User8").value = ret_loginfo_user_8;
+    document.getElementById("IpAddress8").value = ret_loginfo_ip_8;
+    document.getElementById("Time8").value = ret_loginfo_time_8;
+    document.getElementById("Type8").value = get_type_str( ret_loginfo_type_8 );
+    
+    document.getElementById("User9").value = ret_loginfo_user_9;
+    document.getElementById("IpAddress9").value = ret_loginfo_ip_9;
+    document.getElementById("Time9").value = ret_loginfo_time_9;
+    document.getElementById("Type9").value = get_type_str( ret_loginfo_type_9 );
+    
+    document.getElementById("User10").value = ret_loginfo_user_10;
+    document.getElementById("IpAddress10").value = ret_loginfo_ip_10;
+    document.getElementById("Time10").value = ret_loginfo_time_10;
+    document.getElementById("Type10").value = get_type_str( ret_loginfo_type_10 );
+    
+    document.getElementById("User11").value = ret_loginfo_user_11;
+    document.getElementById("IpAddress11").value = ret_loginfo_ip_11;
+    document.getElementById("Time11").value = ret_loginfo_time_11;
+    document.getElementById("Type11").value = get_type_str( ret_loginfo_type_11 );
+    
+    document.getElementById("User12").value = ret_loginfo_user_12;
+    document.getElementById("IpAddress12").value = ret_loginfo_ip_12;
+    document.getElementById("Time12").value = ret_loginfo_time_12;
+    document.getElementById("Type12").value = get_type_str( ret_loginfo_type_12 );
+    
+    document.getElementById("User13").value = ret_loginfo_user_13;
+    document.getElementById("IpAddress13").value = ret_loginfo_ip_13;
+    document.getElementById("Time13").value = ret_loginfo_time_13;
+    document.getElementById("Type13").value = get_type_str( ret_loginfo_type_13 );
+    
+    document.getElementById("User14").value = ret_loginfo_user_14;
+    document.getElementById("IpAddress14").value = ret_loginfo_ip_14;
+    document.getElementById("Time14").value = ret_loginfo_time_14;
+    document.getElementById("Type14").value = get_type_str( ret_loginfo_type_14 );
+    
+    document.getElementById("User15").value = ret_loginfo_user_15;
+    document.getElementById("IpAddress15").value = ret_loginfo_ip_15;
+    document.getElementById("Time15").value = ret_loginfo_time_15;
+    document.getElementById("Type15").value = get_type_str( ret_loginfo_type_15 );
+    
+    document.getElementById("User16").value = ret_loginfo_user_16;
+    document.getElementById("IpAddress16").value = ret_loginfo_ip_16;
+    document.getElementById("Time16").value = ret_loginfo_time_16;
+    document.getElementById("Type16").value = get_type_str( ret_loginfo_type_16 );
+    
+    document.getElementById("User17").value = ret_loginfo_user_17;
+    document.getElementById("IpAddress17").value = ret_loginfo_ip_17;
+    document.getElementById("Time17").value = ret_loginfo_time_17;
+    document.getElementById("Type17").value = get_type_str( ret_loginfo_type_17 );
+    
+    document.getElementById("User18").value = ret_loginfo_user_18;
+    document.getElementById("IpAddress18").value = ret_loginfo_ip_18;
+    document.getElementById("Time18").value = ret_loginfo_time_18;
+    document.getElementById("Type18").value = get_type_str( ret_loginfo_type_18 );
+    
+    document.getElementById("User19").value = ret_loginfo_user_19;
+    document.getElementById("IpAddress19").value = ret_loginfo_ip_19;
+    document.getElementById("Time19").value = ret_loginfo_time_19;
+    document.getElementById("Type19").value = get_type_str( ret_loginfo_type_19 );
+    
+    //document.getElementById("User20").value = ret_loginfo_user_20;
+    //document.getElementById("IpAddress20").value = ret_loginfo_ip_20;
+    //document.getElementById("Time20").value = ret_loginfo_time_20;
+    //document.getElementById("Type20").value = get_type_str( ret_loginfo_type_20 );
+}
+function get_type_str(v)
+{
+    var str_ret="";
+    
+    switch(v)
+    {
+    case 1:
+        {
+            str_ret=top.str_log_type_on;
+        }
+        break;
+    case 2:
+        {
+            str_ret=top.str_log_type_off;
+        }
+        break;
+    case 3:
+        {
+            str_ret=top.str_log_type_login;
+        }
+        break;
+    case 4:
+        {
+            str_ret=top.str_log_type_logout;
+        }
+        break;
+    case 5:
+        {
+            str_ret=top.str_log_type_setconf;
+        }
+        break;
+    case 6:
+        {
+            str_ret=top.str_log_type_oper;
+        }
+        break;
+    case 7:
+        {
+            str_ret=top.str_log_type_clearlog;
+        }
+        break;
+    case 8:
+        {
+            str_ret=top.str_log_type_8;
+        }
+        break;
+     default:
+        break;
+    }
+    
+    return str_ret;
+}
+
+
+
+//更新
+function log_refresh_onclick()
+{
+    top.cur_log_page=1;
+    location.reload();
+}
+//清除
+function log_clear_onclick()
+{
+    if (confirm(top.str_log_sure_clear))
+    {
+        top.cur_log_page=1;
+    
+        url="/cgi-bin/clear_log.cgi?next_url=setmenu/LogInfo.htm&user="+top.user+"&pwd="+top.pwd;
+        location=url;
+    }
+}
+
+
+
+//第一页
+function log_beg_page()
+{
+    if(ret_logpage_num>0)
+    {
+        top.cur_log_page=1;
+        location.reload();
+    }
+}
+//上一页
+function log_pre_page()
+{
+    if(ret_logpage_num>0)
+    {
+        var page = top.cur_log_page - 1;
+        if(page > 0)
+        {
+            top.cur_log_page = page;
+            location.reload();
+        }
+        else
+        {
+            alert(top.str_log_rbeg_page);
+        }
+    }
+}
+//下一页
+function log_next_page()
+{
+    if(ret_logpage_num>0)
+    {
+        var page = top.cur_log_page + 1;
+        if(page <= ret_logpage_num)
+        {
+            top.cur_log_page = page;
+            location.reload();
+        }
+        else
+        {
+            alert(top.str_log_rend_page);
+        }
+    }
+}
+//最后一页
+function log_end_page()
+{
+    if(ret_logpage_num>0)
+    {
+        top.cur_log_page=ret_logpage_num;
+        location.reload();
+    }
+}
+
+</script>
+
+<body onload="body_onload()" class="body">
+     <table width="100%" cellpadding="0" cellspacing="0">
+        <tr class="adtop"><td>&nbsp;</td></tr>
+        <tr>
+            <td align="center">
+                <table cellpadding="0" cellspacing="0" >
+                   <tr>
+                    <td colspan="3" class="mid03_1">
+                        <strong class="mid03">
+                            <script type="text/javascript">document.write(top.str_log_set);</script>
+                        </strong>
+                    </td>
+                   </tr>
+                  <tr  >
+                   <td class="lcorner" ></td>
+                   <td class="cbtop">
+                     <table cellpadding="0" cellspacing="0" style=" width:730px">
+                        <tr style=" width:100%">
+                            <td style="text-align: right;" align="right">
+                                 <button onClick="log_refresh_onclick()" class="resethbutton" >
+                                 <script>document.write(top.str_refresh);</script>
+                                 </button>
+                                 <button onClick="log_clear_onclick()" class="resethbutton" >
+                                 <script>document.write(top.str_clean);</script>
+                                 </button>
+                             
+                            </td>
+                      
+                        </tr>
+                     </table>
+                   </td>
+                   <td class="rcorner"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="lborder"></td>
+                   <td style=" margin-top:10px">
+                      <table style="margin-top: 0px; width: 730px; height: 20%;" align="center" class="admintr">
+            
+                        <tr class="mid04-a">
+                            <td class="admintd">
+
+                                <script>document.write(top.str_user);</script>
+
+                            </td>
+                            <td class="admintd">
+
+                                <script>document.write(top.str_ip_address);</script>
+
+                            </td>
+                            <td class="admintd">
+
+                                <script>document.write(top.str_Time);</script>
+
+                            </td>
+                            <td class="admintd">
+
+                                <script>document.write(top.str_Type);</script>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="User1" />
+                            </td>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="IpAddress1" />
+                            </td>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="Time1" />
+                            </td>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="Type1" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="User2" />
+                            </td>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="IpAddress2" />
+                            </td>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="Time2" />
+                            </td>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="Type2" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="User3" />
+                            </td>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="IpAddress3" />
+                            </td>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="Time3" />
+                            </td>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="Type3" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="User4" />
+                            </td>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="IpAddress4" />
+                            </td>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="Time4" />
+                            </td>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="Type4" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="User5" />
+                            </td>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="IpAddress5" />
+                            </td>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="Time5" />
+                            </td>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="Type5" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="User6" />
+                            </td>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="IpAddress6" />
+                            </td>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="Time6" />
+                            </td>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="Type6" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="User7" />
+                            </td>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="IpAddress7" />
+                            </td>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="Time7" />
+                            </td>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="Type7" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="User8" />
+                            </td>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="IpAddress8" />
+                            </td>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="Time8" />
+                            </td>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="Type8" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="User9" />
+                            </td>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="IpAddress9" />
+                            </td>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="Time9" />
+                            </td>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="Type9" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="User10" />
+                            </td>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="IpAddress10" />
+                            </td>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="Time10" />
+                            </td>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="Type10" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="User11" />
+                            </td>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="IpAddress11" />
+                            </td>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="Time11" />
+                            </td>
+                            <td>
+                                <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                    id="Type11" />
+                            </td>
+                            <tr>
+                                <td>
+                                    <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                        id="User12" />
+                                </td>
+                                <td>
+                                    <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                        id="IpAddress12" />
+                                </td>
+                                <td>
+                                    <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                        id="Time12" />
+                                </td>
+                                <td>
+                                    <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                        id="Type12" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                        id="User13" />
+                                </td>
+                                <td>
+                                    <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                        id="IpAddress13" />
+                                </td>
+                                <td>
+                                    <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                        id="Time13" />
+                                </td>
+                                <td>
+                                    <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                        id="Type13" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                        id="User14" />
+                                </td>
+                                <td>
+                                    <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                        id="IpAddress14" />
+                                </td>
+                                <td>
+                                    <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                        id="Time14" />
+                                </td>
+                                <td>
+                                    <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                        id="Type14" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                        id="User15" />
+                                </td>
+                                <td>
+                                    <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                        id="IpAddress15" />
+                                </td>
+                                <td>
+                                    <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                        id="Time15" />
+                                </td>
+                                <td>
+                                    <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                        id="Type15" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                        id="User16" />
+                                </td>
+                                <td>
+                                    <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                        id="IpAddress16" />
+                                </td>
+                                <td>
+                                    <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                        id="Time16" />
+                                </td>
+                                <td>
+                                    <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                        id="Type16" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                        id="User17" />
+                                </td>
+                                <td>
+                                    <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                        id="IpAddress17" />
+                                </td>
+                                <td>
+                                    <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                        id="Time17" />
+                                </td>
+                                <td>
+                                    <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                        id="Type17" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                        id="User18" />
+                                </td>
+                                <td>
+                                    <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                        id="IpAddress18" />
+                                </td>
+                                <td>
+                                    <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                        id="Time18" />
+                                </td>
+                                <td>
+                                    <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                        id="Type18" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                        id="User19" />
+                                </td>
+                                <td>
+                                    <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                        id="IpAddress19" />
+                                </td>
+                                <td>
+                                    <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                        id="Time19" />
+                                </td>
+                                <td>
+                                    <input type="text" style="border-style: none; width: 100%; height: 18px" readonly
+                                        id="Type19" />
+                                </td>
+                            </tr>  
+                    </table>
+                    <table style="margin-top: 0px; width: 730px;" align="center">
+                        <tr>
+                            <td width="20" align="center">
+                                <img ondragstart="return false;" onmousedown="log_beg_page()" src="../image/first_page.gif" id="img_first_page"
+                                    width="20" height="20" border="0" />
+                            </td>
+                            <td width="20" align="center">
+                                <img ondragstart="return false;" onmousedown="log_pre_page()" src="../image/prev_page.gif" id="img_prev_page"
+                                    width="20" height="20" border="0" />
+                            </td>
+                            <td width="20" id="td_show_page" align="center">
+                            </td>
+                            <td width="20" align="center">
+                                <img ondragstart="return false;" onmousedown="log_next_page()" src="../image/next_page.gif" id="img_next_page"
+                                    width="20" height="20" border="0" />
+                            </td>
+                            <td width="20" align="center">
+                                <img ondragstart="return false;" onmousedown="log_end_page()" src="../image/last_page.gif" id="img_last_page"
+                                    width="20" height="20" border="0" />
+                            </td>
+                        </tr>
+                    </table>
+                   
+                   </td>
+                   <td  class="rborder"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="ldcorner"></td>
+                   <td class="cdow"></td>
+                   <td class="rdcorner"></td>
+                  </tr>
+           
+                </table>
+            </td>
+        </tr>
+     </table>
+</body>
+</html>

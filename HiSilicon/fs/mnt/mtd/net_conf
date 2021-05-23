@@ -1,0 +1,23 @@
+conn_mod 1
+ipcamIP 192.168.1.155
+ipcamIPMask 255.255.255.0
+ipcamGatewayIP 192.168.1.1
+dns0 192.168.1.1
+dns1 192.168.1.1
+dwPPPOE 0
+sPPPoEUser abc
+sPPPoEPassword 123
+sPPPoEIP 153.24.65.1
+web_port 80
+video_port 38401
+mobi_port 36000
+rtsp_port 554
+ddns_enable 0
+ddnsaddress 
+ddnsUser 
+ddnsPassword 
+ddns_service 0
+UPnP 0
+wanip 0.0.0.0
+push_port 8099
+uddnsaddr aws.apexisalarm.com

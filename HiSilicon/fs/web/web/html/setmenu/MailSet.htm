@@ -1,0 +1,391 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title></title>
+
+    <script language="javascript" src="../js/clearcache.js"></script>
+
+    <link href="../css/new.css" rel="stylesheet" type="text/css" />
+    <link href="../css/ceshi.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+     
+        body
+        {
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+        } 
+        
+        </style>
+
+    <script> 
+document.write('<script src="/cgi-bin/check_user.cgi?user='+top.user+'&pwd='+top.pwd+'"><\/script>');
+document.write('<script src="/cgi-bin/get_params.cgi?type=11&user='+top.user+'&pwd='+top.pwd+'"><\/script>');
+    </script>
+
+    <script>
+
+function enable_all_func(en_mail, en_user)
+{
+    if(true==en_mail)
+    {
+        document.getElementById("txtAddress").disabled="";
+	    document.getElementById("txtOutbox").disabled="";
+	    document.getElementById("txtInbox1").disabled="";
+	    document.getElementById("txtInbox2").disabled="";
+	    document.getElementById("txtInbox3").disabled="";
+	    document.getElementById("txtSmtpServer").disabled="";
+	    document.getElementById("ckSslSafetyLanding").disabled="";
+	    document.getElementById("txtSmtpPort").disabled="";
+	    document.getElementById("ckCheckUser").disabled="";
+	    
+	    enable_user_func(en_user);
+    }
+    else
+    {
+        document.getElementById("txtAddress").disabled="false";
+	    document.getElementById("txtOutbox").disabled="false";
+	    document.getElementById("txtInbox1").disabled="false";
+	    document.getElementById("txtInbox2").disabled="false";
+	    document.getElementById("txtInbox3").disabled="false";
+	    document.getElementById("txtSmtpServer").disabled="false";
+	    document.getElementById("ckSslSafetyLanding").disabled="false";
+	    document.getElementById("txtSmtpPort").disabled="false";
+	    document.getElementById("ckCheckUser").disabled="false";
+	    document.getElementById("txtSmtpUser").disabled="false";
+	    document.getElementById("txtSmtpPassword").disabled="false";
+    }
+}
+function enable_user_func(en_user)
+{
+   if(true==en_user)
+   {
+	    document.getElementById("txtSmtpUser").disabled="";
+	    document.getElementById("txtSmtpPassword").disabled="";
+   }
+   else
+   {
+	    document.getElementById("txtSmtpUser").disabled="false";
+	    document.getElementById("txtSmtpPassword").disabled="false";
+   }
+}
+
+function check()
+{
+   var enmail = document.getElementById("ckOpenEmail").checked;
+   var enuser = document.getElementById("ckCheckUser").checked; 
+   
+   enable_all_func(enmail, enuser);
+}
+function checksmtp()
+{
+   var enuser = document.getElementById("ckCheckUser").checked;
+   
+   enable_user_func(enuser);
+}
+
+function body_load()
+{
+    document.getElementById("ckOpenEmail").checked=enable_email?true:false;     //是否启用邮箱
+    document.getElementById("ckCheckUser").checked=enable_auth?true:false;      //是否验证邮箱
+    document.getElementById("ckSslSafetyLanding").checked=sslenable?true:false; //是否SSL登录
+
+    document.getElementById("txtAddress").value = unescape(from_name); //发件人
+    document.getElementById("txtOutbox").value = unescape(from_addr);  //发件箱
+    document.getElementById("txtInbox1").value=unescape(to_addr1);//收件箱1
+    document.getElementById("txtInbox2").value=unescape(to_addr2);//收件箱2
+    document.getElementById("txtInbox3").value=unescape(to_addr3);//收件箱3
+    document.getElementById("txtSmtpServer").value=unescape(smtp_serv);//smtp服务器
+    document.getElementById("txtSmtpPort").value=unescape(smtp_port);//smtp端口
+    document.getElementById("txtSmtpUser").value=unescape(smtp_user);//smtp用户
+    document.getElementById("txtSmtpPassword").value = unescape(smtp_pwd); //smtp密码
+    
+    enable_all_func(enable_email, enable_auth);     
+}
+
+function set_MailSet()
+{
+    //是否启用SMTP
+    var smtp_on_or_off;
+    if(document.getElementById("ckOpenEmail").checked==false)
+    {
+        smtp_on_or_off=0;
+    }else if(document.getElementById("ckOpenEmail").checked==true)
+    {
+        smtp_on_or_off=1;
+    }
+    
+    //是否校验
+    var smtp_checked;
+    if(document.getElementById("ckCheckUser").checked==false)
+    {
+        smtp_checked=0;
+    }else if(document.getElementById("ckCheckUser").checked==true)
+    {
+        smtp_checked=1;
+    }
+    
+    //SSL安全登陆
+    var ssl_onload;
+    if(document.getElementById("ckSslSafetyLanding").checked==false)
+    {
+        ssl_onload=0;
+    }else if(document.getElementById("ckSslSafetyLanding").checked==true)
+    {
+        ssl_onload=1;
+    }
+
+    var txtAddress = escape(document.getElementById("txtAddress").value.toString());
+    var txtOutbox = escape(document.getElementById("txtOutbox").value.toString());
+    var txtInbox1 = escape(document.getElementById("txtInbox1").value.toString());
+    var txtInbox2 = escape(document.getElementById("txtInbox2").value.toString());
+    var txtInbox3 = escape(document.getElementById("txtInbox3").value.toString());
+    var txtSmtpServer = escape(document.getElementById("txtSmtpServer").value.toString());
+    var txtSmtpPort = escape(document.getElementById("txtSmtpPort").value.toString());
+    var txtSmtpUser = escape(document.getElementById("txtSmtpUser").value.toString());
+    var txtSmtpPassword = escape(document.getElementById("txtSmtpPassword").value.toString());
+    
+    url="/cgi-bin/set_smtp.cgi?next_url=setmenu/MailSet.htm&smtp_enable="+smtp_on_or_off+"&to_num="+"&from_name="+txtAddress+"&from_addr="+txtOutbox+"&to_addr1="+txtInbox1+"&to_addr2="+txtInbox2+"&to_addr3="+txtInbox3+"&smtp_serv="+txtSmtpServer+"&smtp_port="+txtSmtpPort+"&auth_enable="+smtp_checked+"&smtp_user="+txtSmtpUser+"&smtp_pwd="+txtSmtpPassword+"&ssl_enable="+ssl_onload+"&user="+top.user+"&pwd="+top.pwd;
+    
+    location=url;
+}
+
+function testmail_func()
+{
+    var tmail_http_url='';
+	
+	if (location.port=='')
+	{
+		tmail_http_url="http://" + location.hostname + "/setmenu/test_mail.htm";
+	}
+	else
+	{
+		tmail_http_url="http://" + location.hostname + ":" + location.port + "/setmenu/test_mail.htm";
+	}
+		
+    window.open(tmail_http_url).focus();
+}
+    </script>
+
+</head>
+<body onload="body_load()" class="body">
+     <table width="100%" cellpadding="0" cellspacing="0">
+        <tr class="adtop"><td>&nbsp;</td></tr>
+        <tr>
+            <td align="center">
+                <table cellpadding="0" cellspacing="0" >
+                   <tr>
+                    <td colspan="3" class="mid03_1">
+                        <strong class="mid03">
+                            <script type="text/javascript">document.write(top.str_smtp_set);</script>
+                        </strong>
+                    </td>
+                   </tr>
+                  <tr  >
+                   <td class="lcorner" ></td>
+                   <td class="cbtop">
+                     <table cellpadding="0" cellspacing="0" style=" width:730px">
+                        <tr style=" width:100%">
+                            <td style="text-align: right;" align="right">
+                                <button class="resethbutton" onclick="set_MailSet()">
+
+                                    <script>document.write(top.str_save);</script>
+
+                                </button>
+                                <button class="resethbutton" onclick="location.reload()">
+
+                                    <script>document.write(top.str_refresh);</script>
+
+                                </button>
+                                <button class="resethbutton" onclick="testmail_func()">
+
+                                    <script>document.write(top.str_test);</script>
+
+                                </button>
+                             
+                            </td>
+                      
+                        </tr>
+                     </table>
+                   </td>
+                   <td class="rcorner"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="lborder"></td>
+                   <td style=" margin-top:0px">
+                       <table style="margin-top: 0px; width: 730px; height: 20%;" class="admintr">
+           
+                        <tr style=" height:35px">
+                            <td class="admintd">
+                                <strong class="mid04">
+
+                                    <script>document.write(top.str_open_email);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="ckOpenEmail" id="ckOpenEmail"
+                                    value="checkbox" onclick="check()" checked>
+                            </td>
+                        </tr>
+                        <tr style=" height:35px">
+                            <td class="admintd">
+                                <strong class="mid04">
+
+                                    <script>document.write(top.str_addresser);</script>
+
+                                </strong>
+                            </td>
+                            <td width="302">
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="txtAddress" id="txtAddress" style="width: 150px">
+                            </td>
+                        </tr>
+                        <tr style=" height:35px">
+                            <td class="admintd">
+                                <strong class="mid04">
+
+                                    <script>document.write(top.str_outbox);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="txtOutbox" id="txtOutbox" style="width: 150px" />
+                            </td>
+                        </tr>
+                        <tr style=" height:35px">
+                            <td class="admintd">
+                                <strong class="mid04">
+
+                                    <script>document.write(top.str_inbox1);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="textfield" id="txtInbox1" style="width: 150px" />
+                            </td>
+                        </tr>
+                        <tr style=" height:35px">
+                            <td class="admintd">
+                                <strong class="mid04">
+
+                                    <script>document.write(top.str_inbox2);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="txtInbox2" id="txtInbox2" style="width: 150px" />
+                            </td>
+                        </tr>
+                        <tr style=" height:35px">
+                            <td class="admintd">
+                                <strong class="mid04">
+
+                                    <script>document.write(top.str_inbox3);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="txtInbox3" id="txtInbox3" style="width: 150px" />
+                            </td>
+                        </tr>
+                        <tr style=" height:35px">
+                            <td class="admintd">
+                                <strong class="mid04">
+
+                                    <script>document.write(top.str_smtp_server);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="txtSmtpServer" id="txtSmtpServer"
+                                    style="width: 150px">
+                                <input type="checkbox" name="ckSslSafetyLanding" id="ckSslSafetyLanding" value="checkbox">
+                                <strong class="mid04">
+
+                                    <script>document.write(top.str_ssl_safety_landing);</script>
+
+                                </strong>
+                            </td>
+                        </tr>
+                        <tr style=" height:35px">
+                            <td class="admintd">
+                                <strong class="mid04">
+
+                                    <script>document.write(top.str_smtp_port);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" onkeyup="value=value.replace(/[\W]/g,'') "
+                                    onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))"
+                                    name="textfield4" id="txtSmtpPort" style="width: 150px">
+                            </td>
+                        </tr>
+                        <tr style=" height:35px">
+                            <td class="admintd">
+                                <strong class="mid04">
+
+                                    <script>document.write(top.str_check_user);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="ckCheckUser" id="ckCheckUser"
+                                    onclick="checksmtp()">
+                            </td>
+                        </tr>
+                        <tr style=" height:35px">
+                            <td class="admintd">
+                                <strong class="mid04">
+
+                                    <script>document.write(top.str_smtp_user);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="txtSmtpUser" id="txtSmtpUser" style="width: 150px"
+                                    disabled="false">
+                            </td>
+                        </tr>
+                        <tr style=" height:35px">
+                            <td class="admintd">
+                                <strong class="mid04">
+
+                                    <script>document.write(top.str_smtp_password);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="password" name="txtSmtpPassword" id="txtSmtpPassword"
+                                    style="width: 150px" disabled="false">
+                            </td>
+                        </tr>
+                        <tr style=" height:50px">
+                            <td colspan="2" align="center">
+                                
+                                <button style="width: 400px;height:30px;margin-top:2px; background-color: #AFD5EF;border:1px solid #AFD5EF" class="mid042">
+
+                                    <script>document.write(top.str_save_test);</script>
+
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                   
+                   </td>
+                   <td  class="rborder"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="ldcorner"></td>
+                   <td class="cdow"></td>
+                   <td class="rdcorner"></td>
+                  </tr>
+           
+                </table>
+            </td>
+        </tr>
+     </table>
+</body>
+</html>

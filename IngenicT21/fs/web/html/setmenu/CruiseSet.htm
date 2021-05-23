@@ -1,0 +1,823 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <script language="javascript" src="../js/clearcache.js"></script>
+
+    <link href="../css/ceshi.css" rel="stylesheet" type="text/css" />
+    <link href="../css/new.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        body
+        {
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+        }
+        .style1
+        {
+            height: 240px;
+        }
+        .selectbox
+        {
+            border: 1px solid #C0C0C0;
+            width: 135px;
+            height: 316px;
+            overflow: hidden;
+        }
+        .selectbox2
+        {
+            position: relative;
+            border: 1px solid #F4F4F4;
+            width: 155px;
+            height: 316px;
+            overflow: hidden;
+            top: -3px;
+            left: -3px;
+        }
+        select
+        {
+            position: relative;
+            width: 130px;
+            line-height: 330px;
+            color: #000000;
+            overflow: hidden;
+        }
+    </style>
+    <title></title>
+
+    <script>
+document.write('<script src="/cgi-bin/get_cruise.cgi?index='+top.cur_cruise_index+'&user='+top.user+'&pwd='+top.pwd+'"><\/script>');
+    </script>
+
+    <script>
+document.write('<script src="/cgi-bin/get_list_cruise.cgi?user='+top.user+'&pwd='+top.pwd+'"><\/script>');
+    </script>
+
+    <script>
+document.write('<script src="/cgi-bin/get_preset_status.cgi?user='+top.user+'&pwd='+top.pwd+'"><\/script>');
+    </script>
+
+    <script>
+if(0!=ret_lcruise_result)
+{
+    alert(top.str_get_cruiseinfo_fail);
+}
+    </script>
+
+    <script>
+if(0!=ret_scruise_result)
+{
+    alert(top.str_get_cruiselist_fail);
+}
+    </script>
+
+    <script>
+if(0!=ret_presetsta_result)
+{
+    alert(top.str_get_presetsta_fail);
+}
+    </script>
+
+</head>
+
+<script>
+
+function CruiseSet_list_onclick()
+{
+	if ( CruiseSet_list.options.length > 0)
+	{
+		var sel_index=CruiseSet_list.selectedIndex;
+		
+        top.cur_cruise_index=sel_index;
+        
+        location.reload();
+	}
+}
+
+function show_listcruise()
+{
+    if(0==ret_lcruise_result)
+    {
+        for(i=0;i<10;i++)
+        {
+            var tmpStr='';
+            var oOption=document.createElement("OPTION");
+	        CruiseSet_list.options.add(oOption);
+	        
+	        //name
+            if(ret_lcruise_name[i]=='')
+            {
+                tmpStr=top.str_nothing;
+            }
+            else
+            {
+                tmpStr=ret_lcruise_name[i];
+            }
+            tmpStr+=' [';
+            
+            //valid
+            if(ret_lcruise_enable[i]==0)
+            {
+                tmpStr+=top.str_cruise_invalid;
+            }
+            else
+            {
+                tmpStr+=top.str_cruise_valid;
+            }
+            tmpStr+=']';
+	        
+	        oOption.innerHTML=tmpStr;
+        }
+    }
+}
+
+function show_signlecruise()
+{
+    var cur_index=0;
+    if(0==ret_scruise_result)
+    {
+        cur_index=ret_scruise_index;
+        
+        //cruise-name
+        document.getElementById("txt_MessageName").value=ret_scruise_name;
+        
+        //cruise-status
+        document.getElementById("ck_cruise_status").checked=ret_scruise_enable?true:false;
+    
+        //preset-enable---------//
+        document.getElementById("ck_CruiseMessage1").checked=ret_scruise_preset_enable[0]?true:false;
+        document.getElementById("ck_CruiseMessage2").checked=ret_scruise_preset_enable[1]?true:false;
+        document.getElementById("ck_CruiseMessage3").checked=ret_scruise_preset_enable[2]?true:false;
+        document.getElementById("ck_CruiseMessage4").checked=ret_scruise_preset_enable[3]?true:false;
+        document.getElementById("ck_CruiseMessage5").checked=ret_scruise_preset_enable[4]?true:false;
+        document.getElementById("ck_CruiseMessage6").checked=ret_scruise_preset_enable[5]?true:false;
+        document.getElementById("ck_CruiseMessage7").checked=ret_scruise_preset_enable[6]?true:false;
+        document.getElementById("ck_CruiseMessage8").checked=ret_scruise_preset_enable[7]?true:false;
+        document.getElementById("ck_CruiseMessage9").checked=ret_scruise_preset_enable[8]?true:false;
+        
+        //preset-index----------//
+        document.getElementById("select_Cruise1").value=ret_scruise_preset_index[0];
+        document.getElementById("select_Cruise2").value=ret_scruise_preset_index[1];
+        document.getElementById("select_Cruise3").value=ret_scruise_preset_index[2];
+        document.getElementById("select_Cruise4").value=ret_scruise_preset_index[3];
+        document.getElementById("select_Cruise5").value=ret_scruise_preset_index[4];
+        document.getElementById("select_Cruise6").value=ret_scruise_preset_index[5];
+        document.getElementById("select_Cruise7").value=ret_scruise_preset_index[6];
+        document.getElementById("select_Cruise8").value=ret_scruise_preset_index[7];
+        document.getElementById("select_Cruise9").value=ret_scruise_preset_index[8];
+        
+        //preset-time-----------//
+        document.getElementById("txt_TimeCruise1").value=ret_scruise_preset_time[0];
+        document.getElementById("txt_TimeCruise2").value=ret_scruise_preset_time[1];
+        document.getElementById("txt_TimeCruise3").value=ret_scruise_preset_time[2];
+        document.getElementById("txt_TimeCruise4").value=ret_scruise_preset_time[3];
+        document.getElementById("txt_TimeCruise5").value=ret_scruise_preset_time[4];
+        document.getElementById("txt_TimeCruise6").value=ret_scruise_preset_time[5];
+        document.getElementById("txt_TimeCruise7").value=ret_scruise_preset_time[6];
+        document.getElementById("txt_TimeCruise8").value=ret_scruise_preset_time[7];
+        document.getElementById("txt_TimeCruise9").value=ret_scruise_preset_time[8];
+        
+        //preset-speed----------//
+        document.getElementById("select_SpeedCruise1").value=ret_scruise_preset_speed[0];
+        document.getElementById("select_SpeedCruise2").value=ret_scruise_preset_speed[1];
+        document.getElementById("select_SpeedCruise3").value=ret_scruise_preset_speed[2];
+        document.getElementById("select_SpeedCruise4").value=ret_scruise_preset_speed[3];
+        document.getElementById("select_SpeedCruise5").value=ret_scruise_preset_speed[4];
+        document.getElementById("select_SpeedCruise6").value=ret_scruise_preset_speed[5];
+        document.getElementById("select_SpeedCruise7").value=ret_scruise_preset_speed[6];
+        document.getElementById("select_SpeedCruise8").value=ret_scruise_preset_speed[7];
+        document.getElementById("select_SpeedCruise9").value=ret_scruise_preset_speed[8];
+    }
+    
+    document.getElementById("CruiseSet_list").selectedIndex=cur_index;
+}
+
+function show_presetstatus()
+{
+    if(0==ret_presetsta_result)
+    {
+        for(i=0;i<9;i++)
+        {   
+            for(j=0;j<9;j++)
+            {
+                var tmpStr='';
+                var oOption=document.createElement("OPTION");
+        	    var tmp_var='select_Cruise';
+        	    var tmp_index=i+1;
+        	    
+        	    tmp_var+=tmp_index;
+        	    document.getElementById(tmp_var).options.add(oOption);
+        	       
+	            //name
+	            tmpStr=j+1;
+	            tmpStr+=' [';
+        	    
+	            //valid
+	            if(ret_presetsta_enable[j]==0)
+	            {
+	                tmpStr+=top.str_cruise_invalid;
+	            }
+	            else
+	            {
+	                tmpStr+=top.str_cruise_valid;
+	            }
+	            tmpStr+=']';
+        	    
+	            oOption.innerHTML=tmpStr;
+	            oOption.value=j; 
+            }
+        }
+    }
+}
+
+function body_onload()
+{
+   show_presetstatus();
+    
+   show_listcruise();
+   show_signlecruise();
+}
+
+function save_cruise()
+{
+    if( (ret_scruise_result!=0) || (ret_lcruise_result!=0) || (0!=ret_presetsta_result) )
+    {
+        alert(top.str_getfail_nosave);
+        return;
+    }
+    
+    var tmp_cruise_name   = document.getElementById("txt_MessageName").value; 
+    var tmp_cruise_status = 0;
+    if(document.getElementById("ck_cruise_status").checked==true)
+    {
+        tmp_cruise_status=1;
+    }
+    if( (1==tmp_cruise_status) && (tmp_cruise_name=='') )
+    {
+       alert(top.str_cruisename_nonull);
+       return;
+    }
+          
+    var tmp_preset_enable = new Array();
+    var tmp_preset_index  = new Array();
+    var tmp_preset_time   = new Array();
+    var tmp_preset_speed  = new Array();
+    
+    tmp_preset_enable[0]=0;
+    tmp_preset_enable[1]=0;
+    tmp_preset_enable[2]=0;
+    tmp_preset_enable[3]=0;
+    tmp_preset_enable[4]=0;
+    tmp_preset_enable[5]=0;
+    tmp_preset_enable[6]=0;
+    tmp_preset_enable[7]=0;
+    tmp_preset_enable[8]=0;
+    
+    if(document.getElementById("ck_CruiseMessage1").checked==true)
+    {
+        tmp_preset_enable[0]=1;
+    }
+    if(document.getElementById("ck_CruiseMessage2").checked==true)
+    {
+        tmp_preset_enable[1]=1;
+    }
+    if(document.getElementById("ck_CruiseMessage3").checked==true)
+    {
+        tmp_preset_enable[2]=1;
+    }
+    if(document.getElementById("ck_CruiseMessage4").checked==true)
+    {
+        tmp_preset_enable[3]=1;
+    }
+    if(document.getElementById("ck_CruiseMessage5").checked==true)
+    {
+        tmp_preset_enable[4]=1;
+    }
+    if(document.getElementById("ck_CruiseMessage6").checked==true)
+    {
+        tmp_preset_enable[5]=1;
+    }
+    if(document.getElementById("ck_CruiseMessage7").checked==true)
+    {
+        tmp_preset_enable[6]=1;
+    }
+    if(document.getElementById("ck_CruiseMessage8").checked==true)
+    {
+        tmp_preset_enable[7]=1;
+    }
+    if(document.getElementById("ck_CruiseMessage9").checked==true)
+    {
+        tmp_preset_enable[8]=1;
+    }
+    
+    
+    tmp_preset_index[0]=document.getElementById("select_Cruise1").value;
+    tmp_preset_index[1]=document.getElementById("select_Cruise2").value;
+    tmp_preset_index[2]=document.getElementById("select_Cruise3").value;
+    tmp_preset_index[3]=document.getElementById("select_Cruise4").value;
+    tmp_preset_index[4]=document.getElementById("select_Cruise5").value;
+    tmp_preset_index[5]=document.getElementById("select_Cruise6").value;
+    tmp_preset_index[6]=document.getElementById("select_Cruise7").value;
+    tmp_preset_index[7]=document.getElementById("select_Cruise8").value;
+    tmp_preset_index[8]=document.getElementById("select_Cruise9").value;
+    
+    tmp_preset_time[0]=document.getElementById("txt_TimeCruise1").value;
+    tmp_preset_time[1]=document.getElementById("txt_TimeCruise2").value;
+    tmp_preset_time[2]=document.getElementById("txt_TimeCruise3").value;
+    tmp_preset_time[3]=document.getElementById("txt_TimeCruise4").value;
+    tmp_preset_time[4]=document.getElementById("txt_TimeCruise5").value;
+    tmp_preset_time[5]=document.getElementById("txt_TimeCruise6").value;
+    tmp_preset_time[6]=document.getElementById("txt_TimeCruise7").value;
+    tmp_preset_time[7]=document.getElementById("txt_TimeCruise8").value;
+    tmp_preset_time[8]=document.getElementById("txt_TimeCruise9").value;
+    
+    tmp_preset_speed[0]=document.getElementById("select_SpeedCruise1").value;
+    tmp_preset_speed[1]=document.getElementById("select_SpeedCruise2").value;
+    tmp_preset_speed[2]=document.getElementById("select_SpeedCruise3").value;
+    tmp_preset_speed[3]=document.getElementById("select_SpeedCruise4").value;
+    tmp_preset_speed[4]=document.getElementById("select_SpeedCruise5").value;
+    tmp_preset_speed[5]=document.getElementById("select_SpeedCruise6").value;
+    tmp_preset_speed[6]=document.getElementById("select_SpeedCruise7").value;
+    tmp_preset_speed[7]=document.getElementById("select_SpeedCruise8").value;
+    tmp_preset_speed[8]=document.getElementById("select_SpeedCruise9").value;
+    
+    url="/cgi-bin/set_cruise.cgi?next_url=setmenu/CruiseSet.htm&cruise_enable="+tmp_cruise_status+"&cruise_index="+top.cur_cruise_index+"&cruise_name="+tmp_cruise_name;
+    url+="&preset0_enable="+tmp_preset_enable[0]+"&preset0_index="+tmp_preset_index[0]+"&preset0_time="+tmp_preset_time[0]+"&preset0_speed="+tmp_preset_speed[0];
+    url+="&preset1_enable="+tmp_preset_enable[1]+"&preset1_index="+tmp_preset_index[1]+"&preset1_time="+tmp_preset_time[1]+"&preset1_speed="+tmp_preset_speed[1];
+    url+="&preset2_enable="+tmp_preset_enable[2]+"&preset2_index="+tmp_preset_index[2]+"&preset2_time="+tmp_preset_time[2]+"&preset2_speed="+tmp_preset_speed[2];
+    url+="&preset3_enable="+tmp_preset_enable[3]+"&preset3_index="+tmp_preset_index[3]+"&preset3_time="+tmp_preset_time[3]+"&preset3_speed="+tmp_preset_speed[3];
+    url+="&preset4_enable="+tmp_preset_enable[4]+"&preset4_index="+tmp_preset_index[4]+"&preset4_time="+tmp_preset_time[4]+"&preset4_speed="+tmp_preset_speed[4];
+    url+="&preset5_enable="+tmp_preset_enable[5]+"&preset5_index="+tmp_preset_index[5]+"&preset5_time="+tmp_preset_time[5]+"&preset5_speed="+tmp_preset_speed[5];
+    url+="&preset6_enable="+tmp_preset_enable[6]+"&preset6_index="+tmp_preset_index[6]+"&preset6_time="+tmp_preset_time[6]+"&preset6_speed="+tmp_preset_speed[6];
+    url+="&preset7_enable="+tmp_preset_enable[7]+"&preset7_index="+tmp_preset_index[7]+"&preset7_time="+tmp_preset_time[7]+"&preset7_speed="+tmp_preset_speed[7];
+    url+="&preset8_enable="+tmp_preset_enable[8]+"&preset8_index="+tmp_preset_index[8]+"&preset8_time="+tmp_preset_time[8]+"&preset8_speed="+tmp_preset_speed[8];
+    url+="&user="+top.user+"&pwd="+top.pwd;
+
+    location=url;
+}
+function reset_cruise()
+{
+    if ( confirm(top.str_sure_reset) )
+    {
+        //cruise-name
+        document.getElementById("txt_MessageName").value='';
+        
+        //cruise-status
+        document.getElementById("ck_cruise_status").checked=false;
+    
+        //preset-enable---------//
+        document.getElementById("ck_CruiseMessage1").checked=false;
+        document.getElementById("ck_CruiseMessage2").checked=false;
+        document.getElementById("ck_CruiseMessage3").checked=false;
+        document.getElementById("ck_CruiseMessage4").checked=false;
+        document.getElementById("ck_CruiseMessage5").checked=false;
+        document.getElementById("ck_CruiseMessage6").checked=false;
+        document.getElementById("ck_CruiseMessage7").checked=false;
+        document.getElementById("ck_CruiseMessage8").checked=false;
+        document.getElementById("ck_CruiseMessage9").checked=false;
+        
+        //preset-index----------//
+        document.getElementById("select_Cruise1").value=0;
+        document.getElementById("select_Cruise2").value=0;
+        document.getElementById("select_Cruise3").value=0;
+        document.getElementById("select_Cruise4").value=0;
+        document.getElementById("select_Cruise5").value=0;
+        document.getElementById("select_Cruise6").value=0;
+        document.getElementById("select_Cruise7").value=0;
+        document.getElementById("select_Cruise8").value=0;
+        document.getElementById("select_Cruise9").value=0;
+        
+        //preset-time-----------//
+        document.getElementById("txt_TimeCruise1").value='0';
+        document.getElementById("txt_TimeCruise2").value='0';
+        document.getElementById("txt_TimeCruise3").value='0';
+        document.getElementById("txt_TimeCruise4").value='0';
+        document.getElementById("txt_TimeCruise5").value='0';
+        document.getElementById("txt_TimeCruise6").value='0';
+        document.getElementById("txt_TimeCruise7").value='0';
+        document.getElementById("txt_TimeCruise8").value='0';
+        document.getElementById("txt_TimeCruise9").value='0';
+        
+        //preset-speed----------//
+        document.getElementById("select_SpeedCruise1").value=0;
+        document.getElementById("select_SpeedCruise2").value=0;
+        document.getElementById("select_SpeedCruise3").value=0;
+        document.getElementById("select_SpeedCruise4").value=0;
+        document.getElementById("select_SpeedCruise5").value=0;
+        document.getElementById("select_SpeedCruise6").value=0;
+        document.getElementById("select_SpeedCruise7").value=0;
+        document.getElementById("select_SpeedCruise8").value=0;
+        document.getElementById("select_SpeedCruise9").value=0;
+    }
+}
+</script>
+
+<body onload="body_onload()" class="body">
+     <table width="100%" cellpadding="0" cellspacing="0">
+        <tr class="adtop"><td>&nbsp;</td></tr>
+        <tr>
+            <td align="center">
+                <table cellpadding="0" cellspacing="0" >
+                   <tr>
+                    <td colspan="3" class="mid03_1">
+                        <strong class="mid03">
+                            <script type="text/javascript">document.write(top.str_Cruise_set);</script>
+                        </strong>
+                    </td>
+                   </tr>
+                  <tr  >
+                   <td class="lcorner" ></td>
+                   <td class="cbtop">
+                     <table cellpadding="0" cellspacing="0" style=" width:730px">
+                        <tr style=" width:100%">
+                            <td style="text-align: right;" align="right">
+                               <button class="resethbutton" onclick="save_cruise()">
+
+                                    <script>document.write(top.str_save);</script>
+
+                                </button>
+                                <button class="resethbutton" onclick="location.reload()">
+
+                                    <script> document.write(top.str_refresh);</script>
+
+                                </button>
+                                <button class="resethbutton" onclick="reset_cruise()">
+
+                                    <script>document.write(top.str_reset);</script>
+
+                                </button>     
+                             
+                            </td>
+                      
+                        </tr>
+                     </table>
+                   </td>
+                   <td class="rcorner"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="lborder"></td>
+                   <td style=" margin-top:10px">
+                        <table style="margin-top: 0px; width: 730px; height: 70%; border:1px solid #828282" cellpadding="0" cellspacing="0"  class="admintr">
+               
+                        <tr>
+                         <td style=" width:15%" class="admintr">
+                       
+                            <table style="width: 0px; height: 100%" border="0" cellpadding="0" cellspacing="0" class="admintr">
+                                <tr align="center">
+                                    <td class="admintd" style="width: 14%; height: 25px;">
+
+                                        <script>document.write(top.str_Cruise_List);</script>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class=" selectbox">
+                                            <table>
+                                                <tr valign="top">
+                                                    <td style="width: 155px; height: 335px;">
+                                                        <div class="selectbox2">
+                                                            <select id="CruiseSet_list" size="9" style="height: 100%; width: 155px; top: 0px;
+                                                                left: 0px; overflow: hidden" onclick="CruiseSet_list_onclick()">
+                                                            </select>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                       <!-- </div>-->
+                    </td>
+                    <td style="width: 70%; ">
+                        <!--???????-->
+                        <!--<div style="height: 350px; overflow: hidden; width: 100%">-->
+                            <!-- <div style=" height:350px;">-->
+                            <table style="width: 100%; height: 100%;" border="0" align="center"
+                                cellpadding="0" cellspacing="0" class="admintr">
+                                <tr align="center">
+                                    <td colspan="4" class="admintd" style="width: 10%;">
+
+                                        <script> document.write(top.str_Cruise_Information);</script>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="mid043">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<script>document.write(top.str_name);</script>&nbsp;&nbsp;&nbsp;<input
+                                            type="text" id="txt_MessageName" maxlength="31" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/gi,'')"
+                                            onblur="this.value=this.value.replace(/[^a-zA-Z0-9]/gi,'')" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="mid043">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;<script>document.write(top.str_Status);</script>&nbsp;&nbsp;&nbsp;<input
+                                            type="checkbox" id="ck_cruise_status" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td valign="middle" style="height: 240px;">
+                                        <table style="width: 100.5%; height: 100.5%;border-collapse:collapse; margin:-1px -2px -2px -2px" border="0" cellpadding="0" cellspacing="0"
+                                            align="center">
+                                            <tr align="center" style="width: 10%; background-color: #C2E5F9">
+                                                <td class="mid04-new" style="width: 25%">
+
+                                                    <script>document.write(top.str_number);</script>
+
+                                                </td>
+                                                <td class="mid04-new" style="width: 25%">
+
+                                                    <script>document.write(top.str_Preset);</script>
+
+                                                </td>
+                                                <td class="mid04-new" style="width: 25%">
+
+                                                    <script>document.write(top.str_Residence_Time);</script>
+
+                                                </td>
+                                                <td class="mid04-new" style="width: 25%">
+
+                                                    <script>document.write(top.str_Speed);</script>
+
+                                                </td>
+                                            </tr>
+                                            <tr align="center" bgcolor="#FFFFFF">
+                                                <td style="font-size: 14px">
+                                                    <input type="checkbox" id="ck_CruiseMessage1" />1
+                                                </td>
+                                                <td>
+                                                    <select id="select_Cruise1" style="width: 100%; line-height: 20px">
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="txt_TimeCruise1" style="width: 100%; line-height: 18px" maxlength="4"
+                                                        onkeyup="this.value=this.value.replace(/[^0-9]/gi,'')" onblur="this.value=this.value.replace(/[^0-9]/gi,'')" />
+                                                </td>
+                                                <td>
+                                                    <select id="select_SpeedCruise1" style="width: 90%; line-height: 20px; left: 0px;
+                                                        top: 0px;">
+                                                        <option value="0">0</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                        <option value="9">9</option>
+                                                        <option value="10">10</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr align="center" bgcolor="#FFFFFF">
+                                                <td style="font-size: 14px">
+                                                    <input type="checkbox" id="ck_CruiseMessage2" />2
+                                                </td>
+                                                <td>
+                                                    <select id="select_Cruise2" style="width: 100%; line-height: 20px">
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="txt_TimeCruise2" style="width: 100%; line-height: 18px" maxlength="4"
+                                                        onkeyup="this.value=this.value.replace(/[^0-9]/gi,'')" onblur="this.value=this.value.replace(/[^0-9]/gi,'')" />
+                                                </td>
+                                                <td>
+                                                    <select id="select_SpeedCruise2" style="width: 90%; line-height: 20px">
+                                                        <option value="0">0</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                        <option value="9">9</option>
+                                                        <option value="10">10</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr align="center" bgcolor="#FFFFFF">
+                                                <td style="font-size: 14px">
+                                                    <input type="checkbox" id="ck_CruiseMessage3" />3
+                                                </td>
+                                                <td>
+                                                    <select id="select_Cruise3" style="width: 100%; line-height: 20px">
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input style="width: 100%; line-height: 18px" type="text" id="txt_TimeCruise3" maxlength="4"
+                                                        onkeyup="this.value=this.value.replace(/[^0-9]/gi,'')" onblur="this.value=this.value.replace(/[^0-9]/gi,'')" />
+                                                </td>
+                                                <td>
+                                                    <select id="select_SpeedCruise3" style="width: 90%; line-height: 20px">
+                                                        <option value="0">0</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                        <option value="9">9</option>
+                                                        <option value="10">10</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr align="center" bgcolor="#FFFFFF">
+                                                <td style="font-size: 14px">
+                                                    <input type="checkbox" id="ck_CruiseMessage4" />4
+                                                </td>
+                                                <td>
+                                                    <select id="select_Cruise4" style="width: 100%; line-height: 20px">
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input type="text" style="width: 100%; line-height: 18px" id="txt_TimeCruise4" maxlength="4"
+                                                        onkeyup="this.value=this.value.replace(/[^0-9]/gi,'')" onblur="this.value=this.value.replace(/[^0-9]/gi,'')" />
+                                                </td>
+                                                <td>
+                                                    <select id="select_SpeedCruise4" style="width: 90%; line-height: 20px">
+                                                        <option value="0">0</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                        <option value="9">9</option>
+                                                        <option value="10">10</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr align="center" bgcolor="#FFFFFF">
+                                                <td style="font-size: 14px">
+                                                    <input type="checkbox" id="ck_CruiseMessage5" />5
+                                                </td>
+                                                <td>
+                                                    <select id="select_Cruise5" style="width: 100%; line-height: 20px">
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input type="text" style="width: 100%; line-height: 18px" id="txt_TimeCruise5" maxlength="4"
+                                                        onkeyup="this.value=this.value.replace(/[^0-9]/gi,'')" onblur="this.value=this.value.replace(/[^0-9]/gi,'')" />
+                                                </td>
+                                                <td>
+                                                    <select id="select_SpeedCruise5" style="width: 90%; line-height: 20px">
+                                                        <option value="0">0</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                        <option value="9">9</option>
+                                                        <option value="10">10</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr align="center" bgcolor="#FFFFFF">
+                                                <td style="font-size: 14px">
+                                                    <input type="checkbox" id="ck_CruiseMessage6" />6
+                                                </td>
+                                                <td>
+                                                    <select id="select_Cruise6" style="width: 100%; line-height: 20px">
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="txt_TimeCruise6" style="width: 100%; line-height: 18px" maxlength="4"
+                                                        onkeyup="this.value=this.value.replace(/[^0-9]/gi,'')" onblur="this.value=this.value.replace(/[^0-9]/gi,'')" />
+                                                </td>
+                                                <td>
+                                                    <select id="select_SpeedCruise6" style="width: 90%; line-height: 20px">
+                                                        <option value="0">0</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                        <option value="9">9</option>
+                                                        <option value="10">10</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr align="center" bgcolor="#FFFFFF">
+                                                <td style="font-size: 14px">
+                                                    <input type="checkbox" id="ck_CruiseMessage7" />7
+                                                </td>
+                                                <td>
+                                                    <select id="select_Cruise7" style="width: 100%; line-height: 20px">
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="txt_TimeCruise7" style="width: 100%; line-height: 18px" maxlength="4"
+                                                        onkeyup="this.value=this.value.replace(/[^0-9]/gi,'')" onblur="this.value=this.value.replace(/[^0-9]/gi,'')" />
+                                                </td>
+                                                <td>
+                                                    <select id="select_SpeedCruise7" style="width: 90%; line-height: 20px">
+                                                        <option value="0">0</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                        <option value="9">9</option>
+                                                        <option value="10">10</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr align="center" bgcolor="#FFFFFF">
+                                                <td style="font-size: 14px">
+                                                    <input type="checkbox" id="ck_CruiseMessage8" />8
+                                                </td>
+                                                <td>
+                                                    <select id="select_Cruise8" style="width: 100%; line-height: 20px">
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="txt_TimeCruise8" style="width: 100%; line-height: 18px" maxlength="4"
+                                                        onkeyup="this.value=this.value.replace(/[^0-9]/gi,'')" onblur="this.value=this.value.replace(/[^0-9]/gi,'')" />
+                                                </td>
+                                                <td>
+                                                    <select id="select_SpeedCruise8" style="width: 90%; line-height: 20px">
+                                                        <option value="0">0</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                        <option value="9">9</option>
+                                                        <option value="10">10</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr align="center" bgcolor="#FFFFFF">
+                                                <td style="font-size: 14px">
+                                                    <input type="checkbox" id="ck_CruiseMessage9" />9
+                                                </td>
+                                                <td>
+                                                    <select id="select_Cruise9" style="width: 100%; line-height: 20px">
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="txt_TimeCruise9" style="width: 100%; line-height: 18px" maxlength="4"
+                                                        onkeyup="this.value=this.value.replace(/[^0-9]/gi,'')" onblur="this.value=this.value.replace(/[^0-9]/gi,'')" />
+                                                </td>
+                                                <td>
+                                                    <select id="select_SpeedCruise9" style="width: 90%; line-height: 20px">
+                                                        <option value="0">0</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                        <option value="9">9</option>
+                                                        <option value="10">10</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                       <!-- </div>-->
+                      </td>
+                    </tr>
+                  </table>
+                   
+                   </td>
+                   <td  class="rborder"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="ldcorner"></td>
+                   <td class="cdow"></td>
+                   <td class="rdcorner"></td>
+                  </tr>
+           
+                </table>
+            </td>
+        </tr>
+     </table>
+</body>
+</html>

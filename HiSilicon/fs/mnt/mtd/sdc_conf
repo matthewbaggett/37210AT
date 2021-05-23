@@ -1,0 +1,11 @@
+cover_enable 0
+prerec_enable 0
+sdnrec_enable 0
+prerec_time 3
+rec_bs 0
+sdnrec_time 10
+sdsnap_enable 0
+sdrec_bAudio 1
+sdalarmrec_time 20
+sdnrec_ftp_enable 0
+sdrec_api 0

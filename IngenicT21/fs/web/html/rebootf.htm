@@ -1,0 +1,63 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title></title>
+<style type="text/css">
+body{
+margin-left: 0px;
+margin-top: 0px;
+background-color:#C4EAFF;
+}
+</style>
+<!--<script>
+    document.write('<script src="/cgi-bin/get_link_stat.cgi?user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+</script>-->
+</head>
+<script>
+    var seconds;
+    function timer() {
+        seconds--;
+        left_seconds.innerHTML = '&nbsp;&nbsp;' + seconds;
+        if (!seconds) {
+//            if (ret_is_set_wifi = 1)
+//            {
+//                if (ret_cur_adapter = 1) {
+//                    alert("上次wifi设置有误或路由已不存在");
+//                    location = '../setmenu/DevInfo.htm';
+//                } else if (ret_cur_adapter = 2)
+//                 {
+//                     alert("设置wifi成功，已进入wifi优先模式，可拔掉网线");
+//                     location = '../setmenu/DevInfo.htm';
+//                 }
+//            }
+//            else
+//            {
+//             location = '../setmenu/DevInfo.htm';
+            //           }
+            location = '../setmenu/DevInfo.htm';
+        }
+        else {
+            setTimeout('timer()', 1000);
+        }
+    }
+    function body_onload() {
+        seconds = top.reboot_seconds;
+        left_seconds.innerHTML = '&nbsp;&nbsp;' + seconds;
+        setTimeout('timer()', 1000);
+    }
+</script>	
+<body onLoad="body_onload()">
+  <table border="0" cellpadding="0" cellspacing="0" width="640" height="480">
+    <tr valign="top">
+      <td style="padding-left:10px;padding-right:10px;padding-top:20px;padding-bottom:20px">
+        <table border="0" cellpadding="0" cellspacing="0" style="font-size:14px">
+          <tr>
+            <td><script>                    document.write(top.str_rebootinfo);</script></td>
+            <td id="left_seconds"> </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

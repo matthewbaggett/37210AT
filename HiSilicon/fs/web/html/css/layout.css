@@ -1,0 +1,44 @@
+html *
+{
+	margin: 0;
+	padding: 0;
+}
+
+hr
+{
+	display: none;
+}
+
+a
+{
+	text-decoration: none !important;
+}
+
+
+div#menu
+{
+    font-family:Arial;
+	width: 146px;
+	margin: 10px 0 0 10px;
+}
+
+div#menu p
+{
+   
+	position: relative;
+	width: 146px;
+	list-style: none;
+	text-align: center;
+	margin-bottom: 5px;
+}
+
+
+
+div#menu a
+{
+    
+	width: 100%;
+	display: block;
+	padding: 7px 0 6px;
+	line-height:0.9;
+}

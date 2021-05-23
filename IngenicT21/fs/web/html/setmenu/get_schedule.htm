@@ -1,0 +1,51 @@
+<html>
+<head>
+<title></title>
+
+<script language="javascript" src="../js/clearcache.js"></script>
+
+<script>
+    document.write('<script src="/cgi-bin/get_motion_schedule.cgi"><\/script>');
+    document.write('<script src="/cgi-bin/get_params.cgi?type=16&user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+</script>
+
+<script type="text/javascript">
+function body_onload()
+{
+    //enable schedule
+    parent.set_schedule_enable(motion_schedule_enable);
+    parent.schedule_onclick();
+
+    //parse schedule
+    parent.parse_schedule_val(motion_schedule_sun_0, 0, 0);
+    parent.parse_schedule_val(motion_schedule_sun_1, 0, 1);
+    parent.parse_schedule_val(motion_schedule_sun_2, 0, 2);
+    parent.parse_schedule_val(motion_schedule_mon_0, 1, 0);
+    parent.parse_schedule_val(motion_schedule_mon_1, 1, 1);
+    parent.parse_schedule_val(motion_schedule_mon_2, 1, 2);
+    parent.parse_schedule_val(motion_schedule_tue_0, 2, 0);
+    parent.parse_schedule_val(motion_schedule_tue_1, 2, 1);
+    parent.parse_schedule_val(motion_schedule_tue_2, 2, 2);
+    parent.parse_schedule_val(motion_schedule_wed_0, 3, 0);
+    parent.parse_schedule_val(motion_schedule_wed_1, 3, 1);
+    parent.parse_schedule_val(motion_schedule_wed_2, 3, 2);
+    parent.parse_schedule_val(motion_schedule_thu_0, 4, 0);
+    parent.parse_schedule_val(motion_schedule_thu_1, 4, 1);
+    parent.parse_schedule_val(motion_schedule_thu_2, 4, 2);
+    parent.parse_schedule_val(motion_schedule_fri_0, 5, 0);
+    parent.parse_schedule_val(motion_schedule_fri_1, 5, 1);
+    parent.parse_schedule_val(motion_schedule_fri_2, 5, 2);
+    parent.parse_schedule_val(motion_schedule_sat_0, 6, 0);
+    parent.parse_schedule_val(motion_schedule_sat_1, 6, 1);
+    parent.parse_schedule_val(motion_schedule_sat_2, 6, 2);
+
+    //update ocx data
+    parent.UpdateMotion2(mcloud_enable);
+    location.reload(false);
+}
+</script>
+</head>
+
+<body onload="body_onload()">
+</body>
+</html>

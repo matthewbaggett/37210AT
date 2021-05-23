@@ -1,0 +1,123 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <script language="javascript" src="../js/clearcache.js"></script>
+
+    <link href="../css/new.css" rel="stylesheet" type="text/css" />
+    <link href="../css/ceshi.css" rel="stylesheet" type="text/css" />
+    <title></title>
+    <style type="text/css">
+         body
+        {
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+        }
+        </style>
+
+    <script> 
+    document.write('<script src="/cgi-bin/check_user.cgi?user='+top.user+'&pwd='+top.pwd+'"><\/script>');
+    document.write('<script src="/cgi-bin/get_params.cgi?type=7&user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+    document.write('<script src="/cgi-bin/get_params.cgi?type=10&user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+    </script>
+
+</head>
+
+<script>
+
+function set_angle()
+{
+    var check_angle;
+    if(document.getElementById("ckAngle").checked==false)
+    {
+        check_angle=0;
+    }
+    else
+    {
+        check_angle=1;
+    }
+
+    url = "/cgi-bin/set_ptz_params.cgi?next_url=rebootme.htm&bigangle=" + check_angle + "&baudrate=2&device_id=1&protocol=0&rleftright=0&rupdown=0" + "&user=" + top.user + "&pwd=" + top.pwd;
+    location=url;
+}
+
+function body_onload()
+{
+    document.getElementById("ckAngle").checked = bigangle ? true : false;
+}
+
+</script>
+
+<body onload="body_onload()" class="body">
+    <table width="100%" cellpadding="0" cellspacing="0">
+        <tr class="adtop"><td>&nbsp;</td></tr>
+        <tr>
+            <td align="center">
+                <table cellpadding="0" cellspacing="0" >
+                   <tr>
+                    <td colspan="3" class="mid03_1">
+                        <strong class="mid03">
+                            <script type="text/javascript">                                document.write(top.str_adminangle);</script>
+                        </strong>
+                    </td>
+                   </tr>
+                  <tr  >
+                   <td class="lcorner" ></td>
+                   <td class="cbtop">
+                     <table cellpadding="0" cellspacing="0" style=" width:730px">
+                        <tr style=" width:100%">
+                            <td style="text-align: right;" align="right">
+                               <button class="resethbutton" onclick="set_angle()">
+
+                                    <script>document.write(top.str_save);</script>
+
+                                </button>
+                                <button class="resethbutton" onclick="location=location">
+
+                                    <script>document.write(top.str_refresh);</script>
+
+                                </button>
+                             
+                            </td>
+                      
+                        </tr>
+                     </table>
+                   </td>
+                   <td class="rcorner"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="lborder"></td>
+                   <td style=" margin-top:0px">
+                        <table style="width: 730px; height: 20%;" align="center" class="admintr">
+                
+                        <tr style=" height:35px">
+                            <td class="admintd">
+                                <strong class="mid04">
+
+                                    <script>                                        document.write(top.str_adminAngle);</script>
+
+                                </strong>
+                       
+                            </td>
+                            <td> <input type="checkbox" name="ckAngle" id="ckAngle" /></td>
+                        </tr>
+                    </table>
+                   
+                   </td>
+                   <td  class="rborder"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="ldcorner"></td>
+                   <td class="cdow"></td>
+                   <td class="rdcorner"></td>
+                  </tr>
+           
+                </table>
+            </td>
+        </tr>
+     </table>
+</body>
+</html>

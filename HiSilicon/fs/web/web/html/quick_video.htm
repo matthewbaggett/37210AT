@@ -1,0 +1,139 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="css/serverpush.css" rel="stylesheet" type="text/css" />
+<title></title>
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-color:#000000;
+}
+-->
+</style>
+<script src="/cgi-bin/get_status.cgi"></script>
+<script src="/cgi-bin/get_real_status.cgi"></script>
+<script src="js/quick_install.js"></script>
+<script>
+    var e = navigator.userAgent.toLowerCase();
+    var isOpera = e.indexOf("opera") != -1;
+    var isIE = document.all && e.indexOf("msie") != -1 && !isOpera;
+    var SHOW_MODE_AUTO = 0;
+    var SHOW_MODE_REAL = 1;
+    var show_mode_type;
+    var real_width;
+    var real_height;
+    var auto_width;
+    var auto_height;
+</script>
+</head>
+
+<script>
+    function GetPageScrollWidth() {
+        //return document.body.scrollWidth;
+        return document.documentElement.clientWidth;
+    }
+    function GetPageScrollHeight() {
+        //return document.body.scrollHeight;
+        return document.documentElement.clientHeight;
+    }
+    function get_auto_wh() {
+        page_width = GetPageScrollWidth();    //????
+        page_height =GetPageScrollHeight();  //????
+
+        page_scale = (page_width / page_height); //??????
+
+        real_scale = (real_width / real_height); //????????��????
+
+        //??????
+        if (real_scale >= page_scale) {
+            auto_width = page_width;
+            auto_height = (page_width * real_height) / real_width;
+        }
+        //??????
+        else {
+            auto_width = (page_height * real_width) / real_height;
+            auto_height = page_height;
+        }
+    }
+    function video_autosize_show() {
+        show_mode_type = SHOW_MODE_AUTO;
+
+        get_auto_wh();
+
+        quick = document.getElementById('quick_player');
+        quick.style.width = auto_width;
+        quick.style.height = auto_height;
+    }
+    function video_realsize_show() {
+        show_mode_type = SHOW_MODE_REAL;
+
+        quick = document.getElementById('quick_player');
+        quick.style.width = real_width;
+        quick.style.height = real_height;
+    }
+
+    function body_onload() {
+        real_width = GetPageScrollWidth(); //  ret_realstatus_videoW;
+        real_height = GetPageScrollHeight();  //ret_realstatus_videoH;
+
+        //alert(GetPageScrollWidth());
+        //alert(GetPageScrollHeight());
+        video_realsize_show();
+        //video_autosize_show();
+    }
+
+    function QTvideo(DisplayWidth, DisplayHeight, rtspport) {
+        var MediaURL = "rtsp://" + location.hostname + ":" + rtspport + "/live/av0?user=" + top.user + "&passwd=" + top.pwd;
+        var output = "";
+        output = '<OBJECT CLASSID="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" width=' + DisplayWidth + ' height=' + DisplayHeight + ' CODEBASE="http://www.apple.com/qtactivex/qtplugin.cab">';
+        output += '<param name="src" value="tt.mov">'; output += '<param name="autoplay" value="true">';
+        output += '<param name="controller" value="true">';
+        output += '<param name="qtsrc" value="' + MediaURL + '">';
+        output += '<embed src="tt.mov" width=' + DisplayWidth + ' height=' + DisplayHeight + ' qtsrc="' + MediaURL + '" autoplay="true" controller="true" target="myself" PLUGINSPAGE="http://www.apple.com/quicktime/download/"></embed>'; output += '</OBJECT>';
+        document.write(output);
+    }
+
+    function QTvideo2(DisplayWidth, DisplayHeight, rtspport) {
+        var MediaURL = "rtsp://" + location.hostname + ":" + rtspport + "/live/av0?user=" + top.user + "&passwd=" + top.pwd;
+        var output = "";
+
+        if (isIE) {
+            output = '<OBJECT id="quick_player" CLASSID="clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B" width=' + DisplayWidth + ' height=' + DisplayHeight + ' CODEBASE="http://www.apple.com/qtactivex/qtplugin.cab">';
+            output += '<param name="src" value="tt.mov">';
+            output += '<param name="autoplay" value="true">';
+            output += '<param name="controller" value="false">';
+            output += '<param name="qtsrc" value="' + MediaURL + '">';
+            output += '</OBJECT>';
+        }
+        else {
+            output = '<embed id="quick_player" name="quick_player" src="tt.mov" width=' + DisplayWidth + ' height=' + DisplayHeight + ' qtsrc="' + MediaURL + '" autoplay="true" controller="false" target="myself" PLUGINSPAGE="http://www.apple.com/quicktime/download/"></embed>';
+        }
+
+        document.write(output);
+    }
+
+</script>
+
+
+<body onLoad="body_onload()">
+  <table id="tb_main" width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+    <tr><td align="center" valign="middle">
+        
+      <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td>
+            <script language="javascript">
+                QTvideo2(GetPageScrollWidth(), GetPageScrollHeight(), ret_rtsp_port);
+		    </script>
+          </td>
+        </tr>
+      </table>  
+				 
+    </td></tr>
+  </table>
+</body>
+</html>

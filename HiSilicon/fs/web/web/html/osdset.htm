@@ -1,0 +1,118 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-color:#4C6EB5;
+}
+-->
+</style>
+
+<script>
+document.write('<script src="/cgi-bin/get_camera_vars.cgi?user='+opener.top.user+'&pwd='+opener.top.pwd+'"><\/script>');
+</script>
+
+</head>
+
+<script>
+var SCAM_CMD_OSD=1;
+var SCAM_CMD_BRIGHT=2;
+var SCAM_CMD_CONTRAST=3;
+var SCAM_CMD_HUE=4;
+var SCAM_CMD_SATURA=5;
+var SCAM_CMD_PTZX=6;
+var SCAM_CMD_MIRROR=7;
+var SCAM_CMD_FLIP=8;
+var SCAM_CMD_HZ=9;
+
+
+function live_setcam_control(command,value)
+{
+    action_zone.location="/cgi-bin/set_camera_vars.cgi?type="+command+"&value="+value+"&user="+opener.top.user+"&pwd="+opener.top.pwd;
+}
+
+
+function live_osd_onchange(val)
+{
+    live_setcam_control(SCAM_CMD_OSD, val);
+}
+function live_mirror()
+{
+    value=document.getElementById("chx_image_mirror").checked?1:0;
+    live_setcam_control(SCAM_CMD_MIRROR, value);
+}
+function live_flip()
+{
+    value=document.getElementById("chx_image_flip").checked?1:0;
+    live_setcam_control(SCAM_CMD_FLIP, value);
+}
+function live_hz(val)
+{
+    live_setcam_control(SCAM_CMD_HZ,val);
+}
+
+
+function body_onload()
+{
+    document.getElementById("select_osd").value=OSDTimer;
+    document.getElementById("chx_image_mirror").checked=mirror?true:false;
+    document.getElementById("chx_image_flip").checked=flip?true:false;
+    document.getElementById("select_hz").value=aec_value;
+}
+</script>
+
+<body onload="body_onload()">
+<iframe id="action_zone" name="action_zone" style="display:none"></iframe>
+
+<table border="1" cellpadding="0" cellspacing="0" bgcolor="#4C6EB5" style="width:400px;height:220px">
+    <tr>
+      <td width="30%"><div align="center"><span class="curspan3">&nbsp;&nbsp;OSD</span></div></td>
+      <td width="70%"><div align="center"><span class="curspan3">
+        <select id="select_osd" onchange="live_osd_onchange(this.value)">
+            <option value="0"><script>document.write(opener.top.str_disabled);</script></option>
+            <option value="1"><script>document.write(opener.top.str_rgb_black);</script></option>
+            <option value="2"><script>document.write(opener.top.str_rgb_red);</script></option>
+            <option value="3"><script>document.write(opener.top.str_rgb_green);</script></option>
+            <option value="4"><script>document.write(opener.top.str_rgb_blue);</script></option>
+            <option value="5"><script>document.write(opener.top.str_rgb_purple);</script></option>
+            <option value="6"><script>document.write(opener.top.str_rgb_gray);</script></option>
+            <option value="7"><script>document.write(opener.top.str_rgb_silver);</script></option>
+            <option value="8"><script>document.write(opener.top.str_rgb_yellow);</script></option>
+            <option value="9"><script>document.write(opener.top.str_rgb_olive);</script></option>
+            <option value="10"><script>document.write(opener.top.str_rgb_turquoise);</script></option>
+            <option value="11"><script>document.write(opener.top.str_rgb_white);</script></option>
+            <option value="12"><script>document.write(opener.top.str_rgb_lightblue);</script></option>
+        </select>
+     </span></div></td>
+    </tr>
+     
+    <tr>
+      <td width="30%"><div align="center"><span class="curspan3">&nbsp;&nbsp;<script>document.write(opener.top.str_image_mirror);</script></span></div></td>
+      <td width="70%"><div align="center"><span class="curspan3">&nbsp;&nbsp;<input id="chx_image_mirror" type="checkbox" onclick="live_mirror()" /></span></div></td>
+    </tr>
+    
+    <tr>
+      <td width="30%"><div align="center"><span class="curspan3">&nbsp;&nbsp;<script>document.write(opener.top.str_image_flip);</script></span></div></td>
+      <td width="70%"><div align="center"><span class="curspan3">&nbsp;&nbsp;<input id="chx_image_flip" type="checkbox" onclick="live_flip()" /></span></div></td>
+    </tr>
+    
+    <tr>
+      <td width="30%"><div align="center"><span class="curspan3">&nbsp;&nbsp;<script>document.write(opener.top.str_aec_hz);</script></span></div></td>
+      <td width="70%"><div align="center"><span class="curspan3">
+        <select id="select_hz" onchange="live_hz(this.value)">
+            <option value="1"><script>document.write(opener.top.str_50_hz);</script></option>
+            <option value="2"><script>document.write(opener.top.str_60_hz);</script></option>
+            <option value="3"><script>document.write(opener.top.str_outer_hz);</script></option>
+        </select>
+     </span></div></td>
+    </tr>
+</table>
+  
+</body>
+</html>

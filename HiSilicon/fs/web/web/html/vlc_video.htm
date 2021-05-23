@@ -1,0 +1,174 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="css/serverpush.css" rel="stylesheet" type="text/css" />
+<title>video</title>
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-color:#000000;
+}
+-->
+</style>
+<script src="/cgi-bin/get_status.cgi"></script>
+<script src="/cgi-bin/get_real_status.cgi"></script>
+<script src="js/public.js"></script>
+<script src="js/vlc_install.js"></script>
+<script>
+var e=navigator.userAgent.toLowerCase();
+var isOpera=e.indexOf("opera")!=-1;
+var isIE=document.all&&e.indexOf("msie")!=-1&&!isOpera;
+var SHOW_MODE_AUTO=0;
+var SHOW_MODE_REAL=1;
+var show_mode_type;
+var real_width;
+var real_height;
+var auto_width;
+var auto_height;
+</script>
+</head>
+
+<script>
+function GetPageScrollWidth()
+{
+    //return document.body.scrollWidth;
+    return document.documentElement.clientWidth; 
+}
+function GetPageScrollHeight()
+{
+    //return document.body.scrollHeight;
+    return document.documentElement.clientHeight;
+}
+function get_auto_wh()
+{
+    page_width=GetPageScrollWidth();    //ҳ��
+    page_height =GetPageScrollHeight();  //�ҳ��
+    
+    page_scale=(page_width/page_height);//�ҳ����
+    
+    real_scale=(real_width/real_height);//���ʵ��Ƶ��С���
+    
+	//�ȿ���ʾ
+	if ( real_scale >= page_scale )
+	{
+	    page_width=page_width;
+	    
+		auto_width=page_width;
+		auto_height=(page_width*real_height)/real_width;		
+	}
+	//�ȸ���ʾ
+	else
+	{
+	    page_height=page_height;
+	    
+		auto_width=(page_height*real_width)/real_height;
+        auto_height=page_height;
+	}
+}
+function video_autosize_show()
+{
+    show_mode_type=SHOW_MODE_AUTO;
+    
+    get_auto_wh();
+    
+    vlc=document.getElementById('vlc_player');
+    vlc.style.width = auto_width;
+    vlc.style.height = auto_height;
+}
+function video_realsize_show()
+{
+    show_mode_type=SHOW_MODE_REAL;
+    
+    vlc=document.getElementById('vlc_player');
+    vlc.style.width=real_width;
+    vlc.style.height=real_height;
+}
+
+function body_onload()
+{
+    real_width=GetPageScrollWidth();//ret_realstatus_videoW;
+    real_height=GetPageScrollHeight();//ret_realstatus_videoH;
+
+    //video_realsize_show();
+    video_autosize_show();
+    
+    vlc_play();
+}
+function body_beforeunload()
+{
+    vlc_stop();
+}
+
+function vlc_play()
+{
+	//var port=554;
+	var port=ret_rtsp_port;
+	var vlc;
+	var cache_value;
+	var str_options='';
+	
+	vlc=document.getElementById('vlc_player');
+	
+	cache_value = getcookie('cache_value');
+	if(cache_value=='' || cache_value == null)
+	{
+		cache_value = 200;
+		setcookie('cache_value', 200, 1440);
+	}
+
+	str_options = ":rtsp-caching=" + cache_value;	
+	
+	vlc.playlist.items.clear();
+	var options=new Array(str_options);
+	var url='rtsp://'+location.hostname+':'+port+'/live/av0?user='+top.user+'&passwd='+top.pwd;
+	
+	vlc.playlist.add(url,'live-video',options);
+	vlc.playlist.play();
+		
+	vlc.audio.volume=200;
+}
+function vlc_stop()
+{
+	var vlc=document.getElementById('vlc_player');
+	if (vlc.playlist.items.count && vlc.playlist.isPlaying) 
+		vlc.playlist.stop();
+}
+function vlc_togglePause()
+{
+	var vlc=document.getElementById('vlc_player');
+	if (vlc.playlist.items.count && vlc.playlist.isPlaying) 
+		vlc.playlist.togglePause();
+}
+
+</script>
+
+
+<body onbeforeunload="body_beforeunload()" onLoad="body_onload()">
+  <table id="tb_main" width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+    <tr><td align="center" valign="middle">
+        
+      <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td>
+            <script>
+              if (isIE)
+              {
+	            document.write('<OBJECT classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" id="vlc_player"><param name="Visible" value="True"/><param name="AutoLoop" value="False"/><param name="AutoPlay" value="False"/></OBJECT>');
+              }
+              else
+              {
+	            document.write('<embed type="application/x-vlc-plugin" id="vlc_player" name="vlc_player" autoplay="no" loop="no" ></embed>');
+              }
+            </script>
+          </td>
+        </tr>
+      </table>  
+				 
+    </td></tr>
+  </table>
+</body>
+</html>

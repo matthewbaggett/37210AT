@@ -1,0 +1,412 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title></title>
+<script language="javascript" src="../js/clearcache.js"></script>
+<link href="../css/new.css" rel="stylesheet" type="text/css" />
+<link href="../css/ceshi.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+body 
+{
+	margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+
+}
+-->
+</style>
+
+<script>
+    document.write('<script src="/cgi-bin/check_user.cgi?user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+</script>
+
+<script>
+    document.write('<script src="/cgi-bin/get_params.cgi?type=8&user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+</script>
+
+<script>
+    document.write('<script src="/cgi-bin/get_wifi_scan_result.cgi?user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+</script>
+
+</head>
+
+
+<script>
+
+    function shows(value) {
+        document.getElementById("tr_wep_authmode").style.display = "none";
+        document.getElementById("tr_wep_keyid").style.display = "none";
+        document.getElementById("tr_aestkip_authmode").style.display = "none";
+        document.getElementById("tr_wifipwd").style.display = "none";
+
+        if (value == 1) {
+            document.getElementById("tr_wep_authmode").style.display = "";
+            document.getElementById("tr_wep_keyid").style.display = "";
+
+            document.getElementById("tr_aestkip_authmode").style.display = "none";
+
+            document.getElementById("tr_wifipwd").style.display = "";
+        }
+        else if (value == 2 || value == 3) {
+            document.getElementById("tr_wep_authmode").style.display = "none";
+            document.getElementById("tr_wep_keyid").style.display = "none";
+
+            document.getElementById("tr_aestkip_authmode").style.display = "";
+
+            document.getElementById("tr_wifipwd").style.display = "";
+        }
+    }
+    function showCkUserWlan() {
+        if (document.getElementById("ck_UserWlan").checked == true) {
+            document.getElementById("txt_Ssid").disabled = "";
+            document.getElementById("select_NetworkType").disabled = "";
+            document.getElementById("select_SafeMode").disabled = "";
+
+            document.getElementById("select_wep_authmode").disabled = "";
+            document.getElementById("select_wep_keyid").disabled = "";
+
+            document.getElementById("select_aestkip_authmode").disabled = "";
+
+            document.getElementById("txt_wifipwd").disabled = "";
+        }
+        else {
+            document.getElementById("txt_Ssid").disabled = "false";
+            document.getElementById("select_NetworkType").disabled = "false";
+            document.getElementById("select_SafeMode").disabled = "false";
+
+            document.getElementById("select_wep_authmode").disabled = "false";
+            document.getElementById("select_wep_keyid").disabled = "false";
+
+            document.getElementById("select_aestkip_authmode").disabled = "false";
+
+            document.getElementById("txt_wifipwd").disabled = "false";
+        }
+    }
+    function showdata_to_ctrl(str_ssid, net_type, safe_mode, auth_mode) {
+        //SSID
+        document.getElementById("txt_Ssid").value = str_ssid;
+
+        //网络类型
+        document.getElementById("select_NetworkType").value = net_type;
+
+        //安全模式
+        document.getElementById("select_SafeMode").value = safe_mode;
+
+        //验证模式
+        if (1 == safe_mode) {
+            document.getElementById("select_wep_authmode").value = auth_mode;
+        }
+        else if (2 == safe_mode || 3 == safe_mode) {
+            document.getElementById("select_aestkip_authmode").value = auth_mode;
+        }
+
+        shows(safe_mode);
+    }
+
+    function body_load() {
+        //    document.getElementById("wifi_list").style.width=320;
+        //    document.getElementById("wifi_list").style.height=98;
+
+       
+        wifi_scan_bu.disabled = false;
+
+        //使用无线局域网
+        document.getElementById("ck_UserWlan").checked = NetStat ? true : false;
+        //选择密匙
+        document.getElementById("select_wep_keyid").value = KeyId;
+        //密码
+        document.getElementById("txt_wifipwd").value = Pass;
+
+        showdata_to_ctrl(Ssid, NetType, EncType, AuthMode);
+        showCkUserWlan();
+
+        showsearch_to_list();
+        //alert(document.getElementById("wifi_list").value); 
+    }
+
+    //搜索按钮事件
+    function wifi_scan() {
+        wifi_scan_bu.disabled = true;
+        action.window.location.href = '/cgi-bin/wifi_scan.cgi?user=' + top.user + '&pwd=' + top.pwd;
+        wifi_scan_info.innerHTML = top.str_wifi_scan_info;
+        setTimeout('location=location', 4000);
+    }
+    function showsearch_to_list() {
+        if (0 == ret_wscan_result) {
+            for (i = 0; i < ret_wscan_number; i++) {
+                oOption = document.createElement("OPTION");
+                wifi_list.options.add(oOption);
+
+                //ssid and 网络类型
+                s = ret_wscan_ssid[i] + ' ' + '[' + (ret_wscan_nettype[i] ? 'adhoc' : 'infra') + ' ';
+
+                //安全模式
+                if (ret_wscan_enctype[i] == 0) {
+                    //s+=top.str_nothing;
+                    s += 'null';
+                }
+                else if (ret_wscan_enctype[i] == 1) {
+                    //s+=top.str_wep;
+                    s += 'wep';
+                }
+                else if (ret_wscan_enctype[i] == 2) {
+                    //s+=top.str_tkip;
+                    s += 'tkip';
+                }
+                else if (ret_wscan_enctype[i] == 3) {
+                    //s+=top.str_aes;
+                    s += 'aes';
+                }
+                s += ' ';
+
+                //验证模式
+                if (ret_wscan_authmode[i] == 0) {
+                    //s+=top.str_open_system;
+                    s += 'open-system';
+                }
+                else if (ret_wscan_authmode[i] == 1) {
+                    //s+=top.str_share_wep;
+                    s += 'share-key';
+                }
+                else if (ret_wscan_authmode[i] == 2) {
+                    //s+=top.str_wpa_psk;
+                    s += 'wpa-psk';
+                }
+                else if (ret_wscan_authmode[i] == 3) {
+                    //s+=top.str_wpa2_psk;
+                    s += 'wpa2-psk';
+                }
+                s += ']';
+
+                oOption.innerHTML = s;
+                if (!(ret_wscan_enctype[i] >= 0 && ret_wscan_enctype[i] <= 3)) {
+                    oOption.style.color = 'gray';
+                }
+            }
+        }
+    }
+
+
+    //下拉列表的onclick事件
+    function wifi_list_onclick() {
+        if (wifi_list.options.length > 0) {
+            var i = wifi_list.selectedIndex;
+
+            if (ret_wscan_enctype[i] >= 0 && ret_wscan_enctype[i] <= 3) {
+                document.getElementById("ck_UserWlan").checked = true;
+
+                showdata_to_ctrl(ret_wscan_ssid[i], ret_wscan_nettype[i], ret_wscan_enctype[i], ret_wscan_authmode[i]);
+
+                showCkUserWlan();
+            }
+        }
+    }
+
+    //保存
+    function set_WifiSet() {
+        var set_wifi = 1;
+        var selectCheckModel = 0;
+        var txtMiShi = '';
+
+        if (document.getElementById("ck_UserWlan").checked == false) {
+            set_wifi = 0;
+        }
+
+        //ssid
+        var txSsid = encodeURIComponent(document.getElementById("txt_Ssid").value);
+
+        //网络类型
+        var selectNetworkType = document.getElementById("select_NetworkType").value;
+
+        //安全模型
+        var selectSafeMode = document.getElementById("select_SafeMode").value;
+
+        //验证模式
+        if (1 == selectSafeMode) {
+            selectCheckModel = document.getElementById("select_wep_authmode").value;
+
+            //pwd
+            txtMiShi = encodeURIComponent(document.getElementById("txt_wifipwd").value);
+        }
+        else if (2 == selectSafeMode || 3 == selectSafeMode) {
+            selectCheckModel = document.getElementById("select_aestkip_authmode").value;
+
+            //pwd
+            txtMiShi = encodeURIComponent(document.getElementById("txt_wifipwd").value);
+        }
+
+        //wep keyid
+        var selectWebxzms = document.getElementById("select_wep_keyid").value;
+
+
+        url = "/cgi-bin/set_wifi.cgi?next_url=rebootme.htm&wifi_enable=" + set_wifi + "&net_type=" + selectNetworkType + "&enc_type=" + selectSafeMode + "&auth_mode=" + selectCheckModel + "&def_keyid=" + selectWebxzms + "&wifi_ssid=" + txSsid + "&wifi_pwd=" + txtMiShi + "&user=" + top.user + "&pwd=" + top.pwd;
+
+        location = url;
+    }
+
+
+</script>
+<body onLoad="body_load()"  class="body">
+
+ <iframe id="action" name="action" marginheight="0" marginwidth="0" width="0" height="0" frameborder="0" scrolling="no" style="display: none"></iframe>
+     <table width="100%" cellpadding="0" cellspacing="0">
+        <tr class="adtop"><td>&nbsp;</td></tr>
+        <tr>
+            <td align="center">
+                <table cellpadding="0" cellspacing="0" >
+                   <tr>
+                    <td colspan="3" class="mid03_1">
+                        <strong class="mid03">
+                            <script type="text/javascript">                                document.write(top.str_wifinet_set);</script>
+                        </strong>
+                    </td>
+                   </tr>
+                  <tr  >
+                   <td class="lcorner" ></td>
+                   <td class="cbtop">
+                     <table cellpadding="0" cellspacing="0" style=" width:730px">
+                        <tr style=" width:100%">
+                            <td style="text-align: right;" align="right">
+                                <button class="resethbutton" onclick="set_WifiSet()">
+
+                                    <script>                                        document.write(top.str_save);</script>
+
+                                </button>
+                                <button class="resethbutton" onclick="location.reload()">
+
+                                    <script>                                        document.write(top.str_refresh);</script>
+
+                                </button>
+                             
+                            </td>
+                      
+                        </tr>
+                     </table>
+                   </td>
+                   <td class="rcorner"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="lborder"></td>
+                   <td style=" margin-top:0px">
+                     <table  style=" margin-top:0px;width:100%;height:50%;border:1px solid #70C8E6" >
+                      <tr>
+                        <td align="center"  valign="top" style="padding-top:15px">
+                           <table border="0" cellpadding="0" cellspacing="0">
+                              <tr align="center">
+                                <td class="style1">
+		                          <select id="wifi_list" style="width:400px;" size="9" onclick="wifi_list_onclick()"></select>
+		                          &nbsp;&nbsp;<button style="width:75px" onClick="wifi_scan()" id="wifi_scan_bu" class="mid042"><script>		                                                                                                                            document.write(top.str_search);</script></button>
+		                          <span id="wifi_scan_info" name="wifi_scan_info" class="mid04"></span>
+		                        </td>                              
+                              </tr>
+                           </table>
+        
+                      <table border="0" style="width:100%" cellspacing="0" cellpadding="0">
+                        <tr><td style="width:100%" class="t_lines2">&nbsp;</td></tr>
+                      </table>
+        
+                      <table style="width:100%;" border="0">
+                      <tr>
+                        <td align="center"  valign="top" style="padding-top:10px"><table style="width:100%; height:60%;" algin="center" border="0">
+                          <tr>
+                            <td rowspan="7"><table style="width:80%; height:60%;" border="0" align="center">
+                              <tr>
+                                <td align="right" style="padding-right:65px"><strong class="mid04"><script>                                                                                                       document.write(top.str_use_wlan);</script></strong></td>
+                                <td align="left"><input type="checkbox" name="ck_UserWlan" id="ck_UserWlan" onClick="showCkUserWlan()" /></td>
+                                <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                <td height="18" align="right" style="padding-right:65px"><strong class="mid04">
+                                  <script>                                      document.write(top.str_ssid);</script>
+                                </strong></td>
+                                <td align="left"><input type="text" name="txt_Ssid" style="width:110px" id="txt_Ssid"></td>
+                                <td width="114">&nbsp;</td>
+                              </tr>
+                              <tr>
+                                <td height="31" align="right" style="padding-right:65px"><strong class="mid04">
+                                  <script>                                      document.write(top.str_network_type);</script>
+                                </strong></td>
+                                <td align="left"><select name="select_NetworkType" style="width:110px" id="select_NetworkType">
+                                    <option value="0"><strong><script>                                                                  document.write(top.str_infra);</script></strong></option>
+                                    <option value="1"><strong><script>                                                                  document.write(top.str_adhoc);</script></strong></option>
+                                </select></td>
+                                <td>&nbsp;</td>
+                              </tr>
+                              <tr>
+                                <td height="21" align="right" style="padding-right:65px"><strong class="mid04">
+                                  <script>                                      document.write(top.str_safe_mode);</script>
+                                </strong></td>
+                                <td align="left"><select name="select_SafeMode" style="width:110px" id="select_SafeMode" onChange="shows(this.value)">
+                                    <option value="0"><strong><script>                                                                  document.write(top.str_nothing);</script></strong></option>
+                                    <option value="1"><strong><script>                                                                  document.write(top.str_wep);</script></strong></option>
+                                    <option value="2"><strong><script>                                                                  document.write(top.str_tkip);</script></strong></option>
+                                    <option value="3"><strong><script>                                                                  document.write(top.str_aes);</script></strong></option>
+                                </select></td>
+                                <td>&nbsp;</td>
+                              </tr>
+                              <tr id="tr_wep_authmode" style="display:none">
+                                <td height="20" align="right" style="padding-right:65px"><strong class="mid04"><script>                                                                                                                   document.write(top.str_check_model);</script></strong></td>
+                                <td align="left"><select name="select_wep_authmode" style="width:110px" id="select_wep_authmode">
+                                    <option value="0"><script>                                                          document.write(top.str_open_system);</script></option>
+                                    <option value="1"><script>                                                          document.write(top.str_share_wep);</script></option>
+                                   </select></td>
+                                <td></td>
+                              </tr>
+                              <tr id="tr_wep_keyid" style="display:none">
+                                <td height="15" align="right" style="padding-right:65px"><strong class="mid04"><script>                                                                                                                   document.write(top.str_choose_wep);</script></strong></td>
+                                <td align="left"><select name="select_wep_keyid" style="width:110px" id="select_wep_keyid">
+                                  <option value="1">1</option>
+                                  <option value="2">2</option>
+                                  <option value="3">3</option>
+                                  <option value="4">4</option>
+                                                </select></td>
+                                <td>&nbsp;</td>
+                              </tr>
+                              <tr id="tr_aestkip_authmode" style="display:none">
+                                <td height="15" align="right" style="padding-right:65px"><strong class="mid04"><script>                                                                                                                   document.write(top.str_check_model);</script></strong></td>
+                                <td align="left"><select name="select_aestkip_authmode" style="width:110px" id="select_aestkip_authmode">
+                                    <option value="2"><script>                                                          document.write(top.str_wpa_psk);</script></option>
+                                    <option value="3"><script>                                                          document.write(top.str_wpa2_psk);</script></option>
+                                  </select></td>
+                                <td>&nbsp;</td>
+                              </tr>
+                              <tr id="tr_wifipwd" style="display:none">
+                                <td height="17" align="right" style="padding-right:65px"><strong class="mid04"><script>                                                                                                                   document.write(top.str_mishi);</script></strong></td>
+                                <td align="left"><input type="password" name="txt_wifipwd" style="width:110px" id="txt_wifipwd"></td>
+                                <td></td>
+                              </tr>
+                              <tr>
+                                <td height="17">&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td></td>
+                              </tr>
+                            </table></td>
+                          </tr>
+        
+                        </table></td>
+                      </tr>
+                    </table></td>
+                  </tr>
+  
+  
+  
+                        </table>
+                   
+                   </td>
+                   <td  class="rborder"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="ldcorner"></td>
+                   <td class="cdow"></td>
+                   <td class="rdcorner"></td>
+                  </tr>
+           
+                </table>
+            </td>
+        </tr>
+     </table>
+</body>
+</html>

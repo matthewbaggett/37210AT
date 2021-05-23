@@ -1,0 +1,4 @@
+[waakhond.sh] Thu Jan  1 00:03:57 UTC 1970 : ntpd not running !
+[waakhond.sh] Thu Jan  1 00:03:57 UTC 1970 : ntpd re-started !
+[waakhond.sh] Thu Jan  1 00:05:27 UTC 1970 : ntpd not running !
+[waakhond.sh] Thu Jan  1 00:05:27 UTC 1970 : ntpd re-started !

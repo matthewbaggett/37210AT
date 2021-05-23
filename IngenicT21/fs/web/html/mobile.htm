@@ -1,0 +1,528 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link href="css/mobile.css" rel="stylesheet" type="text/css" />
+<script> 
+document.write('<script src="/cgi-bin/check_user.cgi?user='+top.user+'&pwd='+top.pwd+'"><\/script>');
+</script>
+<script>
+if(0==ret_check_user)
+{
+    top.login_succ=1;
+    top.h_right=ret_user_right;
+}
+else
+{
+    top.login_succ=0;  
+    
+    alert(top.str_conterr_userpwd);
+    
+    top.location.reload("index.htm");
+}
+</script>
+
+<script language="javascript" src="js/public.js"></script>
+<script> 
+document.write('<script src="/cgi-bin/get_camera_vars.cgi?user='+top.user+'&pwd='+top.pwd+'"><\/script>');
+</script>
+
+<script language="javascript">
+var USER_ADMIN=0;
+var USER_MANAGE=1;
+var USER_OPERATOR=2;
+var USER_VISITOR=3;
+var PTZ_CMD_UP=0;
+var PTZ_CMD_DOWN=1;
+var PTZ_CMD_LEFT=2;
+var PTZ_CMD_RIGHT=3;
+var PTZ_CMD_FOCUSADD=4;
+var PTZ_CMD_FOCUSDEL=5;
+var PTZ_CMD_ZOOMADD=6;
+var PTZ_CMD_ZOOMDEL=7;
+var PTZ_CMD_IRISOPEN=8;
+var PTZ_CMD_IRISCLOSE=9;
+var PTZ_CMD_STOP=10;
+var PTZ_CMD_AUTOON=11;
+var PTZ_CMD_AUTOOFF=12;
+var PTZ_CMD_LEFTUP=13;
+var PTZ_CMD_LEFTDOWN=14;
+var PTZ_CMD_RIGHTUP=15;
+var PTZ_CMD_RIGHTDOWN=16;
+var PTZ_CMD_AUTOHOR=17;
+var PTZ_CMD_AUTOVER=18;
+var PTZ_CMD_STOP_AUTOHOR=19;
+var PTZ_CMD_STOP_AUTOVER=20;
+
+var SCAM_CMD_OSD=1;
+var SCAM_CMD_BRIGHT=2;
+var SCAM_CMD_CONTRAST=3;
+var SCAM_CMD_HUE=4;
+var SCAM_CMD_SATURA=5;
+var SCAM_CMD_PTZX=6;
+var SCAM_CMD_MIRROR=7;
+var SCAM_CMD_FLIP=8;
+var SCAM_CMD_HZ=9;
+
+var SWITCH_CMD_ON=1;
+var SWITCH_CMD_OFF=0;
+
+var count=0;
+var ptime=500;
+
+
+function mobile_ptz_control(command)
+{
+    action_zone.location="/cgi-bin/decoder_control.cgi?type=0&cmd="+command+"&user="+top.user+"&pwd="+top.pwd;
+}
+function mobile_setcam_control(command,value)
+{
+    action_zone.location="/cgi-bin/set_camera_vars.cgi?type="+command+"&value="+value+"&user="+top.user+"&pwd="+top.pwd;
+}
+
+
+function Judge_Operator()
+{
+   if( USER_ADMIN==top.h_right || USER_MANAGE==top.h_right || USER_OPERATOR==top.h_right )
+   {
+      return 1;
+   }
+   else
+   {
+      return 0;	
+   }
+}
+function Pause(obj,iMinSecond)
+{
+    if (window.eventList==null) window.eventList=new Array();
+    var ind=-1;
+    for (var i=0;i<window.eventList.length;i++)
+    {
+        if (window.eventList[i]==null) 
+        {
+           window.eventList[i]=obj;
+           ind=i;
+           break;
+        }
+    }
+
+    if (ind==-1)
+    {
+        ind=window.eventList.length;
+        window.eventList[ind]=obj;
+    }
+    setTimeout("GoOn(" + ind + ")",iMinSecond);
+}
+function GoOn(ind)
+{
+    var obj=window.eventList[ind];
+    window.eventList[ind]=null;
+    if (obj.NextStep) obj.NextStep();
+    else obj();
+}
+
+
+function up_click()
+{
+    if( 1==Judge_Operator() )
+    {
+        mobile_ptz_control(PTZ_CMD_UP);
+        
+        Pause(this,ptime);
+        
+        this.NextStep=function()
+        {
+            mobile_ptz_control(PTZ_CMD_STOP);
+        }
+    }
+    else
+    {
+        alert(top.str_authority_lack);  
+    }
+}
+function down_click()
+{
+    if( 1==Judge_Operator() )
+    {
+        mobile_ptz_control(PTZ_CMD_DOWN);
+        
+        Pause(this,ptime);
+        
+        this.NextStep=function()
+        {
+            mobile_ptz_control(PTZ_CMD_STOP);
+        }
+    }
+    else
+    {
+        alert(top.str_authority_lack);  
+    }
+}
+function left_click()
+{
+    if( 1==Judge_Operator() )
+    {
+        mobile_ptz_control(PTZ_CMD_LEFT);
+        
+        Pause(this,ptime);
+        
+        this.NextStep=function()
+        {
+            mobile_ptz_control(PTZ_CMD_STOP);
+        }
+    }
+    else
+    {
+        alert(top.str_authority_lack);  
+    }
+}
+function right_click()
+{
+    if( 1==Judge_Operator() )
+    {
+        mobile_ptz_control(PTZ_CMD_RIGHT);
+        
+        Pause(this,ptime);
+        
+        this.NextStep=function()
+        {
+            mobile_ptz_control(PTZ_CMD_STOP);
+        }
+    }
+    else
+    {
+        alert(top.str_authority_lack);  
+    }
+}
+function leftup_click()
+{
+    if( 1==Judge_Operator() )
+    {
+        mobile_ptz_control(PTZ_CMD_LEFTUP);
+        
+        Pause(this,ptime);
+        
+        this.NextStep=function()
+        {
+            mobile_ptz_control(PTZ_CMD_STOP);
+        }
+    }
+    else
+    {
+        alert(top.str_authority_lack);  
+    }
+}
+function rightup_click()
+{
+    if( 1==Judge_Operator() )
+    {
+        mobile_ptz_control(PTZ_CMD_RIGHTUP);
+    
+        Pause(this,ptime);
+        
+        this.NextStep=function()
+        {
+            mobile_ptz_control(PTZ_CMD_STOP);
+        }
+    }
+    else
+    {
+        alert(top.str_authority_lack);  
+    }
+}
+function leftdown_click()
+{
+    if( 1==Judge_Operator() )
+    {
+        mobile_ptz_control(PTZ_CMD_LEFTDOWN);
+        
+        Pause(this,ptime);
+        
+        this.NextStep=function()
+        {
+            mobile_ptz_control(PTZ_CMD_STOP);
+        }
+    }
+    else
+    {
+        alert(top.str_authority_lack);  
+    }
+}
+function rightdown_click()
+{
+    if( 1==Judge_Operator() )
+    {
+        mobile_ptz_control(PTZ_CMD_RIGHTDOWN);
+        
+        Pause(this,ptime);
+        
+        this.NextStep=function()
+        {
+            mobile_ptz_control(PTZ_CMD_STOP);
+        }
+    }
+    else
+    {
+        alert(top.str_authority_lack);  
+    }
+}
+function center_onclick() 
+{
+    if( 1==Judge_Operator() )
+    {
+        //gocenter.src="image/s5.gif";
+        mobile_ptz_control(PTZ_CMD_AUTOON);
+    }
+    else
+    {
+        alert(top.str_authority_lack);  
+    }
+}
+
+
+function set_flip(v)
+{
+    if( 1==Judge_Operator() )
+    {
+        var tmp_flip;
+        tmp_flip=v?1:0;
+        
+        mobile_setcam_control(SCAM_CMD_FLIP, tmp_flip);
+    }
+    else
+    {
+        alert(top.str_authority_lack);  
+    }
+}
+function set_mirror(v)
+{
+    if( 1==Judge_Operator() )
+    {
+        var tmp_mirror;
+        tmp_mirror=v?1:0;
+        
+        mobile_setcam_control(SCAM_CMD_MIRROR, tmp_mirror);
+    }
+    else
+    {
+        alert(top.str_authority_lack);  
+    }
+}
+
+
+function vpatrol_onclick() 
+{
+    if( 1==Judge_Operator() )
+    {
+        //vpatrol.src="image/d1_1.gif";
+        //send cmd
+        
+        mobile_ptz_control(PTZ_CMD_AUTOVER);
+        
+        reset_image();
+    }
+    else
+    {
+        alert(top.str_authority_lack);  
+    }
+}
+function vpatrolstop_onclick() 
+{
+    if( 1==Judge_Operator() )
+    {
+        //vpatrol.src="image/d1.gif";
+	    //send cmd
+	    
+	    mobile_ptz_control(PTZ_CMD_STOP_AUTOVER);
+	    
+	    reset_image();
+    }
+    else
+    {
+        alert(top.str_authority_lack);  
+    }
+}
+function hpatrol_onclick() 
+{
+    if( 1==Judge_Operator() )
+    {
+        //hpatrol.src="image/d2_1.gif";
+	    //send cmd
+	    
+	    mobile_ptz_control(PTZ_CMD_AUTOHOR);
+	    
+	    reset_image();
+    }
+    else
+    {
+        alert(top.str_authority_lack);  
+    }
+}
+function hpatrolstop_onclick() 
+{
+    if( 1==Judge_Operator() )
+    {
+        //hpatrol.src="image/d2.gif";
+	    //send cmd
+	    
+	    mobile_ptz_control(PTZ_CMD_STOP_AUTOHOR);
+	    
+	    reset_image();
+    }
+    else
+    {
+        alert(top.str_authority_lack);  
+    }
+}	
+
+
+function body_onload()
+{   
+    imgDisplay.src="/cgi-bin/mobile_snapshot.cgi?user="+top.user+"&pwd="+top.pwd;
+    snap_href.href="/cgi-bin/mobile_snapshot.cgi?user="+top.user+"&pwd="+top.pwd;
+    
+    document.getElementById("image_mirror").checked=mirror?true:false;
+    document.getElementById("image_reversal").checked=flip?true:false;    
+	
+	window.status='';
+}	
+
+
+function load_video()
+{
+    window.status=" ";
+	setTimeout("reload_image()",40);
+}
+function reload_image()
+{
+    var xx = new Image();
+	xx.src = "/cgi-bin/mobile_snapshot.cgi?user="+top.user+"&pwd="+top.pwd+"&count="+count;	
+	count++;
+	document.getElementById("imgDisplay").src = xx.src;
+	window.status=" ";
+}
+function reset_image()
+{
+    window.status=" ";
+	setTimeout("reload_image()",40);
+}
+</script>
+</head>
+
+<body bgcolor="#d8d8d8" onload="body_onload()">
+<center>
+<iframe name="action_zone" style="display:none"></iframe>
+
+<table border="0" cellpadding="0" cellspacing="0" align="center">
+    <tr>
+        <td height="30">&nbsp;</td>
+    </tr>
+	<tr>
+	    <td width="100%" height="100%" align="center" valign="middle"> 
+            <img ondragstart="return false;" alt="video" id="imgDisplay" name="imgDisplay" onload="load_video()"/>
+        </td>
+	</tr>
+</table>
+
+<table border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff" class="tb1">
+<tr> 
+
+    <td>
+      <table border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#c4eaff">
+        <tr><td colspan="2"><table width="168" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td><table style="height:35px" width="0" border="0" align="center" cellpadding="0" cellspacing="0">
+              <tr>
+                <td><img ondragstart="return false;" alt="leftup" id="img_leftup" name="img_leftup" onclick="leftup_click()" src="image/leftup.gif" width="59" height="57" border="0" /></td>
+                <td><img ondragstart="return false;" alt="up" id="img_up" name="img_up" onclick="up_click()" src="image/up.gif" width="46" height="57" border="0" /></td>
+                <td><img ondragstart="return false;" alt="rightup" id="img_rightup" name="img_rightup" onclick="rightup_click()" src="image/rightup.gif" width="63" height="57" border="0" /></td>
+              </tr>
+            </table></td>
+          </tr>
+          
+          <tr>
+            <td><table style="height:23px" width="0" border="0" align="center" cellpadding="0" cellspacing="0">
+              <tr>
+                <td><img ondragstart="return false;" alt="left" id="img_left" name="img_left" onclick="left_click()" src="image/left.gif" border="0" /></td>
+                <td><img ondragstart="return false;" alt="center" id="gocenter" name="gocenter" src="image/center.gif" onclick="center_onclick()" border="0" /></td>
+                <td><img ondragstart="return false;" alt="right" id="img_right" name="img_right" onclick="right_click()" src="image/right.gif" border="0" /></td>
+              </tr>
+            </table></td>
+          </tr>
+          
+          <tr>
+            <td><table style="height:35px" width="0" border="0" align="center" cellpadding="0" cellspacing="0">
+              <tr>
+                <td><img ondragstart="return false;" alt="leftdown" id="img_leftdown" name="img_leftdown" onclick="leftdown_click()" src="image/leftdown.gif" border="0" /></td>
+                <td><img ondragstart="return false;" alt="down" id="img_down" name="img_down" onclick="down_click()" src="image/down.gif" border="0" /></td>
+                <td><img ondragstart="return false;" alt="rightdown" id="img_rightdown" name="img_rightdown" onclick="rightdown_click()" src="image/rightdown.gif" border="0" /></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td></tr>
+      </table>
+    </td>
+    
+    <td><table border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#ffffff">
+    
+        <tr>
+          <td><table width="150" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="150" align="center">
+                <a id="snap_href" target="_blank">
+                  <img ondragstart="return false;" alt="capture" id="img_capture" name="img_capture" src="image/capture_dis.gif" width="36" height="27" border="0" />
+                </a>
+              </td>
+            </tr>
+          </table></td>
+        </tr>
+        
+        
+        <tr>
+          <td height="2">&nbsp;&nbsp;</td>
+        </tr>
+        
+            
+        <tr>
+          <td><table width="0" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="75" align="left" class="f2"><input id="image_reversal" type="checkbox" onclick="set_flip(this.checked)" /><script>document.write(top.str_image_flip);</script></td>
+              <td width="75" align="left" class="f2"><input id="image_mirror" type="checkbox" onclick="set_mirror(this.checked)" /> <script>document.write(top.str_image_mirror);</script></td>
+            </tr>
+          </table></td>
+        </tr>
+        
+        
+        <tr>
+          <td height="2">&nbsp;&nbsp;</td>
+        </tr>
+        
+        
+        <tr>
+          <td><table width="0" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="70" align="center"><a href="javascript:vpatrol_onclick()"><img ondragstart="return false;" alt="vpatrol" id="vpatrol" src="image/vertical_dis.gif" name="vpatrol" width="37" height="23" border="0"/></a></td>
+              <td width="10" align="center">&nbsp;&nbsp;</td>
+              <td width="70" align="center"><a href="javascript:hpatrol_onclick()"><img ondragstart="return false;" alt="hpatrol" id="hpatrol" src="image/hor_dis.gif" name="hpatrol" width="37" height="23" border="0"/></a></td>
+            </tr>
+          </table></td>
+        </tr>
+    
+        <tr>
+          <td><table width="0" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="70" align="center"><a href="javascript:vpatrolstop_onclick()"><img ondragstart="return false;" alt="vpatrolstop" id="vpatrolstop" src="image/verpalstop_dis.gif" name="vpatrolstop" width="37" height="23" border="0"/></a></td>
+              <td width="10" align="center">&nbsp;&nbsp;</td>
+              <td width="70" align="center"><a href="javascript:hpatrolstop_onclick()"><img ondragstart="return false;" alt="hpatrolstop" id="hpatrolstop" src="image/verpalstop_dis.gif" name="hpatrolstop" width="37" height="23" border="0"/></a></td>
+            </tr>
+          </table></td>
+        </tr>
+    
+    </table></td>
+
+</tr>
+</table>
+</center>
+
+</body>
+</html>

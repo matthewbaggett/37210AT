@@ -1,0 +1,165 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+
+    <script language="javascript" src="../js/clearcache.js"></script>
+
+    <link href="../css/new.css" rel="stylesheet" type="text/css" />
+    <link href="../css/ceshi.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        body
+        {
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+        }
+    </style>
+
+    <script>
+        document.write('<script src="/cgi-bin/check_user.cgi?user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+        document.write('<script src="/cgi-bin/get_tutk_account.cgi?user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+        document.write('<script src="/cgi-bin/get_params.cgi?type=7&user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');       
+    </script>
+    <script>
+
+        function body_onload() {
+            document.fm_restore_sys.user.value = top.user;
+            document.fm_restore_sys.pwd.value = top.pwd;
+        }
+
+        function down_backup() {
+            var device_uid = ret_tutk_guid;
+            var today = new Date();
+
+            var years = today.getFullYear();
+            var months = today.getMonth() + 1;
+            var d = today.getDate();
+            var h = today.getHours();
+            var m = today.getMinutes();
+
+            var filename = device_uid + '_' + years + months + d + h + m + '.conf';
+
+            url = "http://" + window.location.hostname + ":" + web_port + "/cgi-bin/backup_params.cgi?user=" + top.user + "&pwd=" + top.pwd + "&filename=" + filename;
+            location = url;
+        }
+
+        var add_count = 0;
+        function Init_Upgrade() {
+
+            add_count = 0;
+            document.getElementById('td_upgrade_info').style.display = "";
+            document.getElementById('td_upgrade_info').innerHTML = top.str_sending_upgrade;
+
+            setTimeout('Handle_Upgrade()', 1000);
+        }
+
+        function Handle_Upgrade() {
+            var str_info_all = '';
+            str_info_all = top.str_sending_upgrade;
+
+            add_count = add_count + 1;
+            if (1 == add_count) {
+                str_info_all += '.';
+            }
+            else if (2 == add_count) {
+                str_info_all += '..';
+            }
+            else if (3 == add_count) {
+                str_info_all += '...';
+
+                add_count = 0;
+            }
+
+            document.getElementById('td_upgrade_info').innerHTML = str_info_all;
+
+            setTimeout('Handle_Upgrade()', 1000);
+        }
+
+        function check_file_type() {
+            var len = document.getElementById("file").value.length;
+            if (document.getElementById("file").value.substring(len - 4, len) != "conf") {
+                alert(top.str_file_type);
+            }
+        }
+    </script>
+
+</head>
+<body class="body">
+  <table width="100%" cellpadding="0" cellspacing="0">
+        <tr class="adtop"><td>&nbsp;</td></tr>
+        <tr>
+            <td align="center">
+                <table cellpadding="0" cellspacing="0" >
+                   <tr>
+                    <td colspan="3" class="mid03_1">
+                        <strong class="mid03">
+                            <script>                                document.write(top.str_backup_restore);</script>
+                        </strong>
+                    </td>
+                   </tr>
+                  <tr  >
+                   <td class="lcorner" ></td>
+                   <td class="cbtop">
+                   </td>
+                   <td class="rcorner"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="lborder"></td>
+                   <td style=" margin-top:0px">
+                                    <table style="margin-top:0px; width: 730px; height: 20%;" cellpadding="0" cellspacing="0"class="admintr">
+            
+                        <tr style="height: 35px">
+                            <td class="admintd">
+                                <strong class="mid04">
+
+                                    <script>                                        document.write(top.str_backup);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;<button class="loginbtn"  style="height:30px" onClick="down_backup();"><script>                                                                                                                       document.write(top.str_setup);</script></button>                            
+                            </td>
+                        </tr>
+                        <tr style="height: 30px">
+                            <td class="admintd" style="height: 30px">
+                                <strong class="mid04">
+
+                                    <script>                                        document.write(top.str_restore);</script>
+
+                                </strong>
+                            </td>
+                                <form name="fm_restore_sys" action="/cgi-bin/restore_params.cgi" method="post" enctype="multipart/form-data"  style="height: 30px">
+                                  <td  style="height: 30px">
+                                &nbsp;&nbsp;<input type="file" name="file" size="25" style="height:30px" id="file" onchange="check_file_type()">&nbsp;&nbsp;
+                                <button style="width: 65px;height:30px" onclick="top.reboot_seconds=60;Init_Upgrade();form.submit();" class="mid042">
+                                        <script>                                            document.write(top.str_setup);</script>
+                                </button>
+                                <input type="hidden" name="user" value="" />
+                                <input type="hidden" name="pwd" value="" />
+                                <input type="hidden" name="next_url" value="rebootme.htm" />
+                               </td>                                  
+                               </form>                                                           
+                        </tr>
+                        <tr style="height:5px;border:0px"><td colspan="2" style="border:0px"></td></tr>
+                                <tr style=" border:0px"><td id="td_upgrade_info" style="display:none; border:0px" class="mid04" colspan="2"></td></tr>
+                    </table>
+                   
+                   </td>
+                   <td  class="rborder"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="ldcorner"></td>
+                   <td class="cdow"></td>
+                   <td class="rdcorner"></td>
+                  </tr>
+           
+                </table>
+            </td>
+        </tr>
+     </table>
+     
+</body>
+</html>

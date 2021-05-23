@@ -1,0 +1,152 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="css/serverpush.css" rel="stylesheet" type="text/css" />
+    <title>video</title>
+    <style type="text/css">
+        <!
+        -- body
+        {
+            margin-left: 0px;
+            margin-top: 0px;
+            margin-right: 0px;
+            margin-bottom: 0px;
+            background-color: #f0f0f0;
+        }
+        #img_player_rightup
+        {
+            width: 20px;
+        }
+        -- ></style>
+
+    <script src="/cgi-bin/get_status.cgi"></script>
+
+    <script src="/cgi-bin/get_real_status.cgi"></script>
+
+    <script>        document.write('<script src="/cgi-bin/get_params.cgi?type=7&user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');</script>
+
+
+
+<!--    <script type="text/javascript" src="/cgi-bin/videostatus.cgi"></script>-->
+    <!--<script src="js/public.js"></script>-->
+
+    <script>
+        var e = navigator.userAgent.toLowerCase();
+        var isOpera = e.indexOf("opera") != -1;
+        var isIE = document.all && e.indexOf("msie") != -1 && !isOpera;
+        var SHOW_MODE_AUTO = 0;
+        var SHOW_MODE_REAL = 1;
+        var show_mode_type;
+        var real_width;
+        var real_height;
+        var auto_width;
+        var auto_height;
+    </script>
+
+</head>
+
+<script>
+    function GetPageScrollWidth() {
+        //return document.body.scrollWidth;
+        return document.documentElement.clientWidth;
+    }
+    function GetPageScrollHeight() {
+        //return document.body.scrollHeight;
+        return document.documentElement.clientHeight;
+    }
+    function get_auto_wh() {
+        //page_width = 700;// GetPageScrollWidth();    //ҳ��
+        //page_height = 490;// GetPageScrollHeight();  //�ҳ��
+        page_width = GetPageScrollWidth();
+        page_height = GetPageScrollHeight();
+        page_scale = (page_width / page_height); //�ҳ����
+
+        real_scale = (real_width / real_height); //���ʵ��Ƶ��С���
+
+        //�ȿ���ʾ
+        if (real_scale >= page_scale) {
+            page_width = page_width;
+
+            auto_width = page_width;
+            auto_height = (page_width * real_height) / real_width;
+        }
+        //�ȸ���ʾ
+        else {
+            page_height = page_height;
+
+            auto_width = (page_height * real_width) / real_height;
+            auto_height = page_height;
+        }
+    }
+    function video_autosize_show() {
+        show_mode_type = SHOW_MODE_AUTO;
+
+        get_auto_wh();
+
+        var push_player = document.getElementById('imgDisplay');
+        push_player.width = auto_width - 5;
+        push_player.height = auto_height - 5;
+    }
+    function video_realsize_show() {
+        show_mode_type = SHOW_MODE_REAL;
+
+        var push_player = document.getElementById('imgDisplay');
+        push_player.width = real_width;
+        push_player.height = real_height;
+    }
+
+    function body_onload() {
+        //real_width = GetPageScrollWidth();// ret_realstatus_videoW;
+        //real_height = GetPageScrollHeight(); // ret_realstatus_videoH;
+        real_width = ret_realstatus_videoW;
+        real_height = ret_realstatus_videoH;
+
+        //video_realsize_show();
+        video_autosize_show();
+
+        show_image();
+
+        //        window.location = "get_videostatus.htm";
+
+    }
+
+    function show_image() {
+        //src
+        var xx = new Image();
+        //xx.src = "http://"+ipcamIP+":8099/cgi-bin/videostream.cgi?user=" + top.user + "&pwd=" + top.pwd;
+        xx.src = "http://" + window.location.hostname + ":" + push_port + "/cgi-bin/videostream.cgi?user=" + decodeURIComponent(top.user) + "&pwd=" + decodeURIComponent(top.pwd);
+        document.getElementById("imgDisplay").src = xx.src;
+    }
+
+</script>
+
+<body onload="body_onload()">
+    <table id="tb_main" border="0" cellpadding="0" cellspacing="0" style="height: 100%;
+        width: 100%">
+<!--<!--        <tr>
+            <td align="center" valign="middle" style="height: 100%; width: 100%">
+                <table border="0" cellpadding="0" cellspacing="0" style="height: 100%; width: 100%">-->
+                    <!--<tr>
+          <td width="20"   height="20"><img ondragstart="return false;" id="img_player_leftup" src="image/player_leftup.png" /></td>
+          <td height="20"  class="pb_uphor"></td>
+          <td width="20"   height="20"><img ondragstart="return false;" id="img_player_rightup" src="image/player_rightup.png" /></td>
+        </tr>-->
+                    <tr>
+                        <!--<td width="20" class="pb_leftver"></td>-->
+                        <td bgcolor="#f0f0f0" align="center" valign="middle">
+                            <img ondragstart="return false;" alt="video" id="imgDisplay" name="imgDisplay" src="" style="width:100%;height:100%"/>
+                        </td>
+                        <!--<td width="20" class="pb_rightver"></td>-->
+                    </tr>
+                    <!--<tr>
+          <td width="20"   height="20"><img ondragstart="return false;" id="img_player_leftdown" src="image/player_leftdown.png" /></td>
+          <td height="20" class="pb_downhor"></td>
+          <td width="20"   height="20" ><img ondragstart="return false;" id="img_player_rightdown" src="image/player_rightdown.png" /></td>
+        </tr>-->
+        <!--<!--
+          </table>
+            </td>
+        </tr>-->
+    </table>
+</body>
+</html>

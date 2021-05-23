@@ -1,0 +1,266 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <script language="javascript" src="../js/clearcache.js"></script>
+
+    <link href="../css/new.css" rel="stylesheet" type="text/css" />
+    <link href="../css/ceshi.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        body
+        {
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+           
+        }
+       
+    </style>
+    <title></title>
+
+   <script type="text/javascript">
+
+       document.write('<script src="/cgi-bin/get_params.cgi?type=16&user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+</script>
+
+</head>
+
+<script type="text/javascript">
+    if (ret_alias_name == '') {
+        ret_alias_name = top.str_anonymous;
+    }
+    top.document.title = top.str_device + '(' + ret_alias_name + ')';
+
+     function body_onload() {
+        var max;
+        var min;
+        document.getElementById("ChekMax").value = temdect_en; //是否启用温度报警
+       
+        document.getElementById("Seltem").value = type; ;  //报警触发温度范围 温度单位（摄氏度，华氏度）
+     
+        if (type == 1) {
+           
+            max = 32 + tmp_max * 2;
+            min = 32 + tmp_min * 2;
+
+            document.getElementById("tem_max").value = max;
+            if (max.toString().indexOf(".") > 0) {
+                document.getElementById("tem_max").value = max.toString().substring(0, max.toString().indexOf(".") + 2);
+            }
+
+            document.getElementById("tem_min").value = min;
+            if (min.toString().indexOf(".")>0) {
+                document.getElementById("tem_min").value = min.toString().substring(0, min.toString().indexOf(".") + 2);
+            }
+        }
+        else {
+           
+            document.getElementById("tem_min").value = tmp_min;   //报警触发温度范围 最小值
+            document.getElementById("tem_max").value = tmp_max;   //报警触发温度范围 最大值
+           
+        }
+
+        document.getElementById("Select2").value = tem_interval;
+        document.getElementById("Checkbox33").checked = temmail_en == 1 ? true : false;   //发送邮件 
+        document.getElementById("Checkbox44").checked = temcap_en == 1 ? true : false;   //抓拍图片 
+        document.getElementById("Checkbox55").checked = temrec_en == 1 ? true : false;   //录像
+
+    }
+
+
+    function set_devinfo() {
+        
+        var temdect_enable1 = document.getElementById("ChekMax").value;
+       
+        var min1 = document.getElementById("tem_min").value;
+        
+        var max1 = document.getElementById("tem_max").value;
+        
+        var c;
+        var d;
+        if (document.getElementById("Seltem").value == 1) {
+            c = (min1 - 32) /2;
+            d = (max1 - 32) /2;
+            if (d.toString().indexOf(".") > 0) {
+                d = d.toString().substring(0, d.toString().indexOf(".") + 2);
+            }
+            if (c.toString().indexOf(".") > 0) {
+                c = c.toString().substring(0, c.toString().indexOf(".") + 2);
+            }
+        }
+        else {
+            c = min1;
+            d = max1;
+         }
+       
+        var interval = document.getElementById("Select2").value;
+       
+        var type = document.getElementById("Seltem").value;
+       
+        var temmail_enable1 = document.getElementById("Checkbox33").checked == true ? 1 : 0;
+       
+        var temcap_enable1 = document.getElementById("Checkbox44").checked == true ? 1 : 0;
+        
+        var temrec_enable1 = document.getElementById("Checkbox55").checked == true ? 1 : 0;
+      
+        var url = "/cgi-bin/set_tem_alarm_hisi.cgi?next_url=setmenu/TempSense.htm&temdect_enable=" + temdect_enable1 + "&type=" + type + "&tmp_min=" + c + "&tmp_max=" + d + "&tem_detect_interval=" + interval + "&temmail_enable=" + temmail_enable1 + "&temcap_enable=" + temcap_enable1 + "&temrec_enable= " + temrec_enable1 + "&temalarmout_enable=" + "&user=" + top.user + "&pwd=" + top.pwd;
+
+        location = url;
+    }
+
+
+</script>
+
+<body onload="body_onload()" class="body">
+     <table width="100%" cellpadding="0" cellspacing="0">
+        <tr class="adtop"><td>&nbsp;</td></tr>
+        <tr>
+            <td align="center" >
+                <table cellpadding="0" cellspacing="0" >
+                   <tr>
+                    <td colspan="3" class="mid03_1">
+                        <strong class="mid03">
+                            <script type="text/javascript">                                document.write(top.str_w_Max);</script>
+                        </strong>
+                    </td>
+                   </tr>
+                  <tr  >
+                   <td class="lcorner" ></td>
+                   <td class="cbtop">
+                                 <table cellpadding="0" cellspacing="0" style=" width:730px">
+                                    <tr style=" width:100%">
+                                        <td style="text-align: right; " align="right">
+                                            <button class="resethbutton" onclick="set_devinfo()">
+                                                <script>  document.write(top.str_save);</script>
+                                            </button>
+                                            <button class="resethbutton" onclick="location.reload()">
+                                                <script> document.write(top.str_refresh);</script>
+                                            </button>
+                             
+                                        </td>
+                      
+                                    </tr>
+                                 </table>
+                               </td>
+                               <td class="rcorner"></td>
+                              </tr>
+              
+                              <tr>
+                               <td class="lborder"></td>
+                               <td >
+                                   <table style="margin-top: 0px; width:100%; height: 20%;" class="admintr">
+               
+                           <!-- <table style="margin-top:10px;width:98%;height:70%;border:1px solid #EEE5DE;"  > --><!--solid black-->
+  
+                              <tr  style="height:35px">
+                                <td align="right" class="admintd"><strong class="mid04">
+                                  <script type="text/javascript">                                      document.write(top.str_w_sfqywdbj);</script>
+                                </strong></td>
+                                <td style="padding-left:20px">
+                                    <select id="ChekMax">
+                        
+                                    <option value="1">
+
+                                        <script>                                            document.write(top.str_open);</script>
+
+                                    </option>
+                                    <option value="0">
+
+                                        <script>                                            document.write(top.str_close);</script>
+
+                                    </option>
+                        
+                                 </select>
+                                </td>
+                              </tr>
+                              <tr  style="height:35px">
+                                <td align="right" class="admintd"><strong  class="mid04">
+                                  <script type="text/javascript">                                      document.write(top.str_w_bjcfwdfw);</script>
+                                </strong></td>
+                                 <td>
+                                    <input id="tem_min" type="text" class="text" />
+                                    ~
+                                    <input id="tem_max" type="text" class="text"/>
+                                    <select id="Seltem" onclick="return Seltem_onclick()">
+                                        <option value="0">&#8451;</option>
+                                        <option value="1">&deg;&#70;</option>
+                                    </select>
+                                </td>
+
+                              </tr>
+                              <tr  style="height:35px">
+                                <td rowspan="5" class="admintd">
+                                    <!--报警联动策略-->
+                                    <strong  class="mid04">
+                                    <script >                                        document.write(top.str_action_with_alarm);</script>
+                                    </strong>
+                                </td>
+                               </tr>
+                                <tr  style="height:35px">
+                                <td>
+                                    <!--时间间隔-->
+                                    <strong  class="mid04">
+                                    <script>document.write(top.str_s_bjcfjg);</script>
+                                    </strong>
+                                    <input id="Select2" type="text" class="text" />
+                                    <!--<select id="Select2">
+                                       
+                                        <option value="30">30s</option>
+                                        <option value="45">45s</option>
+                                        <option value="60">60s</option> 
+                                    </select>-->
+                                </td>
+                              </tr>
+                               <tr>
+                                <td>
+                                    <!--发送邮件-->
+                                    <strong  class="mid04">
+                                    <script>                                        document.write(top.str_s_fsyj);</script>
+                                    </strong>
+                                    <input type="checkbox" id="Checkbox33"  />
+                                </td>
+                            </tr>
+                             <tr>
+                                <td>
+                                    <!--图片-->
+                                    <strong  class="mid04">
+                                    <script>                                        document.write(top.str_ftp_uploading); function Checkbox3_onclick() {
+                                     
+                                        }
+
+                                    </script>
+                                    </strong>
+                                    <input type="checkbox" id="Checkbox44" />
+                                </td>
+                            </tr>
+                                              <tr>
+                                <td>
+                                    <!--录像-->
+                                    <strong  class="mid04">
+                                    <script>                                        document.write(top.str_sd_videotape);</script>
+                                    </strong>
+                                    <input type="checkbox" id="Checkbox55" />
+                                </td>
+                            </tr>
+                              
+                              <!--<tr style="height:5px">
+                                <td class="admintd" ></td>
+                                <td style=" height:5px"></td>
+                              </tr>--> 
+                                </table>
+                   </td>
+                   <td  class="rborder"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="ldcorner"></td>
+                   <td class="cdow"></td>
+                   <td class="rdcorner"></td>
+                  </tr>
+           
+                </table>
+            </td>
+        </tr>
+     </table>
+</body>
+</html>

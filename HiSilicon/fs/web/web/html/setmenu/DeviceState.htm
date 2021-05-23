@@ -1,0 +1,278 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title></title>
+
+    <script type="text/javascript" src="../js/clearcache.js"></script>
+
+    <link href="../css/new.css" rel="stylesheet" type="text/css" />
+    <link href="../css/ceshi.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        body
+        {
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+        }
+        .style1
+        {
+            background-color: #CCC;
+            text-align: center;
+            width: 300px;
+            height: 32px;
+        }
+        .style2
+        {
+            height: 32px;
+        }
+    </style>
+
+    <script> 
+      document.write('<script src="/cgi-bin/check_user.cgi?user='+top.user+'&pwd='+top.pwd+'"><\/script>');
+    </script>
+
+    <script type="text/javascript" src="/cgi-bin/get_status.cgi"></script>
+
+    <script> 
+       
+    document.write('<script src="/cgi-bin/get_alarm_schedule.cgi"><\/script>'); 
+    document.write('<script src="/cgi-bin/get_sdc_status.cgi"><\/script>'); 
+    document.write('<script src="/cgi-bin/get_real_status.cgi"><\/script>');
+    </script>
+
+    <script>document.write('<script src="/cgi-bin/get_params.cgi?type=0&user='+top.user+'&pwd='+top.pwd+'"><\/script>');</script>
+
+    <script type="text/javascript">
+ function body_load()
+{
+//    document.getElementById("ckOpenEmail").checked=enable_email?true:false;     //是否启用邮箱
+//    document.getElementById("ckCheckUser").checked=enable_auth?true:false;      //是否验证邮箱
+//    document.getElementById("ckSslSafetyLanding").checked=sslenable?true:false; //是否SSL登录
+    
+    document.getElementById("Peter_liu").value=ret_sdc_status_normal;//发件人
+//    document.getElementById("txtOutbox").value=from_addr//发件箱
+//    document.getElementById("txtInbox1").value=to_addr1;//收件箱1
+//    document.getElementById("txtInbox2").value=to_addr2;//收件箱2
+//    document.getElementById("txtInbox3").value=to_addr3;//收件箱3
+//    document.getElementById("txtSmtpServer").value=smtp_serv;//smtp服务器
+//    document.getElementById("txtSmtpPort").value=smtp_port;//smtp端口
+//    document.getElementById("txtSmtpUser").value=smtp_user;//smtp用户
+//    document.getElementById("txtSmtpPassword").value=smtp_pwd;//smtp密码
+//    
+//    enable_all_func(enable_email, enable_auth);     
+}
+ 
+    </script>
+
+</head>
+<body onload="body_onload()" class="body">
+    <table width="100%" cellpadding="0" cellspacing="0">
+        <tr class="adtop"><td>&nbsp;</td></tr>
+        <tr>
+            <td align="center">
+                <table cellpadding="0" cellspacing="0" >
+                   <tr>
+                    <td colspan="3" class="mid03_1">
+                        <strong class="mid03">
+                            <script type="text/javascript">document.write(top.str_d_EquipmentState);</script>
+                        </strong>
+                    </td>
+                   </tr>
+                  <tr  >
+                   <td class="lcorner" ></td>
+                   <td class="cbtop">
+                     <table cellpadding="0" cellspacing="0" style=" width:730px">
+                        <tr style=" width:100%">
+                            <td style="text-align: right;" align="right">
+                               
+                                <button class="resethbutton" onclick="location.reload()">
+
+                                    <script>document.write(top.str_refresh);</script>
+
+                                </button>
+                             
+                            </td>
+                      
+                        </tr>
+                     </table>
+                   </td>
+                   <td class="rcorner"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="lborder"></td>
+                   <td style=" margin-top:0px">
+                        <table style="margin-top: 0px; width: 730px; height: 20%;" class="admintr">
+            
+                            <tr>
+                                <td class="admintd">
+                                    <strong class="mid04">
+                                        <!--报警状态-->
+
+                                        <script>document.write(top.str_d_AlarmStatus);</script>
+
+                                    </strong>
+                                </td>
+                                <td class="style2">
+
+                                    <script>document.write(sen_alarm_onoff);</script>
+
+                                    <!--=0?'关闭':'启用'-->
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr style="height: 35px; display:none;">
+                                <td class="admintd">
+                                    <strong class="mid04">
+
+                                        <script>document.write(top.str_d_StateOfTheVideo);</script>
+
+                                        <!--录像状态-->
+                                    </strong>
+                                </td>
+                                <td>
+
+                                    <script>document.write(alarm_status);</script>
+
+                                    <!--=0?'为录像':'已录像'-->
+                                </td>
+                            </tr>
+                            <tr style="height: 35px">
+                                <td class="admintd">
+                                    <strong class="mid04">
+
+                                        <script>document.write(top.str_d_SDCardStatus);</script>
+
+                                        <!--SD卡状态-->
+                                    </strong>
+                                </td>
+                                <td id="Peter_liu">
+
+                                    <script>document.write(ret_sdc_status_normal);</script>
+
+                                    <!--=0?'正常':'没有挂载SD卡'-->
+                                </td>
+                            </tr>
+                            <tr style="height: 35px">
+                                <td class="admintd">
+                                    <strong class="mid04">
+
+                                        <script>document.write(top.str_d_SDCardSpaceAvailable);</script>
+
+                                        <!--SD卡可用空间<-->
+                                    </strong>
+                                </td>
+                                <td>
+
+                                    <script>document.write(ret_sdc_status_freespace + 'KB');</script>
+
+                                </td>
+                            </tr>
+                            <tr style="height: 35px">
+                                <td class="admintd">
+                                    <strong class="mid04">
+
+                                        <script>document.write(top.str_d_SDCardtotalSpace);</script>
+
+                                        <!-- SD卡总空间-->
+                                    </strong>
+                                </td>
+                                <td>
+
+                                    <script>document.write(ret_sdc_status_allspace + 'KB');</script>
+
+                                </td>
+                            </tr>
+                            <tr style="height: 35px">
+                                <td class="admintd">
+                                    <strong class="mid04">
+
+                                        <script>document.write(top.str_d_NTPStatus);</script>
+
+                                        <!--NTP状态-->
+                                    </strong>
+                                </td>
+                                <td>
+
+                                    <script>document.write(mod);</script>
+
+                                    <!--=2?'更新成功':'更新失败'-->
+                                </td>
+                            </tr>
+                            <tr style="height: 35px">
+                                <td class="admintd">
+                                    <strong class="mid04">
+
+                                        <script>document.write(top.str_d_DDNSStatus);</script>
+
+                                        <!--DDNS状态-->
+                                    </strong>
+                                </td>
+                                <td>
+
+                                    <script>document.write(ret_realstatus_ddns);</script>
+
+                                    <!--=0?'启用':'禁用'-->
+                                </td>
+                            </tr>
+                            <tr style="height: 35px">
+                                <td class="admintd">
+                                    <strong class="mid04">
+
+                                        <script>document.write(top.str_d_UPNPStatus);</script>
+
+                                        <!-- UPNP状态-->
+                                    </strong>
+                                </td>
+                                <td>
+
+                                    <script>document.write(ret_realstatus_upnp);</script>
+
+                                    <!--0=?'端口映射成功':'端口映射失败'-->
+                                </td>
+                            </tr>
+                            <tr style="height: 35px">
+                                <td class="admintd">
+                                    <strong class="mid04">
+
+                                        <script>document.write(top.str_d_WIFIStatus);</script>
+
+                                        <!--WIFI状态-->
+                                    </strong>
+                                </td>
+                                <td> 
+                                    <script>document.write(NetStat);</script>
+
+                                    <!--0=?'已连接':'未连接'-->
+                                </td>
+                            </tr>
+                            <tr style="height: 35px">
+                                <td class="admintd">
+                                    <strong class="mid04">
+
+                                        <script>document.write(top.str_d_InfraredLampState);</script>
+
+                                        <!-- 红外灯状态-->
+                                    </strong>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        </table>
+                   
+                   </td>
+                   <td  class="rborder"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="ldcorner"></td>
+                   <td class="cdow"></td>
+                   <td class="rdcorner"></td>
+                  </tr>
+           
+                </table>
+            </td>
+        </tr>
+     </table>
+</body>
+</html>

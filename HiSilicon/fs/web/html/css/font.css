@@ -1,0 +1,16 @@
+body,
+table.mainItemsLayout th pre /* 先行導入した改行防止用 pre 要素に対してフォントを指定する */
+{	font-family: Verdana, Arial, 'MS Gothic', sans-serif;
+}
+
+
+div#menu
+{
+	font-size: 11pt;
+}
+
+div#menu a{
+	font-weight: bold;
+}
+
+

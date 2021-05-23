@@ -1,0 +1,1179 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title></title>
+<link href="css/news.css" rel="stylesheet" type="text/css" />
+<link href="css/camera.css" rel="stylesheet" type="text/css" />
+<link href="css/serverpush.css" rel="stylesheet" type="text/css" />
+<!--
+<link href="css/styles.css" rel="stylesheet" type="text/css" />
+-->
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-color:#4c6eb5;
+}
+-->
+</style>
+<script  for="video" event="OnConnectServerResult(result, right)">video_OnConnectServerResult(result, right)</script>
+<script  for="video" event="OnNetworkErrorResult(result)">video_OnNetworkErrorResult(result)</script>
+
+<script for="video" event="OnSearchFileSuccResult(count,flag,status,filename,filesize,curpage,allpage)">video_OnSearchFileSuccResult(count,flag,status,filename,filesize,curpage,allpage)</script>
+<script for="video" event="OnSearchFileFailResult(result)">video_OnSearchFileFailResult(result)</script>
+
+<script for="video" event="OnDeleteFileResult(result)">video_OnDeleteFileResult(result)</script>
+
+<script for="video" event="OnGetPlayProgress(value)">video_OnGetPlayProgress(value)</script>
+<script for="video" event="OnGetFastSlowValue(value)">video_OnGetFastSlowValue(value)</script>   
+<script for="video" event="OnReplaySizeChange(width,height)">video_OnReplaySizeChange(width,height)</script>
+
+<script for="video" event="OnStartPlayResult(result)">video_OnStartPlayResult(result)</script>
+<script for="video" event="OnStopPlayResult(result)">video_OnStopPlayResult(result)</script>
+<script for="video" event="OnPausePlayResult(result)">video_OnPausePlayResult(result)</script>
+<script for="video" event="OnResumePlayResult(result)">video_OnResumePlayResult(result)</script>
+<script type="text/javascript" src="js/public.js"></script>
+<script type="text/javascript" src="js/slider.js"></script>
+<script type="text/javascript" src="js/NewTime.js"></script>
+<script type="text/javascript">
+var LINES_PAGE=18;
+var ob_sl_ptzs;
+var PTZS_A_TPL = 
+{
+    'b_vertical' : false,
+    'b_watch': true,
+    'n_controlWidth': 500,
+    'n_controlHeight': 22,
+    'n_sliderWidth': 13,
+    'n_sliderHeight': 9,
+    'n_pathLeft' : 0,
+    'n_pathTop' : 4,
+    'n_pathLength' : 483,
+    's_imgControl': 'image/guidao.jpg',
+    's_imgSlider': 'image/huadongtiao.jpg',
+    //'s_imgAlt': '',
+    'n_zIndex': 1
+}
+var PTZS_A_INIT = 
+{
+    's_form' : 0,
+    's_name': 'text_ptzs',
+    'n_minValue' : 0,
+    'n_maxValue' : 100,
+    'n_value' : 1,
+    'n_step' : 1
+}
+</script>
+</head>
+
+<script type="text/javascript">
+var search_files={};
+search_files.selindex=-1;          //当前选中的索引( >=0可用 )
+search_files.item=0;               //用于累加的索引号,从0开始
+search_files.count=0;              //当前要返回的总记录数
+search_files.curpage=0;            //当前页码  
+search_files.allpage=0;            //总页码
+search_files.flag=new Array();     //0:第1条 1:中间条 2:最后一条
+search_files.status=new Array();   //0:正在播放 1:移动侦测文件 2:外部报警文件
+search_files.filename=new Array(); //文件名
+search_files.filesize=new Array(); //文件大小
+
+search_files.set_selindex=function(index)
+{
+    this.selindex=index;
+}
+search_files.set_item=function(index)
+{
+    this.item=index;
+}
+search_files.get_item=function()
+{
+    return (this.item);
+}
+search_files.set_count=function(count)
+{
+    this.count=count;
+}
+search_files.set_curpage=function(cur)
+{
+    this.curpage=cur;
+}
+search_files.set_allpage=function(all)
+{
+    this.allpage=all;
+}
+search_files.set_params=function(index,flag,status,filename,filesize)
+{
+    if((index>=0) && (index<this.count))
+    {
+        this.flag[index]=flag;
+        this.status[index]=status;
+        this.filename[index]=filename;
+        this.filesize[index]=filesize;
+    }
+}
+</script>
+
+<script type="text/javascript">
+function getX(elem)
+{
+    var x = 0;
+    while(elem)
+    {
+        x = x + elem.offsetLeft;
+        elem = elem.offsetParent;
+    }
+    return x;
+}
+function getY(elem)
+{
+    var y = 0;
+    while(elem)
+    {
+        y = y + elem.offsetTop;
+        elem = elem.offsetParent;
+    }
+    return y;
+}
+
+function PtzsChg(v)
+{
+
+}
+
+function open_search_page()
+{
+    var curpos=document.getElementById('img_search_file');
+    var nleft=getX(curpos);
+    var ntop=getY(curpos);
+   
+    document.getElementById("Div_search").style.left=nleft-20;
+    document.getElementById("Div_search").style.top=ntop-100;
+    //
+    document.getElementById("Div_search").style.display="";
+}
+function close_search_page()
+{
+    document.getElementById("Div_search").style.display="none";
+}
+function search_onchange(value)
+{
+    //file-type
+    if(value==0)
+    {   
+        document.getElementById("select_ftype").disabled="";
+        document.getElementById("time_start").disabled="none";
+        document.getElementById("time_end").disabled="none";
+    }
+    //time
+    else if(value==1)
+    {
+        document.getElementById("select_ftype").disabled="none";
+        document.getElementById("time_start").disabled="";
+        document.getElementById("time_end").disabled="";
+    }
+    //file-type and time
+    else if(value==2)
+    {
+        document.getElementById("select_ftype").disabled="";
+        document.getElementById("time_start").disabled="";
+        document.getElementById("time_end").disabled="";
+    }
+    //all
+    else if(value==3)
+    {
+        document.getElementById("select_ftype").disabled="none";
+        document.getElementById("time_start").disabled="none";
+        document.getElementById("time_end").disabled="none";
+    }
+}
+
+
+function show_pageinfo(cur,all)
+{
+    var temp="";
+    
+    temp=cur;
+    temp+="/";
+    temp+=all;
+    
+    document.getElementById("lable_page").innerHTML=temp;
+}
+function show_progress_info(value)
+{
+    ob_sl_ptzs.f_setValue(value, 1);
+}
+function show_slowfast_info(value)
+{
+    var temp="";
+    
+    switch(value)
+    {
+    case -2:
+        {
+            temp="<-4x>";
+        }
+        break;
+    case -1:
+        {
+            temp="<-2x>";
+        }
+        break;
+    case 0:
+        {
+            temp="<1x>";
+        }
+        break;
+    case 1:
+        {
+            temp="<2x>";
+        }
+        break;
+    case 2:
+        {
+            temp="<4x>";
+        }
+        break;
+    default:
+        break;
+    }
+    
+    //document.getElementById("lable_fastslow").innerHTML=temp;
+    document.getElementById("lable_fastslow").innerText=temp;
+}
+
+function body_onload()
+{  
+    show_ctrl_title();
+    
+    clear_file_list();
+    search_onchange(0);
+    
+    show_pageinfo(0,0);
+    show_progress_info(0);
+    show_slowfast_info(0);
+   
+    video.SetLinesOfPage(LINES_PAGE);   
+    video.SetShowMode(2);
+    video.ConnectServer(location.hostname, top.video_port, encodeURIComponent(top.user), encodeURIComponent(top.pwd));
+}
+function body_onunload()
+{
+    video.DisconnectServer();
+}
+
+function show_ctrl_title()
+{
+    document.getElementById("img_rec_play").title=top.str_play;
+    document.getElementById("img_rec_stop").title=top.str_stop;
+    document.getElementById("img_rec_pause").title=top.str_pause;
+    document.getElementById("img_rec_prev").title=top.str_prev_one;
+    document.getElementById("img_rec_next").title=top.str_next_one;
+    document.getElementById("img_rec_slow").title=top.str_slow_play;
+    document.getElementById("img_rec_fast").title=top.str_fast_play;
+    
+    document.getElementById("img_search_file").title=top.str_search_file;
+    document.getElementById("img_first_page").title=top.str_first_page;
+    document.getElementById("img_prev_page").title=top.str_prev_page;
+    document.getElementById("img_next_page").title=top.str_next_page;
+    document.getElementById("img_last_page").title=top.str_last_page;
+}
+
+function video_OnConnectServerResult(result, right)
+{
+    if(0!=result)
+    {
+        if(1==result)
+        {
+            alert(top.str_conterr_user);
+        }
+        else if(2==result)
+        {
+            alert(top.str_conterr_pwd);
+        }
+        else if(3==result)
+        {
+            alert(top.str_conterr_exmax);
+        }
+        
+        top.location.reload("index.htm");
+    }
+    else
+    {
+        //alert("login succ");
+    }
+}
+function video_OnNetworkErrorResult(result)
+{
+    video.DisconnectServer();
+    
+    if(1 == result)
+    {
+        alert(top.str_conterr_fail);
+    }
+    else if(2 == result)
+    {
+        alert(top.str_exec_disconnect);
+    }
+    else if(3 == result)
+    {
+        alert(top.str_acti_disconnect);
+    }
+    
+    if (confirm(top.str_reagain_connect))
+    {
+        video.ConnectServer(location.hostname, top.video_port, encodeURIComponent(top.user), encodeURIComponent(top.pwd));
+    }
+}
+
+//=============================================================//
+//搜索有关
+function submit_search()
+{
+    var timeBeg=document.getElementById("time_start").value;
+    var timeEnd=document.getElementById("time_end").value;
+    var valBeg=timeBeg.replace("-","").replace("-","").replace(" ","").replace(":","").replace(":",""); 
+    var valEnd=timeEnd.replace("-","").replace("-","").replace(" ","").replace(":","").replace(":","");
+    
+    var tmpmode=document.getElementById("select_mode").value;
+    var tmpftype=document.getElementById("select_ftype").value;
+    
+    close_search_page();
+    video.SearchMainType=tmpmode;
+      
+    //type
+    if(0==tmpmode)
+    {
+        video.SearchFileType=tmpftype;
+        video.SearchStartTime="0";
+        video.SearchEndTime="0";
+    }
+    //time
+    else if(1==tmpmode)
+    {
+        if(timeBeg=="" && timeEnd=="")
+        {
+            alert(top.str_please_seltime);  
+            return;  
+        }
+        if( (timeBeg.replace(/-/g,"/")) > (timeEnd.replace(/-/g,"/")) )
+        {
+           alert(top.str_endless_begtime);
+           return;
+        }
+        
+        video.SearchFileType=0;
+        video.SearchStartTime=valBeg;
+        video.SearchEndTime=valEnd;
+    }
+    //type and time
+    else if(2==tmpmode)
+    { 
+        if(timeBeg=="" && timeEnd=="")
+        {
+            alert(top.str_please_seltime);  
+            return;  
+        }
+        if( (timeBeg.replace(/-/g,"/")) > (timeEnd.replace(/-/g,"/")) )
+        {
+           alert(top.str_endless_begtime);
+           return;
+        }
+        
+        video.SearchFileType=tmpftype;
+        video.SearchStartTime=valBeg;
+        video.SearchEndTime=valEnd;
+    }
+    //all 
+    else if(3==tmpmode)
+    {
+        video.SearchFileType=0;
+        video.SearchStartTime="0";
+        video.SearchEndTime="0";
+    }
+    
+    //startsearch-begin---//
+    var iret=video.StartSearchFile();
+    switch(iret)
+    {
+    case 0:
+        {
+            //alert("StartSearchFile succ");
+        }
+        break;
+    case 1:
+        {
+            alert(top.str_usalerr_noobj);
+        }
+        break;
+    case 2:
+        {
+            alert(top.str_login_fail);
+        }
+        break;
+    case 3:
+        {
+            alert(top.str_searchs_noright);
+        }
+        break;
+    case 4:
+        {
+            alert(top.str_send_findinfo_fail);
+        }
+        break;
+    default:
+        break;
+    }
+   //startsearch-end---//
+    
+}
+function video_OnSearchFileSuccResult(count,flag,status,filename,filesize,curpage,allpage)
+{
+    show_pageinfo(curpage, allpage);
+    
+    //alert(count);
+    //alert(flag);
+    //alert(status);
+    
+    if(count<=0)
+    {
+		search_files.set_selindex(-1);
+        search_files.set_item(0);
+        search_files.set_count(0);
+        search_files.set_curpage(0);
+        search_files.set_allpage(0);
+        
+        //clear list
+        clear_file_list();
+        ///////////////////////////////////
+            
+        alert(top.str_search_result_null);
+    }
+    else
+    {
+        var item=0;
+        
+        //第一条记录
+        if(0==flag)
+        {
+            search_files.set_item(0);
+            search_files.set_count(count);
+            search_files.set_curpage(curpage);
+            search_files.set_allpage(allpage);
+			
+			//selindex
+			if( !((search_files.selindex>=0) && (search_files.selindex<count)) )
+            {
+				search_files.set_selindex(-1);
+			}
+			
+            //clear list
+            clear_file_list();
+            ///////////////////////////////////
+            item=0;
+        }
+        
+        //中间记录
+        if(1==flag)
+        {
+            item=search_files.get_item();
+            item++;
+            search_files.set_item(item);
+        }
+        
+        //最后一条记录
+        if(2==flag)
+        {
+            item=search_files.get_item();
+            item++;
+            search_files.set_item(item);
+        }
+        
+        //add array
+        search_files.set_params(item,flag,status,filename,filesize);
+        
+        //add list
+        insert_file_list(item,status,filename,filesize);
+    }
+}
+function video_OnSearchFileFailResult(result)
+{
+    show_pageinfo(0,0);
+    
+	search_files.set_selindex(-1);
+    search_files.set_item(0);
+    search_files.set_count(0);
+    search_files.set_curpage(0);
+    search_files.set_allpage(0);
+    
+    //clear list
+    clear_file_list();
+    //////////////////
+
+    if(1==result)
+    {
+        alert(top.str_send_findinfo_fail);
+    }
+    else if(2==result)
+    {
+        alert(top.str_recv_findinfo_fail);
+    }
+}
+function clear_file_list()
+{
+    document.getElementById("chk_select_all").checked=false;
+    
+    for(i=0; i<LINES_PAGE; i++)
+    {
+        var chk_id="chk_file_" + i;
+        var img_id="img_file_" + i;
+        var href_id="href_file_" + i;
+        var td_id="td_filesize_" + i;
+        
+        //chk
+        document.getElementById(chk_id).checked=false;
+        document.getElementById(chk_id).style.display='none';
+        
+        //img
+        document.getElementById(img_id).style.display='none';
+        
+        //href
+        document.getElementById(href_id).title="";
+        document.getElementById(href_id).innerHTML="";
+        
+        //td
+        document.getElementById(td_id).title="";
+        document.getElementById(td_id).innerHTML="&nbsp;";
+    }
+}
+function insert_file_list(index,status,filename,filesize)
+{
+    var chk_id="chk_file_" + index;
+    var img_id="img_file_" + index;
+    var href_id="href_file_" + index;
+    var td_id="td_filesize_" + index;
+    
+    //chk
+    document.getElementById(chk_id).checked=false;
+    document.getElementById(chk_id).style.display='';
+    
+    //img
+    document.getElementById(img_id).style.display='';
+    if(0==status)
+    {
+        document.getElementById(img_id).src="image/play_play.gif";
+    }
+    else if(1==status)
+    {
+        document.getElementById(img_id).src="image/play_malarm.gif";
+    }
+    else if(2==status)
+    {
+        document.getElementById(img_id).src="image/play_exalarm.gif";
+    }
+    
+    //href
+    document.getElementById(href_id).title=filename;
+    
+    var tmpname  = filename;
+    var tmpname2 = '';
+    if(tmpname.length > 13)
+    {
+        tmpname2 = tmpname.substring(0,13) + "...";
+    }
+    document.getElementById(href_id).innerHTML=tmpname2;
+    
+    
+    //td
+    document.getElementById(td_id).title=filesize;
+    document.getElementById(td_id).innerHTML=filesize;
+}
+
+//=============================================================//
+//删除文件有关
+//单个文件选中与否
+function chk_file_click(v)
+{
+    var chk_id="chk_file_" + v;
+   
+    var selchk=document.getElementById(chk_id).checked;
+	if(selchk==true)
+	{
+		video.AddDelIndex(v);
+		
+		if(1 == judge_allchk_check())
+		{
+			document.getElementById("chk_select_all").checked=true;
+		}
+	}
+	else
+	{
+		video.RemoveDelIndex(v);
+		
+		document.getElementById("chk_select_all").checked=false;
+	}
+}
+//全部文件选中与否
+function selectall()
+{
+   var selall=document.getElementById("chk_select_all").checked;
+   if(selall==true)
+   {
+   		video.AddAllDelIndex();
+		
+		set_allchk_check(true);
+   }
+   else
+   {
+   		video.RemoveAllDelIndex();
+		
+		set_allchk_check(false);
+   }
+}
+function set_allchk_check(v)
+{
+	var i = 0;
+	var tmpcount=0;
+	tmpcount=search_files.count;
+	
+	for(i=0; i<LINES_PAGE; i++)
+	{
+		var chk_id="chk_file_" + i;
+		
+		if(i<tmpcount)
+		{
+			document.getElementById(chk_id).checked = v;
+		}
+		else
+		{
+			document.getElementById(chk_id).checked = false;
+		}
+	}
+}
+function judge_allchk_check()
+{
+	var i = 0;
+	var iret=1;
+	var tmpcount=0;
+	tmpcount=search_files.count;
+	
+	for(i=0; i<tmpcount; i++)
+	{
+		var chk_id = "chk_file_" + i;
+		var seltmp = document.getElementById(chk_id).checked;
+		
+		if(seltmp==false)
+		{
+			iret=0;
+			break;
+		}
+	}
+	
+	return iret;
+}
+//删除选中文件
+function DeleteFileBySel()
+{
+   if (confirm(top.str_confirm_delsel))	
+   {
+	   var iret=video.DeleteFileBySel();
+	   if(0==iret)
+	   {
+		   //alert("DeleteFileBySel succ");
+	   }
+	   else if(1==iret)
+	   {
+		   alert(top.str_usalerr_noobj);
+	   }
+	   else if(2==iret)
+	   {
+		   alert(top.str_login_fail);   
+	   }
+	   else if(3==iret)
+	   {
+		   alert(top.str_delfile_null);
+	   }
+	   else if(4==iret)
+	   {
+		   alert(top.str_send_delinfo_fail);
+	   }
+   }
+}
+//删除所有文件
+function DeleteAllFile()
+{
+   if (confirm(top.str_confirm_delall))	
+   {
+	   var iret=video.DeleteAllFile();
+	   if(0==iret)
+	   {
+		   //alert("DeleteAllFile succ");
+	   }
+	   else if(1==iret)
+	   {
+		   alert(top.str_usalerr_noobj);
+	   }
+	   else if(2==iret)
+	   {
+		   alert(top.str_login_fail);   
+	   }
+	   else if(3==iret)
+	   {
+		   alert(top.str_delfile_null);
+	   }
+	   else if(4==iret)
+	   {
+		   alert(top.str_send_delinfo_fail);
+	   }
+   }
+}
+//删除文件事件
+function  video_OnDeleteFileResult(result)
+{
+    if(0==result)
+    {
+        //alert("OnDeleteFileResult succ");
+    }
+    else if(1==result)
+    {
+        alert(top.str_send_delinfo_fail);
+    }
+    else if(2==result)
+    {
+        alert(top.str_ret_delinfo_fail);
+    }
+}
+
+//////////////////////////////////////////////////
+//取得播放进度
+function video_OnGetPlayProgress(value)
+{
+    show_progress_info(value);
+}
+//取得播放快慢
+function video_OnGetFastSlowValue(value)
+{
+    show_slowfast_info(value);
+}
+//取得播放宽高
+function video_OnReplaySizeChange(width,height)
+{
+	show_one_wnd(width,height);
+}
+function show_one_wnd(width,height)
+{   
+    //page
+    var page_width=680;
+    var page_height=520;
+    var page_scale=0;
+    
+    //video
+    var video_width=width;
+    var video_height=height;
+    var video_scale=0;
+    
+    if( (video_width>=0) && (video_width<=page_width) && (video_height>=0) && (video_height<=page_height) )
+    {
+        video.style.width=video_width;
+	    video.style.height=video_height;
+    }
+    else if((video_width > page_width) || (video_height > page_height))
+    {
+        var show_width=0;
+        var show_height=0;
+        
+        page_scale=(page_width/page_height);
+        video_scale=(video_width/video_height);
+        
+        //等宽显示
+	    if ( video_scale >= page_scale )
+	    {
+		    show_width=page_width;
+		    show_height=(page_width*video_height)/video_width;		
+	    }
+	    //等高显示
+	    else
+	    {
+		    show_width=(page_height*video_width)/video_height;
+            show_height=page_height;
+	    }
+	    
+	    video.style.width=show_width;
+	    video.style.height=show_height;
+    }
+}
+
+
+/////////////////////////////////////////////////////////////
+//播放有关
+function href_file_click(v)
+{
+    search_files.set_selindex(v);
+	
+	StartPlay();
+}
+function StartPlay()
+{
+    var index=search_files.selindex;
+    var iret=video.StartPlay(index);
+    if(0==iret)
+    {
+        //alert("StartPlay succ");
+    }
+    else if(1==iret)
+    {
+        alert(top.str_usalerr_noobj);
+    }
+    else if(2==iret)
+    {
+        alert(top.str_login_fail);
+    }
+    else if(3==iret)
+    {
+        alert(top.str_index_lowerzero);
+    }
+    else if(4==iret)
+    {
+        alert(top.str_send_playinfo_fail);
+    }
+}
+function video_OnStartPlayResult(result)
+{
+    if(0==result)
+    {
+        //alert("OnStartPlayResult succ");
+    }
+    else if(1==result)
+    {
+        alert(top.str_send_playinfo_fail);
+    }
+    else if(2==result)
+    {
+        alert(top.str_ret_playinfo_done);
+    } 
+    else if(3==result)
+    {
+        alert(top.str_ret_playinfo_fail);
+    }
+}
+
+/////////////////////////////////////////////////////////////
+//停止有关
+function StopPlay()
+{
+    var iret=video.StopPlay();
+    if(0==iret)
+    {
+        //alert("StopPlay succ");
+    }
+    else if(1==iret)
+    {
+        alert(top.str_usalerr_noobj);
+    }
+    else if(2==iret)
+    {
+        alert(top.str_login_fail);
+    }
+    else if(3==iret)
+    {
+        alert(top.str_no_playing_file);
+    }
+    else if(4==iret)
+    {
+        alert(top.str_send_stopinfo_fail);
+    }
+}
+function video_OnStopPlayResult(result)
+{
+    if(0==result)
+    {
+        //alert("OnStopPlayResult succ");
+        show_progress_info(0);
+    }
+    else if(1==result)
+    {
+        alert(top.str_send_stopinfo_fail);
+    }
+    else if(2==result)
+    {
+        alert(top.str_ret_stopinfo_fail);
+    } 
+}
+
+/////////////////////////////////////////////////////////////
+//暂停有关
+function PausePlay()
+{
+    var iret=video.PausePlay();
+    if(0==iret)
+    {
+        //alert("PausePlay succ");
+    }
+    else if(1==iret)
+    {
+        alert(top.str_usalerr_noobj);
+    }
+    else if(2==iret)
+    {
+        alert(top.str_login_fail);
+    }
+    else if(3==iret)
+    {
+        alert(top.str_no_playing_file);
+    }
+    else if(4==iret)
+    {
+        alert(top.str_had_pause);
+    }
+    else if(5==iret)
+    {
+        alert(top.str_send_pauseinfo_fail);
+    }
+}
+function video_OnPausePlayResult(result)
+{
+    if(0==result)
+    {
+        //alert("OnPausePlayResult succ");
+    }
+    else if(1==result)
+    {
+        alert(top.str_send_pauseinfo_fail);
+    }
+    else if(2==result)
+    {
+        alert(top.str_ret_pauseinfo_fail);
+    } 
+}
+
+/////////////////////////////////////////////////////////////
+//恢复有关
+function video_OnResumePlayResult(result)
+{
+    if(0==result)
+    {
+        //alert("OnResumePlayResult succ");
+    }
+    else if(1==result)
+    {
+        alert(top.str_send_resumeinfo_fail);
+    }
+    else if(2==result)
+    {
+        alert(top.str_ret_resumeinfo_fail);
+    } 
+}
+
+
+/////////////////////////////////////////////////////////////
+//其它播放控制有关
+function PlayPrev()
+{
+    var iret=video.PlayPrev();
+    if(0==iret)
+    {
+        //alert("PlayPrev succ");
+    }
+    else if(1==iret)
+    {
+        alert(top.str_usalerr_noobj);
+    }
+    else if(2==iret)
+    {
+        alert(top.str_login_fail);
+    }
+    else if(3==iret)
+    {
+        alert(top.str_no_playing_file);
+    }
+    else if(4==iret)
+    {
+        alert(top.str_had_first_record);
+    }
+}
+function PlayNext()
+{
+    var iret=video.PlayNext();
+    if(0==iret)
+    {
+        //alert("PlayNext succ");
+    }
+    else if(1==iret)
+    {
+        alert(top.str_usalerr_noobj);
+    }
+    else if(2==iret)
+    {
+        alert(top.str_login_fail);
+    }
+    else if(3==iret)
+    {
+        alert(top.str_no_playing_file);
+    }
+    else if(4==iret)
+    {
+        alert(top.str_had_last_record);
+    }
+}
+function SlowPlay()
+{
+    var iret=video.SlowPlay();
+    if(0==iret)
+    {
+        //alert("SlowPlay succ");
+    }
+    else if(1==iret)
+    {
+        alert(top.str_usalerr_noobj);
+    }
+    else if(2==iret)
+    {
+        alert(top.str_login_fail);
+    }
+    else if(3==iret)
+    {
+        alert(top.str_no_playing_file);
+    }
+    else if(4==iret)
+    {
+        alert(top.str_send_slowinfo_fail);
+    }
+}
+function FastPlay()
+{
+    var iret=video.FastPlay();
+    if(0==iret)
+    {
+        //alert("FastPlay succ");
+    }
+    else if(1==iret)
+    {
+        alert(top.str_usalerr_noobj);
+    }
+    else if(2==iret)
+    {
+        alert(top.str_login_fail);
+    }
+    else if(3==iret)
+    {
+        alert(top.str_no_playing_file);
+    }
+    else if(4==iret)
+    {
+        alert(top.str_send_fastinfo_fail);
+    }
+}
+
+
+/////////////////////////////////////////////////////////////
+//翻页处理有关
+function FirstPage()
+{
+    var iret=video.SwitchFirstPage();
+    if(0==iret)
+    {
+        //alert("SwitchFirstPage succ");
+    }
+    else if(1==iret)
+    {
+        alert(top.str_usalerr_noobj);
+    }
+    else if(2==iret)
+    {
+        alert(top.str_login_fail);
+    }
+    else if(3==iret)
+    {
+        alert(top.str_had_first_page);
+    }
+}
+function PrevPage()
+{
+    var iret=video.SwitchPrevPage();
+    if(0==iret)
+    {
+        //alert("SwitchPrevPage succ");
+    }
+    else if(1==iret)
+    {
+        alert(top.str_usalerr_noobj);
+    }
+    else if(2==iret)
+    {
+        alert(top.str_login_fail);
+    }
+    else if(3==iret)
+    {
+        alert(top.str_had_first_page);
+    }
+}
+function NextPage()
+{
+    var iret=video.SwitchNextPage();
+    if(0==iret)
+    {
+        //alert("SwitchNextPage succ");
+    }
+    else if(1==iret)
+    {
+        alert(top.str_usalerr_noobj);
+    }
+    else if(2==iret)
+    {
+        alert(top.str_login_fail);
+    }
+    else if(3==iret)
+    {
+        alert(top.str_had_last_page);
+    }
+}
+function LastPage()
+{
+    var iret=video.SwitchLastPage();
+    if(0==iret)
+    {
+        //alert("SwitchLastPage succ");
+    }
+    else if(1==iret)
+    {
+        alert(top.str_usalerr_noobj);
+    }
+    else if(2==iret)
+    {
+        alert(top.str_login_fail);
+    }
+    else if(3==iret)
+    {
+        alert(top.str_had_last_page);
+    }
+}
+
+</script>
+
+
+
+<body style="background:#4C6EB5" >
+
+
+  <table border="1" align="center"  style="background:#E9E9E9">
+     <tr>
+         <td>
+             <table border="0" style="width:680px; height:520px;" >
+                 <tr>
+                       <td style="width:680px; height:520px; text-align:center; vertical-align:middle"> 
+                           <span><object id="video" style="LEFT: 0px; TOP: 0px" codebase="HIPCamOcx.ocx#version=1,0,0,1" width="320" height="240" classid="clsid:8fbd5482-bb5d-42d6-8759-d4c6a67e5569"></object></span>
+                       </td>
+                  </tr>
+              </table>                                           
+          </td>
+     </tr>
+ </table>                     
+                               
+                   
+
+
+</body>
+
+</html>

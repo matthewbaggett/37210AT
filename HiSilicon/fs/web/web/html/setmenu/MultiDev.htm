@@ -1,0 +1,189 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+
+    <script language="javascript" src="../js/clearcache.js"></script>
+
+    <link href="../css/new.css" rel="stylesheet" type="text/css" />
+    <link href="../css/ceshi.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        body
+        {
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+        }
+ </style>
+
+    <script> 
+document.write('<script src="/cgi-bin/check_user.cgi?user='+top.user+'&pwd='+top.pwd+'"><\/script>');
+    </script>
+
+    <script type="text/javascript" src="/cgi-bin/get_maintain.cgi"></script>
+
+    <script>
+
+function maintain_check() 
+{
+    if (document.getElementById("chk_mtain_enable").checked == true) 
+    {
+        maintain_func(1);
+    }
+    else 
+    {
+        maintain_func(0);
+    }
+}
+function maintain_func(val) 
+{
+    if (1 == val) 
+    {
+        document.getElementById("slt_mtain_time").disabled = "";
+    }
+    else 
+    {
+        document.getElementById("slt_mtain_time").disabled = "false";
+    }
+}
+
+function body_onload()
+{
+    document.getElementById("chk_mtain_enable").checked = ret_maintain_enable ? true : false;
+    document.getElementById("slt_mtain_time").value = ret_maintain_hour;
+
+    maintain_func(ret_maintain_enable);
+}
+
+function set_mtain_func()
+{
+    var tmp_chk_mtain = 0;
+    if (document.getElementById("chk_mtain_enable").checked == true)
+    {
+        tmp_chk_mtain = 1;
+    }
+
+    var tmp_value = document.getElementById("slt_mtain_time").value;
+
+    url = "/cgi-bin/set_maintain.cgi?next_url=setmenu/Maintain.htm&enable=" + tmp_chk_mtain + "&hour=" + tmp_value + "&user=" + top.user + "&pwd=" + top.pwd;
+    
+    location = url;
+}
+
+    </script>
+
+</head>
+<body onload="body_onload()" class="body">
+     <table width="100%" cellpadding="0" cellspacing="0">
+        <tr class="adtop"><td>&nbsp;</td></tr>
+        <tr>
+            <td align="center">
+                <table cellpadding="0" cellspacing="0" >
+                   <tr>
+                    <td colspan="3" class="mid03_1">
+                        <strong class="mid03">
+                            <script type="text/javascript">                                document.write(top.str_maintain_title);</script>
+                        </strong>
+                    </td>
+                   </tr>
+                  <tr  >
+                   <td class="lcorner" ></td>
+                   <td class="cbtop">
+                     <table cellpadding="0" cellspacing="0" style=" width:730px">
+                        <tr style=" width:100%">
+                            <td style="text-align: right;" align="right">
+                                <button class="resethbutton" onclick="set_mtain_func()">
+
+                                    <script>document.write(top.str_save);</script>
+
+                                </button>
+                                <button class="resethbutton" onclick="location.reload()">
+
+                                    <script>document.write(top.str_refresh);</script>
+
+                                </button>
+                             
+                            </td>
+                      
+                        </tr>
+                     </table>
+                   </td>
+                   <td class="rcorner"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="lborder"></td>
+                   <td style=" margin-top:0px">
+                      <table style="margin-top: 0px; width: 730px; height: 150px; " class="admintr">
+           
+                        <tr >
+                            <td class="admintd" style="height: 35px">
+                                <strong class="mid04">
+
+                                    <script>document.write(top.str_maintain_enable);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="chk_mtain_enable" id="chk_mtain_enable"
+                                    onclick="maintain_check()" />
+                            </td>
+                        </tr>
+                        <tr style="height: 35px">
+                            <td class="admintd">
+                                <strong class="mid04">
+
+                                    <script>document.write(top.str_maintain_time);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <select id="slt_mtain_time" name="slt_mtain_time" style="width: 100px">
+                                    <option value="0">00:00</option>
+                                    <option value="1">01:00</option>
+                                    <option value="2">02:00</option>
+                                    <option value="3">03:00</option>
+                                    <option value="4">04:00</option>
+                                    <option value="5">05:00</option>
+                                    <option value="6">06:00</option>
+                                    <option value="7">07:00</option>
+                                    <option value="8">08:00</option>
+                                    <option value="9">09:00</option>
+                                    <option value="10">10:00</option>
+                                    <option value="11">11:00</option>
+                                    <option value="12">12:00</option>
+                                    <option value="13">13:00</option>
+                                    <option value="14">14:00</option>
+                                    <option value="15">15:00</option>
+                                    <option value="16">16:00</option>
+                                    <option value="17">17:00</option>
+                                    <option value="18">18:00</option>
+                                    <option value="19">19:00</option>
+                                    <option value="20">20:00</option>
+                                    <option value="21">21:00</option>
+                                    <option value="22">22:00</option>
+                                    <option value="23">23:00</option>
+                                </select>
+                                <!--<script>document.write(top.str_second);</script>-->
+                            </td>
+                        </tr>
+                    </table>
+                   
+                   </td>
+                   <td  class="rborder"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="ldcorner"></td>
+                   <td class="cdow"></td>
+                   <td class="rdcorner"></td>
+                  </tr>
+           
+                </table>
+            </td>
+        </tr>
+     </table>
+
+</body>
+</html>

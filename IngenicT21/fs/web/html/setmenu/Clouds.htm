@@ -1,0 +1,128 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<script language="javascript" src="../js/clearcache.js"></script>
+<link href="../css/new.css" rel="stylesheet" type="text/css" />
+<link href="../css/ceshi.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+body 
+{
+	background-color:#ffffff;
+}
+    .style1
+    {
+        width: 40%;
+        height:5px;
+    }
+    .style2
+    {
+        height: 35px;
+    }
+ 
+-->
+</style>
+<title></title>
+<script type="text/javascript"> 
+document.write('<script src="/cgi-bin/check_user.cgi?user='+top.user+'&pwd='+top.pwd+'"><\/script>');
+document.write('<script src="/cgi-bin/get_params.cgi?type=4&user='+top.user+'&pwd='+top.pwd+'"><\/script>');
+</script>
+<script type="text/javascript" src="/cgi-bin/get_status.cgi"></script>
+<script type="text/javascript" src="/cgi-bin/get_real_status.cgi"></script>
+</head>
+
+<script type="text/javascript">
+if (ret_alias_name=='') 
+{
+    ret_alias_name=top.str_anonymous;
+}
+top.document.title = top.str_device+'('+ret_alias_name+')';
+
+function body_onload()
+{
+    document.getElementById("dev_id").value=sSerialNumber;    //序列号
+    document.getElementById("describe").value=camDesc;        //摄像机描述
+    document.getElementById("aw_ver").value=softwareFVersion;  //主机端软件版本号
+    document.getElementById("sw_ver").value=softwareCVersion; //客户端软件版本号
+    //document.getElementById("ip_address").value=serverIP;     //IP地址
+    document.getElementById("ip_address").value=ret_realstatus_ipaddr;     //IP地址
+    
+    document.getElementById("txt_upnp_status").value=top.str_failed;
+    show_ddns_info(top.str_failed);   
+    if(1==ret_realstatus_result)
+    {
+        if(1==ret_realstatus_upnp)
+        {
+            document.getElementById("txt_upnp_status").value=top.str_succeed;
+        }
+        
+        if(1==ret_realstatus_ddns)
+        {
+            var ddns_text = top.str_succeed + " " + ret_realstatus_ddnsaddr;
+            show_ddns_info(ddns_text);
+        }
+    }
+}
+
+function show_ddns_info(msg)
+{
+    document.getElementById("td_ddns_status").innerHTML = msg;
+}
+
+function set_devinfo()
+{
+    var describe=document.getElementById("describe").value;
+    url="/cgi-bin/set_alias.cgi?next_url=setmenu/DevInfo.htm&alias="+describe+"&user="+top.user+"&pwd="+top.pwd;
+    
+    location=url;
+}
+
+</script>
+<body onLoad="body_onload()">
+
+<div style="width:700px;padding-top:11px; background:#4C6EB5" align="left"> 
+
+<strong class="mid03">><script type="text/javascript">document.write(top.str_cloud);</script></strong>
+
+ </div>
+
+<div style="width:700px; height:88% "><!-- <b class="b1"></b><b class="b2 d1"></b><b class="b3 d1"></b><b class="b4 d1">--></b> 
+<div align="center">
+<table style="margin-top:10px;width:98%;height:30%;border:1px solid #EEE5DE;"  > <!--solid black-->
+  
+  <tr  style="height:40px">
+    <td align="right" class="style1"><strong class="mid04">
+      <script type="text/javascript">document.write(top.str_user);</script>
+    </strong></td>
+    <td style="padding-left:20px"><input name="user" type="text"  id="user" maxlength="64" /></td>
+  </tr>
+  <tr  style="height:40px">
+    <td align="right" class="style1"><strong  class="mid04">
+      <script type="text/javascript">document.write(top.str_pwd);</script>
+    </strong></td>
+    <td style="padding-left:20px"><input name="pwds" type="password" id="pwds" maxlength="64" /></td>
+
+  </tr>
+  
+  
+  <!--<tr style="height:5px">
+    <td style=" height:5px" colspan="2">
+      <a href="https://www.dropbox.com/register" target="_blank"><script type="text/javascript">document.write(top.str_regist);</script></a>
+    </td>
+  </tr>-->
+    </table>
+<table border="0" >
+<tr >
+    <td  align="center" style="width:200px"><button style="width:85px" class="mid042"><script type="text/javascript">document.write(top.str_login);</script></button></td>
+    <td  align="center" style="width:200px"><a href="https://www.dropbox.com/register" target="_blank"><button style="width:85px" class="mid042"><script type="text/javascript">document.write(top.str_regist);</script></button></a></td>
+</tr>
+
+</table>
+</div>
+<!--
+<b class="b4b d1"></b><b class="b3b d1"></b><b class="b2b d1"></b><b class="b1b"></b>-->
+ </div> 
+
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style type="text/css">
+        body
+        {
+            margin-left: 0px;
+            margin-top: 0px;
+            margin-right: 0px;
+            margin-bottom: 0px;
+        }
+    </style>
+    
+<!--    <script language=javascript src="language/lang.js"></script>
+-->    
+    <script language="javascript" src="js/public.js"></script>
+
+    <script language="javascript" src="js/public2.js"></script>
+
+    <script language="javascript" src="js/model.js"></script>
+
+    <script language="javascript" src="js/resolu.js"></script>
+
+    <script language="javascript" src="js/customer.js"></script>
+
+    <script language="javascript">
+var user;
+var pwd;
+var h_right;
+var login_succ=0;
+
+var lang_type=0;
+var plugin_mode=3;
+//if (customer_type == "sumpple") {
+//    var plugin_mode = 2;
+//} else {
+//    var plugin_mode = 3;
+//}
+
+var reboot_seconds=30;
+
+var line_num=20;
+var cur_log_page=1;
+var cur_cruise_index=0;
+
+var video_port=38401;
+
+var product_model=0;
+var scene_m_type=0;
+var scene_s_type = 0;
+
+var browser = 0;
+
+    </script>
+
+</head>
+
+<script>
+function body_beforeunload()
+{
+    if(1==login_succ)
+    {
+        main_write_log(4);
+    }
+}
+
+function main_write_log(value)
+{
+    main_action_zone.location="/cgi-bin/write_log.cgi?type="+value+"&user="+user+"&pwd="+pwd;
+}
+</script>
+
+<body onbeforeunload="body_beforeunload()">
+    <iframe id="main_action_zone" name="main_action_zone" style="display: none"></iframe>
+    <iframe id="conten_frame" name="content_frame" width="100%" height="100%" style="margin-top: 0px;
+        margin-left: 0px;" border="0" frameborder="no" scrolling="yes" src="login.htm">
+    </iframe>
+</body>
+</html>

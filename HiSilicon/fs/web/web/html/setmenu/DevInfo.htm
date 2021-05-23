@@ -1,0 +1,326 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script language="javascript" src="../js/clearcache.js"></script>
+    <script type="text/javascript" src="../js/jquery-1.8.3.js"></script>
+    <script>
+        $(function () {
+            var software_mode = softwareFVersion.replace(/\./g, ""); //例如90630122
+            var software_mode_number = software_mode.substring(0, 4); //例如9063
+            var device_url = '';
+            if (software_mode_number == '9063') {
+                device_url = "http://uk.apexisalarm.com/Firmware/HISI/release.php?type=9063.SUMPPLE.7601.sta.SUMPPLEIPC.454";
+            } else if (software_mode_number == '9163') {
+                device_url = "http://uk.apexisalarm.com/Firmware/HISI/release.php?type=9163.SUMPPLE.7601.sta.SUMPPLEIPC.454";
+            } else if (software_mode_number == '9263') {
+                device_url = "http://uk.apexisalarm.com/Firmware/HISI/release.php?type=9263.SUMPPLE.7601.sta.SUMPPLEIPC.454";
+            } else if (software_mode_number == '9065') {
+                device_url = "http://uk.apexisalarm.com/Firmware/HISI/release.php?type=9065.SUMPPLE.7601.sta.SUMPPLEIPC.454";
+            } else if (software_mode_number == '9067') {
+                device_url = "http://uk.apexisalarm.com/Firmware/HISI/release.php?type=9067.SUMPPLE.7601.sta.SUMPPLEIPC.454";
+            } else if (software_mode_number == '7165') {
+                device_url = "http://uk.apexisalarm.com/Firmware/HISI/release.php?type=7165.SUMPPLE.7601.sta.SUMPPLEIPC.454";
+            } else if (software_mode_number == '8250') {
+                device_url = "http://uk.apexisalarm.com/Firmware/HISI/release.php?type=825.SUMPPLE.7601.sta.SUMPPLEIPC.454";
+            } else if (software_mode_number == '6310') {
+                device_url = "http://uk.apexisalarm.com/Firmware/HISI/release.php?type=6310.SUMPPLE.7601.sta.SUMPPLEIPC.454";
+            } else if (software_mode_number == '8030') {
+                device_url = "http://uk.apexisalarm.com/Firmware/HISI/release.php?type=newdoorbell.SUMPPLE.7601.apsta.SUMPPLEIPC.454";
+            }
+
+
+            //            else if (software_mode_number == '6234') {
+            //                device_url = "http://31.132.7.162/Firmware/HISI/release.php?type=6234.SUMPPLE.7601.sta.SUMPPLEIPC";
+            //            } else if (software_mode_number == '8034') {
+            //                device_url = "http://31.132.7.162/Firmware/HISI/release.php?type=8034.NORMAL.7601.sta.APEXIS";
+            //            }
+            $.ajax({
+                type: "get",
+                url: device_url,
+                dataType: "json",
+                async: true,
+                success: function (resp) {
+                    var dataArray = resp;
+                    //console.log(resp["code"]);
+                    if (resp["code"] == 200) {
+                        version_value = resp["version"];
+                        url_href = resp["url"];
+                        var type = resp["type"];
+                        //console.log(dataArray + " " + softwareFVersion + " " + version_value);
+                        var software_str = softwareFVersion.replace(/\./g, ""); //例如82500138
+                        var software_FV = software_str.substring(4, 8); //例如0138
+                        var device_mode = softwareFVersion.substring(0, 7)//例如82.5.0.
+
+                        document.getElementById("Text1").value = device_mode + version_value;
+
+                        if (parseInt(version_value) > parseInt(software_FV)) {
+
+                            document.getElementById("span").style.display = "";
+
+                            cgi_url = "http://" + window.location.hostname + "/cgi-bin/set_ota_params.cgi?next_url=notice_ota.htm&user=" + top.user + "&pwd=" + top.pwd + "&mode=1&updatetime=13&url=" + url_href;
+                            document.getElementById("download").setAttribute("href", cgi_url);
+                        } else if (document.getElementById("aw_ver").value == document.getElementById("Text1").value) {
+                            document.getElementById("span1").style.display = "";
+                        }
+                    }
+
+
+                }, error: function (err, errStr) {
+                    //console.log(err);
+                    //alert(errStr);
+                }
+            });
+        }); 
+    </script>
+    <link href="../css/new.css" rel="stylesheet" type="text/css" />
+    <link href="../css/ceshi.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        body
+        {
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+        }
+        a
+        {
+            margin-left:10px
+         font-family:Arial;
+         font-size:14px;
+         color:#000000;   
+            }
+         a:hover{color:red}
+    </style>
+    <title></title>
+    <script type="text/javascript">
+        document.write('<script src="/cgi-bin/check_user.cgi?user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+        document.write('<script src="/cgi-bin/get_params.cgi?type=4&user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+        document.write('<script src="/cgi-bin/get_params.cgi?type=13&user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+        document.write('<script src="/cgi-bin/get_dev_funclist.cgi?user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+    </script>
+    <script type="text/javascript" src="/cgi-bin/get_status.cgi"></script>
+    <script type="text/javascript" src="/cgi-bin/get_real_status.cgi"></script>
+    <script language="javascript" src="../js/customer.js"></script>
+</head>
+<script type="text/javascript">
+
+    var customer = get_customer();
+
+    if (ret_alias_name == '') {
+        ret_alias_name = top.str_anonymous;
+    }
+    top.document.title = top.str_device + '(' + ret_alias_name + ')';
+
+    function body_onload() {
+        if (customer == "unabto") {
+            document.getElementById("device_id").style.display = "none";
+            document.getElementById("upnp_status").style.display = "none";
+            document.getElementById("ddns_status").style.display = "none";
+        }
+
+        document.getElementById("dev_id").value = sSerialNumber;    //序列号
+        //document.getElementById("dev_id").value = mddnsPassword; 
+        document.getElementById("describe").value = camDesc;        //摄像机描述
+        document.getElementById("aw_ver").value = softwareFVersion;  //主机端软件版本号
+        document.getElementById("sw_ver").value = softwareCVersion; //客户端软件版本号
+
+        // alert("softwareCVersion=" + softwareCVersion);
+        //document.getElementById("ip_address").value=serverIP;     //IP地址
+        document.getElementById("ip_address").value = ret_realstatus_ipaddr;     //IP地址
+
+        document.getElementById("txt_upnp_status").value = top.str_failed;
+        show_ddns_info(top.str_failed);
+        if (1 == ret_realstatus_result) {
+            if (1 == ret_realstatus_upnp) {
+                document.getElementById("txt_upnp_status").value = top.str_succeed;
+            }
+
+            if (1 == ret_realstatus_ddns) {
+                var ddns_text = top.str_succeed + " " + ret_realstatus_ddnsaddr;
+                show_ddns_info(ddns_text);
+            }
+        }
+
+        var software_mode = softwareFVersion.replace(/\./g, ""); //例如90630122
+        var software_mode_number = software_mode.substring(0, 4); //例如9063
+        var ss_live = document.getElementById("describe").value;
+        if (software_mode_number == "9063" || software_mode_number == "9163" || software_mode_number == "9263" || software_mode_number == "9065" || software_mode_number == "9067" || software_mode_number == "7165" || software_mode_number == "8250" || software_mode_number == "8030" || software_mode_number == "7164" || software_mode_number == "6310" || software_mode_number == "7165") {
+            document.getElementById("admintd_a").style.display = "";
+        } else {
+            document.getElementById("admintd_a").style.display = "none";
+        }
+        var close_ota = document.getElementById("aw_ver").value;
+        var close_ota = close_ota.replace(/\./g, "");
+        var close_ota = close_ota.substring(0, 4);
+        if (close_ota == "8220") { document.getElementById("admintd_a").style.display = "none"; }
+    }
+
+    function show_ddns_info(msg) {
+        document.getElementById("td_ddns_status").innerHTML = msg;
+    }
+
+    function set_devinfo() {
+        var describe = document.getElementById("describe").value;
+        var alias_enc = encodeURIComponent(describe);
+
+        url = "/cgi-bin/set_alias.cgi?next_url=setmenu/DevInfo.htm&alias=" + alias_enc + "&user=" + top.user + "&pwd=" + top.pwd;
+        location = url;
+    }
+
+    function ip_address_onclick() {
+
+    }
+
+</script>
+<body onload="body_onload()" class="body">
+    <table width="100%" cellpadding="0" cellspacing="0">
+        <tr class="adtop">
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                <table cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td colspan="3" class="mid03_1">
+                            <strong class="mid03">
+                                <script type="text/javascript">                                    document.write(top.str_dev_info);</script>
+                            </strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="lcorner">
+                        </td>
+                        <td class="cbtop">
+                            <table cellpadding="0" cellspacing="0" style="width: 730px">
+                                <tr style="width: 100%">
+                                    <td style="text-align: right;" align="right">
+                                        <button class="resethbutton" onclick="set_devinfo()">
+                                            <script>                                                document.write(top.str_save);</script>
+                                        </button>
+                                        <button class="resethbutton" onclick="location.reload()">
+                                            <script>                                                document.write(top.str_refresh);</script>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="rcorner">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="lborder">
+                        </td>
+                        <td>
+                            <table style="margin-top: 0px; width: 100%; height: 20%;" class="admintr">
+                                <!-- <table style="margin-top:10px;width:98%;height:70%;border:1px solid #EEE5DE;"  > -->
+                                <!--solid black-->
+                                <tr style="height: 35px;" id="device_id">
+                                    <td align="right" class="admintd">
+                                        <strong class="mid04">
+                                            <script type="text/javascript">                                                document.write(top.str_dev_id);</script>
+                                        </strong>
+                                    </td>
+                                    <td style="padding-left: 20px">
+                                        <input name="Input" type="text" readonly="true" enable="false" id="dev_id" maxlength="64" />
+                                    </td>
+                                </tr>
+                                <tr style="height: 35px">
+                                    <td align="right" class="admintd">
+                                        <strong class="mid04">
+                                            <script type="text/javascript">                                                document.write(top.str_sw_ver);</script>
+                                        </strong>
+                                    </td>
+                                    <td style="padding-left: 20px">
+                                        <input name="Input2" type="text" readonly="true" id="sw_ver" maxlength="64" />
+                                    </td>
+                                </tr>
+                                <tr style="height: 35px">
+                                    <td align="right" class="admintd">
+                                        <strong class="mid04">
+                                            <script type="text/javascript">                                                document.write(top.str_aw_ver);</script>
+                                        </strong>
+                                    </td>
+                                    <td style="padding-left: 20px">
+                                        <input name="Input2" type="text" readonly="true" id="aw_ver" maxlength="64" />
+                                        <span id="span1" style="width:100px;height:35px;display:none;margin-left:5px;font-size:0.9rem;"><script>document.write( "(" + top.str_new_version + ")")</script></span>
+                                    </td>
+                                </tr>
+                                <tr style="height: 35px" id="admintd_a">
+                                    <td align="right" class="admintd">
+                                        <strong class="mid04">
+                                            <script type="text/javascript">                                                document.write(top.str_ser_ver);</script>
+                                        </strong>
+                                    </td>
+                                    <td style="padding-left: 20px">
+                                        <input name="Input2" type="text" readonly="true" id="Text1" maxlength="64" />
+                                        <span id="span" style="display: none"><a id="download" href="">
+                                            <script type="text/javascript">                                                document.write(top.str_updata);</script></a></span>
+                                    </td>
+                                </tr>
+                                <tr style="height: 35px">
+                                    <td align="right" class="admintd">
+                                        <strong class="mid04">
+                                            <script type="text/javascript">                                                document.write(top.str_describe);</script>
+                                        </strong>
+                                    </td>
+                                    <td style="padding-left: 20px">
+                                        <input id="describe" maxlength="23" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9 ]/gi,'')"
+                                            onblur="this.value=this.value.replace(/[^a-zA-Z0-9 ]/gi,'')" />
+                                    </td>
+                                </tr>
+                                <tr style="height: 35px">
+                                    <td align="right" class="admintd">
+                                        <strong class="mid04">
+                                            <script type="text/javascript">                                                document.write(top.str_ip_address);</script>
+                                        </strong>
+                                    </td>
+                                    <td style="padding-left: 20px">
+                                        <input name="ip_address" type="text" readonly="true" enable="false" id="ip_address"
+                                            maxlength="64" onclick="return ip_address_onclick()" />
+                                    </td>
+                                </tr>
+                                <tr style="height: 35px" id="upnp_status">
+                                    <td align="right" class="admintd">
+                                        <strong class="mid04">
+                                            <script type="text/javascript">                                                document.write(top.str_upnp_status);</script>
+                                        </strong>
+                                    </td>
+                                    <td style="padding-left: 20px" class="style2">
+                                        <input id="txt_upnp_status" name="txt_upnp_status" type="text" readonly="true" enable="false"
+                                            maxlength="64" />
+                                    </td>
+                                </tr>
+                                <tr style="height: 35px" id="ddns_status">
+                                    <td align="right" class="admintd">
+                                        <strong class="mid04">
+                                            <script type="text/javascript">                                                document.write(top.str_ddns_status);</script>
+                                        </strong>
+                                    </td>
+                                    <td style="padding-left: 20px" id="td_ddns_status" class="mid04">
+                                        &nbsp;&nbsp;
+                                    </td>
+                                </tr>
+                                <!--<tr style="height:5px">
+                                <td class="admintd" ></td>
+                                <td style=" height:5px"></td>
+                              </tr>-->
+                            </table>
+                        </td>
+                        <td class="rborder">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="ldcorner">
+                        </td>
+                        <td class="cdow">
+                        </td>
+                        <td class="rdcorner">
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

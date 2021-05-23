@@ -1,0 +1,83 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style>a{color:000000;TEXT-DECORATION:none}a:hover{color:FF0000;TEXT-DECORATION:underline}</style>
+<title></title>
+</head>
+
+<script>
+var now = new Date();
+var strnow = now.getFullYear() + '-' + (1 + now.getMonth()) + '-' + now.getDate() + ' ' + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
+
+//add by zsh 2015/2/3
+var snap_width;
+var snap_hegiht;
+Snap_size();
+//add end
+
+function save()
+{
+   iframe_image.document.execCommand('SaveAs');
+}
+
+//add  by zsh 2015/2/3
+function Snap_size()
+{
+	var page_width = 640;
+	var page_height = 360;
+	
+	var video_width = opener.cameras.width[opener.current];
+	var video_height = opener.cameras.height[opener.current];
+	
+	if (video_width <= page_width && 
+		video_height <= page_height)
+	{
+		snap_width = page_width;
+		snap_hegiht = page_height;
+	}
+	else
+	{
+		var scale_video = video_width/video_height;
+		var scale_page = page_width/page_height;
+		
+		if (scale_video >= scale_page)
+		{
+			//等宽
+			snap_hegiht = (page_width * video_height) / video_width ;
+			snap_width = page_width;
+		}
+		else
+		{
+			//等高
+			snap_width = (page_height * video_width) / video_height;
+			snap_hegiht = page_height;
+		}
+	}
+}
+//add by end
+
+</script>
+
+<body bgcolor="#d8d8d8">
+<table border="0" cellpadding="0" cellspacing="0" width="100%" height="100%" align="center" valign="middle">
+	<tr>
+	    <td height="30" style="font-size:13px; color:#004080">
+	        <div align="center">
+	            <strong>
+	                <script language="javascript">document.write(strnow);</script> &nbsp;&nbsp;
+	                <a href="javascript:save();" style="font-size:13px; color:blue"><script language="javascript">document.write(opener.top.str_save);</script></a>
+	            </strong>
+	        </div>
+	    </td>
+	</tr>
+	
+	<tr>
+	    <td align="center" valign="middle"> 
+            <script language="javascript">
+			   document.write('<iframe marginheight="0" marginwidth="0" style="text-align:center; vertical-align:middle; background-color:#004080" width="'+ snap_width +'" height="'+snap_hegiht+'" frameborder="0" scrolling="no" id="iframe_image" src="http://'+ opener.cameras.host[opener.current] + ':' + opener.cameras.web_port[opener.current] + '/cgi-bin/video_snapshot.cgi?user=' + opener.cameras.user[opener.current] + '&pwd=' + opener.cameras.pwd[opener.current] + '"><\/iframe>');
+		    </script>
+        </td>
+	</tr>
+</table>
+</body>
+</html>

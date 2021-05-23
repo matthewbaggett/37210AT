@@ -1,0 +1,14 @@
+fdisk /dev/mmcblk0 <<EOF
+d
+1
+d
+d
+d
+d
+n
+p
+1
+
+
+w
+EOF

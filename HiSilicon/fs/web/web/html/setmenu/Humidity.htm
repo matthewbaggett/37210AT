@@ -1,0 +1,223 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <script language="javascript" src="../js/clearcache.js"></script>
+
+    <link href="../css/new.css" rel="stylesheet" type="text/css" />
+    <link href="../css/ceshi.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        body
+        {
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+           
+        }
+       
+    </style>
+    <title></title>
+
+   <script type="text/javascript">
+
+       document.write('<script src="/cgi-bin/get_params.cgi?type=16&user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+</script>
+
+</head>
+
+<script type="text/javascript">
+    if (ret_alias_name == '') {
+        ret_alias_name = top.str_anonymous;
+    }
+    top.document.title = top.str_device + '(' + ret_alias_name + ')';
+
+    function body_onload() {
+        
+        document.getElementById("ChekMax").value = humdect_en; //是否启用湿度报警
+        
+        document.getElementById("hum_min").value = hum_min;   //报警触发湿度范围 最小值
+        document.getElementById("hum_max").value = hum_max;   //报警触发湿度范围 最大值
+
+
+        document.getElementById("Select2").value = hum_interval; //报警间隔
+        document.getElementById("Checkbox33").checked = hummail_en == 1 ? true : false;   //发送邮件 
+        document.getElementById("Checkbox44").checked = humcap_en == 1 ? true : false;   //抓拍图片 
+        document.getElementById("Checkbox55").checked = humrec_en == 1 ? true : false;   //录像
+
+    }
+
+
+    function set_devinfo() {
+        
+        var humdect_enable1 = document.getElementById("ChekMax").value;
+       
+        var min1 = document.getElementById("hum_min").value;
+        
+        var max1 = document.getElementById("hum_max").value;
+
+        var hum_interval = document.getElementById("Select2").value; 
+
+        var hummail_enable1 = document.getElementById("Checkbox33").checked == true ? 1 : 0;
+       
+        var humcap_enable1 = document.getElementById("Checkbox44").checked == true ? 1 : 0;
+        
+        var humrec_enable1 = document.getElementById("Checkbox55").checked == true ? 1 : 0;
+
+        var url = "/cgi-bin/set_hum_alarm_hisi.cgi?next_url=setmenu/Humidity.htm&humdect_enable=" + humdect_enable1 + "&hum_min=" + min1 + "&hum_max=" + max1 + "&hum_detect_interval=" + hum_interval + "&hummail_enable=" + hummail_enable1 + "&humcap_enable=" + humcap_enable1 + "&humrec_enable= " + humrec_enable1 + "&humalarmout_enable=" + "&user=" + top.user + "&pwd=" + top.pwd;
+
+        location = url;
+    }
+
+
+</script>
+
+<body onload="body_onload()" class="body">
+     <table width="100%" cellpadding="0" cellspacing="0">
+        <tr class="adtop"><td>&nbsp;</td></tr>
+        <tr>
+            <td align="center" >
+                <table cellpadding="0" cellspacing="0" >
+                   <tr>
+                    <td colspan="3" class="mid03_1">
+                        <strong class="mid03">
+                            <script type="text/javascript">                                document.write(top.str_hum);</script>
+                        </strong>
+                    </td>
+                   </tr>
+                  <tr  >
+                   <td class="lcorner" ></td>
+                   <td class="cbtop">
+                                 <table cellpadding="0" cellspacing="0" style=" width:730px">
+                                    <tr style=" width:100%">
+                                        <td style="text-align: right; " align="right">
+                                            <button class="resethbutton" onclick="set_devinfo()">
+                                                <script>  document.write(top.str_save);</script>
+                                            </button>
+                                            <button class="resethbutton" onclick="location.reload()">
+                                                <script> document.write(top.str_refresh);</script>
+                                            </button>
+                             
+                                        </td>
+                      
+                                    </tr>
+                                 </table>
+                               </td>
+                               <td class="rcorner"></td>
+                              </tr>
+              
+                              <tr>
+                               <td class="lborder"></td>
+                               <td >
+                                   <table style="margin-top: 0px; width:100%; height: 20%;" class="admintr">
+               
+                           <!-- <table style="margin-top:10px;width:98%;height:70%;border:1px solid #EEE5DE;"  > --><!--solid black-->
+  
+                              <tr  style="height:35px">
+                                <td align="right" class="admintd"><strong class="mid04">
+                                  <script type="text/javascript">                                      document.write(top.str_hum_enable);</script>
+                                </strong></td>
+                                <td style="padding-left:20px">
+                                    <select id="ChekMax">
+                        
+                                    <option value="1">
+
+                                        <script>                                            document.write(top.str_open);</script>
+
+                                    </option>
+                                    <option value="0">
+
+                                        <script>                                            document.write(top.str_close);</script>
+
+                                    </option>
+                        
+                                 </select>
+                                </td>
+                              </tr>
+                              <tr  style="height:35px">
+                                <td align="right" class="admintd"><strong  class="mid04">
+                                  <script type="text/javascript">                                      document.write(top.str_w_bjchumidity);</script>
+                                </strong></td>
+                                 <td>
+                                    <input id="hum_min" type="text" class="text" />
+                                    ~
+                                    <input id="hum_max" type="text" class="text"/>
+                                    
+                                </td>
+
+                              </tr>
+                              <tr  style="height:35px">
+                                <td rowspan="5" class="admintd">
+                                    <!--报警联动策略-->
+                                    <strong  class="mid04">
+                                    <script >                                        document.write(top.str_action_with_alarm);</script>
+                                    </strong>
+                                </td>
+                               </tr>
+                               <tr  style="height:35px">
+                                <td>
+                                    <!--发送邮件-->
+                                    <strong  class="mid04">
+                                    <script>                                        document.write(top.str_s_bjcfjg);</script>
+                                    </strong>
+                                    <input id="Select2" type="text" class="text" />
+                                    <!--<select id="Select2">
+                                       
+                                        <option value="30">30s</option>
+                                        <option value="45">45s</option>
+                                        <option value="60">60s</option> 
+                                    </select>-->
+                                </td>
+                              </tr>
+                               <tr>
+                                <td>
+                                    <!--发送邮件-->
+                                    <strong  class="mid04">
+                                    <script>                                        document.write(top.str_s_fsyj);</script>
+                                    </strong>
+                                    <input type="checkbox" id="Checkbox33"  />
+                                </td>
+                            </tr>
+                             <tr>
+                                <td>
+                                    <!--图片-->
+                                    <strong  class="mid04">
+                                    <script>                                        document.write(top.str_ftp_uploading); function Checkbox3_onclick() {
+                                     
+                                        }
+
+                                    </script>
+                                    </strong>
+                                    <input type="checkbox" id="Checkbox44" />
+                                </td>
+                            </tr>
+                                              <tr>
+                                <td>
+                                    <!--录像-->
+                                    <strong  class="mid04">
+                                    <script>                                        document.write(top.str_sd_videotape);</script>
+                                    </strong>
+                                    <input type="checkbox" id="Checkbox55" />
+                                </td>
+                            </tr>
+                              
+                              <!--<tr style="height:5px">
+                                <td class="admintd" ></td>
+                                <td style=" height:5px"></td>
+                              </tr>-->
+                                </table>
+                   </td>
+                   <td  class="rborder"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="ldcorner"></td>
+                   <td class="cdow"></td>
+                   <td class="rdcorner"></td>
+                  </tr>
+           
+                </table>
+            </td>
+        </tr>
+     </table>
+</body>
+</html>

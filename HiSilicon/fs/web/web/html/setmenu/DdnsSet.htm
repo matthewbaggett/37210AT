@@ -1,0 +1,265 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title></title>
+
+    <script language="javascript" src="../js/clearcache.js"></script>
+
+    <link href="../css/new.css" rel="stylesheet" type="text/css" />
+    <link href="../css/ceshi.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        body
+        {
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+        }
+    </style>
+
+    <script> 
+document.write('<script src="/cgi-bin/check_user.cgi?user='+top.user+'&pwd='+top.pwd+'"><\/script>');
+document.write('<script src="/cgi-bin/get_params.cgi?type=7&user='+top.user+'&pwd='+top.pwd+'"><\/script>');
+document.write('<script src="/cgi-bin/get_params.cgi?type=13&user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+//document.write('<script src="/cgi-bin/get_params.cgi?type=4&user=' + top.user + '&pwd=' + top.pwd + '"><\/script>')
+    </script>
+
+    <script type="text/javascript" src="/cgi-bin/get_tutk_account.cgi"></script>
+
+    <script>
+
+function enable_ctrl(enable, type)
+{
+    document.getElementById("select_Type").disabled="false";
+    document.getElementById("txt_User").disabled="false";
+    document.getElementById("txt_Pwd").disabled="false";
+    document.getElementById("txt_Host").disabled="false";
+
+    if (1 == enable)
+    {
+        document.getElementById("select_Type").disabled="";
+        sel_type(type);
+    }
+}
+
+function sel_type(value)
+{
+    if (value == 0 || value == 7) {
+        document.getElementById("txt_User").disabled="false";
+        document.getElementById("txt_Pwd").disabled="false";
+        document.getElementById("txt_Host").disabled="false";	
+    }else {
+        document.getElementById("txt_User").disabled="";
+        document.getElementById("txt_Pwd").disabled="";
+        document.getElementById("txt_Host").disabled="";
+    }
+    
+    fill_ddns_bytype(value);
+}
+
+function fill_ddns_bytype(type)
+{
+    if (0 == type)
+    {
+       document.getElementById("txt_User").value=mddnsUser;       
+        document.getElementById("txt_Pwd").value=mddnsPassword;    
+        document.getElementById("txt_Host").value=mddnsaddress;
+//        document.getElementById("txt_User").value = sSerialNumber;
+//        document.getElementById("txt_Pwd").value = camDesc;
+//        document.getElementById("txt_Host").value = softwareFVersion;
+    } else if (7 == type) {
+        document.getElementById("txt_User").value = ret_tutk_guid;
+        document.getElementById("txt_Pwd").value = ret_tutk_pwd;
+        document.getElementById("txt_Host").value = uddnsaddr;
+    } else{
+        document.getElementById("txt_User").value = ddnsUser;
+        document.getElementById("txt_Pwd").value = ddnsPassword;
+        document.getElementById("txt_Host").value = ddnsaddress;
+    }
+}
+
+function body_load() {
+//    alert(document.getElementById("txt_User").value = mddnsUser);
+//    alert(document.getElementById("txt_Pwd").value = mddnsPassword);
+//    document.getElementById("txt_Pwd").value = mddnsPassword;
+//    alert("1");
+//    document.getElementById("txt_User").value = mddnsUser;
+//    
+//    document.getElementById("txt_Host").value = mddnsaddress;
+//    alert("3");
+    document.getElementById("select_Enable").value=ddns_enable;
+    document.getElementById("select_Type").value = ddns_service;
+
+    fill_ddns_bytype(ddns_service);
+    
+    enable_ctrl(ddns_enable,ddns_service);
+}
+
+function ddns_sel_enable(value)
+{
+    var t = document.getElementById("select_Type").value;
+    
+    enable_ctrl(value,t);
+}
+
+function set_ddnsSet()
+{
+    var selectEnable=document.getElementById("select_Enable").value;
+    var selectType=document.getElementById("select_Type").value;
+    var txtUser=document.getElementById("txt_User").value;
+    var txtPwd=document.getElementById("txt_Pwd").value;
+    var txtHost=document.getElementById("txt_Host").value;
+    
+    url="/cgi-bin/set_ddns.cgi?next_url=setmenu/DdnsSet.htm&ddns_enable="+selectEnable+"&ddns_type="+selectType+"&ddns_user="+txtUser+"&ddns_pwd="+txtPwd+"&ddns_address="+txtHost+"&user="+top.user+"&pwd="+top.pwd;
+    
+    location=url;
+}
+    </script>
+
+</head>
+<body onload="body_load()" class="body">
+    <table width="100%" cellpadding="0" cellspacing="0">
+        <tr class="adtop"><td>&nbsp;</td></tr>
+        <tr>
+            <td align="center">
+                <table cellpadding="0" cellspacing="0" >
+                   <tr>
+                    <td colspan="3" class="mid03_1">
+                        <strong class="mid03">
+                            <script type="text/javascript">document.write(top.str_ddns_set);</script>
+                        </strong>
+                    </td>
+                   </tr>
+                  <tr  >
+                   <td class="lcorner" ></td>
+                   <td class="cbtop">
+                     <table cellpadding="0" cellspacing="0" style=" width:730px">
+                        <tr style=" width:100%">
+                            <td style="text-align: right;" align="right">
+                                 <button class="resethbutton" onclick="set_ddnsSet()">
+
+                                    <script>document.write(top.str_save);</script>
+
+                                </button>
+                                <button class="resethbutton" onclick="location=location">
+
+                                    <script>document.write(top.str_refresh);</script>
+
+                                </button>  
+                             
+                            </td>
+                      
+                        </tr>
+                     </table>
+                   </td>
+                   <td class="rcorner"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="lborder"></td>
+                   <td style=" margin-top:0px">
+                        <table style="margin-top: 0px; width: 730px; height: 40%;" class="admintr">
+                
+                            <tr style="height: 37px">
+                                <td class="admintd">
+                                    <strong class="mid04">
+
+                                        <script>document.write(top.str_start_ddns);</script>
+
+                                    </strong>
+                                </td>
+                                <td style="width: 219px">
+                                    &nbsp;&nbsp;&nbsp;<select name="select_Enable" id="select_Enable" size="1" style="width: 145px"
+                                        onchange="ddns_sel_enable(this.value)">
+                                        <option value="1"><strong>
+
+                                            <script>document.write(top.str_opens);</script>
+
+                                        </strong></option>
+                                        <option value="0"><strong>
+
+                                            <script>document.write(top.str_closes);</script>
+
+                                        </strong></option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="height: 37px">
+                                <td class="admintd">
+                                    <strong class="mid04">
+
+                                        <script>document.write(top.str_ddns_service_type);</script>
+
+                                    </strong>
+                                </td>
+                                <td style="width: 219px">
+                                    &nbsp;&nbsp;&nbsp;<select name="select_Type" size="1" style="width: 145px" id="select_Type"
+                                        onchange="sel_type(this.value)">
+                                        <option value="7">use uid</option>
+                                        <option value="0"><script>document.write(top.str_ddns_factory);</script></option>
+                                        <option value="1">3322</option>
+                                        <option value="2">dyndns</option>
+                                        <option value="4">noip</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="height: 37px">
+                                <td class="admintd">
+                                    <strong class="mid04">
+
+                                        <script>document.write(top.str_ddns_user);</script>
+
+                                    </strong>
+                                </td>
+                                <td style="width: 219px; height: 24px">
+                                    &nbsp;&nbsp;&nbsp;<input type="text" name="txt_User" id="txt_User" 
+                                        style="width: 145px" />
+                                </td>
+                            </tr>
+                            <tr style="height: 37px">
+                                <td width="20%" class="admintd">
+                                    <strong class="mid04">
+
+                                        <script>document.write(top.str_ddns_password);</script>
+
+                                    </strong>
+                                </td>
+                                <td style="width: 219px">
+                                    &nbsp;&nbsp;&nbsp;<input type="password" name="txt_Pwd" id="txt_Pwd" 
+                                        style="width: 145px" />
+                                </td>
+                            </tr>
+                            <tr style="height: 37px">
+                                <td class="admintd">
+                                    <strong class="mid04">
+
+                                        <script>document.write(top.str_ddns_hostname);</script>
+
+                                    </strong>
+                                </td>
+                                <td style="width: 219px">
+                                    &nbsp;&nbsp;&nbsp;<input type="text" name="txt_Host" id="txt_Host" 
+                                        style="width: 145px" />
+                                </td>
+                            </tr>
+                        </table>
+            
+                    </div>
+                    
+                </div>
+                   
+                               </td>
+                               <td  class="rborder"></td>
+                              </tr>
+              
+                              <tr>
+                               <td class="ldcorner"></td>
+                               <td class="cdow"></td>
+                               <td class="rdcorner"></td>
+                              </tr>
+           
+                            </table>
+            </td>
+        </tr>
+     </table>
+</body>
+</html>

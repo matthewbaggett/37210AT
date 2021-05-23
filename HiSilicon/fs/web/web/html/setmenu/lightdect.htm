@@ -1,0 +1,213 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <script language="javascript" src="../js/clearcache.js"></script>
+
+    <link href="../css/new.css" rel="stylesheet" type="text/css" />
+    <link href="../css/ceshi.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        body
+        {
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+           
+        }
+       
+    </style>
+    <title></title>
+
+   <script type="text/javascript">
+       
+       document.write('<script src="/cgi-bin/get_params.cgi?type=16&user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+</script>
+
+</head>
+
+<script type="text/javascript">
+    if (ret_alias_name == '') {
+        ret_alias_name = top.str_anonymous;
+    }
+    top.document.title = top.str_device + '(' + ret_alias_name + ')';
+
+    function body_onload() {
+        document.getElementById("lightdect_enableckb").value = light_en;
+        
+        document.getElementById("Selectdetect").value = light_interval;        //间隔
+        
+        document.getElementById("selectslightmail_enable").value = lightmail_en;  //邮件
+        
+        document.getElementById("selectlightcap_enable").value = lightcap_en; //图片
+       
+        document.getElementById("selectlightrec_enable").value = lightrec_en;     //录像
+       
+        document.getElementById("alarmout_enable").value = lightalarm_en;     //输入开关
+    }
+
+
+    function set_devinfo() {
+
+        var describe = document.getElementById("lightdect_enableckb").value;
+        
+        var detect = document.getElementById("Selectdetect").value;        //间隔
+        var mail = document.getElementById("selectslightmail_enable").value;  //邮件
+        var cap = document.getElementById("selectlightcap_enable").value; //图片
+        var rec = document.getElementById("selectlightrec_enable").value ;     //录像
+        var alarmout = document.getElementById("alarmout_enable").value;     //输入开关lightdect_enable
+        url = "/cgi-bin/set_light_alarm_hisi.cgi?next_url=setmenu/lightdect.htm&lightdect_enable=" + describe + "&light_detect_interval=" + detect + "&lightmail_enable=" + mail + "&lightcap_enable=" + cap + "&lightrec_enable=" + rec + "&light_alarmout_enable=" + alarmout + "&user=" + top.user + "&pwd=" + top.pwd;
+
+        location = url;
+    }
+
+</script>
+
+<body onload="body_onload()" class="body">
+     <table width="100%" cellpadding="0" cellspacing="0">
+        <tr class="adtop"><td>&nbsp;</td></tr>
+        <tr>
+            <td align="center" >
+                <table cellpadding="0" cellspacing="0" >
+                   <tr>
+                    <td colspan="3" class="mid03_1">
+                        <strong class="mid03">
+                            <script type="text/javascript">document.write(top.str_lightdect_enable);</script>
+                        </strong>
+                    </td>
+                   </tr>
+                  <tr  >
+                   <td class="lcorner" ></td>
+                   <td class="cbtop">
+                                 <table cellpadding="0" cellspacing="0" style=" width:730px">
+                                    <tr style=" width:100%">
+                                        <td style="text-align: right; " align="right">
+                                            <button class="resethbutton" onclick="set_devinfo()">
+                                                <script>document.write(top.str_save);</script>
+                                            </button>
+                                            <button class="resethbutton" onclick="location.reload()">
+                                                <script>document.write(top.str_refresh);</script>
+                                            </button>
+                             
+                                        </td>
+                      
+                                    </tr>
+                                 </table>
+                               </td>
+                               <td class="rcorner"></td>
+                              </tr>
+              
+                              <tr>
+                               <td class="lborder"></td>
+                               <td >
+                                   <table style="margin-top: 0px; width:100%; height: 20%;" class="admintr">
+               
+                           <!-- <table style="margin-top:10px;width:98%;height:70%;border:1px solid #EEE5DE;"  > --><!--solid black-->
+  
+                              <tr  style="height:35px">
+                                <td align="right" class="admintd"><strong class="mid04">
+                                  <script type="text/javascript">                                      document.write(top.str_lightdect_enable);</script>
+                                </strong></td>
+                                <td style="padding-left:20px">
+                                    <select id="lightdect_enableckb">
+                        
+                                    <option value="1">
+
+                                        <script>                                            document.write(top.str_open);</script>
+
+                                    </option>
+                                    <option value="0">
+
+                                        <script>                                            document.write(top.str_close);</script>
+
+                                    </option>
+                        
+                                 </select>
+                                
+                                </td>
+                              </tr>
+                              <tr  style="height:35px">
+                                <td align="right" class="admintd"><strong  class="mid04">
+                                  <script type="text/javascript">                                      document.write(top.str_Light_detect_interval);</script>
+                                </strong></td>
+                                <td style="padding-left:20px">
+                                    <input id="Selectdetect" type="text" style="width: 75px"/>
+                                    <!--<select id="Selectdetect">-->
+                                        <!--<option value="0"><script>document.write(top.str_all_forever);</script></option>-->
+                                        <!--<option value="30" >30s</option>
+                                        <option value="45">45s</option>
+                                        <option value="60">60s</option>-->
+                                        <!--<option value="4">30s</option>
+                                        <option value="5">60s</option>-->
+                        
+                                    <!--</select>-->
+                                &nbsp;</td>
+
+                              </tr>
+                              <tr  style="height:35px">
+                                <td align="right" class="admintd"><strong  class="mid04">
+                                  <script type="text/javascript">                                      document.write(top.str_s_fsyj);</script>
+                                </strong></td>
+                                <td style="padding-left:20px">
+                                   <!-- <input id="lightdect_enableckb0" type="checkbox" value="ckept" />-->
+                                    <select name="selectslightmail_enable" id="selectslightmail_enable" style="width: 80px" >
+                                     <option value="0"><script type="text/javascript">document.write(top.str_not_Allow);</script></option>
+                                    <option value="1"><script type="text/javascript">document.write(top.str_Allow);</script></option>&nbsp;&nbsp;
+                                   </select>
+                                    </td>
+
+                              </tr>
+                              <tr  style="height:35px">
+                                <td align="right" class="admintd"><strong class="mid04">
+                                  <script type="text/javascript">                                      document.write(top.str_ftp_uploading);</script>
+                                </strong></td>
+                                <td style="padding-left:20px">
+                                    <select name="selectlightcap_enable" id="selectlightcap_enable" style="width: 80px" >
+                                     <option value="0"><script type="text/javascript">document.write(top.str_not_Allow);</script></option>
+                                    <option value="1"><script type="text/javascript">document.write(top.str_Allow);</script></option>&nbsp;
+                                   </select>
+                                &nbsp;</td> 
+                              </tr>
+                              <tr  style="height:35px">
+                                <td align="right" class="admintd"><strong class="mid04">
+                                  <script type="text/javascript">                                      document.write(top.str_sd_videotape);</script>
+                                </strong></td>
+                                <td style="padding-left:20px">
+                                    <select name="selectlightrec_enable" id="selectlightrec_enable" style="width: 80px" >
+                                    <option value="0"><script type="text/javascript">document.write(top.str_not_Allow);</script></option>
+                                    <option value="1"><script type="text/javascript">document.write(top.str_Allow);</script></option>&nbsp;
+                                   </select>
+                                &nbsp;</td>
+                              </tr>
+                              <tr style="height:35px; display:none">
+                                <td align="right" class="admintd"><strong class="mid04">
+                                  <script type="text/javascript">                                      document.write(top.str_sd_videotape);</script>
+                                </strong></td>
+                                <td style="padding-left:20px">
+                                    <select name="alarmout_enable" id="alarmout_enable" style="width: 80px" >
+                                    <option value="0"><script type="text/javascript">document.write(top.str_close);</script></option>
+                                    <option value="1"><script type="text/javascript">document.write(top.str_open);</script></option>&nbsp;
+                                   </select>
+                                &nbsp;</td>
+                              </tr>
+                              
+                              <!--<tr style="height:5px">
+                                <td class="admintd" ></td>
+                                <td style=" height:5px"></td>
+                              </tr>-->
+                                </table>
+                   </td>
+                   <td  class="rborder"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="ldcorner"></td>
+                   <td class="cdow"></td>
+                   <td class="rdcorner"></td>
+                  </tr>
+           
+                </table>
+            </td>
+        </tr>
+     </table>
+</body>
+</html>

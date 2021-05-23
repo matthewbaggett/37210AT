@@ -1,0 +1,716 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title></title>
+
+    <script language="javascript" src="../js/clearcache.js"></script>
+
+    <link href="../css/new.css" rel="stylesheet" type="text/css" />
+    <link href="../css/ceshi.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        body
+        {
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+        }
+        .td9
+        {
+            border: 1 navy groove;
+            background: #ffffff;
+            text-align:center;
+        }
+        .style1
+        {
+            background-color: #C2E5F9;
+            text-align: center;
+            width: 25%;
+            height: 20px;
+        }
+        </style>
+
+    <script> 
+document.write('<script src="/cgi-bin/check_user.cgi?user='+top.user+'&pwd='+top.pwd+'"><\/script>');
+    </script>
+
+    <script>
+if(0!=ret_check_user)
+{
+    alert(top.str_userchg_relogin);
+    top.location.reload("../index.htm");
+}
+    </script>
+    <script>
+document.write('<script src="/cgi-bin/get_params.cgi?type=1&user='+top.user+'&pwd='+top.pwd+'"><\/script>');
+    </script>
+
+    <script>
+function body_onload()
+{
+    if(0==top.h_right)
+    {
+       //document.getElementById("txt_user1").disabled = "disabled";
+       //document.getElementById("txt_user1").style.backgroundColor="#fff";
+        document.getElementById("select_right1").disabled = "false";
+    }
+    else
+    {
+       document.getElementById("txt_user1").disabled="false";
+       document.getElementById("txt_user1").style.backgroundColor="#ECE9D8";
+       document.getElementById("txt_pwd1").disabled="false";
+       document.getElementById("txt_pwd1").style.backgroundColor="#ECE9D8";
+       document.getElementById("select_right1").disabled="false";
+       
+       document.getElementById("txt_user2").disabled="false";
+       document.getElementById("txt_user2").style.backgroundColor="#ECE9D8";
+       document.getElementById("txt_pwd2").disabled="false";
+       document.getElementById("txt_pwd2").style.backgroundColor="#ECE9D8";
+       document.getElementById("select_right2").disabled="false";
+       
+       document.getElementById("txt_user3").disabled="false";
+       document.getElementById("txt_user3").style.backgroundColor="#ECE9D8";
+       document.getElementById("txt_pwd3").disabled="false";
+       document.getElementById("txt_pwd3").style.backgroundColor="#ECE9D8";
+       document.getElementById("select_right3").disabled="false";
+       
+       document.getElementById("txt_user4").disabled="false";
+       document.getElementById("txt_user4").style.backgroundColor="#ECE9D8";
+       document.getElementById("txt_pwd4").disabled="false";
+       document.getElementById("txt_pwd4").style.backgroundColor="#ECE9D8";
+       document.getElementById("select_right4").disabled="false";
+       
+       document.getElementById("txt_user5").disabled="false";
+       document.getElementById("txt_user5").style.backgroundColor="#ECE9D8";
+       document.getElementById("txt_pwd5").disabled="false";
+       document.getElementById("txt_pwd5").style.backgroundColor="#ECE9D8";
+       document.getElementById("select_right5").disabled="false";
+       
+       document.getElementById("txt_user6").disabled="false";
+       document.getElementById("txt_user6").style.backgroundColor="#ECE9D8";
+       document.getElementById("txt_pwd6").disabled="false";
+       document.getElementById("txt_pwd6").style.backgroundColor="#ECE9D8";
+       document.getElementById("select_right6").disabled="false";
+       
+       document.getElementById("txt_user7").disabled="false";
+       document.getElementById("txt_user7").style.backgroundColor="#ECE9D8";
+       document.getElementById("txt_pwd7").disabled="false";
+       document.getElementById("txt_pwd7").style.backgroundColor="#ECE9D8";
+       document.getElementById("select_right7").disabled="false";
+       
+       document.getElementById("txt_user8").disabled="false";
+       document.getElementById("txt_user8").style.backgroundColor="#ECE9D8";
+       document.getElementById("txt_pwd8").disabled="false";
+       document.getElementById("txt_pwd8").style.backgroundColor="#ECE9D8";
+       document.getElementById("select_right8").disabled="false";
+       
+       document.getElementById("txt_user9").disabled="false";
+       document.getElementById("txt_user9").style.backgroundColor="#ECE9D8";
+       document.getElementById("txt_pwd9").disabled="false";
+       document.getElementById("txt_pwd9").style.backgroundColor="#ECE9D8";
+       document.getElementById("select_right9").disabled="false";
+       
+       document.getElementById("txt_user10").disabled="false";
+       document.getElementById("txt_user10").style.backgroundColor="#ECE9D8";
+       document.getElementById("txt_pwd10").disabled="false";
+       document.getElementById("txt_pwd10").style.backgroundColor="#ECE9D8";
+       document.getElementById("select_right10").disabled="false";
+       
+       show_pwd_txt();
+    }
+    
+    //�û�1	
+    document.getElementById("txt_user1").value=user_name0;
+    document.getElementById("txt_pwd1").value=user_pwd0;
+    document.getElementById("select_right1").value=user_right0;
+    //�û�2
+    document.getElementById("txt_user2").value=user_name1;
+    document.getElementById("txt_pwd2").value=user_pwd1;
+    document.getElementById("select_right2").value=user_right1;
+    //�û�3
+    document.getElementById("txt_user3").value=user_name2;
+    document.getElementById("txt_pwd3").value=user_pwd2;
+    document.getElementById("select_right3").value=user_right2;
+    //�û�4
+    document.getElementById("txt_user4").value=user_name3;
+    document.getElementById("txt_pwd4").value=user_pwd3;
+    document.getElementById("select_right4").value=user_right3;
+    //�û�5
+    document.getElementById("txt_user5").value=user_name4;
+    document.getElementById("txt_pwd5").value=user_pwd4;
+    document.getElementById("select_right5").value=user_right4;
+    //�û�6
+    document.getElementById("txt_user6").value=user_name5;
+    document.getElementById("txt_pwd6").value=user_pwd5;
+     document.getElementById("select_right6").value=user_right5;
+    //�û�7
+    document.getElementById("txt_user7").value=user_name6;
+    document.getElementById("txt_pwd7").value=user_pwd6;
+    document.getElementById("select_right7").value=user_right6;
+    //�û�8
+    document.getElementById("txt_user8").value=user_name7;
+    document.getElementById("txt_pwd8").value=user_pwd7;
+    document.getElementById("select_right8").value=user_right7;
+    //�û�9
+    document.getElementById("txt_user9").value=user_name8;
+    document.getElementById("txt_pwd9").value=user_pwd8;
+    document.getElementById("select_right9").value=user_right8;
+    //�û�10
+    document.getElementById("txt_user10").value=user_name9;
+    document.getElementById("txt_pwd10").value=user_pwd9;
+    document.getElementById("select_right10").value = user_right9;
+}
+
+function  show_pwd_txt()
+{
+    var cur_user=top.user;
+    
+    if(cur_user==user_name1)
+    {
+       document.getElementById("txt_pwd2").disabled="";
+       document.getElementById("txt_pwd2").style.backgroundColor="#FFFFFF";
+    }
+    else if(cur_user==user_name2)
+    {
+       document.getElementById("txt_pwd3").disabled="";
+       document.getElementById("txt_pwd3").style.backgroundColor="#FFFFFF";
+    }
+    else if(cur_user==user_name3)
+    {
+       document.getElementById("txt_pwd4").disabled="";
+       document.getElementById("txt_pwd4").style.backgroundColor="#FFFFFF";
+    }
+    else if(cur_user==user_name4)
+    {
+       document.getElementById("txt_pwd5").disabled="";
+       document.getElementById("txt_pwd5").style.backgroundColor="#FFFFFF";
+    }
+    else if(cur_user==user_name5)
+    {
+       document.getElementById("txt_pwd6").disabled="";
+       document.getElementById("txt_pwd6").style.backgroundColor="#FFFFFF";
+    }
+    else if(cur_user==user_name6)
+    {
+       document.getElementById("txt_pwd7").disabled="";
+       document.getElementById("txt_pwd7").style.backgroundColor="#FFFFFF";
+    }
+    else if(cur_user==user_name7)
+    {
+       document.getElementById("txt_pwd8").disabled="";
+       document.getElementById("txt_pwd8").style.backgroundColor="#FFFFFF";
+    }
+    else if(cur_user==user_name8)
+    {
+       document.getElementById("txt_pwd9").disabled="";
+       document.getElementById("txt_pwd9").style.backgroundColor="#FFFFFF";
+    }
+    else if(cur_user==user_name9)
+    {
+       document.getElementById("txt_pwd10").disabled="";
+       document.getElementById("txt_pwd10").style.backgroundColor="#FFFFFF";
+    }
+}
+
+function txtChange() {
+    if (document.getElementById("txt_user1").value == "") {
+        alert(top.str_please_write_user);
+    }
+}
+
+
+function set_UserSet()
+{
+    var i = 0;
+    var j = 0;
+    
+    //�û���
+    var user_list = new Array();
+    user_list[0] = encodeURIComponent(document.getElementById("txt_user1").value);
+    user_list[1] = encodeURIComponent(document.getElementById("txt_user2").value);
+    user_list[2] = encodeURIComponent(document.getElementById("txt_user3").value);
+    user_list[3] = encodeURIComponent(document.getElementById("txt_user4").value);
+    user_list[4] = encodeURIComponent(document.getElementById("txt_user5").value);
+    user_list[5] = encodeURIComponent(document.getElementById("txt_user6").value);
+    user_list[6] = encodeURIComponent(document.getElementById("txt_user7").value);
+    user_list[7] = encodeURIComponent(document.getElementById("txt_user8").value);
+    user_list[8] = encodeURIComponent(document.getElementById("txt_user9").value);
+    user_list[9] = encodeURIComponent(document.getElementById("txt_user10").value);
+    for (i = 0; i < user_list.length; i++) 
+    {
+        for (j = i+1; j < user_list.length; j++) 
+        {
+            if(user_list[i].length>0 && user_list[j].length>0)
+            {
+                if (user_list[i] == user_list[j]) 
+                {
+                    alert(top.str_user_noequars);
+                    return;
+                }
+            }
+       }
+    }
+    
+    //����
+    var pwd_list = new Array();
+    pwd_list[0] = encodeURIComponent(document.getElementById("txt_pwd1").value);
+    pwd_list[1] = encodeURIComponent(document.getElementById("txt_pwd2").value);
+    pwd_list[2] = encodeURIComponent(document.getElementById("txt_pwd3").value);
+    pwd_list[3] = encodeURIComponent(document.getElementById("txt_pwd4").value);
+    pwd_list[4] = encodeURIComponent(document.getElementById("txt_pwd5").value);
+    pwd_list[5] = encodeURIComponent(document.getElementById("txt_pwd6").value);
+    pwd_list[6] = encodeURIComponent(document.getElementById("txt_pwd7").value);
+    pwd_list[7] = encodeURIComponent(document.getElementById("txt_pwd8").value);
+    pwd_list[8] = encodeURIComponent(document.getElementById("txt_pwd9").value);
+    pwd_list[9] = encodeURIComponent(document.getElementById("txt_pwd10").value);
+    
+    //Ȩ��
+    var right_list = new Array();
+    right_list[0]=document.getElementById("select_right1").value;
+    right_list[1]=document.getElementById("select_right2").value;
+    right_list[2]=document.getElementById("select_right3").value;
+    right_list[3]=document.getElementById("select_right4").value;
+    right_list[4]=document.getElementById("select_right5").value;
+    right_list[5]=document.getElementById("select_right6").value;
+    right_list[6]=document.getElementById("select_right7").value;
+    right_list[7]=document.getElementById("select_right8").value;
+    right_list[8]=document.getElementById("select_right9").value;
+    right_list[9]=document.getElementById("select_right10").value;
+      
+         
+   if(   ( pwd_list[1]!="" && user_list[1]=="" ) 
+      || ( pwd_list[2]!="" && user_list[2]=="" ) 
+      || ( pwd_list[3]!="" && user_list[3]=="" ) 
+      || ( pwd_list[4]!="" && user_list[4]=="" ) 
+      || ( pwd_list[5]!="" && user_list[5]=="" ) 
+      || ( pwd_list[6]!="" && user_list[6]=="" ) 
+      || ( pwd_list[7]!="" && user_list[7]=="" ) 
+      || ( pwd_list[8]!="" && user_list[8]=="" ) 
+      || ( pwd_list[9]!="" && user_list[9]=="" ) )
+    {
+        alert(top.str_please_write_user);
+    }
+    else
+    {
+        url="/cgi-bin/set_users.cgi?next_url=setmenu/UserSet.htm&user0_name="+user_list[0]+"&user0_pwd="+pwd_list[0]+"&user0_right="+right_list[0]+"&user1_name="+user_list[1]+"&user1_pwd="+pwd_list[1]+"&user1_right="+right_list[1]+"&user2_name="+user_list[2]+"&user2_pwd="+pwd_list[2]+"&user2_right="+right_list[2]+"&user3_name="+user_list[3]+"&user3_pwd="+pwd_list[3]+"&user3_right="+right_list[3]+"&user4_name="+user_list[4]+"&user4_pwd="+pwd_list[4]+"&user4_right="+right_list[4]+"&user5_name="+user_list[5]+"&user5_pwd="+pwd_list[5]+"&user5_right="+right_list[5]+"&user6_name="+user_list[6]+"&user6_pwd="+pwd_list[6]+"&user6_right="+right_list[6]+"&user7_name="+user_list[7]+"&user7_pwd="+pwd_list[7]+"&user7_right="+right_list[7]+"&user8_name="+user_list[8]+"&user8_pwd="+pwd_list[8]+"&user8_right="+right_list[8]+"&user9_name="+user_list[9]+"&user9_pwd="+pwd_list[9]+"&user9_right="+right_list[9]+"&user="+top.user+"&pwd="+top.pwd;
+        
+        location=url; 
+    }
+    /*
+    else if(    ( (user_list[1]>='a'&&user_list[1]<='z') || (user_list[1]>='A'&&user_list[1]<='Z') || (user_list[1]>=''&&user_list[1]<='') ) 
+             && ( (user_list[2]>='a'&&user_list[2]<='z') || (user_list[2]>='A'&&user_list[2]<='Z') || (user_list[2]>=''&&user_list[2]<='') ) 
+             && ( (user_list[3]>='a'&&user_list[3]<='z') || (user_list[3]>='A'&&user_list[3]<='Z') || (user_list[3]>=''&&user_list[3]<='') ) 
+             && ( (user_list[4]>='a'&&user_list[4]<='z') || (user_list[4]>='A'&&user_list[4]<='Z') || (user_list[4]>=''&&user_list[4]<='') ) 
+             && ( (user_list[5]>='a'&&user_list[5]<='z') || (user_list[5]>='A'&&user_list[5]<='Z') || (user_list[5]>=''&&user_list[5]<='') ) 
+             && ( (user_list[6]>='a'&&user_list[6]<='z') || (user_list[6]>='A'&&user_list[6]<='Z') || (user_list[6]>=''&&user_list[6]<='') ) 
+             && ( (user_list[7]>='a'&&user_list[7]<='z') || (user_list[7]>='A'&&user_list[7]<='Z') || (user_list[7]>=''&&user_list[7]<='') ) 
+             && ( (user_list[8]>='a'&&user_list[8]<='z') || (user_list[8]>='A'&&user_list[8]<='Z') || (user_list[8]>=''&&user_list[8]<='') ) 
+             && ( (user_list[9]>='a'&&user_list[9]<='z') || (user_list[9]>='A'&&user_list[9]<='Z') || (user_list[9]>=''&&user_list[9]<='') )  )
+    {
+         
+        
+        url="/cgi-bin/set_users.cgi?next_url=setmenu/UserSet.htm&user0_name="+user_list[0]+"&user0_pwd="+pwd_list[0]+"&user0_right="+right_list[0]+"&user1_name="+user_list[1]+"&user1_pwd="+pwd_list[1]+"&user1_right="+right_list[1]+"&user2_name="+user_list[2]+"&user2_pwd="+pwd_list[2]+"&user2_right="+right_list[2]+"&user3_name="+user_list[3]+"&user3_pwd="+pwd_list[3]+"&user3_right="+right_list[3]+"&user4_name="+user_list[4]+"&user4_pwd="+pwd_list[4]+"&user4_right="+right_list[4]+"&user5_name="+user_list[5]+"&user5_pwd="+pwd_list[5]+"&user5_right="+right_list[5]+"&user6_name="+user_list[6]+"&user6_pwd="+pwd_list[6]+"&user6_right="+right_list[6]+"&user7_name="+user_list[7]+"&user7_pwd="+pwd_list[7]+"&user7_right="+right_list[7]+"&user8_name="+user_list[8]+"&user8_pwd="+pwd_list[8]+"&user8_right="+right_list[8]+"&user9_name="+user_list[9]+"&user9_pwd="+pwd_list[9]+"&user9_right="+right_list[9]+"&user="+top.user+"&pwd="+top.pwd;
+        
+        location=url;
+    }
+    else
+    {
+        alert(top.str_first_must_letter);
+    }
+    */
+}
+    </script>
+
+</head>
+<body onload="body_onload()" class="body">
+     <table width="100%" cellpadding="0" cellspacing="0">
+        <tr class="adtop"><td>&nbsp;</td></tr>
+        <tr>
+            <td align="center">
+                <table cellpadding="0" cellspacing="0" >
+                   <tr>
+                    <td colspan="3" class="mid03_1">
+                        <strong class="mid03">
+                            <script type="text/javascript">                                document.write(top.str_user_set);</script>
+                        </strong>
+                    </td>
+                   </tr>
+                  <tr  >
+                   <td class="lcorner" ></td>
+                   <td class="cbtop">
+                     <table cellpadding="0" cellspacing="0" style=" width:730px">
+                        <tr style=" width:100%">
+                            <td style="text-align: right;" align="right">
+                                <button class="resethbutton" onclick="set_UserSet()">
+
+                                    <script>                            document.write(top.str_save);</script>
+
+                                </button>
+                                <button class="resethbutton" onclick="location.reload()">
+
+                                    <script>                            document.write(top.str_refresh);</script>
+
+                                </button>
+                             
+                            </td>
+                      
+                        </tr>
+                     </table>
+                   </td>
+                   <td class="rcorner"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="lborder"></td>
+                   <td style=" margin-top:0px">
+                                        <table style="margin-top: 0px; width: 730px; height: 20%;" align="center" class="admintr">
+           
+                            <tr>
+                                <td class="style1">
+
+                                    <script>                                        document.write(top.str_number);</script>
+
+                                </td>
+                                <td class="style1">
+
+                                    <script>                                        document.write(top.str_user);</script>
+
+                                </td>
+                                <td class="style1">
+
+                                    <script>                                        document.write(top.str_pwd);</script>
+
+                                </td>
+                                <td class="style1">
+
+                                    <script>                                        document.write(top.str_power);</script>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td9 ">
+                                    1
+                                </td>
+                                <td class="td9 " >
+                                    <input id="txt_user1" type="text" style="border-style: none; width: 100%" maxlength="31" onblur ="txtChange()"/>
+                                </td>
+                                <td class="td9 " >
+                                    <input id="txt_pwd1" type="password" style="border-style: none; width: 100%" maxlength="31" />
+                                </td>
+                                <td class="td9 " >
+                                    <select id="select_right1" style="border-style: none; width:100%" property="empnum"
+                                        class="slt_w1">
+                                        <option value="0"><strong>
+
+                                            <script>                                                document.write(top.str_Administrators);</script>
+
+                                        </strong></option>
+                                        <option value="1"><strong>
+
+                                            <script>                                                document.write(top.str_admin);</script>
+
+                                        </strong></option>
+                                        <option value="2"><strong>
+
+                                            <script>                                                document.write(top.str_handlers);</script>
+
+                                        </strong></option>
+                                        <option value="3"><strong>
+
+                                            <script>                                                document.write(top.str_visitor);</script>
+
+                                        </strong></option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td9 " >
+                                    2
+                                </td>
+                                <td class="td9 " >
+                                    <input id="txt_user2" type="text" style="border-style: none; width: 100%"  maxlength="31" />
+                                </td>
+                                <td class="td9 ">
+                                    <input id="txt_pwd2" type="password" style="border-style: none; width: 100%" maxlength="31" />
+                                </td>
+                                <td class="td9 " >
+                                    <select id="select_right2" style="border-style: none; width: 100%" class="slt_w1">
+                                        <option value="1"><strong>
+
+                                            <script>                                                document.write(top.str_admin);</script>
+
+                                        </strong></option>
+                                        <option value="2"><strong>
+
+                                            <script>                                                document.write(top.str_handlers);</script>
+
+                                        </strong></option>
+                                        <option value="3"><strong>
+
+                                            <script>                                                document.write(top.str_visitor); function Text3_onclick() {
+
+                                                }
+
+                                            </script>
+
+                                        </strong></option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td9 " >
+                                    3
+                                </td>
+                                <td class="td9 " >
+                                    <input id="txt_user3" type="text" style="border-style: none; width: 100%"  maxlength="31" onclick="return Text3_onclick()" />
+                                </td>
+                                <td class="td9 " >
+                                    <input id="txt_pwd3" type="password" style="border-style: none; width: 100%" maxlength="31" />
+                                </td>
+                                <td class="td9 " >
+                                    <select id="select_right3" style="border-style: none; width: 100%" class="slt_w1">
+                                        <option value="1"><strong>
+
+                                            <script>                                                document.write(top.str_admin);</script>
+
+                                        </strong></option>
+                                        <option value="2"><strong>
+
+                                            <script>                                                document.write(top.str_handlers);</script>
+
+                                        </strong></option>
+                                        <option value="3"><strong>
+
+                                            <script>                                                document.write(top.str_visitor);</script>
+
+                                        </strong></option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td  class="td9 ">
+                                    4
+                                </td>
+                                <td  class="td9 ">
+                                    <input id="txt_user4" type="text" style="border-style: none; width: 100%"  maxlength="31" />
+                                </td>
+                                <td  class="td9 ">
+                                    <input id="txt_pwd4" type="password" style="border-style: none; width: 100%" maxlength="31" />
+                                </td>
+                                <td  class="td9 ">
+                                    <select id="select_right4" style="border-style: none; width: 100%" class="slt_w1">
+                                        <option value="1"><strong>
+
+                                            <script>                                                document.write(top.str_admin);</script>
+
+                                        </strong></option>
+                                        <option value="2"><strong>
+
+                                            <script>                                                document.write(top.str_handlers);</script>
+
+                                        </strong></option>
+                                        <option value="3"><strong>
+
+                                            <script>                                                document.write(top.str_visitor);</script>
+
+                                        </strong></option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td  class="td9 ">
+                                    5
+                                </td>
+                                <td  class="td9 ">
+                                    <input id="txt_user5" type="text" style="border-style: none; width: 100%"  maxlength="31" />
+                                </td>
+                                <td  class="td9 ">
+                                    <input id="txt_pwd5" type="password" style="border-style: none; width: 100%" maxlength="31" />
+                                </td>
+                                <td  class="td9 ">
+                                    <select id="select_right5" style="border-style: none; width: 100%" class="slt_w1">
+                                        <option value="1"><strong>
+
+                                            <script>                                                document.write(top.str_admin);</script>
+
+                                        </strong></option>
+                                        <option value="2"><strong>
+
+                                            <script>                                                document.write(top.str_handlers);</script>
+
+                                        </strong></option>
+                                        <option value="3"><strong>
+
+                                            <script>                                                document.write(top.str_visitor);</script>
+
+                                        </strong></option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td  class="td9 ">
+                                    6
+                                </td>
+                                <td class="td9 ">
+                                    <input id="txt_user6" type="text" style="border-style: none; width: 100%"  maxlength="31" />
+                                </td>
+                                <td  class="td9 ">
+                                    <input id="txt_pwd6" type="password" style="border-style: none; width: 100%" maxlength="31" />
+                                </td>
+                                <td class="td9 ">
+                                    <select id="select_right6" style="border-style: none; width: 100%" class="slt_w1">
+                                        <option value="1"><strong>
+
+                                            <script>                                                document.write(top.str_admin);</script>
+
+                                        </strong></option>
+                                        <option value="2"><strong>
+
+                                            <script>                                                document.write(top.str_handlers);</script>
+
+                                        </strong></option>
+                                        <option value="3"><strong>
+
+                                            <script>                                                document.write(top.str_visitor);</script>
+
+                                        </strong></option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td  class="td9 ">
+                                    7
+                                </td>
+                                <td  class="td9 ">
+                                    <input id="txt_user7" type="text" style="border-style: none; width: 100%"  maxlength="31" />
+                                </td>
+                                <td  class="td9 ">
+                                    <input id="txt_pwd7" type="password" style="border-style: none; width: 100%" maxlength="31" />
+                                </td>
+                                <td  class="td9 ">
+                                    <select id="select_right7" style="border-style: none; width: 100%" class="slt_w1">
+                                        <option value="1"><strong>
+
+                                            <script>                                                document.write(top.str_admin);</script>
+
+                                        </strong></option>
+                                        <option value="2"><strong>
+
+                                            <script>                                                document.write(top.str_handlers);</script>
+
+                                        </strong></option>
+                                        <option value="3"><strong>
+
+                                            <script>                                                document.write(top.str_visitor);</script>
+
+                                        </strong></option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td9 ">
+                                    8
+                                </td>
+                                <td  class="td9 ">
+                                    <input id="txt_user8" type="text" style="border-style: none; width: 100%"  maxlength="31" />
+                                </td>
+                                <td  class="td9 ">
+                                    <input id="txt_pwd8" type="password" style="border-style: none; width: 100%" maxlength="31" />
+                                </td>
+                                <td  class="td9 ">
+                                    <select id="select_right8" style="border-style: none; width: 100%" class="slt_w1">
+                                        <option value="1"><strong>
+
+                                            <script>                                                document.write(top.str_admin);</script>
+
+                                        </strong></option>
+                                        <option value="2"><strong>
+
+                                            <script>                                                document.write(top.str_handlers);</script>
+
+                                        </strong></option>
+                                        <option value="3"><strong>
+
+                                            <script>                                                document.write(top.str_visitor);</script>
+
+                                        </strong></option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td9 ">
+                                    9
+                                </td>
+                                <td class="td9 ">
+                                    <input id="txt_user9" type="text" style="border-style: none; width: 100%"  maxlength="31" />
+                                </td>
+                                <td class="td9 ">
+                                    <input id="txt_pwd9" type="password" style="border-style: none; width: 100%" maxlength="31" />
+                                </td>
+                                <td class="td9 ">
+                                    <select id="select_right9" style="border-style: none; width: 100%" class="slt_w1">
+                                        <option value="1"><strong>
+
+                                            <script>                                                document.write(top.str_admin);</script>
+
+                                        </strong></option>
+                                        <option value="2"><strong>
+
+                                            <script>                                                document.write(top.str_handlers);</script>
+
+                                        </strong></option>
+                                        <option value="3"><strong>
+
+                                            <script>                                                document.write(top.str_visitor);</script>
+
+                                        </strong></option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td  class="td9 ">
+                                    10
+                                </td>
+                                <td  class="td9 ">
+                                    <input id="txt_user10" type="text" style="border-style: none; width: 100%"  maxlength="31" />
+                                </td>
+                                <td  class="td9 ">
+                                    <input id="txt_pwd10" type="password" style="border-style: none; width: 100%" maxlength="31" />
+                                </td>
+                                <td  class="td9 ">
+                                    <select id="select_right10" style="border-style: none; width: 100%" class="slt_w1">
+                                        <option value="1"><strong>
+
+                                            <script>                                                document.write(top.str_admin);</script>
+
+                                        </strong></option>
+                                        <option value="2"><strong>
+
+                                            <script>                                                document.write(top.str_handlers);</script>
+
+                                        </strong></option>
+                                        <option value="3"><strong>
+
+                                            <script>                                                document.write(top.str_visitor);</script>
+
+                                        </strong></option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                   
+                   </td>
+                   <td  class="rborder"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="ldcorner"></td>
+                   <td class="cdow"></td>
+                   <td class="rdcorner"></td>
+                  </tr>
+           
+                </table>
+            </td>
+        </tr>
+     </table>
+</body>
+</html>

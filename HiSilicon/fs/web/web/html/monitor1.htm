@@ -1,0 +1,856 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="css/styles.css" type="text/css">
+    <title></title>
+    <style type="text/css">
+        body
+        {
+            margin-left: 0px;
+            margin-top: 0px;
+            margin-right: 0px;
+            margin-bottom: 0px;
+            background-color: #000000;
+        }
+        #top_td
+        {
+            background-image: url(image/logo2.jpg);
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 40px;
+        }
+    </style>
+
+</head>
+
+<script>
+    //right
+    var USER_ADMIN = 0;
+    var USER_MANAGE = 1;
+    var USER_OPERATOR = 2;
+    var USER_VISITOR = 3;
+    var PLUGIN_QUICKTIME = 1;
+    var PLUGIN_VLC = 2;
+    //ptz 云台
+    var PTZ_CMD_UP = 0;
+    var PTZ_CMD_DOWN = 1;
+    var PTZ_CMD_LEFT = 2;
+    var PTZ_CMD_RIGHT = 3;
+    var PTZ_CMD_FOCUSADD = 4;
+    var PTZ_CMD_FOCUSDEL = 5;
+    var PTZ_CMD_ZOOMADD = 6;
+    var PTZ_CMD_ZOOMDEL = 7;
+    var PTZ_CMD_IRISOPEN = 8;
+    var PTZ_CMD_IRISCLOSE = 9;
+    var PTZ_CMD_STOP = 10;
+    var PTZ_CMD_AUTOON = 11;
+    var PTZ_CMD_AUTOOFF = 12;
+    var PTZ_CMD_LEFTUP = 13;
+    var PTZ_CMD_LEFTDOWN = 14;
+    var PTZ_CMD_RIGHTUP = 15;
+    var PTZ_CMD_RIGHTDOWN = 16;
+    var PTZ_CMD_AUTOHOR = 17;
+    var PTZ_CMD_AUTOVER = 18;
+    var PTZ_CMD_STOP_AUTOHOR = 19;
+    var PTZ_CMD_STOP_AUTOVER = 20;
+    //osd 
+    var SCAM_CMD_OSD = 1;
+    var SCAM_CMD_BRIGHT = 2;
+    var SCAM_CMD_CONTRAST = 3;
+    var SCAM_CMD_HUE = 4;
+    var SCAM_CMD_SATURA = 5;
+    var SCAM_CMD_PTZX = 6;
+    var SCAM_CMD_MIRROR = 7;
+    var SCAM_CMD_FLIP = 8;
+    var SCAM_CMD_HZ = 9;
+    var SCAM_CMD_MUSIC = 10;
+    //relay
+    var SWITCH_CMD_ON = 1;
+    var SWITCH_CMD_OFF = 0;
+    //icon-state
+    var ICON_STATE_GRAY = 0;
+    var ICON_STATE_YELLOW = 1;
+    var ICON_STATE_GREEN = 2;
+    var ICON_STATE_RED = 3;
+    //
+    var REC_STATE_FAIL = 2;
+    var REC_STATE_SUCC = 1;
+    var REC_STATE_STOP = 0;
+    var LISTEN_STATE_SUCC = 2;
+    var LISTEN_STATE_FAIL = 1;
+    var LISTEN_STATE_STOP = 0;
+    var TALK_STATE_SUCC = 2;
+    var TALK_STATE_FAIL = 1;
+    var TALK_STATE_STOP = 0;
+    //size
+    var SHOW_AUTO_SIZE = 1;
+    var SHOW_REAL_SIZE = 2;
+    var show_size_mode = SHOW_REAL_SIZE;
+
+    var current = 0;
+    var cameras = {};
+
+    var versions = "2.2.2.2";    //判断控件版本信息
+    var is_load = null;
+
+
+    cameras.host = new Array();
+    cameras.web_port = new Array();
+    cameras.data_port = new Array();
+    cameras.user = new Array();
+    cameras.pwd = new Array();
+    cameras.pri = new Array();
+    cameras.width = new Array();
+    cameras.height = new Array();
+    //
+    cameras.valid = new Array();
+    cameras.restart = new Array();
+    cameras.retry_times = new Array();
+    cameras.alarm = new Array();
+    cameras.alarm_light = new Array();
+    //
+    cameras.count = 1;
+    cameras.first = 0;
+    cameras.pri[0] = cameras.pri[1] = cameras.pri[2] = cameras.pri[3] = USER_VISITOR;
+    cameras.pri[4] = cameras.pri[5] = cameras.pri[6] = cameras.pri[7] = USER_VISITOR;
+    cameras.pri[8] = USER_VISITOR;
+
+    //                                      ip ,   80 , 38401,admin,sumpple
+    cameras.set_params = function (index, host, wport, dport, user, pwd) {
+
+        this.host = host;
+        this.web_port = wport;
+        this.data_port = dport;
+        this.user = user;
+        this.pwd = pwd;
+    }
+
+    function OnConnect(result, right) {
+        if (result != 0) {
+            top.login_succ = 0;
+            top.h_right = USER_VISITOR;
+
+            parent.set_icon_state(index, ICON_STATE_YELLOW);
+            plugin[index].DisconnectServer();
+
+            top.show_retcont_error(cameras.host[index], top.str_failtoconnect, result);
+            top.location.reload("index.htm");
+        }
+        else {
+            top.login_succ = 1;
+            top.h_right = right;
+
+            //            parent.set_icon_state(index, ICON_STATE_GREEN);
+
+            cameras.pri = right;
+            cameras.retry_times = 0;
+
+            //
+            //            cameras.AcceptCruiseList();
+        }
+    }
+
+
+    //    function plugin0() {
+    //        return document.getElementById('plugin');
+    //    }
+
+
+    function get_selwnd_host() {
+        var temp = "";
+
+        temp = cameras.host;
+
+        return temp;
+    }
+    function get_selwnd_webport() {
+        var temp;
+
+        temp = cameras.web_port;
+
+        return temp;
+    }
+    function get_selwnd_user() {
+        var temp = "";
+
+        temp = cameras.user;
+
+        return temp;
+    }
+    function get_selwnd_pwd() {
+        var temp = "";
+
+        temp = cameras.pwd;
+
+        return temp;
+    }
+
+    //  判断浏览器版本，兼容IE
+    var browser = navigator.appName;
+    var b_version = navigator.appVersion;
+    var version = b_version.split(";");
+    var trim_Version = version[1].replace(/[ ]/g, "");
+    function IEInfo() {
+        var pd = document.getElementById("Pdiv").offsetHeight;
+
+        if (pd < 500)
+            return false;
+        else if (browser == "Microsoft Internet Explorer" && trim_Version == "Trident/7.0") {//IE 11 非兼容
+            return false;
+        }
+        else if (browser == "Microsoft Internet Explorer" && trim_Version == "MSIE7.0") {//IE 7,11 兼容模式下
+            return true;
+        }
+        else if (browser == "Microsoft Internet Explorer" && trim_Version == "MSIE6.0") {
+            return false;
+        }
+        else if (browser == "Microsoft Internet Explorer" && trim_Version == "MSIE8.0") {
+            return false;
+        }
+        else if (browser == "Microsoft Internet Explorer" && trim_Version == "MSIE9.0") {
+            return false;
+        }
+        else if (browser == "Microsoft Internet Explorer" && trim_Version == "MSIE10.0") {
+            return false;
+        }
+        else
+            return false;
+    }
+
+    function addEvent(obj, name, func) {
+        if (obj.attachEvent) {
+            obj.attachEvent("on" + name, func);
+        } else {
+            obj.addEventListener(name, func, false);
+        }
+    }
+
+    //回调函数
+    function plugin_OnFocus(index) {
+        if (index == current)
+            return;
+        plugin[current].SetFocus(0);
+        current = index;
+
+        //        parent.set_rec_state(plugin[current].RecordStatus);
+        //        parent.set_listen_state(plugin[current].ListenStatus);
+        parent.set_talk_state(plugin[current].TalkStatus);
+
+        parent.set_selptz_value(plugin[current].PtzSpeed);
+        parent.set_selbright_value(plugin[current].Brightness);
+        parent.set_selcontrast_value(plugin[current].Contrast);
+        parent.set_selhue_value(plugin[current].Hue);
+        parent.set_selsatura_value(plugin[current].Satura);
+        parent.set_music_value(plugin[current].SoundVolume); //音乐
+
+        reset_cruise_info(current);
+
+        parent.set_selosd_value(plugin[current].OsdValue);
+        parent.set_selmirror_value(plugin[current].Mirror);
+        parent.set_selflip_value(plugin[current].Flip);
+        parent.set_selhz_value(plugin[current].Freque);
+    }
+    function plugin_OnRecvMultiDeviceResult(index, result) {
+        //alert("plugin_OnRecvMultiDeviceResult");
+
+        if (index != 0) {
+            return;
+        }
+        if (result != 0) {
+            return;
+        }
+
+        var i = 0;
+        var is_connect = new Array;
+        var enable, host, web_port, data_port, user, pwd;
+
+        is_connect[0] = is_connect[1] = is_connect[2] = 0;
+        is_connect[3] = is_connect[4] = is_connect[5] = 0;
+        is_connect[6] = is_connect[7] = is_connect[8] = 0;
+
+        for (i = 1; i <= 8; i++) {
+            enable = plugin[0].GetOtherDeviceEnable(i);
+            web_port = plugin[0].GetOtherDeviceWebPort(i);
+            data_port = plugin[0].GetOtherDeviceDataPort(i);
+            host = plugin[0].GetOtherDeviceHost(i);
+            user = plugin[0].GetOtherDeviceUser(i);
+            pwd = plugin[0].GetOtherDevicePwd(i);
+
+            cameras.set_params(i, enable, '', host, web_port, data_port, user, pwd);
+
+            if ((enable == 1) && (host != '')) {
+                parent.set_icon_state(i, ICON_STATE_YELLOW);
+
+                is_connect[i] = 1;
+            }
+            else {
+                parent.set_icon_state(i, ICON_STATE_GRAY);
+            }
+        }
+
+        //1
+        if (is_connect[1] == 1) {
+            setTimeout('connect_camera(1)', 1000);
+        }
+        //2
+        if (is_connect[2] == 1) {
+            setTimeout('connect_camera(2)', 1000);
+        }
+        //3
+        if (is_connect[3] == 1) {
+            setTimeout('connect_camera(3)', 1000);
+        }
+        //4
+        if (is_connect[4] == 1) {
+            setTimeout('connect_camera(4)', 1000);
+        }
+        //5
+        if (is_connect[5] == 1) {
+            setTimeout('connect_camera(5)', 1000);
+        }
+        //6
+        if (is_connect[6] == 1) {
+            setTimeout('connect_camera(6)', 1000);
+        }
+        //7
+        if (is_connect[7] == 1) {
+            setTimeout('connect_camera(7)', 1000);
+        }
+        //8
+        if (is_connect[8] == 1) {
+            setTimeout('connect_camera(8)', 1000);
+        }
+
+    }
+    function connect_camera(index) {
+        if (cameras.host[index] == '')
+            return;
+
+        var iret = plugin[index].ConnectServer(cameras.host[index], cameras.data_port[index], cameras.user[index], cameras.pwd[index]);
+
+        if (iret != 0) {
+            //alert("connect_camera error");
+
+            plugin[index].DisconnectServer();
+
+            if (cameras.retry_times[index] == 0) {
+                top.show_cont_error(cameras.host[index], top.str_failtoconnect, iret);
+                if (index == 0) {
+                    top.location.reload("index.htm");
+                }
+            }
+            else {
+                cameras.retry_times[index]--;
+
+                if (index == 0)
+                    setTimeout('connect_camera(0)', 3000);
+                else if (index == 1)
+                    setTimeout('connect_camera(1)', 3000);
+                else if (index == 2)
+                    setTimeout('connect_camera(2)', 3000);
+                else if (index == 3)
+                    setTimeout('connect_camera(3)', 3000);
+                else if (index == 4)
+                    setTimeout('connect_camera(4)', 3000);
+                else if (index == 5)
+                    setTimeout('connect_camera(5)', 3000);
+                else if (index == 6)
+                    setTimeout('connect_camera(6)', 3000);
+                else if (index == 7)
+                    setTimeout('connect_camera(7)', 3000);
+                else if (index == 8)
+                    setTimeout('connect_camera(8)', 3000);
+            }
+        }
+    }
+
+    function plugin_OnNetworkErrorResult(index, result) {
+        var re_connect = 0;
+
+        if (index == 0) {
+            top.login_succ = 0;
+            top.h_right = USER_VISITOR;
+        }
+
+        cameras.pri[index] = USER_VISITOR;
+        plugin[index].DisconnectServer();
+
+        //icon-state--------------//
+        if ((cameras.enable[index] == 1) && (cameras.host[index] != '')) {
+            parent.set_icon_state(index, ICON_STATE_YELLOW);
+        }
+        else {
+            parent.set_icon_state(index, ICON_STATE_GRAY);
+        }
+
+        //result-----------------//
+        if (1 == result) {
+            //alert("connect fail");
+            if (cameras.retry_times[index] == 0) {
+                top.show_cont_error(cameras.host[index], top.str_failtoconnect, 5);
+                if (index == 0) {
+                    top.location.reload("index.htm");
+                }
+            }
+            else {
+                cameras.retry_times[index]--;
+                re_connect = 1;
+            }
+
+        }
+        else if (2 == result) {
+            //alert("exec disconnect");
+            cameras.retry_times[index] = 5;
+            re_connect = 1;
+        }
+        else if (3 == result) {
+            //alert("acti disconnect");
+            cameras.retry_times[index] = 5;
+            re_connect = 1;
+        }
+
+        //--------------------------//
+        if (re_connect == 1) {
+            if (index == 0)
+                setTimeout('connect_camera(0)', 5000);
+            else if (index == 1)
+                setTimeout('connect_camera(1)', 5000);
+            else if (index == 2)
+                setTimeout('connect_camera(2)', 5000);
+            else if (index == 3)
+                setTimeout('connect_camera(3)', 5000);
+            else if (index == 4)
+                setTimeout('connect_camera(4)', 5000);
+            else if (index == 5)
+                setTimeout('connect_camera(5)', 5000);
+            else if (index == 6)
+                setTimeout('connect_camera(6)', 5000);
+            else if (index == 7)
+                setTimeout('connect_camera(7)', 5000);
+            else if (index == 8)
+                setTimeout('connect_camera(8)', 5000);
+        }
+    }
+
+    //摄像回调函数
+    function plugin_OnHandleRecordResult(index, result) {
+
+    }
+
+    function plugin_OnHandleListenResult(index, result) {
+
+    }
+    function plugin_OnHandleTalkResult(index, result, ip) {
+
+    }
+    function plugin_OnHandleCaptureResult(index, result) {
+    }
+    function plugin_OnVideoImgChange(index, result) {
+    }
+
+    function plugin_OnCtrlCruiseResult(index, result) {
+        if (0 != result) {
+            top.show_ctrlcruise_err(cameras.host[index], top.str_cruise_title, result);
+        }
+    }
+    function plugin_OnSetPresetResult(index, result) {
+    }
+    function plugin_OnCallPresetResult(index, result) {
+    }
+    function plugin_OnCtrlRelayResult(index, result) {
+    }
+    function plugin_OnHandleClearAlarm(index, result) {
+        if (0 == result) {
+            cameras.alarm[index] = 0;
+            cameras.alarm_light[index] = 0;
+            parent.set_icon_state(index, ICON_STATE_GREEN);
+        }
+
+        top.show_clearalarm_info(cameras.host[index], result);
+    }
+    function plugin_OnHandleAlarmNotify(index, result) {
+        if (0 == result) {
+            cameras.alarm[index] = 0;
+            cameras.alarm_light[index] = 0;
+            parent.set_icon_state(index, ICON_STATE_GREEN);
+        }
+        else if ((1 == result) || (2 == result) || (3 == result)) {
+            cameras.alarm[index] = 1;
+        }
+        else {
+            top.show_notifyalarm_info(cameras.host[index], result);
+        }
+    }
+
+    function onrecordstatus(lStatus) {
+        if (lStatus == 1) {
+            parent.set_rec_state(REC_STATE_SUCC);
+        } else if (lStatus == 0) {
+            parent.set_rec_state(REC_STATE_STOP);
+        }
+    }
+
+    function oncruiselistresult(lResult) {
+        if (0 == lResult) {
+            reset_cruise_info(lResult);
+        }
+        else {
+            top.show_getcruise_err(cameras.host, top.str_cruise_title, lResult);
+        }
+    }
+
+    function reset_cruise_info() {
+        var i = 0;
+        parent.reset_cruise();
+        for (i = 0; i <= 9; i++) {
+            var enable = plugin.GetCruiseEnable(i);
+            if (1 == enable) {
+                var tmp_name = plugin.GetCruiseName(i);
+
+                parent.insert_cruise(tmp_name, i);
+                window.parent.document.getElementById("span_cruise_" + i).title = tmp_name;
+            }
+        }
+        var cur = plugin.GetCurCruiseIndex();
+        parent.set_cruise_value(cur);
+    }
+
+    function OnLoaded() {
+        plugin.SetShowMode(1);
+        addEvent(plugin, 'connectserverresult', OnConnect);
+        addEvent(plugin, 'recordstatus', onrecordstatus);
+        addEvent(plugin, 'cruiselistresult', oncruiselistresult);
+        plugin.ConnectServer(location.hostname, top.video_port, encodeURIComponent(top.user), encodeURIComponent(top.pwd));
+        plugin.StartVideo();
+        visibility = true;
+        plugin.AcceptCruiseList();
+        parent.Version = plugin.Version;     //父框架判断能否进入设置项 需要修改父框架Version值
+    }
+
+    function body_onload() {
+        swf = navigator.plugins["HIPCamWebPlugin"];
+        (swf) ? is_load = true : is_load = false;
+
+        nn = 0;
+        var i = 0;
+        var port;
+        var w, h;
+        if (location.port == '') {
+            port = 80;
+        }
+        else {
+            port = location.port;
+        }
+        var isIE = IEInfo();
+
+        h = parent.document.getElementById("PMtd").offsetHeight - 30;
+        w = parent.document.getElementById("PMtd").offsetWidth;
+
+        if (!isIE) {
+            //            document.getElementById("Pdiv").style.height=h+"px";
+            //            document.getElementById("Pdiv1").style.height=h+"px";
+            //            document.getElementById("Pdiv11").style.height=h+"px";
+        }
+        connect_camera();
+        cameras.pri[i] = USER_VISITOR;
+        plugin.style.width = "0";
+        plugin.style.height = "0";
+
+        if (is_load) {
+            if (versions != plugin.Version) {
+                alert(top.str_ocx_notify_2 + top.str_ocx_notify_3);
+                plugin.style.width = "0";
+                plugin.style.height = "0";
+            } else {
+                plugin.style.width = "100%";
+                plugin.style.height = "100%";
+            }
+        } else {
+            plugin.style.width = "0";
+            plugin.style.height = "0";
+        }
+        visibility();
+    }
+
+    function visibility() {
+        visibility = false;
+        var hiddenProperty = 'hidden' in document ? 'hidden' : 'webkitHidden' in document ? 'webkitHidden' : 'mozHidden' in document ? 'mozHidden' : null;
+        var visibilityChangeEvent = hiddenProperty.replace(/hidden/i, 'visibilitychange');
+        var onVisibilityChange = function () {
+            if (!document[hiddenProperty]) {
+                //console.log('页面激活' + visibility);
+                if (!visibility) {
+                    OnLoaded();
+                    stopvideo_func();
+                    playvideo_func();
+                }
+                stopvideo_func();
+                playvideo_func();
+            } else {
+                //console.log('页面非激活' + visibility);
+            }
+        }
+        document.addEventListener(visibilityChangeEvent, onVisibilityChange);
+    }
+
+    window.onresize = function () {
+        if (versions == plugin.Version) {
+            plugin.style.width = parent.document.getElementById("PMtd").offsetWidth;
+            plugin.style.height = parent.document.getElementById("PMtd").offsetHeight - 30;
+        } else {
+            if (versions != plugin.Version) {
+                alert(top.str_ocx_notify_2);
+            }
+            plugin.style.width = "0";
+            plugin.style.height = "0";
+
+        }
+    }
+
+    function connect_camera() {
+        if (cameras.host == '') {
+            return;
+        }
+        var iret = plugin.ConnectServer(cameras.host, cameras.data_port, cameras.user, cameras.pwd);
+
+        if (iret != 0) {
+            if (cameras.retry_times == 0) {
+                top.show_cont_error(cameras.host, top.str_failtoconnect, iret);
+                if (index == 0) {
+                    top.location.reload("index.htm");
+                }
+            }
+            else {
+                cameras.retry_times--;
+                setTimeout('connect_camera()', 3000);
+            }
+        }
+    }
+
+    //开始预览视频
+    function playvideo_func() {
+        plugin.StartVideo();
+    }
+    //停止预览视频
+    function stopvideo_func() {
+        plugin.StopVideo();
+    }
+    //抓拍
+    function snapshot_func() {
+        //plugin.HandleCapture();
+        //        window.open('snapshot1.htm').focus()
+        plugin.Snapshot();
+    }
+    //录像控制
+    function record_func(REC_STATE_SUCC) {
+        plugin.HandleRecord(REC_STATE_SUCC);
+    }
+    //开启或关闭侦听
+    function audio_func(LISTEN_STATE_FAIL) {
+        plugin.EnableAudio(LISTEN_STATE_FAIL);
+    }
+    //打开或关闭对讲
+    function talk_func(TALK_STATE_FAIL) {
+        plugin.HandleTalk(TALK_STATE_FAIL);
+    }
+    //巡航控制
+    function ptz_control(v) {
+        plugin.PTZControl(v);
+    }
+    //继电器
+    function relay_control(v) {
+        plugin.CtrlRelay(v);
+    }
+    //设置预设位置
+    function set_preset(v) {
+        plugin.SetPreset(v);
+    }
+    //调用预设位置
+    function use_preset(v) {
+        plugin.CallPreset(v);
+    }
+    //选择巡航
+    function ctrl_cruise(v) {
+        plugin.CtrlCruise(v);
+    }
+    //更新巡航
+    function update_cruise() {
+        plugin.AcceptCruiseList();
+    }
+
+    //多路设备
+    function x_onclick(v) {
+        if (v == 1) {
+            plugin.MultiIPCCtrl(1);
+        }
+        else if (v == 4) {
+            plugin.MultiIPCCtrl(4);
+        }
+        else {
+            plugin.MultiIPCCtrl(9);
+        }
+        var isIE = IEInfo();
+    }
+
+    //音量控制
+    function musicChg(v) {
+        plugin.HandleVolume(v);
+        //        plugin.SoundVolume = v; //音乐
+    }
+    //设置云台速度
+    function PtzsChg(v) {
+        plugin.PTZSpeed = v;
+    }
+    //设置亮度值
+    function BrightnessChg(v) {
+        plugin.BrightNess = v;
+    }
+    //设置对比度
+    function ContrastChg(v) {
+        plugin.Contrast = v;
+    }
+    //设置色彩值
+    function HueChg(v) {
+        plugin.Hue = v;
+    }
+    //设置饱和度值
+    function SaturationChg(v) {
+        plugin.Satura = v;
+    }
+    //设置OSD值
+    function OsdChg(v) {
+        plugin.OSD = v;
+    }
+    //设置镜像
+    function MirrorChg(v) {
+        plugin.Mirror = v;
+    }
+    //设置翻转
+    function FlipChg(v) {
+        plugin.Flip = v;
+    }
+    //设置频率
+    function HzChg(v) {
+        plugin.Frequency = v;
+    }
+    //全屏
+    function StartFullScreen() {
+        plugin.FullScreen(1);
+    }
+
+    function download_activex() {
+        var url = '';
+
+        if (location.port == '') {
+            url = "http://" + location.hostname;
+        }
+        else {
+            url = "http://" + location.hostname + ":" + location.port;
+        }
+
+        url += "/codebase/IPCWebPlugins.zip";
+
+        window.open(url);
+        
+    }
+    
+</script>
+
+<script for="plugin" event="OnFocus()">plugin_OnFocus(this.name)</script>
+
+<script for="plugin" event="OnRecvMultiDeviceResult(result)">plugin_OnRecvMultiDeviceResult(this.name, result)</script>
+
+<!--<script for="plugin" event="OnConnect(result, right)">plugin_OnConnect(this.name, result, right)</script>-->
+
+<script for="plugin" event="OnNetworkErrorResult(result)">plugin_OnNetworkErrorResult(this.name, result)</script>
+
+<script for="plugin" event="OnHandleRecordResult(result)">plugin_OnHandleRecordResult(this.name, result)</script>
+
+<script for="plugin" event="OnHandleListenResult(result)">plugin_OnHandleListenResult(this.name, result)</script>
+
+<script for="plugin" event="OnHandleTalkResult(result, ip)">plugin_OnHandleTalkResult(this.name, result, ip)</script>
+
+<script for="plugin" event="OnHandleCaptureResult(result)">plugin_OnHandleCaptureResult(this.name,result)</script>
+
+<script for="plugin" event="OnVideoImgChange(result)">plugin_OnVideoImgChange(this.name,result)</script>
+
+<!--<script for="plugin" event="OnGetCruiseListResult(result)">plugin_OnGetCruiseListResult(this.name, result)</script>-->
+
+<script for="plugin" event="OnCtrlCruiseResult(result)">plugin_OnCtrlCruiseResult(this.name, result)</script>
+
+<script for="plugin" event="OnSetPresetResult(result)">plugin_OnSetPresetResult(this.name,result)</script>
+
+<script for="plugin" event="OnCallPresetResult(result)">plugin_OnCallPresetResult(this.name,result)</script>
+
+<script for="plugin" event="OnCtrlRelayResult(result)">plugin_OnCtrlRelayResult(this.name,result)</script>
+
+<script for="plugin" event="OnHandleClearAlarm(result)">plugin_OnHandleClearAlarm(this.name,result)</script>
+
+<script for="plugin" event="OnHandleAlarmNotify(result)">plugin_OnHandleAlarmNotify(this.name,result)</script>
+
+
+    
+
+
+
+<body onload="body_onload()" style="border: 0px solid #CCC;" valign="top" 
+    id="Pdiv">
+    <table style="width: 100%; height: 100%; border: 0px solid blue" id="Pdiv1">
+        <tr id="tr_alarm_audio">
+            <td style="width: 100%; height:100%; border: 0px solid red;"  id="Pdiv11" valign="top">
+                <!--<object id="plugin" type="application/x-hipcamwebplugin" >
+ 	                <param name="onload" value="OnLoaded" />
+                </object>-->
+                <!--<object id="sound_player" classid="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6" type="application/x-oleobject"
+                    style="width: 100%; height: 100%;">
+                    <param name="url" value="image/alarm.wav">
+                    <param name="autoStart" value="false">
+                    <param name="playCount" value="1">
+                    <param name="rate" value="1">
+                </object>-->
+            </td>
+        </tr>
+        <tr id="ie_protected_mode_info" style="display: none; border: 3px solid #00A99E;">
+            <td colspan="2" class="f13w bc1">
+                <strong>
+
+                    <script>                        document.write(top.str_ie_protected_mode_info);</script>
+
+                </strong>
+            </td>
+        </tr>
+        <div style="width:100%;height:100%;">
+            <script type="text/javascript">
+                document.open();
+                document.write('<div>');
+                document.write('<span><object id="plugin" type="application/x-hipcamwebplugin" >');
+                document.write('<param name="onload" value="OnLoaded" />');
+                document.write('</object></span>');
+                document.write('</div>');
+                document.write('<p id="p_id" align="left" style="font-size:12px;color:white;margin-top:30%">');
+                document.write('&nbsp;&nbsp;&nbsp;&nbsp;<span id="t5">');
+                document.write(top.str_ocx_notify);
+                document.write('</span><br>');
+                document.write(' <span id="t6">');
+                document.write(top.str_ocx_notify_1);
+                document.write('<br>');
+                document.write(top.str_ocx_notify_2);
+                document.write('<br><br>');
+                document.write(top.str_ocx_please_onclick);
+                document.write('</span><a href="#" onclick="javascript:download_activex()" id="t7">');
+                document.write(top.str_ocx_download);
+                document.write('</a>');
+
+                document.write(' <span id="t8">');
+                document.write(top.str_ocx_then_install);
+                document.write('</span><span id="t10">');
+                document.write(top.str_ocx_refresh_page);
+                document.write('</span></p>');
+                document.close();
+            </script>
+        </div>   
+    </table>
+</body>
+
+
+</html>

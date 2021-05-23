@@ -1,0 +1,212 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<script language="javascript" src="../js/clearcache.js"></script>
+<link href="../css/new.css" rel="stylesheet" type="text/css" />
+<link href="../css/ceshi.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+body 
+{
+	margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+}
+    .style1
+    {
+        width: 40%;
+        height:5px;
+    }
+    .style2
+    {
+        height: 35px;
+    }
+ 
+    #host_ver
+    {
+        width: 85px;
+    }
+ 
+    #Time_ver
+    {
+        width: 90px;
+    }
+ 
+-->
+</style>
+<title></title>
+<script type="text/javascript"> 
+document.write('<script src="/cgi-bin/check_user.cgi?user='+top.user+'&pwd='+top.pwd+'"><\/script>');
+document.write('<script src="/cgi-bin/get_params.cgi?type=4&user='+top.user+'&pwd='+top.pwd+'"><\/script>');
+</script>
+
+<script type="text/javascript" src="/cgi-bin/get_extra_server.cgi"></script>
+</head>
+
+<script type="text/javascript">
+
+function body_onload()
+{
+    
+    document.getElementById("chk_Enable").checked = extra_server_enable?true:false;     //服务器状态  
+    document.getElementById("txt_Address").value = extra_server_ipaddr;    //服务器IP地址
+    document.getElementById("txt_Port_ver").value = extra_server_port;     //服务器端口
+    document.getElementById("Time_ver").value = extra_server_time;     //间隔时间
+
+
+    station_select();
+    
+}
+function station_select() {
+
+    var bcheck = document.getElementById("chk_Enable").checked;
+    if (bcheck==true) 
+    {
+        document.getElementById("txt_Address").disabled = "";
+        document.getElementById("txt_Port_ver").disabled = "";
+        document.getElementById("Time_ver").disabled = "";
+   } 
+   else 
+    {
+        document.getElementById("txt_Address").disabled = "false";
+        document.getElementById("txt_Port_ver").disabled = "false";
+        document.getElementById("Time_ver").disabled = "false";
+    }
+} 
+
+function set_devinfo()
+{
+    var checkEnable = document.getElementById("chk_Enable").checked;
+    var inputEnable = checkEnable ? 1 : 0;
+    var inputAddress = document.getElementById("txt_Address").value;
+    var inputPor = document.getElementById("txt_Port_ver").value;
+    var inputTime = document.getElementById("Time_ver").value;
+
+    //address
+    if (judge_space(inputAddress) == 1) {
+        alert('yge 22');
+        return ;
+    } 
+        
+
+    //port
+    if (inputPor <= 0) {
+        alert('yge 11');
+        return;
+    }
+
+    //time 5-300
+
+    if(inputTime < 5 || inputTime > 300) {
+        alert('yge 00');
+        return;
+    }
+
+
+
+    url = "/cgi-bin/set_extra_server.cgi?&next_url=setmenu/ServerInfo.htm&enable=" + inputEnable + "&ipaddr=" + inputAddress + "&port=" + inputPor + "&time=" + inputTime + "&user=" + top.user + "&pwd=" + top.pwd;
+    location=url;
+}
+
+function judge_space(text) {
+    var iret = 0;
+    var text2 = '';
+
+    text2 += text;
+
+    if (text2.charAt(0) == ' ') {
+        iret = 1;
+    }
+
+    return iret;
+}
+</script>
+<body onload="body_onload()">
+     <table width="100%" cellpadding="0" cellspacing="0">
+        <tr class="adtop"><td>&nbsp;</td></tr>
+        <tr>
+            <td align="center">
+                <table cellpadding="0" cellspacing="0" >
+                   <tr>
+                    <td colspan="3" class="mid03_1">
+                        <strong class="mid03">
+                            <script type="text/javascript">document.write(top.str_server);</script>
+                        </strong>
+                    </td>
+                   </tr>
+                  <tr  >
+                   <td class="lcorner" ></td>
+                   <td class="cbtop">
+                     <table cellpadding="0" cellspacing="0" style=" width:730px">
+                        <tr style=" width:100%">
+                            <td style="text-align: right;" align="right">
+                                <button class="resethbutton" onclick="set_devinfo()">
+                                    <script>document.write(top.str_save);</script>
+                                </button>
+                                <button class="resethbutton" onclick="location.reload()">
+                                    <script>document.write(top.str_refresh);</script>
+                                </button>
+                             
+                            </td>
+                      
+                        </tr>
+                     </table>
+                   </td>
+                   <td class="rcorner"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="lborder"></td>
+                   <td style=" margin-top:0px">
+                  <table id="mytable" style="margin-top:0px;width:730px;height:20%;"  > <!--solid black-->
+                  <tr  style="height:35px">
+                    <td class="admintd"><strong class="mid04">
+                      <script type="text/javascript">                          document.write(top.str_Enable);</script>
+                    </strong></td>
+                    <td style="padding-left:20px"><input name="chk_Enable" type="checkbox" id="chk_Enable" onclick="station_select()" /></td>
+                  </tr>
+                  <tr  style="height:35px">
+                    <td class="admintd"><strong class="mid04">
+                      <script type="text/javascript">                          document.write(top.str_Address);</script>
+                    </strong></td>
+                    <td style="padding-left:20px"><input name="txt_Address" type="text" id="txt_Address" maxlength="31"  onKeyUp="this.value=this.value.replace(/[^a-zA-Z0-9 ._]/gi,'')" onBlur="this.value=this.value.replace(/[^a-zA-Z0-9 ._]/gi,'')" /></td>
+                  </tr>
+                  <tr  style="height:35px">
+                    <td class="admintd"><strong  class="mid04">
+                      <script type="text/javascript">                          document.write(top.str_Port);</script>
+                    </strong></td>
+                    <td style="padding-left:20px"><input name="txt_Port_ver" type="text"  id="txt_Port_ver" maxlength="5"  onKeyUp="this.value=this.value.replace(/[^0-9]/gi,'')" onBlur="this.value=this.value.replace(/[^0-9]/gi,'')"/></td>
+
+                  </tr>
+                  <tr  style="height:35px">
+                    <td class="admintd"><strong  class="mid04">
+                      <script type="text/javascript">                          document.write(top.str_Time);</script>
+                    </strong></td>
+                    <td style="padding-left:20px"><input name="Time_ver" type="text"  id="Time_ver" maxlength="3"  onKeyUp="this.value=this.value.replace(/[^0-9]/gi,'')" onBlur="this.value=this.value.replace(/[^0-9]/gi,'')"/>
+                    <script type="text/javascript">                        document.write(top.str_Seconds);</script>
+                    </td>
+                  </tr>
+                  <tr style="height:35px">
+                    <td class="admintd" ></td>
+                    <td style=" height:5px"></td>
+                  </tr>
+                    </table>
+
+                   
+                   </td>
+                   <td  class="rborder"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="ldcorner"></td>
+                   <td class="cdow"></td>
+                   <td class="rdcorner"></td>
+                  </tr>
+           
+                </table>
+            </td>
+        </tr>
+     </table>
+</body>
+
+</html>

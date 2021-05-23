@@ -1,0 +1,159 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title></title>
+<script language="javascript" src="../js/clearcache.js"></script>
+<link href="../css/new.css" rel="stylesheet" type="text/css" />
+<link href="../css/ceshi.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+body 
+{
+	background-color:#ffffff;
+}
+-->
+</style>
+
+<script> 
+document.write('<script src="/cgi-bin/check_user.cgi?user='+top.user+'&pwd='+top.pwd+'"><\/script>');
+document.write('<script src="/cgi-bin/get_params.cgi?type=10&user='+top.user+'&pwd='+top.pwd+'"><\/script>');
+</script>
+
+
+<script>
+
+function body_onload()
+{   
+    document.getElementById("select_Deal").value=protocol;
+    document.getElementById("select_BaudRate").value=baudrate;
+    document.getElementById("txt_PtzAddress").value=device_id;
+    document.getElementById("ckAround").checked=rleftright?true:false;
+    document.getElementById("ckDown").checked=rupdown?true:false;
+}
+
+function set_PtzSet()
+{
+    var left; 
+    if(document.getElementById("ckAround").checked==false)
+    {
+        left=0;
+    }
+    else
+    {
+        left=1;
+    }
+    
+    var updown;
+    if(document.getElementById("ckDown").checked==false)
+    {
+        updown=0;
+    }
+    else
+    {
+        updown=1;
+    }
+    
+    var selectDeal=document.getElementById("select_Deal").value;
+    var selectBaudRate=document.getElementById("select_BaudRate").value;
+    var ptzAddress=document.getElementById("txt_PtzAddress").value;
+    
+    url="/cgi-bin/set_ptz_params.cgi?next_url=setmenu/PtzSet.htm&baudrate="+selectBaudRate+"&device_id="+ptzAddress+"&protocol="+selectDeal+"&rleftright="+left+"&rupdown="+updown+"&user="+top.user+"&pwd="+top.pwd;
+    
+    location=url;
+}
+
+</script>
+</head>
+<body onLoad="body_onload()" class="body">
+     <table width="100%" cellpadding="0" cellspacing="0">
+        <tr class="adtop"><td>&nbsp;</td></tr>
+        <tr>
+            <td align="center">
+                <table cellpadding="0" cellspacing="0" >
+                   <tr>
+                    <td colspan="3" class="mid03_1">
+                        <strong class="mid03">
+                            <script type="text/javascript">document.write(top.str_ptz_setting);</script>
+                        </strong>
+                    </td>
+                   </tr>
+                  <tr  >
+                   <td class="lcorner" ></td>
+                   <td class="cbtop">
+                     <table cellpadding="0" cellspacing="0" style=" width:730px">
+                        <tr style=" width:100%">
+                            <td style="text-align: right;" align="right">
+                                <button class="resethbutton" onclick="set_PtzSet()">
+                                    <script>document.write(top.str_save);</script>
+                                </button>
+                                <button class="resethbutton" onclick="location=location">
+                                    <script>document.write(top.str_refresh);</script>
+                                </button>
+                             
+                            </td>
+                      
+                        </tr>
+                     </table>
+                   </td>
+                   <td class="rcorner"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="lborder"></td>
+                   <td style=" margin-top:0px">
+                     <table  style="margin-top: 0px; width: 730px; height: 20%;" class="admintr" >
+                     
+                          <tr style="height:35px">
+                            <td class="admintd"><strong class="mid04"><script>document.write(top.str_deal);</script></strong></td>
+                            <td align="left"><select name="select_Deal" style="width:150px" id="select_Deal"><option value="0">PELCO_D</option>
+                                  <option value="1">PELCO_P</option>
+                                  <option value="2">PTZDSCP</option>
+                                  <option value="3">LILIN</option>
+                                  <option value="4">MINKING</option>
+                                </select>                </td>
+        
+                          </tr>
+                          <tr style="height:35px">
+                            <td class="admintd"><strong class="mid04"><script>document.write(top.str_baud_rate);</script></strong></td>
+                            <td align="left"><select name="select_BaudRate" style="width:150px" id="select_BaudRate">
+                              <option value="0">1200</option>
+                              <option value="1">2400</option>
+                              <option value="2">4800</option>
+                              <option value="3">9600</option>
+                              <option value="4">19200</option>
+                            </select></td>
+     
+                          </tr>
+                          <tr style="height:35px">
+                            <td  class="admintd"><strong class="mid04"><script>document.write(top.str_address);</script></strong></td>
+                            <td align="left"><input type="text" name="txt_PtzAddress" id="txt_PtzAddress" style="width:150px"></td>
+
+                          </tr>
+                          <tr style="height:35px">
+                            <td class="admintd"><strong class="mid04"><script>document.write(top.str_around_reverse);</script></strong></td>
+                            <td align="left"><input type="checkbox" name="ckAround" id="ckAround">  </td>
+   
+                          </tr>
+                          <tr style="height:35px">
+                            <td  class="admintd"><strong class="mid04"><script>document.write(top.str_up_down_reverse);</script></strong></td>
+                            <td align="left"><input type="checkbox" name="ckDown" id="ckDown"></td>
+    
+                          </tr>
+                        </table>
+                   
+                   </td>
+                   <td  class="rborder"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="ldcorner"></td>
+                   <td class="cdow"></td>
+                   <td class="rdcorner"></td>
+                  </tr>
+           
+                </table>
+            </td>
+        </tr>
+     </table>
+</body>
+</html>

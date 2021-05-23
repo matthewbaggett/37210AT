@@ -1,0 +1,544 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="css/login.css" rel="stylesheet" type="text/css" />
+    <title></title>
+    <style type="text/css">
+        body
+        {
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+            background-image: url(image/bg.gif);
+            background-repeat: repeat-x;
+            height:100%;
+            width:100%;
+        }
+        .diva
+        {
+            /*background-image: background-repeat:*/
+            background: url(image/apexislogo.gif) no-repeat 1% top;
+        }
+        .topb
+        {
+            width: 100%;
+            height: 62px;
+            background-image: url(image/admin_top.gif);
+            border-collapse: collapse;
+        }
+        .topb .td
+        {
+            border: solid 1px #828282;
+            height: 62px;
+        }
+        .divaa
+        {
+            border: solid 0px red;
+            background: url(image/camera.gif) no-repeat 1% top;
+        }
+        .admintr
+        {
+            border-collapse: collapse;
+        }
+        .admintr td
+        {
+            border: solid 1px #828282;
+        }
+        .style1
+        {
+            width: 480px;
+        }
+        .style2
+        {
+            height: 70px;
+            width: 480px;
+        }
+    </style>
+
+    <script language="javascript" src="js/public.js"></script>
+    <script language="javascript" src="js/customer.js"></script>
+	
+    <script>
+        document.write('<script src="/cgi-bin/get_status.cgi"><\/script>');
+    </script>
+
+    <script>   
+        var e = navigator.userAgent.toLowerCase();
+        var isOpera = e.indexOf("opera") != -1;
+        var isChrome = e.indexOf("chrome") != -1;
+        var isSafari = e.indexOf("safari") != -1;
+        var isIE = document.all && e.indexOf("msie") != -1 && !isOpera;
+        var isIE2 = e.indexOf("net clr") != -1;
+        var isIE3 = e.indexOf(".net") != -1; 
+    </script>
+
+</head>
+
+<script>
+    if (ret_alias_name == '') {
+        ret_alias_name = top.str_anonymous;
+    }
+    parent.document.title = top.str_device + '(' + ret_alias_name + ')';
+
+    function change_language(v) {
+        if (v == 0) {
+            top.setcookie('iplanguage', 'ipsimple_chinese', 1440);
+        }
+        else if (v == 1) {
+            top.setcookie('iplanguage', 'ipenglish', 1440);
+        }
+        else if (v == 2) {
+            top.setcookie('iplanguage', 'ipitalian', 1440);
+        }
+        else if (v == 3) {
+            top.setcookie('iplanguage', 'ipkorean', 1440);
+        }
+        else if (v == 4) {
+            top.setcookie('iplanguage', 'ipspain', 1440);
+        }
+        else if (v == 5) {
+            top.setcookie('iplanguage', 'ippoland', 1440);
+        }
+        else if (v == 6) {
+            top.setcookie('iplanguage', 'ipgerman', 1440);
+        }
+        else if (v == 7) {
+            top.setcookie('iplanguage', 'ipfrench', 1440);
+        }
+        else if (v == 8) {
+            top.setcookie('iplanguage', 'ipjapan', 1440);
+        }
+        top.location.reload();
+    }
+
+    function get_language() {
+        var language = getcookie('iplanguage');
+        if (language == '')
+            language = 'ipenglish';
+
+        if (language == 'ipsimple_chinese') {
+            document.getElementById('st_language').value = 0;
+        }
+        else if (language == 'ipenglish') {
+            document.getElementById('st_language').value = 1;
+        }
+        else if (language == 'ipitalian') {
+            document.getElementById('st_language').value = 2;
+        }
+        else if (language == 'ipkorean') {
+            document.getElementById('st_language').value = 3;
+        }
+        else if (language == 'ipspain') {
+            document.getElementById('st_language').value = 4;
+        }
+        else if (language == 'ippoland') {
+            document.getElementById('st_language').value = 5;
+        }
+        else if (language == 'ipgerman') {
+            document.getElementById('st_language').value = 6;
+        }
+        else if (language == 'ipfrench') {
+            document.getElementById('st_language').value = 7;
+        }
+        else if (language == 'ipjapan') {
+            document.getElementById('st_language').value = 8;
+        }
+    }
+
+    function set_userfocus() {
+        document.getElementById('tt_user').focus();
+    }
+
+    function user_onkeypress() {
+        /*
+        if (window.event.keyCode==13)
+        {
+        pd_pwd.focus();
+        }
+        */
+    }
+    function pwd_onkeypress() {
+        /*
+        if (window.event.keyCode==13)
+        {
+        btn_login.focus();
+        }
+        */
+    }
+
+    function plugin_change(v) {
+    }
+
+    function mobile_sel(v) {
+        if (v) {
+            document.getElementById("st_plugin_mode").disabled = "false";
+        }
+        else {
+            document.getElementById("st_plugin_mode").disabled = "";
+        }
+    }
+
+    function monitor() {
+        //var mobile_check=document.getElementById("chx_mobile_phone").checked;
+        var mode = document.getElementById("st_plugin_mode").value;
+
+
+        top.user = unescape(document.getElementById("tt_user").value);
+
+        top.pwd = unescape(document.getElementById("pd_pwd").value);
+
+
+        top.lang_type = document.getElementById("st_language").value;
+        //    top.user=document.getElementById("tt_user").value;
+        //    top.pwd=document.getElementById("pd_pwd").value;
+        //    
+        //    top.lang_type=document.getElementById("st_language").value;
+        top.plugin_mode = mode;                                      //1:quick-time 2:vlc 
+
+        //model
+        top.product_model = top.get_product_model(ret_prot_mode);
+        
+        //scene main type
+        top.scene_m_type = ret_scene_mtype;
+
+        //scene sub type
+        top.scene_s_type = ret_scene_stype;
+        if (document.getElementById("chx_save_auth").checked == true) {
+            set_user_cookies(top.user);
+            set_pwd_cookies(top.pwd);
+            set_saveauth_cookies(1);
+        }
+        else {
+            set_saveauth_cookies(0);
+        }
+        //    
+        //    if(true==mobile_check)
+        //    {
+        //        location='mobile.htm';
+        //    }
+        //    else
+        //    {
+        if (navigator.userAgent.indexOf("Window") > 0) {
+            if (isIE || isIE2 || isIE3) {
+                top.browser = 0;
+                top.video_port = ret_video_port;
+                location = 'HIPCameramon.htm';
+                //           location = 'HIPCamerafox.htm';
+            } else if (isChrome || isOpera || isSafari) {
+                top.browser = 1;
+                top.video_port = ret_video_port;
+                location = 'HIPCameralive.htm';
+            } else {
+                top.browser = 0;
+                top.video_port = ret_video_port;
+                location = 'HIPCamerafox.htm';
+            }
+        } else if (navigator.userAgent.indexOf("Mac OS X") > 0) {
+            top.browser = 1;
+            top.video_port = ret_video_port;
+            location = 'HIPCameralive.htm';
+        } else if (navigator.userAgent.indexOf("Linux") > 0) {
+            top.browser = 1;
+            top.video_port = ret_video_port;
+            location = 'HIPCameralive.htm';
+        } else {
+            console.log("无系统");
+        }
+        
+        //    }    
+    }
+
+    function body_onload() {
+        //alert(top.str_language_chinese);
+        set_userfocus();
+        get_language();
+        btn_login.value = top.str_login;
+        //btn_load.value = top.str_load_ocx; 
+        if (isOpera || isChrome || isSafari)
+        {
+            //document.getElementById("td_load_ocx").style.display='';
+            document.getElementById("tr_plugin_mode").style.display = '';
+
+        }
+        else {
+
+            //document.getElementById("td_load_ocx").style.display='none';
+            document.getElementById("tr_plugin_mode").style.display = 'none';
+
+        }
+        //read cookies
+        if (1 == get_saveauth_cookies()) {
+            var tmp_user = '';
+            var tmp_pwd = '';
+
+            tmp_user = get_user_cookies();
+            tmp_pwd = get_pwd_cookies();
+
+            document.getElementById("tt_user").value = tmp_user;
+            document.getElementById("pd_pwd").value = tmp_pwd;
+            document.getElementById("chx_save_auth").checked = true;
+        }
+    }
+
+    function set_user_cookies(v) {
+        top.setcookie('loginuser', v, 1440);
+    }
+    function get_user_cookies() {
+        var tmp_val = top.getcookie('loginuser');
+        return tmp_val;
+    }
+
+    function set_pwd_cookies(v) {
+        top.setcookie('loginpwd', v, 1440);
+    }
+    function get_pwd_cookies() {
+        var tmp_val = top.getcookie('loginpwd');
+        return tmp_val;
+    }
+
+    function set_saveauth_cookies(v) {
+        top.setcookie('saveauth', v, 1440);
+    }
+    function get_saveauth_cookies() {
+        var tmp_val = top.getcookie('saveauth');
+        return tmp_val;
+    }
+    function pd_pwd_onclick() {
+
+    }
+
+</script>
+
+<script type="text/javascript">
+    document.onkeypress = viewKeyInfo;
+
+    function viewKeyInfo(e) {
+        var e = e || event;
+
+        if ((e['keyCode'] == 13) || (e['which'] == 13)) {
+            monitor();
+        }
+    } 
+
+</script>
+
+
+<body onload="body_onload()" >
+<div style=" height:100%; width:100%">
+    <table id="tablew" style="width: 100%; height: 100%;" cellpadding="0" cellspacing="0" >
+        <tr style="width: 100%;" class="topb">
+            <td style="width: 250px; text-align: left">
+               
+                <table style="height: 100%; width: 100%; border: 0px;" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td class="diva" style="border: 0px solid red; ">
+                            <!--<a href="http://www.apexis.com.cn/" target="_blank">-->
+                                <div id=img_div onclick="show_web()" style="border: 0px solid yellow; width: 241px; height: 62px;">
+                                </div>
+                            <!--</a>-->
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td style="text-align: center;">
+                <div style="width: 0px;">
+                </div>
+            </td>
+            <td width="222" style=" text-align:right" >
+                <table style="height: 100%; width: 100%; border: 0px;" cellpadding="0" cellspacing="0">
+                    <tr >
+                        <td class="divaa">
+                            <!--<img id="img1" src="image/camera.gif" style="border: 0px" />-->
+                            <div style="border: 0px solid red; width: 241px; height: 20px;">
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr style="height: 100%">
+            <td colspan="3" style="text-align: center" align="center">
+                <table class="tableb" style="width: 480px; height: 418px; text-align: center" cellpadding="0"
+                    cellspacing="0" align="center">
+                    <tr>
+                        <td class="style1" style=" text-align:center;border: 0px solid red; height:350px;"  align="center">
+                            <table cellpadding="0" cellspacing="25" style="border: 0px solid #cccccc; margin:auto;">
+                                <tr>
+                                    <td width="65" class="f2" align="left">
+
+                                        <script>                                            document.write(top.str_user);</script>
+
+                                    </td>
+                                    <td width="150">
+                                        <label>
+                                            <input name="tt_user" type="text" class="f" id="tt_user" onkeypress="user_onkeypress()"
+                                                maxlength="31" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="65" class="f2" align="left">
+
+                                        <script>                                            document.write(top.str_pwd);</script>
+
+                                    </td>
+                                    <td width="150">
+                                        <label>
+                                            <input name="pd_pwd" type="password" class="f" id="pd_pwd" onkeypress="pwd_onkeypress()"
+                                                maxlength="31" onclick="return pd_pwd_onclick()" />
+                                        </label>
+                                    </td>
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                                <tr id="tr_plugin_mode">
+                                    <td width="65" class="f2" align="left">
+
+                                        <script>                                            document.write(top.str_model);</script>
+
+                                    </td>
+                                    <td width="150">
+                                        <select id="st_plugin_mode" style="width: 150px" onchange="plugin_change(this.value)">
+                                            <option value="3" id='option3'>
+
+                                                <script>                                                    document.write(top.str_plugin_push);</script>
+
+                                            </option>
+                                            <option value="2" id='option2'>
+
+                                                <script>                                                    document.write(top.str_plugin_vlc);</script>
+
+                                            </option>
+                                            <option value="1">
+
+                                                <script>                                                    document.write(top.str_plugin_quick);</script>
+
+                                            </option>
+                                        </select>
+                                    </td>
+<!--                                    <script>
+                                        if (customer_type == "sumpple") {
+                                            document.getElementById('option2').setAttribute('selected', 'selected');
+                                        } else {
+                                            document.getElementById('option3').setAttribute('selected', 'selected');
+                                        }
+
+
+                                    </script>-->
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                                <!-- <tr>
+                <select id="stream" 
+            <td width="65" class="f2" align="left"><script>document.write(top.str_streaming);</script></td>
+            <td width="150">style="width:150px" onChange="">
+                <option value="1"><script>document.write(top.str_lord_streaming);</script></option>
+                <option value="2"><script>document.write(top.str_son_streaming);</script></option>
+                </select>
+            </td>
+            <td>&nbsp;</td>
+        </tr>-->
+                                <tr>
+                                    <td width="65" class="f2" align="left">
+
+                                        <script>                                            document.write(top.str_language);</script>
+
+                                    </td>
+                                    <td width="150">
+                                        <select id="st_language" style="width: 150px" onchange="change_language(this.value)">
+                                            <option value="0">
+
+                                                <script>                                                    document.write(top.str_language_chinese);</script>
+
+                                            </option>
+                                            <option value="1">
+
+                                                <script>                                                    document.write(top.str_language_english);</script>
+
+                                            </option>
+                                            <option value="2">
+
+                                                <script>                                                    document.write(top.str_language_italian);</script>
+
+                                            </option>
+
+                                            <option value="3">
+
+                                                <script>                                                    document.write(top.str_korean);</script>
+
+                                            </option>
+                                            <option value="6"><script>                                                                  document.write(top.str_language_german);</script>
+                                            </option>
+                                            <option value="4">
+
+                                                <script>                                                    document.write(top.str_language_spain);</script>
+
+                                            </option>
+                                            <option value="5">
+
+                                                <script>                                                    document.write(top.str_language_poland);</script>
+
+                                            </option>
+                                            <option value="7">
+
+                                                <script>                                                    document.write(top.str_language_french);</script>
+
+                                            </option>
+                                            <option value="8">
+
+                                                <script>                                                    document.write(top.str_language_japan);</script>
+
+                                            </option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="65" class="f2" align="left">
+
+                                        
+
+                                    </td>
+                                    <td width="150" style="text-align:left">
+                                        <label>
+                                           <input type="checkbox" id="chx_save_auth"  /><span class="f2"><script>                                                                                                             document.write(top.str_save_auth);</script></span>
+                                        </label>
+                                    </td>
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <td>&nbsp;</td>
+                                    <td colspan="0" style=" text-align:center">
+                                        
+                                                <input type="button" id="btn_login" value="Login" onclick="javascript:monitor();"
+                                                 class="loginbtn" />
+                                            
+                                    </td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="style2">
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr style="position:absolute;button:0px;"><td class="style2"><script>document.write(top.str_login_title)</script></td></tr>
+                </table>
+            </td>
+            
+        </tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+/*{margin:0;padding:0;font-size:12px;}
+*/
+.wrapper{width:80%;margin:0 auto;}
+
+.sharp{width:100%;margin:0px auto 0;float:left;margin-right:2%;}
+.sharp .contents div{padding:10px;text-indent:2em;}
+.contents{height:98.5%;}
+h3{height:29px;line-height:29px;font-size:12px;text-indent:10px;}
+a:link,a:visited{color:#999;font-weight:bold; text-decoration:none;}
+a:hover{text-decoration:none; border-bottom:1px orange solid;color:orange;}
+
+.b1,.b2,.b3,.b4,.b5,.b6,.b7,.b8{height:1px; font-size:1px; overflow:hidden; display:block;}
+.b1,.b8{margin:0 5px;}
+.b2,.b7{margin:0 3px;border-right:2px solid; border-left:2px solid;}
+.b3,.b6{margin:0 2px;border-right:1px solid; border-left:1px solid;}
+.b4,.b5{margin:0 1px;border-right:1px solid; border-left:1px solid; height:2px;}
+.contents{border-right:1px solid;border-left:1px solid;overflow:hidden;}
+
+
+.color2 .b2,.color2 .b3,.color2 .b4,.color2 .b5,.color2 .b6,.color2 .b7,.color2 .contents{border-color:#9BDF70;}
+.color2 .b1,.color2 .b8{background:#9BDF70;}
+
+.color2 .b2,.color2 .b3,.color2 .b4,.color2 .b5,.color2 .b6,.color2 .b7,.color2 .contents{background:#7a96cc;}
+
+
+

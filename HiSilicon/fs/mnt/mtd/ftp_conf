@@ -1,0 +1,9 @@
+enable_ftp 0
+ftp_serv 
+ftp_port 21
+ftp_user 
+ftp_pwd 
+ftp_dir 
+ftp_mode 0
+ftp_retain 0
+ftp_upload_interval 0

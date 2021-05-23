@@ -1,0 +1,223 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <script language="javascript" src="../js/clearcache.js"></script>
+
+    <link href="../css/new.css" rel="stylesheet" type="text/css" />
+    <link href="../css/ceshi.css" rel="stylesheet" type="text/css" />
+    <title></title>
+    <style type="text/css">
+         body
+        {
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+        }
+         .style2
+        {
+            width: 225px;
+        }
+        #selectTime
+        {}
+    </style>
+
+    <script>
+        document.write('<script src="/cgi-bin/check_user.cgi?user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+        document.write('<script src="/cgi-bin/get_params.cgi?type=2&user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+        document.write('<script src="/cgi-bin/get_dev_funclist.cgi?user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+</script>
+
+
+<script>
+
+    function body_load() {
+
+        document.getElementById("selectPiralarm").value = piralarm_enable;
+        document.getElementById("Trigger_interval").value = piralarm_interval;
+
+        document.getElementById("ckSendEmail").checked = pirmail_enable ? true : false;
+        document.getElementById("ckImagecapture").checked = pircap_enable ? true : false;
+        document.getElementById("ckAlarmrecording").checked = pirrec_enable ? true : false;
+        document.getElementById("ckOutPut").checked = piralarmout_enable ? true : false;
+        enable_pir(piralarm_enable);
+
+        if (io_support == 0) {
+            document.getElementById("ckOutPut").style.display = 'none';
+            document.getElementById("strong_out").style.display = 'none';
+        } 
+
+        if (sd_support == 0) {
+            document.getElementById("ckImagecapture").style.display = "none";
+            document.getElementById("ckAlarmrecording").style.display = "none";
+            document.getElementById("strong_img").style.display = "none";
+            document.getElementById("strong_video").style.display = "none";
+
+        }
+    }
+
+    function enable_pir(value) {
+
+        if (value == 1) {
+            document.getElementById("Trigger_interval").disabled = "";
+            document.getElementById("ckSendEmail").disabled = "";
+            document.getElementById('ckImagecapture').disabled = "";
+            document.getElementById("ckAlarmrecording").disabled = "";
+            document.getElementById('ckOutPut').disabled = "";
+        } else {
+            document.getElementById("Trigger_interval").disabled = "false";
+            document.getElementById("ckSendEmail").disabled = "false";
+            document.getElementById('ckImagecapture').disabled = "false";
+            document.getElementById("ckAlarmrecording").disabled = "false";
+            document.getElementById('ckOutPut').disabled = "false";
+        }
+
+    }
+
+    function set_pir_alarm() {
+        var piralarm_enable = document.getElementById("selectPiralarm").value;
+        var piralarm_interval = document.getElementById("Trigger_interval").value;
+
+        //·¢ËÍEmali checked
+        var pirmail_enable;
+        if (document.getElementById("ckSendEmail").checked == true) {
+            pirmail_enable = 1;
+        }
+        else {
+            pirmail_enable = 0;
+        }
+
+        //×¥ÅÄÍ¼Æ¬ checked
+        var pircap_enable = 0;
+        if (document.getElementById("ckImagecapture").checked == true) {
+            pircap_enable = 1;
+        }
+        else {
+            pircap_enable = 0;
+        }
+        //±¨¾¯Â¼Ïñ checked
+        var pirrec_enable = 0;
+        if (document.getElementById("ckAlarmrecording").checked == true) {
+            pirrec_enable = 1;
+        }
+        else {
+            pirrec_enable = 0;
+        }
+
+        //Êä³ö±¨¾¯ checked
+        var piralarmout_enable = 0;
+        if (document.getElementById("ckOutPut").checked == true) {
+            piralarmout_enable = 1;
+        }
+        else {
+            piralarmout_enable = 0;
+        }
+
+
+        url = "/cgi-bin/set_pir_alarm.cgi?next_url=setmenu/PirAlarm.htm&piralarm_enable=" + piralarm_enable + "&piralarm_interval=" + piralarm_interval + "&pirmail_enable=" + pirmail_enable + "&pircap_enable=" + pircap_enable + "&pirrec_enable=" + pirrec_enable + "&piralarmout_enable=" + piralarmout_enable + "&user=" + top.user + "&pwd=" + top.pwd;
+        location = url;
+    }
+
+
+
+</script>
+</head>
+<body onload="body_load()" class="body">
+     <table width="100%" cellpadding="0" cellspacing="0">
+        <tr class="adtop"><td>&nbsp;</td></tr>
+        <tr>
+            <td align="center">
+                <table cellpadding="0" cellspacing="0" >
+                   <tr>
+                    <td colspan="3" class="mid03_1">
+                        <strong class="mid03">
+                            <script type="text/javascript">                                document.write(top.str_pir_mt);</script>
+                        </strong>
+                    </td>
+                   </tr>
+                  <tr  >
+                   <td class="lcorner" ></td>
+                   <td class="cbtop">
+                     <table cellpadding="0" cellspacing="0" style=" width:730px">
+                        <tr style=" width:100%">
+                            <td style="text-align: right;" align="right">
+                                <button class="resethbutton" onclick="set_pir_alarm()">
+
+                                    <script>                                        document.write(top.str_save);</script>
+
+                                </button>
+                                <button class="resethbutton" onclick="location=location">
+
+                                    <script>                                        document.write(top.str_refresh);</script>
+
+                                </button>
+                             
+                            </td>
+                      
+                        </tr>
+                     </table>
+                   </td>
+                   <td class="rcorner"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="lborder"></td>
+                     <td style=" margin-top:0px">
+                            <table border="0" style=" width:100%; height:100%; " cellpadding="0" cellspacing="0"  class="admintr">
+	                          <tr style="height: 35px">
+                                <td class="admintd" style="height: 35px; width: 150px" ><strong class="mid04"><script>                                                                                                                  document.write(top.str_pir_mt);</script></strong></td>
+                                <td style="padding-left:35px">
+                                  <select name="selectPiralarm" size="1" id="selectPiralarm" style="width:85px" onchange="enable_pir(this.value)">
+                                    <option value="1"><strong><script>                                                                  document.write(top.str_open);</script></strong></option>
+                                    <option value="0"><strong><script>                                                                  document.write(top.str_close);</script></strong></option>
+                                  </select>
+                                </td>
+                              </tr>   
+			
+	                          <tr style="height:35px">
+	                            <td class="admintd" style="height: 35px; width: 150px" ><strong class="mid04"><script>	                                                                                                              document.write(top.str_trigger_interval);</script></strong></td>
+                                <td style="padding-left:35px">
+                                  <input id="Trigger_interval" type="text" style=" width:85px"  onkeyup="this.value=this.value.replace(/[^0-9]/gi,'')"/> S
+                                </td>
+                              </tr>   		
+
+                              <tr style="height:35px">
+                                <td class="admintd"><strong class="mid04"><script>                                                                              document.write(top.str_action_with_alarm);</script></strong></td>
+                                <td style="padding-left:35px">
+		                          <table width="226" style="border:none" cellspacing="0" cellpadding="0">
+			                        <tr style="border:none">
+			                          <td style="border:none">
+			                            <table style="border:none">
+			                                <tr style="border:none">
+			                                  <td style="border:none">
+                                                <input type="checkbox" name="ckSendEmail" id="ckSendEmail" value="66" /><strong class="mid04"><script>                                                                                                                                                  document.write(top.str_sent_email);</script></strong><br />
+                                                <input type="checkbox" name="ckImagecapture" id="ckImagecapture" value="77" /><strong class="mid04" id="strong_img"><script>                                                                                                                                                        document.write(top.str_image_capture);</script></strong><br />
+                                                <input type="checkbox" name="ckAlarmrecording" id="ckAlarmrecording" value="88" /><strong class="mid04" id="strong_video"><script>                                                                                                                                                            document.write(top.str_alarm_recording);</script></strong><br /> 
+                                                <input type="checkbox" name="ckOutPut" id="ckOutPut" value="44" /><strong class="mid04" id="strong_out"><script>                                                                                                                                                            document.write(top.str_output_alarm);</script></strong>                                                                                                      
+                                              </td>
+                                            </tr>
+                                        </table>
+			                          </td>
+			                        </tr>
+		                          </table>
+	                            </td>
+                              </tr>     	  
+		    
+                            </table>
+                        
+                        </td>
+                   <td  class="rborder"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="ldcorner"></td>
+                   <td class="cdow"></td>
+                   <td class="rdcorner"></td>
+                  </tr>
+           
+                </table>
+            </td>
+        </tr>
+     </table>
+</body>
+</html>

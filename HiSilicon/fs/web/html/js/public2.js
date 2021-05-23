@@ -1,0 +1,1 @@
+document.write('<script src="language/lang.js"><\/script>');

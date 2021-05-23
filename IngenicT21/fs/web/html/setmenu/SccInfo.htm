@@ -1,0 +1,227 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <script language="javascript" src="../js/clearcache.js"></script>
+
+    <link href="../css/new.css" rel="stylesheet" type="text/css" />
+    <link href="../css/ceshi.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        body
+        {
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+        }
+        .style1
+        {
+            width: 40%;
+            height: 5px;
+        }
+        .style2
+        {
+            height: 35px;
+        }
+        .tdTitleBgcolor
+        {
+            vertical-align: middle;
+            text-align: left;
+            border: 1px solid #CCC;
+            font-family: Arial;
+            font-size: 15px;
+            text-decoration: normal;
+            font-weight: lighter;
+        }
+    </style>
+    <title></title>
+
+    <script type="text/javascript"> 
+document.write('<script src="/cgi-bin/check_user.cgi?user='+top.user+'&pwd='+top.pwd+'"><\/script>');
+document.write('<script src="/cgi-bin/get_params.cgi?type=4&user='+top.user+'&pwd='+top.pwd+'"><\/script>');
+document.write('<script src="/cgi-bin/get_tutk_account.cgi?user='+top.user+'&pwd='+top.pwd+'"><\/script>');
+    </script>
+
+    <script type="text/javascript" src="/cgi-bin/get_sycc_account.cgi"></script>
+
+</head>
+
+<script type="text/javascript">
+
+    function body_onload() {
+        //tutk
+        document.getElementById("txt_tutk_guid").value = ret_tutk_guid;  //GUID
+        document.getElementById("txt_tutk_user").value = ret_tutk_user;  //USER
+        document.getElementById("txt_tutk_pwd").value = ret_tutk_pwd;   //PWD
+
+        //sycc
+        document.getElementById("txt_sycc_name").value = ret_sycc_user;    //用户名
+        document.getElementById("txt_sycc_pwd").value = ret_sycc_pwd;        //密码
+        document.getElementById("txt_sycc_host").value = ret_sycc_addr;  //主机地址
+    }
+
+    function set_devinfo() {
+        save_tutk_info();
+        setTimeout('save_sycc_info()', 200);
+    }
+
+    function save_tutk_info() {
+        var tmp_guid = document.getElementById("txt_tutk_guid").value;
+        var tmp_user = document.getElementById("txt_tutk_user").value;
+        var tmp_pwd = document.getElementById("txt_tutk_pwd").value;
+
+        url = "/cgi-bin/set_tutk_account.cgi?tutk_guid=" + tmp_guid + "&tutk_user=" + tmp_user + "&tutk_pwd=" + tmp_pwd + "&user=" + top.user + "&pwd=" + top.pwd;
+
+        action_zone.location = url;
+    }
+    function save_sycc_info() {
+        var inputname = document.getElementById("txt_sycc_name").value;
+       
+        var inputpwd = document.getElementById("txt_sycc_pwd").value;
+        var inputhost = document.getElementById("txt_sycc_host").value;
+        url = "/cgi-bin/set_sycc_account.cgi?&next_url=setmenu/SccInfo.htm&sycc_user=" + inputname + "&sycc_pwd=" + inputpwd + "&sycc_addr=" + inputhost + "&user=" + top.user + "&pwd=" + top.pwd;
+
+        location = url;
+    }
+</script>
+
+<body onload="body_onload()" class="body">
+<iframe id="action_zone" name="action_zone" style="display:none"></iframe>
+    <table width="100%" cellpadding="0" cellspacing="0">
+        <tr class="adtop"><td>&nbsp;</td></tr>
+        <tr>
+            <td align="center">
+                <table cellpadding="0" cellspacing="0" >
+                   <tr>
+                    <td colspan="3" class="mid03_1">
+                        <strong class="mid03">
+                            <script type="text/javascript">document.write(top.str_scc);</script>
+                        </strong>
+                    </td>
+                   </tr>
+                  <tr  >
+                   <td class="lcorner" ></td>
+                   <td class="cbtop">
+                     <table cellpadding="0" cellspacing="0" style=" width:730px">
+                        <tr style=" width:100%">
+                            <td style="text-align: right;" align="right">
+                                <button class="resethbutton" onclick="set_devinfo()">
+
+                                    <script>document.write(top.str_save);</script>
+
+                                </button>
+                                <button class="resethbutton" onclick="location.reload()">
+
+                                    <script>document.write(top.str_refresh);</script>
+
+                                </button>
+                             
+                            </td>
+                      
+                        </tr>
+                     </table>
+                   </td>
+                   <td class="rcorner"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="lborder"></td>
+                   <td style=" margin-top:0px">
+                                    <table style="margin-top: 0px; width: 730px; height: 20%;" class="admintr">
+                
+                           <!-- <tr>
+                                <td colspan="2"  style=" background-color:#A0A0A0">
+                                    <strong>&nbsp;&nbsp;P2P</strong>
+                                </td>
+                            </tr>-->
+                            <tr style="height: 35px">
+                                <td class="admintd">
+                                    <strong class="mid04">GUID</strong>
+                                </td>
+                                <td style="padding-left: 20px">
+                                    <input name="txt_tutk_guid" type="text" id="txt_tutk_guid" maxlength="64" style="width: 170px" disabled />
+                                </td>
+                            </tr>
+                            <tr style="height: 35px">
+                                <td class="admintd">
+                                    <strong class="mid04">
+
+                                        <script type="text/javascript">document.write(top.str_username);</script>
+
+                                    </strong>
+                                </td>
+                                <td style="padding-left: 20px">
+                                    <input name="txt_tutk_user" type="text" id="txt_tutk_user" maxlength="64" style="width: 170px" disabled/>
+                                </td>
+                            </tr>
+                            <tr style="height: 35px">
+                                <td class="admintd">
+                                    <strong class="mid04">
+
+                                        <script type="text/javascript">document.write(top.str_pwd);</script>
+
+                                    </strong>
+                                </td>
+                                <td style="padding-left: 20px">
+                                    <input name="txt_tutk_pwd" type="password" id="txt_tutk_pwd" maxlength="64" style="width: 170px" disabled/>
+                                </td>
+                            </tr>
+                            <tr style=" display:none">
+                                <td class="admintd">
+                                    <strong>&nbsp;&nbsp;P2P-2</strong>
+                                </td>
+                            </tr>
+                            <tr style=" display:none">
+                                <td class="admintd">
+                                    <strong class="mid04">
+
+                                        <script type="text/javascript">document.write(top.str_username);</script>
+
+                                    </strong>
+                                </td>
+                                <td style="padding-left: 20px">
+                                    <input name="txt_sycc_name" type="text" id="txt_sycc_name" maxlength="64" style="width: 170px" />
+                                </td>
+                            </tr>
+                            <tr style=" display:none">
+                                <td class="admintd">
+                                    <strong class="mid04">
+
+                                        <script type="text/javascript">document.write(top.str_pwd);</script>
+
+                                    </strong>
+                                </td>
+                                <td style="padding-left: 20px">
+                                    <input name="txt_sycc_pwd" type="password" id="txt_sycc_pwd" maxlength="64" style="width: 170px" />
+                                </td>
+                            </tr>
+                            <tr style=" display:none">
+                                <td class="admintd">
+                                    <strong class="mid04">
+
+                                        <script type="text/javascript">document.write(top.str_host);</script>
+
+                                    </strong>
+                                </td>
+                                <td style="padding-left: 20px">
+                                    <input name="txt_sycc_host" type="text" id="txt_sycc_host" maxlength="64" style="width: 170px" />
+                                </td>
+                            </tr>
+               
+                        </table>
+                   
+                   </td>
+                   <td  class="rborder"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="ldcorner"></td>
+                   <td class="cdow"></td>
+                   <td class="rdcorner"></td>
+                  </tr>
+           
+                </table>
+            </td>
+        </tr>
+     </table>
+</body>
+</html>

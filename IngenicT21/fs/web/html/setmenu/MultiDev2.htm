@@ -1,0 +1,1998 @@
+﻿<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+<!--<link rel="stylesheet" href="../css/style.css" type="text/css">-->
+
+
+    <script language="javascript" src="../js/clearcache.js"></script>
+
+    <link href="../css/new.css" rel="stylesheet" type="text/css" />
+    <link href="../css/ceshi.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        body
+        {
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+        }
+    </style>
+
+    <script>
+        document.write('<script src="/cgi-bin/check_user.cgi?user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+        document.write('<script src="/cgi-bin/get_params.cgi?type=6&user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+    </script>
+
+</head>
+
+<script>
+    var current_device = 0;
+    var alias_list = new Array();
+    var mac_list = new Array();
+    var host_list = new Array();
+    var webport_list = new Array();
+    var dataport_list = new Array();
+    var same_subnet_list = new Array();
+
+    function set_multidevice() {
+        url = "/cgi-bin/set_multidev.cgi?next_url=setmenu/MultiDev2.htm&user=" + top.user + "&pwd=" + top.pwd;
+        url += "&dev2_enable=" + wnd_enable0 + "&dev2_host=" + ipcam_host0 + "&dev2_webport=" + web_port0 + "&dev2_dataport=" + data_port0 + "&dev2_user=" + ipcam_user0 + "&dev2_pwd=" + ipcam_pwd0;
+        url += "&dev3_enable=" + wnd_enable1 + "&dev3_host=" + ipcam_host1 + "&dev3_webport=" + web_port1 + "&dev3_dataport=" + data_port1 + "&dev3_user=" + ipcam_user1 + "&dev3_pwd=" + ipcam_pwd1;
+        url += "&dev4_enable=" + wnd_enable2 + "&dev4_host=" + ipcam_host2 + "&dev4_webport=" + web_port2 + "&dev4_dataport=" + data_port2 + "&dev4_user=" + ipcam_user2 + "&dev4_pwd=" + ipcam_pwd2;
+        url += "&dev5_enable=" + wnd_enable3 + "&dev5_host=" + ipcam_host3 + "&dev5_webport=" + web_port3 + "&dev5_dataport=" + data_port3 + "&dev5_user=" + ipcam_user3 + "&dev5_pwd=" + ipcam_pwd3;
+        url += "&dev6_enable=" + wnd_enable4 + "&dev6_host=" + ipcam_host4 + "&dev6_webport=" + web_port4 + "&dev6_dataport=" + data_port4 + "&dev6_user=" + ipcam_user4 + "&dev6_pwd=" + ipcam_pwd4;
+        url += "&dev7_enable=" + wnd_enable5 + "&dev7_host=" + ipcam_host5 + "&dev7_webport=" + web_port5 + "&dev7_dataport=" + data_port5 + "&dev7_user=" + ipcam_user5 + "&dev7_pwd=" + ipcam_pwd5;
+        url += "&dev8_enable=" + wnd_enable6 + "&dev8_host=" + ipcam_host6 + "&dev8_webport=" + web_port6 + "&dev8_dataport=" + data_port6 + "&dev8_user=" + ipcam_user6 + "&dev8_pwd=" + ipcam_pwd6;
+        url += "&dev9_enable=" + wnd_enable7 + "&dev9_host=" + ipcam_host7 + "&dev9_webport=" + web_port7 + "&dev9_dataport=" + data_port7 + "&dev9_user=" + ipcam_user7 + "&dev9_pwd=" + ipcam_pwd7;
+
+        location = url;
+    }
+    function device_list_onclick() {
+        if (device_list.options.length > 0) {
+            if (current_device == 1) {
+                //device1_alias.value=alias_list[device_list.selectedIndex];
+                device1_host.value = host_list[device_list.selectedIndex];
+                device1_webport.value = webport_list[device_list.selectedIndex];
+                device1_dataport.value = dataport_list[device_list.selectedIndex];
+            }
+            else if (current_device == 2) {
+                //device2_alias.value=alias_list[device_list.selectedIndex];
+                device2_host.value = host_list[device_list.selectedIndex];
+                device2_webport.value = webport_list[device_list.selectedIndex];
+                device2_dataport.value = dataport_list[device_list.selectedIndex];
+            }
+            else if (current_device == 3) {
+                //device3_alias.value=alias_list[device_list.selectedIndex];
+                device3_host.value = host_list[device_list.selectedIndex];
+                device3_webport.value = webport_list[device_list.selectedIndex];
+                device3_dataport.value = dataport_list[device_list.selectedIndex];
+            }
+            else if (current_device == 4) {
+                //device4_alias.value=alias_list[device_list.selectedIndex];
+                device4_host.value = host_list[device_list.selectedIndex];
+                device4_webport.value = webport_list[device_list.selectedIndex];
+                device4_dataport.value = dataport_list[device_list.selectedIndex];
+            }
+            else if (current_device == 5) {
+                //device5_alias.value=alias_list[device_list.selectedIndex];
+                device5_host.value = host_list[device_list.selectedIndex];
+                device5_webport.value = webport_list[device_list.selectedIndex];
+                device5_dataport.value = dataport_list[device_list.selectedIndex];
+            }
+            else if (current_device == 6) {
+                //device6_alias.value=alias_list[device_list.selectedIndex];
+                device6_host.value = host_list[device_list.selectedIndex];
+                device6_webport.value = webport_list[device_list.selectedIndex];
+                device6_dataport.value = dataport_list[device_list.selectedIndex];
+            }
+            else if (current_device == 7) {
+                //device7_alias.value=alias_list[device_list.selectedIndex];
+                device7_host.value = host_list[device_list.selectedIndex];
+                device7_webport.value = webport_list[device_list.selectedIndex];
+                device7_dataport.value = dataport_list[device_list.selectedIndex];
+            }
+            else if (current_device == 8) {
+                //device8_alias.value=alias_list[device_list.selectedIndex];
+                device8_host.value = host_list[device_list.selectedIndex];
+                device8_webport.value = webport_list[device_list.selectedIndex];
+                device8_dataport.value = dataport_list[device_list.selectedIndex];
+            }
+        }
+    }
+    function hide_alldevice_options() {
+        tr_device1_enable.style.display = 'none';
+        tr_device1_alias.style.display = 'none';
+        tr_device1_host.style.display = 'none';
+        tr_device1_webport.style.display = 'none';
+        tr_device1_user.style.display = 'none';
+        tr_device1_pwd.style.display = 'none';
+        tr_device1_set.style.display = 'none';
+        tr_device1_dataport.style.display = 'none';
+
+        tr_device2_enable.style.display = 'none';
+        tr_device2_alias.style.display = 'none';
+        tr_device2_host.style.display = 'none';
+        tr_device2_webport.style.display = 'none';
+        tr_device2_user.style.display = 'none';
+        tr_device2_pwd.style.display = 'none';
+        tr_device2_set.style.display = 'none';
+        tr_device2_dataport.style.display = 'none';
+
+        tr_device3_enable.style.display = 'none';
+        tr_device3_alias.style.display = 'none';
+        tr_device3_host.style.display = 'none';
+        tr_device3_webport.style.display = 'none';
+        tr_device3_user.style.display = 'none';
+        tr_device3_pwd.style.display = 'none';
+        tr_device3_set.style.display = 'none';
+        tr_device3_dataport.style.display = 'none';
+
+        tr_device4_enable.style.display = 'none';
+        tr_device4_alias.style.display = 'none';
+        tr_device4_host.style.display = 'none';
+        tr_device4_webport.style.display = 'none';
+        tr_device4_user.style.display = 'none';
+        tr_device4_pwd.style.display = 'none';
+        tr_device4_set.style.display = 'none';
+        tr_device4_dataport.style.display = 'none';
+
+        tr_device5_enable.style.display = 'none';
+        tr_device5_alias.style.display = 'none';
+        tr_device5_host.style.display = 'none';
+        tr_device5_webport.style.display = 'none';
+        tr_device5_user.style.display = 'none';
+        tr_device5_pwd.style.display = 'none';
+        tr_device5_set.style.display = 'none';
+        tr_device5_dataport.style.display = 'none';
+
+        tr_device6_enable.style.display = 'none';
+        tr_device6_alias.style.display = 'none';
+        tr_device6_host.style.display = 'none';
+        tr_device6_webport.style.display = 'none';
+        tr_device6_user.style.display = 'none';
+        tr_device6_pwd.style.display = 'none';
+        tr_device6_set.style.display = 'none';
+        tr_device6_dataport.style.display = 'none';
+
+        tr_device7_enable.style.display = 'none';
+        tr_device7_alias.style.display = 'none';
+        tr_device7_host.style.display = 'none';
+        tr_device7_webport.style.display = 'none';
+        tr_device7_user.style.display = 'none';
+        tr_device7_pwd.style.display = 'none';
+        tr_device7_set.style.display = 'none';
+        tr_device7_dataport.style.display = 'none';
+
+        tr_device8_enable.style.display = 'none';
+        tr_device8_alias.style.display = 'none';
+        tr_device8_host.style.display = 'none';
+        tr_device8_webport.style.display = 'none';
+        tr_device8_user.style.display = 'none';
+        tr_device8_pwd.style.display = 'none';
+        tr_device8_set.style.display = 'none';
+        tr_device8_dataport.style.display = 'none';
+    }
+
+    /////////////////////////////////////////////////////////////////////////
+
+    function set_2nd_device() {
+        hide_alldevice_options();
+        tr_device1_enable.style.display = '';
+        //tr_device1_alias.style.display='';
+        tr_device1_host.style.display = '';
+        tr_device1_webport.style.display = '';
+        tr_device1_user.style.display = '';
+        tr_device1_pwd.style.display = '';
+        tr_device1_set.style.display = '';
+        tr_device1_dataport.style.display = '';
+
+        current_device = 1;
+    }
+    function set_3rd_device() {
+        hide_alldevice_options();
+        tr_device2_enable.style.display = '';
+        //tr_device2_alias.style.display='';
+        tr_device2_host.style.display = '';
+        tr_device2_webport.style.display = '';
+        tr_device2_user.style.display = '';
+        tr_device2_pwd.style.display = '';
+        tr_device2_set.style.display = '';
+        tr_device2_dataport.style.display = '';
+
+        current_device = 2;
+    }
+    function set_4th_device() {
+        hide_alldevice_options();
+        tr_device3_enable.style.display = '';
+        //tr_device3_alias.style.display='';
+        tr_device3_host.style.display = '';
+        tr_device3_webport.style.display = '';
+        tr_device3_user.style.display = '';
+        tr_device3_pwd.style.display = '';
+        tr_device3_set.style.display = '';
+        tr_device3_dataport.style.display = '';
+
+        current_device = 3;
+    }
+
+    function set_5th_device() {
+        hide_alldevice_options();
+        tr_device4_enable.style.display = '';
+        //tr_device4_alias.style.display='';
+        tr_device4_host.style.display = '';
+        tr_device4_webport.style.display = '';
+        tr_device4_user.style.display = '';
+        tr_device4_pwd.style.display = '';
+        tr_device4_set.style.display = '';
+        tr_device4_dataport.style.display = '';
+
+        current_device = 4;
+    }
+
+    function set_6th_device() {
+        hide_alldevice_options();
+        tr_device5_enable.style.display = '';
+        //tr_device5_alias.style.display='';
+        tr_device5_host.style.display = '';
+        tr_device5_webport.style.display = '';
+        tr_device5_user.style.display = '';
+        tr_device5_pwd.style.display = '';
+        tr_device5_set.style.display = '';
+        tr_device5_dataport.style.display = '';
+
+        current_device = 5;
+    }
+
+    function set_7th_device() {
+        hide_alldevice_options();
+        tr_device6_enable.style.display = '';
+        //tr_device6_alias.style.display='';
+        tr_device6_host.style.display = '';
+        tr_device6_webport.style.display = '';
+        tr_device6_user.style.display = '';
+        tr_device6_pwd.style.display = '';
+        tr_device6_set.style.display = '';
+        tr_device6_dataport.style.display = '';
+
+        current_device = 6;
+    }
+
+    function set_8th_device() {
+        hide_alldevice_options();
+        tr_device7_enable.style.display = '';
+        //tr_device7_alias.style.display='';
+        tr_device7_host.style.display = '';
+        tr_device7_webport.style.display = '';
+        tr_device7_user.style.display = '';
+        tr_device7_pwd.style.display = '';
+        tr_device7_set.style.display = '';
+        tr_device7_dataport.style.display = '';
+
+        current_device = 7;
+    }
+
+    function set_9th_device() {
+        hide_alldevice_options();
+        tr_device8_enable.style.display = '';
+        //tr_device8_alias.style.display='';
+        tr_device8_host.style.display = '';
+        tr_device8_webport.style.display = '';
+        tr_device8_user.style.display = '';
+        tr_device8_pwd.style.display = '';
+        tr_device8_set.style.display = '';
+        tr_device8_dataport.style.display = '';
+
+        current_device = 8;
+    }
+
+    /////////////////////////////////////////////////////////////////////////
+
+    function del_device1() {
+        document.getElementById("device1_enable").checked = false;
+        enable_device1(false);
+
+        device1_host.value = '';
+        device1_alias.value = '';
+        device1_webport.value = '';
+        device1_dataport.value = '';
+        device1_user.value = '';
+        device1_pwd.value = '';
+
+        wnd_enable0 = 0;
+        ipcam_host0 = '';
+        web_port0 = 0;
+        data_port0 = 0;
+        ipcam_user0 = '';
+        ipcam_pwd0 = '';
+
+        td_2nd_device.innerHTML = '&nbsp;&nbsp;' + top.str_none;
+    }
+    function set_device1() {
+        var check = document.getElementById("device1_enable").checked;
+        if (check) {
+            if ((device1_host.value == '') || (device1_webport.value == '') || (device1_webport.value == '0') || (device1_dataport.value == '') || (device1_dataport.value == '0') || (device1_user.value == '')) {
+                alert(top.str_err_param);
+                return;
+            }
+
+            td_2nd_device.innerHTML = '&nbsp;&nbsp;' + '(' + device1_host.value + ')';
+        }
+        else {
+            td_2nd_device.innerHTML = '&nbsp;&nbsp;' + top.str_none;
+        }
+
+        //if (device1_alias.value=='') device1_alias.value=top.str_anonymous;	
+        //dev2_alias=device1_alias.value;
+
+        wnd_enable0 = 0;
+        if (check) {
+            wnd_enable0 = 1;
+        }
+        ipcam_host0 = device1_host.value;
+        web_port0 = device1_webport.value;
+        data_port0 = device1_dataport.value;
+        ipcam_user0 = device1_user.value;
+        ipcam_pwd0 = device1_pwd.value;
+
+    }
+    function del_device2() {
+        document.getElementById("device2_enable").checked = false;
+        enable_device2(false);
+
+        device2_host.value = '';
+        device2_alias.value = '';
+        device2_webport.value = '';
+        device2_dataport.value = '';
+        device2_user.value = '';
+        device2_pwd.value = '';
+
+        wnd_enable1 = 0;
+        ipcam_host1 = '';
+        web_port1 = 0;
+        data_port1 = 0;
+        ipcam_user1 = '';
+        ipcam_pwd1 = '';
+
+        td_3rd_device.innerHTML = '&nbsp;&nbsp;' + top.str_none;
+    }
+    function set_device2() {
+        var check = document.getElementById("device2_enable").checked;
+        if (check) {
+            if ((device2_host.value == '') || (device2_webport.value == '') || (device2_webport.value == '0') || (device2_dataport.value == '') || (device2_dataport.value == '0') || (device2_user.value == '')) {
+                alert(top.str_err_param);
+                return;
+            }
+
+            td_3rd_device.innerHTML = '&nbsp;&nbsp;' + '(' + device2_host.value + ')';
+        }
+        else {
+            td_3rd_device.innerHTML = '&nbsp;&nbsp;' + top.str_none;
+        }
+
+
+        //if (device2_alias.value=='') device2_alias.value=top.str_anonymous;	
+        //dev3_alias=device2_alias.value;
+
+        wnd_enable1 = 0;
+        if (check) {
+            wnd_enable1 = 1;
+        }
+        ipcam_host1 = device2_host.value;
+        web_port1 = device2_webport.value;
+        data_port1 = device2_dataport.value;
+        ipcam_user1 = device2_user.value;
+        ipcam_pwd1 = device2_pwd.value;
+
+    }
+    function del_device3() {
+        document.getElementById("device3_enable").checked = false;
+        enable_device3(false);
+
+        device3_host.value = '';
+        device3_alias.value = '';
+        device3_webport.value = '';
+        device3_dataport.value = '';
+        device3_user.value = '';
+        device3_pwd.value = '';
+
+        wnd_enable2 = 0;
+        ipcam_host2 = '';
+        web_port2 = 0;
+        data_port2 = 0;
+        ipcam_user2 = '';
+        ipcam_pwd2 = '';
+
+        td_4th_device.innerHTML = '&nbsp;&nbsp;' + top.str_none;
+    }
+    function set_device3() {
+        var check = document.getElementById("device3_enable").checked;
+        if (check) {
+            if ((device3_host.value == '') || (device3_webport.value == '') || (device3_webport.value == '0') || (device3_dataport.value == '') || (device3_dataport.value == '0') || (device3_user.value == '')) {
+                alert(top.str_err_param);
+                return;
+            }
+
+            td_4th_device.innerHTML = '&nbsp;&nbsp;' + '(' + device3_host.value + ')';
+        }
+        else {
+            td_4th_device.innerHTML = '&nbsp;&nbsp;' + top.str_none;
+        }
+
+
+        //if (device3_alias.value=='') device3_alias.value=top.str_anonymous;
+        //dev4_alias=device3_alias.value;
+
+        wnd_enable2 = 0;
+        if (check) {
+            wnd_enable2 = 1;
+        }
+        ipcam_host2 = device3_host.value;
+        web_port2 = device3_webport.value;
+        data_port2 = device3_dataport.value;
+        ipcam_user2 = device3_user.value;
+        ipcam_pwd2 = device3_pwd.value;
+
+    }
+
+    function del_device4() {
+        document.getElementById("device4_enable").checked = false;
+        enable_device4(false);
+
+        device4_host.value = '';
+        device4_alias.value = '';
+        device4_webport.value = '';
+        device4_dataport.value = '';
+        device4_user.value = '';
+        device4_pwd.value = '';
+
+        wnd_enable3 = 0;
+        ipcam_host3 = '';
+        web_port3 = 0;
+        data_port3 = 0;
+        ipcam_user3 = '';
+        ipcam_pwd3 = '';
+
+        td_5th_device.innerHTML = '&nbsp;&nbsp;' + top.str_none;
+    }
+    function set_device4() {
+        var check = document.getElementById("device4_enable").checked;
+        if (check) {
+            if ((device4_host.value == '') || (device4_webport.value == '') || (device4_webport.value == '0') || (device4_dataport.value == '') || (device4_dataport.value == '0') || (device4_user.value == '')) {
+                alert(top.str_err_param);
+                return;
+            }
+
+            td_5th_device.innerHTML = '&nbsp;&nbsp;' + '(' + device4_host.value + ')';
+        }
+        else {
+            td_5th_device.innerHTML = '&nbsp;&nbsp;' + top.str_none;
+        }
+
+        //if (device4_alias.value=='') device4_alias.value=top.str_anonymous;
+        //dev5_alias=device4_alias.value;
+
+        wnd_enable3 = 0;
+        if (check) {
+            wnd_enable3 = 1;
+        }
+        ipcam_host3 = device4_host.value;
+        web_port3 = device4_webport.value;
+        data_port3 = device4_dataport.value;
+        ipcam_user3 = device4_user.value;
+        ipcam_pwd3 = device4_pwd.value;
+
+    }
+
+    function del_device5() {
+        document.getElementById("device5_enable").checked = false;
+        enable_device5(false);
+
+        device5_host.value = '';
+        device5_alias.value = '';
+        device5_webport.value = '';
+        device5_dataport.value = '';
+        device5_user.value = '';
+        device5_pwd.value = '';
+
+        wnd_enable4 = 0;
+        ipcam_host4 = '';
+        web_port4 = 0;
+        data_port4 = 0;
+        ipcam_user4 = '';
+        ipcam_pwd4 = '';
+
+        td_6th_device.innerHTML = '&nbsp;&nbsp;' + top.str_none;
+    }
+    function set_device5() {
+        var check = document.getElementById("device5_enable").checked;
+        if (check) {
+            if ((device5_host.value == '') || (device5_webport.value == '') || (device5_webport.value == '0') || (device5_dataport.value == '') || (device5_dataport.value == '0') || (device5_user.value == '')) {
+                alert(top.str_err_param);
+                return;
+            }
+
+            td_6th_device.innerHTML = '&nbsp;&nbsp;' + '(' + device5_host.value + ')';
+        }
+        else {
+            td_6th_device.innerHTML = '&nbsp;&nbsp;' + top.str_none;
+        }
+
+        //if (device5_alias.value=='') device5_alias.value=top.str_anonymous;
+        //dev6_alias=device5_alias.value;
+
+        wnd_enable4 = 0;
+        if (check) {
+            wnd_enable4 = 1;
+        }
+        ipcam_host4 = device5_host.value;
+        web_port4 = device5_webport.value;
+        data_port4 = device5_dataport.value;
+        ipcam_user4 = device5_user.value;
+        ipcam_pwd4 = device5_pwd.value;
+
+    }
+
+    function del_device6() {
+        document.getElementById("device6_enable").checked = false;
+        enable_device6(false);
+
+        device6_host.value = '';
+        device6_alias.value = '';
+        device6_webport.value = '';
+        device6_dataport.value = '';
+        device6_user.value = '';
+        device6_pwd.value = '';
+
+        wnd_enable5 = 0;
+        ipcam_host5 = '';
+        web_port5 = 0;
+        data_port5 = 0;
+        ipcam_user5 = '';
+        ipcam_pwd5 = '';
+
+        td_7th_device.innerHTML = '&nbsp;&nbsp;' + top.str_none;
+    }
+    function set_device6() {
+        var check = document.getElementById("device6_enable").checked;
+        if (check) {
+            if ((device6_host.value == '') || (device6_webport.value == '') || (device6_webport.value == '0') || (device6_dataport.value == '') || (device6_dataport.value == '0') || (device6_user.value == '')) {
+                alert(top.str_err_param);
+                return;
+            }
+
+            td_7th_device.innerHTML = '&nbsp;&nbsp;' + '(' + device6_host.value + ')';
+        }
+        else {
+            td_7th_device.innerHTML = '&nbsp;&nbsp;' + top.str_none;
+        }
+
+        //if (device6_alias.value=='') device6_alias.value=top.str_anonymous;
+        //dev7_alias=device6_alias.value;
+
+        wnd_enable5 = 0;
+        if (check) {
+            wnd_enable5 = 1;
+        }
+        ipcam_host5 = device6_host.value;
+        web_port5 = device6_webport.value;
+        data_port5 = device6_dataport.value;
+        ipcam_user5 = device6_user.value;
+        ipcam_pwd5 = device6_pwd.value;
+
+    }
+
+    function del_device7() {
+        document.getElementById("device7_enable").checked = false;
+        enable_device7(false);
+
+        device7_host.value = '';
+        device7_alias.value = '';
+        device7_webport.value = '';
+        device7_dataport.value = '';
+        device7_user.value = '';
+        device7_pwd.value = '';
+
+        wnd_enable6 = 0;
+        ipcam_host6 = '';
+        web_port6 = 0;
+        data_port6 = 0;
+        ipcam_user6 = '';
+        ipcam_pwd6 = '';
+
+        td_8th_device.innerHTML = '&nbsp;&nbsp;' + top.str_none;
+    }
+    function set_device7() {
+        var check = document.getElementById("device7_enable").checked;
+        if (check == true) {
+            if ((device7_host.value == '') || (device7_webport.value == '') || (device7_webport.value == '0') || (device7_dataport.value == '') || (device7_dataport.value == '0') || (device7_user.value == '')) {
+                alert(top.str_err_param);
+                return;
+            }
+
+            td_8th_device.innerHTML = '&nbsp;&nbsp;' + '(' + device7_host.value + ')';
+        }
+        else {
+            td_8th_device.innerHTML = '&nbsp;&nbsp;' + top.str_none;
+        }
+
+        //if (device7_alias.value=='') device7_alias.value=top.str_anonymous;
+        //dev8_alias=device7_alias.value;
+
+        wnd_enable6 = 0;
+        if (check) {
+            wnd_enable6 = 1;
+        }
+        ipcam_host6 = device7_host.value;
+        web_port6 = device7_webport.value;
+        data_port6 = device7_dataport.value;
+        ipcam_user6 = device7_user.value;
+        ipcam_pwd6 = device7_pwd.value;
+    }
+
+
+    function del_device8() {
+        document.getElementById("device8_enable").checked = false;
+        enable_device8(false);
+
+        device8_host.value = '';
+        device8_alias.value = '';
+        device8_webport.value = '';
+        device8_dataport.value = '';
+        device8_user.value = '';
+        device8_pwd.value = '';
+
+        wnd_enable7 = 0;
+        ipcam_host7 = '';
+        web_port7 = 0;
+        data_port7 = 0;
+        ipcam_user7 = '';
+        ipcam_pwd7 = '';
+
+        td_9th_device.innerHTML = '&nbsp;&nbsp;' + top.str_none;
+    }
+    function set_device8() {
+        var check = document.getElementById("device8_enable").checked;
+        if (check == true) {
+            if ((device8_host.value == '') || (device8_webport.value == '') || (device8_webport.value == '0') || (device8_dataport.value == '') || (device8_dataport.value == '0') || (device8_user.value == '')) {
+                alert(top.str_err_param);
+                return;
+            }
+
+            td_9th_device.innerHTML = '&nbsp;&nbsp;' + '(' + device8_host.value + ')';
+        }
+        else {
+            td_9th_device.innerHTML = '&nbsp;&nbsp;' + top.str_none;
+        }
+
+        //if (device8_alias.value=='') device8_alias.value=top.str_anonymous;
+        //dev9_alias=device8_alias.value;
+
+        wnd_enable7 = 0;
+        if (check) {
+            wnd_enable7 = 1;
+        }
+        ipcam_host7 = device8_host.value;
+        web_port7 = device8_webport.value;
+        data_port7 = device8_dataport.value;
+        ipcam_user7 = device8_user.value;
+        ipcam_pwd7 = device8_pwd.value;
+    }
+
+    //////////////////////////////////////////////////////////////////////
+    function StartSearch() {
+        for (i = device_list.options.length - 1; i >= 0; --i) device_list.options.remove(i);
+
+        video.StartSearchDev();
+    }
+
+    function body_onload() {
+        //StartSearch();
+        setTimeout("body_time()", 500);
+
+    }
+    function body_time() {
+        video.StartSearchDev();
+        var enable_chk = false;
+
+        enable_chk = wnd_enable0 ? true : false;
+        enable_device1(enable_chk);
+        //
+        device1_enable.checked = enable_chk;
+        device1_host.value = ipcam_host0;
+        device1_alias.value = '';
+        device1_webport.value = web_port0;
+        device1_dataport.value = data_port0;
+        device1_user.value = ipcam_user0;
+        device1_pwd.value = ipcam_pwd0;
+        if ((device1_host.value == '') || (enable_chk == false))
+            td_2nd_device.innerHTML = '&nbsp;&nbsp;' + top.str_none;
+        else
+            td_2nd_device.innerHTML = '&nbsp;&nbsp;' + device1_alias.value + '(' + device1_host.value + ')';
+
+
+        enable_chk = wnd_enable1 ? true : false;
+        enable_device2(enable_chk);
+        //	
+        device2_enable.checked = enable_chk;
+        device2_host.value = ipcam_host1;
+        device2_alias.value = '';
+        device2_webport.value = web_port1;
+        device2_dataport.value = data_port1;
+        device2_user.value = ipcam_user1;
+        device2_pwd.value = ipcam_pwd1;
+        if ((device2_host.value == '') || (enable_chk == false))
+            td_3rd_device.innerHTML = '&nbsp;&nbsp;' + top.str_none;
+        else
+            td_3rd_device.innerHTML = '&nbsp;&nbsp;' + device2_alias.value + '(' + device2_host.value + ')';
+
+
+        enable_chk = wnd_enable2 ? true : false;
+        enable_device3(enable_chk);
+        //	
+        device3_enable.checked = enable_chk;
+        device3_host.value = ipcam_host2;
+        device3_alias.value = '';
+        device3_webport.value = web_port2;
+        device3_dataport.value = data_port2;
+        device3_user.value = ipcam_user2;
+        device3_pwd.value = ipcam_pwd2;
+        if ((device3_host.value == '') || (enable_chk == false))
+            td_4th_device.innerHTML = '&nbsp;&nbsp;' + top.str_none;
+        else
+            td_4th_device.innerHTML = '&nbsp;&nbsp;' + device3_alias.value + '(' + device3_host.value + ')';
+
+
+        enable_chk = wnd_enable3 ? true : false;
+        enable_device4(enable_chk);
+        //	
+        device4_enable.checked = enable_chk;
+        device4_host.value = ipcam_host3;
+        device4_alias.value = '';
+        device4_webport.value = web_port3;
+        device4_dataport.value = data_port3;
+        device4_user.value = ipcam_user3;
+        device4_pwd.value = ipcam_pwd3;
+        if ((device4_host.value == '') || (enable_chk == false))
+            td_5th_device.innerHTML = '&nbsp;&nbsp;' + top.str_none;
+        else
+            td_5th_device.innerHTML = '&nbsp;&nbsp;' + device4_alias.value + '(' + device4_host.value + ')';
+
+
+        enable_chk = wnd_enable4 ? true : false;
+        enable_device5(enable_chk);
+        //		
+        device5_enable.checked = enable_chk;
+        device5_host.value = ipcam_host4;
+        device5_alias.value = '';
+        device5_webport.value = web_port4;
+        device5_dataport.value = data_port4;
+        device5_user.value = ipcam_user4;
+        device5_pwd.value = ipcam_pwd4;
+        if ((device5_host.value == '') || (enable_chk == false))
+            td_6th_device.innerHTML = '&nbsp;&nbsp;' + top.str_none;
+        else
+            td_6th_device.innerHTML = '&nbsp;&nbsp;' + device5_alias.value + '(' + device5_host.value + ')';
+
+
+        enable_chk = wnd_enable5 ? true : false;
+        enable_device6(enable_chk);
+        //
+        device6_enable.checked = enable_chk;
+        device6_host.value = ipcam_host5;
+        device6_alias.value = '';
+        device6_webport.value = web_port5;
+        device6_dataport.value = data_port5;
+        device6_user.value = ipcam_user5;
+        device6_pwd.value = ipcam_pwd5;
+        if ((device6_host.value == '') || (enable_chk == false))
+            td_7th_device.innerHTML = '&nbsp;&nbsp;' + top.str_none;
+        else
+            td_7th_device.innerHTML = '&nbsp;&nbsp;' + device6_alias.value + '(' + device6_host.value + ')';
+
+
+        enable_chk = wnd_enable6 ? true : false;
+        enable_device7(enable_chk);
+        //		
+        device7_enable.checked = enable_chk;
+        device7_host.value = ipcam_host6;
+        device7_alias.value = '';
+        device7_webport.value = web_port6;
+        device7_dataport.value = data_port6;
+        device7_user.value = ipcam_user6;
+        device7_pwd.value = ipcam_pwd6;
+        if ((device7_host.value == '') || (enable_chk == false))
+            td_8th_device.innerHTML = '&nbsp;&nbsp;' + top.str_none;
+        else
+            td_8th_device.innerHTML = '&nbsp;&nbsp;' + device7_alias.value + '(' + device7_host.value + ')';
+
+
+        enable_chk = wnd_enable7 ? true : false;
+        enable_device8(enable_chk);
+        //	
+        device8_enable.checked = enable_chk;
+        device8_host.value = ipcam_host7;
+        device8_alias.value = '';
+        device8_webport.value = web_port7;
+        device8_dataport.value = data_port7;
+        device8_user.value = ipcam_user7;
+        device8_pwd.value = ipcam_pwd7;
+        if ((device8_host.value == '') || (enable_chk == false))
+            td_9th_device.innerHTML = '&nbsp;&nbsp;' + top.str_none;
+        else
+            td_9th_device.innerHTML = '&nbsp;&nbsp;' + device8_alias.value + '(' + device8_host.value + ')';    
+    }
+
+    function onsearchedcamera(name, Mac, IP, Webport, Dataport, Samenet) {
+        index = device_list.options.length;
+
+        //name
+        if (name != '')
+            alias_list[index] = name;
+        else
+            alias_list[index] = top.str_anonymous;
+        //Mac
+        mac_list[index] = Mac;
+        //IP
+        host_list[index] = IP;
+        //Webport
+        webport_list[index] = Webport;
+        //Dataport
+        dataport_list[index] = Dataport;
+        //Samenet
+        same_subnet_list[index] = Samenet;
+
+
+        oOption = document.createElement("OPTION");
+        device_list.options.add(oOption);
+        if (1 == Samenet) {
+            oOption.innerText = alias_list[index] + '(' + host_list[index] + ')';
+        }
+        else {
+            oOption.style.color = 'gray';
+            oOption.innerText = alias_list[index] + '(' + top.str_subnet_nomatch + ')';
+        }
+    }
+
+    //////////////////////////////////////////////////////////////////////////
+
+    function enable_device1(check) {
+        if (check == true) {
+            document.getElementById("device1_alias").disabled = false;
+            document.getElementById("device1_host").disabled = false;
+            document.getElementById("device1_webport").disabled = false;
+            document.getElementById("device1_user").disabled = false;
+            document.getElementById("device1_pwd").disabled = false;
+            document.getElementById("device1_dataport").disabled = false;
+
+        } else {
+            document.getElementById("device1_alias").disabled = true;
+            document.getElementById("device1_host").disabled = true;
+            document.getElementById("device1_webport").disabled = true;
+            document.getElementById("device1_user").disabled = true;
+            document.getElementById("device1_pwd").disabled = true;
+            document.getElementById("device1_dataport").disabled = true;
+        }
+    }
+
+    function enable_device2(check) {
+        if (check == true) {
+            document.getElementById("device2_alias").disabled = false;
+            document.getElementById("device2_host").disabled = false;
+            document.getElementById("device2_webport").disabled = false;
+            document.getElementById("device2_user").disabled = false;
+            document.getElementById("device2_pwd").disabled = false;
+            document.getElementById("device2_dataport").disabled = false;
+        } else {
+            document.getElementById("device2_alias").disabled = true;
+            document.getElementById("device2_host").disabled = true;
+            document.getElementById("device2_webport").disabled = true;
+            document.getElementById("device2_user").disabled = true;
+            document.getElementById("device2_pwd").disabled = true;
+            document.getElementById("device2_dataport").disabled = true;
+        }
+    }
+
+    function enable_device3(check) {
+        if (check == true) {
+            document.getElementById("device3_alias").disabled = false;
+            document.getElementById("device3_host").disabled = false;
+            document.getElementById("device3_webport").disabled = false;
+            document.getElementById("device3_user").disabled = false;
+            document.getElementById("device3_pwd").disabled = false;
+            document.getElementById("device3_dataport").disabled = false;
+        } else {
+            document.getElementById("device3_alias").disabled = true;
+            document.getElementById("device3_host").disabled = true;
+            document.getElementById("device3_webport").disabled = true;
+            document.getElementById("device3_user").disabled = true;
+            document.getElementById("device3_pwd").disabled = true;
+            document.getElementById("device3_dataport").disabled = true;
+        }
+    }
+
+    function enable_device4(check) {
+        if (check == true) {
+            document.getElementById("device4_alias").disabled = false;
+            document.getElementById("device4_host").disabled = false;
+            document.getElementById("device4_webport").disabled = false;
+            document.getElementById("device4_user").disabled = false;
+            document.getElementById("device4_pwd").disabled = false;
+            document.getElementById("device4_dataport").disabled = false;
+        } else {
+            document.getElementById("device4_alias").disabled = true;
+            document.getElementById("device4_host").disabled = true;
+            document.getElementById("device4_webport").disabled = true;
+            document.getElementById("device4_user").disabled = true;
+            document.getElementById("device4_pwd").disabled = true;
+            document.getElementById("device4_dataport").disabled = true;
+        }
+    }
+
+    function enable_device5(check) {
+        if (check == true) {
+            document.getElementById("device5_alias").disabled = false;
+            document.getElementById("device5_host").disabled = false;
+            document.getElementById("device5_webport").disabled = false;
+            document.getElementById("device5_user").disabled = false;
+            document.getElementById("device5_pwd").disabled = false;
+            document.getElementById("device5_dataport").disabled = false;
+        } else {
+            document.getElementById("device5_alias").disabled = true;
+            document.getElementById("device5_host").disabled = true;
+            document.getElementById("device5_webport").disabled = true;
+            document.getElementById("device5_user").disabled = true;
+            document.getElementById("device5_pwd").disabled = true;
+            document.getElementById("device5_dataport").disabled = true;
+        }
+    }
+
+    function enable_device6(check) {
+        if (check == true) {
+            document.getElementById("device6_alias").disabled = false;
+            document.getElementById("device6_host").disabled = false;
+            document.getElementById("device6_webport").disabled = false;
+            document.getElementById("device6_user").disabled = false;
+            document.getElementById("device6_pwd").disabled = false;
+            document.getElementById("device6_dataport").disabled = false;
+        } else {
+            document.getElementById("device6_alias").disabled = true;
+            document.getElementById("device6_host").disabled = true;
+            document.getElementById("device6_webport").disabled = true;
+            document.getElementById("device6_user").disabled = true;
+            document.getElementById("device6_pwd").disabled = true;
+            document.getElementById("device6_dataport").disabled = true;
+        }
+    }
+    function enable_device7(check) {
+        if (check == true) {
+            document.getElementById("device7_alias").disabled = false;
+            document.getElementById("device7_host").disabled = false;
+            document.getElementById("device7_webport").disabled = false;
+            document.getElementById("device7_user").disabled = false;
+            document.getElementById("device7_pwd").disabled = false;
+            document.getElementById("device7_dataport").disabled = false;
+        } else {
+            document.getElementById("device7_alias").disabled = true;
+            document.getElementById("device7_host").disabled = true;
+            document.getElementById("device7_webport").disabled = true;
+            document.getElementById("device7_user").disabled = true;
+            document.getElementById("device7_pwd").disabled = true;
+            document.getElementById("device7_dataport").disabled = true;
+        }
+    }
+    function enable_device8(check) {
+        if (check == true) {
+            document.getElementById("device8_alias").disabled = false;
+            document.getElementById("device8_host").disabled = false;
+            document.getElementById("device8_webport").disabled = false;
+            document.getElementById("device8_user").disabled = false;
+            document.getElementById("device8_pwd").disabled = false;
+            document.getElementById("device8_dataport").disabled = false;
+        } else {
+            document.getElementById("device8_alias").disabled = true;
+            document.getElementById("device8_host").disabled = true;
+            document.getElementById("device8_webport").disabled = true;
+            document.getElementById("device8_user").disabled = true;
+            document.getElementById("device8_pwd").disabled = true;
+            document.getElementById("device8_dataport").disabled = true;
+        }
+    }
+    function OnLoaded() {
+        video.SetShowMode(1);
+        video.ConnectServer(location.hostname, top.video_port, encodeURIComponent(top.user), encodeURIComponent(top.pwd));
+        AddEvent(video, "searchedcamera", onsearchedcamera);
+        video.StartVideo();
+
+        //        alert("load plugin successfully!!");
+    }
+    function AddEvent(obj, name, func) {
+        if (obj.attachEvent) {
+            obj.attachEvent("on" + name, func);
+        } else {
+            obj.addEventListener(name, func, false);
+        }
+    }
+    function UpdateMotion1() {
+        window.location = "MultiDev2.htm";
+    }
+</script>
+
+<body onload="body_onload()" class="body">
+    <table width="100%" cellpadding="0" cellspacing="0">
+        <tr class="adtop"><td>&nbsp;</td></tr>
+        <tr>
+            <td align="center">
+                <table cellpadding="0" cellspacing="0" >
+                   <tr>
+                    <td colspan="3" class="mid03_1">
+                        <strong class="mid03">
+                            <script type="text/javascript">                                document.write(top.str_multidev_set);</script>
+                        </strong>
+                    </td>
+                   </tr>
+                  <tr  >
+                   <td class="lcorner" ></td>
+                   <td class="cbtop">
+                     <table cellpadding="0" cellspacing="0" style=" width:730px">
+                        <tr style=" width:100%">
+                            <td style="text-align: right;" align="right">
+                                <button onclick="set_multidevice()" class="resethbutton">
+                                <script>                                    document.write(top.str_save);</script>
+                                </button> 
+                            
+                                <button onclick="UpdateMotion1()" class="resethbutton">
+                                            <script>                                                document.write(top.str_refresh);</script>
+                                </button>
+                             
+                            </td>
+                      
+                        </tr>
+                     </table>
+                   </td>
+                   <td class="rcorner"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="lborder"></td>
+                   <td style=" margin-top:0px">
+                                    <table style="margin-top: 0px; margin-bottom: 0px; border: 0px solid #EEE5DE; width: 100%" border="1" cellpadding="0" cellspacing="0" class="admintr">
+            
+                        <tr height="75">
+                            <td class="mid04" width="150px" style=" background:#C2E5F9;">
+                                &nbsp;&nbsp;<script>                                                document.write(top.str_devicelist_inlan);</script>
+
+                            </td>
+                            <td>
+                                <select id="device_list" size="2" class="s5" onclick="device_list_onclick()">
+                                </select>
+                                <button onclick="StartSearch()">
+
+                                    <script>                                        document.write(top.str_refresh);</script>
+
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- 1 device -->
+                        <tr height="25">
+                            <td class="mid04" style=" background:#C2E5F9;">
+                                &nbsp;&nbsp;<script>                                                document.write(top.str_1st_device);</script>
+
+                            </td>
+                            <td class="v2 f14 mid04">
+                                &nbsp;&nbsp;<script>                                                document.write(top.str_computer);</script>
+
+                            </td>
+                        </tr>
+                        <!-- 2 device -->
+                        <tr height="25">
+                            <td class="mid04" style=" background:#C2E5F9;">
+                                &nbsp;&nbsp;<a href="javascript:set_2nd_device()"><script>                                                                                      document.write(top.str_2nd_device);</script></a>
+                            </td>
+                            <td id="td_2nd_device" class="mid04">
+                                &nbsp;&nbsp;<script>                                                document.write(top.str_none);</script>
+
+                            </td>
+                        </tr>
+                        <tr id="tr_device1_enable" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_start_using);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input type="checkbox" id="device1_enable" onclick="enable_device1(this.checked)" />
+                            </td>
+                        </tr>
+                        <tr id="tr_device1_alias" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_alias);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device1_alias" maxlength="20">
+                            </td>
+                        </tr>
+                        <tr id="tr_device1_host" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_main_address);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device1_host" maxlength="64">
+                            </td>
+                        </tr>
+                        <tr id="tr_device1_webport" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_web_port);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device1_webport" maxlength="5" onkeyup="value=value.replace(/[^\d]/g,'')"
+                                    onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))">
+                            </td>
+                        </tr>
+                        <tr id="tr_device1_dataport" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_media_port);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device1_dataport" maxlength="5" onkeyup="value=value.replace(/[^\d]/g,'')"
+                                    onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))">
+                            </td>
+                        </tr>
+                        <tr id="tr_device1_user" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_user);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device1_user" maxlength="12">
+                            </td>
+                        </tr>
+                        <tr id="tr_device1_pwd" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_pwd);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device1_pwd" type="password" maxlength="12">
+                            </td>
+                        </tr>
+                        <tr id="tr_device1_set" height="25" style="display: none">
+                            <td class="mid04" style=" background:#C2E5F9;">
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;
+                                <button onclick="set_device1()" class="mid04">
+
+                                    <script>                                        document.write(top.str_add);</script>
+
+                                </button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <button onclick="del_device1()" class="mid04">
+
+                                    <script>                                        document.write(top.str_delete);</script>
+
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- 3 device -->
+                        <tr height="25">
+                            <td class="mid04" style=" background:#C2E5F9;">
+                                &nbsp;&nbsp;<a href="javascript:set_3rd_device()"><script>                                                                                      document.write(top.str_3rd_device);</script></a>
+                            </td>
+                            <td id="td_3rd_device" class="mid04">
+                                &nbsp;&nbsp;<script>                                                document.write(top.str_none);</script>
+
+                            </td>
+                        </tr>
+                        <tr id="tr_device2_enable" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_start_using);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input type="checkbox" id="device2_enable" onclick="enable_device2(this.checked)" />
+                            </td>
+                        </tr>
+                        <tr id="tr_device2_alias" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_alias);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device2_alias" maxlength="20">
+                            </td>
+                        </tr>
+                        <tr id="tr_device2_host" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_main_address);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device2_host" maxlength="64">
+                            </td>
+                        </tr>
+                        <tr id="tr_device2_webport" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_web_port);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device2_webport" maxlength="5" onkeyup="value=value.replace(/[^\d]/g,'')"
+                                    onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))">
+                            </td>
+                        </tr>
+                        <tr id="tr_device2_dataport" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_media_port);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device2_dataport" maxlength="5" onkeyup="value=value.replace(/[^\d]/g,'')"
+                                    onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))">
+                            </td>
+                        </tr>
+                        <tr id="tr_device2_user" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_user);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device2_user" maxlength="12">
+                            </td>
+                        </tr>
+                        <tr id="tr_device2_pwd" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_pwd);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device2_pwd" type="password" maxlength="12">
+                            </td>
+                        </tr>
+                        <tr id="tr_device2_set" height="25" style="display: none">
+                            <td class="mid04" style=" background:#C2E5F9;">
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;
+                                <button onclick="set_device2()" class="mid04">
+
+                                    <script>                                        document.write(top.str_add);</script>
+
+                                </button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <button onclick="del_device2()" class="mid04">
+
+                                    <script>                                        document.write(top.str_delete);</script>
+
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- 4 device -->
+                        <tr height="25">
+                            <td class="mid04" style=" background:#C2E5F9;">
+                                &nbsp;&nbsp;<a href="javascript:set_4th_device()"><script>                                                                                      document.write(top.str_4th_device);</script></a>
+                            </td>
+                            <td id="td_4th_device" class="mid04">
+                                &nbsp;&nbsp;<script>                                                document.write(top.str_none);</script>
+
+                            </td>
+                        </tr>
+                        <tr id="tr_device3_enable" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_start_using);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input type="checkbox" id="device3_enable" onclick="enable_device3(this.checked)" />
+                            </td>
+                        </tr>
+                        <tr id="tr_device3_alias" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_alias);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device3_alias" maxlength="20">
+                            </td>
+                        </tr>
+                        <tr id="tr_device3_host" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_main_address);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device3_host" maxlength="64">
+                            </td>
+                        </tr>
+                        <tr id="tr_device3_webport" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_web_port);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device3_webport" maxlength="5" onkeyup="value=value.replace(/[^\d]/g,'')"
+                                    onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))">
+                            </td>
+                        </tr>
+                        <tr id="tr_device3_dataport" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_media_port);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device3_dataport" maxlength="5" onkeyup="value=value.replace(/[^\d]/g,'')"
+                                    onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))">
+                            </td>
+                        </tr>
+                        <tr id="tr_device3_user" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_user);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device3_user" maxlength="12">
+                            </td>
+                        </tr>
+                        <tr id="tr_device3_pwd" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_pwd);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device3_pwd" type="password" maxlength="12">
+                            </td>
+                        </tr>
+                        <tr id="tr_device3_set" height="25" style="display: none">
+                            <td class="mid04" style=" background:#C2E5F9;">
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;
+                                <button onclick="set_device3()" class="mid04">
+
+                                    <script>                                        document.write(top.str_add);</script>
+
+                                </button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <button onclick="del_device3()" class="mid04">
+
+                                    <script>                                        document.write(top.str_delete);</script>
+
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- 5 device -->
+                        <tr height="25">
+                            <td class="mid04" style=" background:#C2E5F9;">
+                                &nbsp;&nbsp;<a href="javascript:set_5th_device()"><script>                                                                                      document.write(top.str_5th_device);</script></a>
+                            </td>
+                            <td id="td_5th_device" class="mid04">
+                                &nbsp;&nbsp;<script>                                                document.write(top.str_none);</script>
+
+                            </td>
+                        </tr>
+                        <tr id="tr_device4_enable" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_start_using);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input type="checkbox" id="device4_enable" onclick="enable_device4(this.checked)" />
+                            </td>
+                        </tr>
+                        <tr id="tr_device4_alias" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_alias);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device4_alias" maxlength="20">
+                            </td>
+                        </tr>
+                        <tr id="tr_device4_host" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_main_address);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device4_host" maxlength="64">
+                            </td>
+                        </tr>
+                        <tr id="tr_device4_webport" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_web_port);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device4_webport" maxlength="5" onkeyup="value=value.replace(/[^\d]/g,'')"
+                                    onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))">
+                            </td>
+                        </tr>
+                        <tr id="tr_device4_dataport" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_media_port);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device4_dataport" maxlength="5" onkeyup="value=value.replace(/[^\d]/g,'')"
+                                    onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))">
+                            </td>
+                        </tr>
+                        <tr id="tr_device4_user" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_user);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device4_user" maxlength="12">
+                            </td>
+                        </tr>
+                        <tr id="tr_device4_pwd" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_pwd);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device4_pwd" type="password" maxlength="12">
+                            </td>
+                        </tr>
+                        <tr id="tr_device4_set" height="25" style="display: none">
+                            <td class="mid04" style=" background:#C2E5F9;">
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;
+                                <button onclick="set_device4()" class="mid04">
+
+                                    <script>                                        document.write(top.str_add);</script>
+
+                                </button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <button onclick="del_device4()" class="mid04">
+
+                                    <script>                                        document.write(top.str_delete);</script>
+
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- 6 device -->
+                        <tr height="25">
+                            <td class="mid04" style=" background:#C2E5F9;">
+                                &nbsp;&nbsp;<a href="javascript:set_6th_device()"><script>                                                                                      document.write(top.str_6th_device);</script></a>
+                            </td>
+                            <td id="td_6th_device" class="mid04">
+                                &nbsp;&nbsp;<script>                                                document.write(top.str_none);</script>
+
+                            </td>
+                        </tr>
+                        <tr id="tr_device5_enable" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_start_using);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input type="checkbox" id="device5_enable" onclick="enable_device5(this.checked)" />
+                            </td>
+                        </tr>
+                        <tr id="tr_device5_alias" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_alias);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device5_alias" maxlength="20">
+                            </td>
+                        </tr>
+                        <tr id="tr_device5_host" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_main_address);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device5_host" maxlength="64">
+                            </td>
+                        </tr>
+                        <tr id="tr_device5_webport" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_web_port);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device5_webport" maxlength="5" onkeyup="value=value.replace(/[^\d]/g,'')"
+                                    onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))">
+                            </td>
+                        </tr>
+                        <tr id="tr_device5_dataport" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_media_port);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device5_dataport" maxlength="5" onkeyup="value=value.replace(/[^\d]/g,'')"
+                                    onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))">
+                            </td>
+                        </tr>
+                        <tr id="tr_device5_user" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_user);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device5_user" maxlength="12">
+                            </td>
+                        </tr>
+                        <tr id="tr_device5_pwd" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_pwd);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device5_pwd" type="password" maxlength="12">
+                            </td>
+                        </tr>
+                        <tr id="tr_device5_set" height="25" style="display: none">
+                            <td class="mid04" style=" background:#C2E5F9;">
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;
+                                <button onclick="set_device5()" class="mid04">
+
+                                    <script>                                        document.write(top.str_add);</script>
+
+                                </button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <button onclick="del_device5()" class="mid04">
+
+                                    <script>                                        document.write(top.str_delete);</script>
+
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- 7 device -->
+                        <tr height="25">
+                            <td class="mid04" style=" background:#C2E5F9;">
+                                &nbsp;&nbsp;<a href="javascript:set_7th_device()"><script>                                                                                      document.write(top.str_7th_device);</script></a>
+                            </td>
+                            <td id="td_7th_device" class="mid04">
+                                &nbsp;&nbsp;<script>                                                document.write(top.str_none);</script>
+
+                            </td>
+                        </tr>
+                        <tr id="tr_device6_enable" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_start_using);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input type="checkbox" id="device6_enable" onclick="enable_device6(this.checked)" />
+                            </td>
+                        </tr>
+                        <tr id="tr_device6_alias" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_alias);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device6_alias" maxlength="20">
+                            </td>
+                        </tr>
+                        <tr id="tr_device6_host" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_main_address);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device6_host" maxlength="64">
+                            </td>
+                        </tr>
+                        <tr id="tr_device6_webport" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_web_port);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device6_webport" maxlength="5" onkeyup="value=value.replace(/[^\d]/g,'')"
+                                    onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))">
+                            </td>
+                        </tr>
+                        <tr id="tr_device6_dataport" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_media_port);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device6_dataport" maxlength="5" onkeyup="value=value.replace(/[^\d]/g,'')"
+                                    onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))">
+                            </td>
+                        </tr>
+                        <tr id="tr_device6_user" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_user);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device6_user" maxlength="12">
+                            </td>
+                        </tr>
+                        <tr id="tr_device6_pwd" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_pwd);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device6_pwd" type="password" maxlength="12">
+                            </td>
+                        </tr>
+                        <tr id="tr_device6_set" height="25" style="display: none">
+                            <td class="mid04" style=" background:#C2E5F9;">
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;
+                                <button onclick="set_device6()" class="mid04">
+
+                                    <script>                                        document.write(top.str_add);</script>
+
+                                </button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <button onclick="del_device6()" class="mid04">
+
+                                    <script>                                        document.write(top.str_delete);</script>
+
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- 8 device -->
+                        <tr height="25">
+                            <td class="mid04" style=" background:#C2E5F9;">
+                                &nbsp;&nbsp;<a href="javascript:set_8th_device()"><script>                                                                                      document.write(top.str_8th_device);</script></a>
+                            </td>
+                            <td id="td_8th_device" class="mid04">
+                                &nbsp;&nbsp;<script>                                                document.write(top.str_none);</script>
+
+                            </td>
+                        </tr>
+                        <tr id="tr_device7_enable" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_start_using);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input type="checkbox" id="device7_enable" onclick="enable_device7(this.checked)" />
+                            </td>
+                        </tr>
+                        <tr id="tr_device7_alias" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_alias);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device7_alias" maxlength="20">
+                            </td>
+                        </tr>
+                        <tr id="tr_device7_host" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_main_address);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device7_host" maxlength="64">
+                            </td>
+                        </tr>
+                        <tr id="tr_device7_webport" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_web_port);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device7_webport" maxlength="5" onkeyup="value=value.replace(/[^\d]/g,'')"
+                                    onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))">
+                            </td>
+                        </tr>
+                        <tr id="tr_device7_dataport" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_media_port);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device7_dataport" maxlength="5" onkeyup="value=value.replace(/[^\d]/g,'')"
+                                    onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))">
+                            </td>
+                        </tr>
+                        <tr id="tr_device7_user" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_user);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device7_user" maxlength="12">
+                            </td>
+                        </tr>
+                        <tr id="tr_device7_pwd" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_pwd);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device7_pwd" type="password" maxlength="12">
+                            </td>
+                        </tr>
+                        <tr id="tr_device7_set" height="25" style="display: none">
+                            <td class="mid04" style=" background:#C2E5F9;">
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;
+                                <button onclick="set_device7()" class="mid04">
+
+                                    <script>                                        document.write(top.str_add);</script>
+
+                                </button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <button onclick="del_device7()" class="mid04">
+
+                                    <script>                                        document.write(top.str_delete);</script>
+
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- 9 device -->
+                        <tr height="25">
+                            <td class="mid04" style=" background:#C2E5F9;">
+                                &nbsp;&nbsp;<a href="javascript:set_9th_device()"><script>                                                                                      document.write(top.str_9th_device);</script></a>
+                            </td>
+                            <td id="td_9th_device" class="mid04">
+                                &nbsp;&nbsp;<script>                                                document.write(top.str_none);</script>
+
+                            </td>
+                        </tr>
+                        <tr id="tr_device8_enable" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_start_using);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input type="checkbox" id="device8_enable" onclick="enable_device8(this.checked)" />
+                            </td>
+                        </tr>
+                        <tr id="tr_device8_alias" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_alias);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device8_alias" maxlength="20">
+                            </td>
+                        </tr>
+                        <tr id="tr_device8_host" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_main_address);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device8_host" maxlength="64">
+                            </td>
+                        </tr>
+                        <tr id="tr_device8_webport" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_web_port);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device8_webport" maxlength="5" onkeyup="value=value.replace(/[^\d]/g,'')"
+                                    onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))">
+                            </td>
+                        </tr>
+                        <tr id="tr_device8_dataport" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_media_port);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device8_dataport" maxlength="5" onkeyup="value=value.replace(/[^\d]/g,'')"
+                                    onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))">
+                            </td>
+                        </tr>
+                        <tr id="tr_device8_user" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_user);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device8_user" maxlength="12">
+                            </td>
+                        </tr>
+                        <tr id="tr_device8_pwd" height="25" style="display: none">
+                            <td class="mid04r" style=" background:#C2E5F9;">
+
+                                <script>                                    document.write(top.str_pwd);</script>
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;<input id="device8_pwd" type="password" maxlength="12">
+                            </td>
+                        </tr>
+                        <tr id="tr_device8_set" height="25" style="display: none">
+                            <td class="mid04" style=" background:#C2E5F9;">
+                                &nbsp;&nbsp;
+                            </td>
+                            <td class="mid05">
+                                &nbsp;&nbsp;
+                                <button onclick="set_device8()" class="mid04">
+
+                                    <script>                                        document.write(top.str_add);</script>
+
+                                </button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <button onclick="del_device8()" class="mid04">
+
+                                    <script>                                        document.write(top.str_delete);</script>
+
+                                </button>
+                            </td>
+                        </tr>
+                        <tr height="25">
+                            <td class="mid04" colspan="2">
+                                &nbsp;&nbsp;<span><script>                                                      document.write(top.str_multidevice_attention);</script></span>&nbsp;&nbsp;
+                            </td>
+                        </tr>
+                        <!--<tr height="25">
+                            <td colspan="2" align="center">
+                                <button onclick="set_multidevice()">
+
+                                    <script>document.write(top.str_save);</script>
+
+                                </button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button onclick="location.reload()">
+
+                                    <script>document.write(top.str_refresh);</script>
+
+                                </button>
+                            </td>
+                        </tr>-->
+                    </table>
+                    <object id="video" style="left: 0px; top: 0px" width="1" height="1" type="application/x-hipcamwebplugin">
+                        <param name="onload" value="OnLoaded" />
+                    </object>
+                   </td>
+                   <td  class="rborder"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="ldcorner"></td>
+                   <td class="cdow"></td>
+                   <td class="rdcorner"></td>
+                  </tr>
+           
+                </table>
+            </td>
+        </tr>
+     </table>
+   
+   
+   
+   
+   
+   
+   
+   
+</body>
+</html>

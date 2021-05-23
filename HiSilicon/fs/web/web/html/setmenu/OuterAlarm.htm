@@ -1,0 +1,511 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <script language="javascript" src="../js/clearcache.js"></script>
+
+    <link href="../css/new.css" rel="stylesheet" type="text/css" />
+    <link href="../css/ceshi.css" rel="stylesheet" type="text/css" />
+    <title></title>
+    <style type="text/css">
+         body
+        {
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+        }
+         .style2
+        {
+            width: 225px;
+        }
+        #selectTime
+        {}
+    </style>
+
+    <script>
+        document.write('<script src="/cgi-bin/check_user.cgi?user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+        document.write('<script src="/cgi-bin/get_params.cgi?type=2&user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+        document.write('<script src="/cgi-bin/get_dev_funclist.cgi?user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+</script>
+
+<script>
+    document.write('<script src="/cgi-bin/get_alarm_schedule.cgi"><\/script>');
+</script>
+
+<script>
+    document.write('<script src="/cgi-bin/get_alarm_url.cgi"><\/script>');
+</script>
+
+<script>
+    function show_tr_outalarm2() {
+        var iret = 0;
+
+        //tr_outer_alarm2 show
+        iret = top.ShowOutAlarm2Set(top.product_model);
+        if (1 == iret) {
+            document.getElementById("tr_outer_alarm2").style.display = '';
+
+            document.getElementById("td_outalarm2_1").style.display = '';
+
+            document.getElementById("td_outalarm2_2").style.display = '';
+        }
+    }
+    function body_load() {
+        if (io_support == 0) {
+            document.getElementById("ckOutPut").disabled = "false";
+        }
+
+        if (sd_support == 0) {
+            document.getElementById("ckSDVideo").disabled = "false";
+        }
+        document.getElementById("tr_alarmhttp_url").style.display = 'none';
+        document.getElementById("tr_outer_alarm2").style.display = "none";
+        document.getElementById("td_outalarm2_1").style.display = "none";
+        document.getElementById("td_outalarm2_2").style.display = "none";
+        show_tr_outalarm2();
+
+        document.getElementById("selectOutAlert").value = sen_alarm_onoff;
+        document.getElementById("selectTime").value = stimeout;
+        document.getElementById("selectSdDrop").value = sdloss_onoff;
+
+        document.getElementById("ckAlarm1").checked = sen1_off ? false : true;
+        document.getElementById("selectAlarm1").value = sen1_mod;
+
+        document.getElementById("ckAlarm2").checked = sen2_off ? false : true;
+        document.getElementById("selectAlarm2").value = sen2_mod;
+
+        document.getElementById("ckOutPut").checked = alarmout_enable ? true : false;
+        document.getElementById("ckSDVideo").checked = sdrec_enable ? true : false;
+        document.getElementById("ckSendEmail").checked = mail_enable ? true : false;
+        // document.getElementById("ckFTPUpload").checked = ftp_enable ? true : false;
+        if (ftp_enable == 0) {
+            document.getElementById("ckFTPUpload").checked = false;
+            document.getElementById("ckFTP_Video_Upload").checked = false;
+        } else if (ftp_enable == 1) {
+            document.getElementById("ckFTPUpload").checked = true;
+            document.getElementById("ckFTP_Video_Upload").checked = false;
+        } else if (ftp_enable == 2) {
+            document.getElementById("ckFTPUpload").checked = false;
+            document.getElementById("ckFTP_Video_Upload").checked = true;
+        } else {
+            document.getElementById("ckFTPUpload").checked = true;
+            document.getElementById("ckFTP_Video_Upload").checked = true;
+        }
+
+        //enable schedule
+        document.getElementById("chk_enable_schedule").checked = alarm_schedule_enable ? true : false;
+        schedule_onclick();
+
+        //parse schedule
+        parse_schedule_val(alarm_schedule_sun_0, 0, 0);
+        parse_schedule_val(alarm_schedule_sun_1, 0, 1);
+        parse_schedule_val(alarm_schedule_sun_2, 0, 2);
+        parse_schedule_val(alarm_schedule_mon_0, 1, 0);
+        parse_schedule_val(alarm_schedule_mon_1, 1, 1);
+        parse_schedule_val(alarm_schedule_mon_2, 1, 2);
+        parse_schedule_val(alarm_schedule_tue_0, 2, 0);
+        parse_schedule_val(alarm_schedule_tue_1, 2, 1);
+        parse_schedule_val(alarm_schedule_tue_2, 2, 2);
+        parse_schedule_val(alarm_schedule_wed_0, 3, 0);
+        parse_schedule_val(alarm_schedule_wed_1, 3, 1);
+        parse_schedule_val(alarm_schedule_wed_2, 3, 2);
+        parse_schedule_val(alarm_schedule_thu_0, 4, 0);
+        parse_schedule_val(alarm_schedule_thu_1, 4, 1);
+        parse_schedule_val(alarm_schedule_thu_2, 4, 2);
+        parse_schedule_val(alarm_schedule_fri_0, 5, 0);
+        parse_schedule_val(alarm_schedule_fri_1, 5, 1);
+        parse_schedule_val(alarm_schedule_fri_2, 5, 2);
+        parse_schedule_val(alarm_schedule_sat_0, 6, 0);
+        parse_schedule_val(alarm_schedule_sat_1, 6, 1);
+        parse_schedule_val(alarm_schedule_sat_2, 6, 2);
+
+
+        //alarm notify http
+        document.getElementById("chk_alarmhttp_enable").checked = ret_http_enable ? true : false;
+        document.getElementById("txt_alarmhttp_url").value = ret_http_url;
+        alarmhttp_onclick();
+    }
+
+
+    function schedule_onclick() {
+        if (document.getElementById("chk_enable_schedule").checked == true) {
+            document.getElementById("tr_schedule").style.display = '';
+        }
+        else {
+            document.getElementById("tr_schedule").style.display = 'none';
+        }
+    }
+    function parse_schedule_val(val, day, num) {
+        id = 'schedule_' + day;
+        num *= 32;
+        for (i = 0; i < 32; i++) {
+            h = Math.floor(num / 4);
+            q = num % 4;
+            obj = document.getElementById(id + '_' + h + '_' + q);
+            obj.style.backgroundColor = ((val >> i) & 1) ? '#4B6EB6' : '';
+            num++;
+        }
+    }
+    function make_schedule_val(day, num) {
+        if (document.getElementById("chk_enable_schedule").checked == false) {
+            return 0;
+        }
+
+        id = 'schedule_' + day;
+        num *= 32;
+        val = 0;
+        for (i = 0; i < 32; i++) {
+            h = Math.floor(num / 4);
+            q = num % 4;
+            obj = document.getElementById(id + '_' + h + '_' + q);
+            val |= (obj.style.backgroundColor != '') ? (1 << i) : 0;
+            num++;
+        }
+        return val;
+    }
+
+    function set_OuterAlarm() {
+        set_alarm_schefunc();
+
+        set_alarm_http();
+
+        setTimeout('set_alarm_vars()', 500);
+    }
+
+    function set_alarm_vars() {
+        var selectOutAlert = document.getElementById("selectOutAlert").value;
+        var selectTime = document.getElementById("selectTime").value;
+        var selectSdDrop = document.getElementById("selectSdDrop").value;
+        var selectAlarm1 = document.getElementById("selectAlarm1").value;
+        var selectAlarm2 = document.getElementById("selectAlarm2").value;
+
+        //��������1 ����checked
+        var put_Alarm1;
+        if (document.getElementById("ckAlarm1").checked == false) {
+            put_Alarm1 = 1;
+        }
+        else {
+            put_Alarm1 = 0;
+        }
+        //��������2 ����checked
+        var put_Alarm2;
+        if (document.getElementById("ckAlarm2").checked == false) {
+            put_Alarm2 = 1;
+        }
+        else {
+            put_Alarm2 = 0;
+        }
+        //������� checked
+        var put_ckOutPut;
+        if (document.getElementById("ckOutPut").checked == true) {
+            put_ckOutPut = 1;
+        }
+        else {
+            put_ckOutPut = 0;
+        }
+        //SD��¼�� checked
+        var put_ckSDVideo;
+        if (document.getElementById("ckSDVideo").checked == true) {
+            put_ckSDVideo = 1;
+        }
+        else {
+            put_ckSDVideo = 0;
+        }
+        //����Emali checked
+        var put_ckSendEmail;
+        if (document.getElementById("ckSendEmail").checked == true) {
+            put_ckSendEmail = 1;
+        }
+        else {
+            put_ckSendEmail = 0;
+        }
+        //FTP�ϴ� checked
+        var put_ckFTPUpload;
+        if ((document.getElementById("ckFTPUpload").checked == false) && (document.getElementById("ckFTP_Video_Upload").checked == false)) {
+            put_ckFTPUpload = 0; //0:�رգ�1:�ϴ�ͼƬ��2:�ϴ���Ƶ 3:ͼƬ��Ƶ���ϴ�
+        } else if ((document.getElementById("ckFTPUpload").checked == true) && (document.getElementById("ckFTP_Video_Upload").checked == false)) {
+            put_ckFTPUpload = 1;
+        } else if ((document.getElementById("ckFTPUpload").checked == false) && (document.getElementById("ckFTP_Video_Upload").checked == true)) {
+            put_ckFTPUpload = 2;
+        } else {
+            put_ckFTPUpload = 3;
+        }
+
+        url = "/cgi-bin/set_outer_alarm.cgi?next_url=setmenu/OuterAlarm.htm&sen_alarm_onoff=" + selectOutAlert + "&sen1_off=" + put_Alarm1 + "&sen1_mod=" + selectAlarm1 + "&sen2_off=" + put_Alarm2 + "&sen2_mod=" + selectAlarm2 + "&sdloss_onoff=" + selectSdDrop + "&stimeout=" + selectTime + "&sdrec_enable=" + put_ckSDVideo + "&mail_enable=" + put_ckSendEmail + "&ftp_enable=" + put_ckFTPUpload + "&alarmout_enable=" + put_ckOutPut + "&user=" + top.user + "&pwd=" + top.pwd;
+        location = url;
+    }
+
+    function set_alarm_schefunc() {
+        //schedule----------------//
+        var tmp_sche_enable = 0;
+        if (document.getElementById("chk_enable_schedule").checked == true) {
+            tmp_sche_enable = 1;
+        }
+        url2 = "/cgi-bin/set_alarm_schedule.cgi?schedule_enable=" + tmp_sche_enable + "&user=" + top.user + "&pwd=" + top.pwd;
+        url2 += "&schedule_sun_0=" + make_schedule_val(0, 0) + "&schedule_sun_1=" + make_schedule_val(0, 1) + "&schedule_sun_2=" + make_schedule_val(0, 2);
+        url2 += "&schedule_mon_0=" + make_schedule_val(1, 0) + "&schedule_mon_1=" + make_schedule_val(1, 1) + "&schedule_mon_2=" + make_schedule_val(1, 2);
+        url2 += "&schedule_tue_0=" + make_schedule_val(2, 0) + "&schedule_tue_1=" + make_schedule_val(2, 1) + "&schedule_tue_2=" + make_schedule_val(2, 2);
+        url2 += "&schedule_wed_0=" + make_schedule_val(3, 0) + "&schedule_wed_1=" + make_schedule_val(3, 1) + "&schedule_wed_2=" + make_schedule_val(3, 2);
+        url2 += "&schedule_thu_0=" + make_schedule_val(4, 0) + "&schedule_thu_1=" + make_schedule_val(4, 1) + "&schedule_thu_2=" + make_schedule_val(4, 2);
+        url2 += "&schedule_fri_0=" + make_schedule_val(5, 0) + "&schedule_fri_1=" + make_schedule_val(5, 1) + "&schedule_fri_2=" + make_schedule_val(5, 2);
+        url2 += "&schedule_sat_0=" + make_schedule_val(6, 0) + "&schedule_sat_1=" + make_schedule_val(6, 1) + "&schedule_sat_2=" + make_schedule_val(6, 2);
+
+        //schedule_frame.location = url2;
+        //document.getElementById("schedule_frame").location = url2;
+        schedule_frame.location = url2;
+    }
+
+    function set_alarm_http() {
+        var tmp_enable = 0;
+        if (document.getElementById("chk_alarmhttp_enable").checked == true) {
+            tmp_enable = 1;
+        }
+
+        var tmp_value = encodeURIComponent(document.getElementById("txt_alarmhttp_url").value);
+
+        url3 = "/cgi-bin/set_alarm_url.cgi?enable=" + tmp_enable + "&url=" + tmp_value + "&user=" + top.user + "&pwd=" + top.pwd;
+
+        http_frame.location = url3;
+    }
+
+    function alarmhttp_onclick() {
+        if (document.getElementById("chk_alarmhttp_enable").checked == true) {
+            document.getElementById("tr_alarmhttp_url").style.display = '';
+        }
+        else {
+            document.getElementById("tr_alarmhttp_url").style.display = 'none';
+        }
+    }
+
+</script>
+</head>
+<body onload="body_load()" class="body">
+<iframe id="schedule_frame" name="schedule_frame" style="display:none"></iframe>
+<iframe id="http_frame" name="http_frame" style="display:none"></iframe>
+     <table width="100%" cellpadding="0" cellspacing="0">
+        <tr class="adtop"><td>&nbsp;</td></tr>
+        <tr>
+            <td align="center">
+                <table cellpadding="0" cellspacing="0" >
+                   <tr>
+                    <td colspan="3" class="mid03_1">
+                        <strong class="mid03">
+                            <script type="text/javascript">                                document.write(top.str_alarm_set);</script>
+                        </strong>
+                    </td>
+                   </tr>
+                  <tr  >
+                   <td class="lcorner" ></td>
+                   <td class="cbtop">
+                     <table cellpadding="0" cellspacing="0" style=" width:730px">
+                        <tr style=" width:100%">
+                            <td style="text-align: right;" align="right">
+                                <button class="resethbutton" onclick="set_OuterAlarm()">
+
+                                    <script>                                        document.write(top.str_save);</script>
+
+                                </button>
+                                <button class="resethbutton" onclick="location=location">
+
+                                    <script>                                        document.write(top.str_refresh);</script>
+
+                                </button>
+                             
+                            </td>
+                      
+                        </tr>
+                     </table>
+                   </td>
+                   <td class="rcorner"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="lborder"></td>
+                     <td style=" margin-top:0px">
+                            <table border="0" style=" width:100%; height:100%; " cellpadding="0" cellspacing="0"  class="admintr">
+	                          <tr style="height: 35px">
+                                <td class="admintd" style="height: 35px; width: 150px" ><strong class="mid04"><script>                                                                                                                  document.write(top.str_out_alerting);</script></strong></td>
+                                <td style="padding-left:35px">
+                                  <select name="selectOutAlert" size="1" id="selectOutAlert" style="width:85px">
+                                    <option value="0"><strong><script>                                                                  document.write(top.str_open);</script></strong></option>
+                                    <option value="1"><strong><script>                                                                  document.write(top.str_close);</script></strong></option>
+                                  </select>
+                                </td>
+                              </tr>   
+			
+	                          <tr style="height:35px">
+	                            <td class="admintd" style="height: 35px; width: 150px" ><strong class="mid04"><script>	                                                                                                              document.write(top.str_duration);</script></strong></td>
+                                <td style="padding-left:35px">
+                                  <input id="selectTime" type="text" style=" width:85px"onkeyup="this.value=this.value.replace(/[^0-9]/gi,'')"/> S
+                                  <!--<select name="selectTime" size="1"style="width:85px" id="selectTime">-->
+                                   <!-- <option value="0"><strong><script>                                                                  document.write(top.str_all_forever);</script></strong></option>
+                                    <option value="1">5s</option>-->
+                                   <!-- <option value="30">30s</option>
+                                    <option value="45">45s</option>
+                                    <option value="60">60s</option>-->
+                                   <!-- <option value="5">60s</option>-->
+                                 <!-- </select>-->
+                                </td>
+                              </tr>   
+			
+                              <tr style="height:35px">
+                                <td class="admintd" style="height: 35px; width: 150px"><strong class="mid04"><script>                                                                                                                 document.write(top.str_SD_drop_alerting);</script></strong></td>
+                                <td style="padding-left:35px">
+                                  <select name="selectSdDrop" id="selectSdDrop" size="1" style="width:85px">
+                                    <option value="0"><script>                                                          document.write(top.str_open);</script></option>
+                                    <option value="1"><script>                                                          document.write(top.str_close);</script></option>
+                                  </select>
+                                </td>
+                              </tr>	
+      
+	                          <tr style="height:35px">
+                                <td class="admintd" style="height: 35px; width: 150px"><strong  class="mid04"><script>                                                                                                                  document.write(top.str_alarm1);</script></strong></td>
+                                <td style="padding-left:35px">
+		                            <table style="border:none" width="226" cellspacing="0" cellpadding="0">
+		                                <tr style="border:none">
+		                                  <td style="border:none">
+                                            <table style="border:none">
+                                                <tr style="border:none">
+                                                    <td><input type="checkbox" name="ckAlarm1" id="ckAlarm1" /><strong class="mid04"><script>                                                                                                                                         document.write(top.str_start_using);</script></strong></td>
+                                                    <td align="right"><strong class="mid04"><script>                                                                                                document.write(top.str_model);</script></strong>
+                                                       <select name="selectAlarm1" id="selectAlarm1" size="1" style="width:85px">
+                                                         <option value="0"><script>                                                                               document.write(top.str_normally_open);</script></option>
+                                                         <option value="1"><script>                                                                               document.write(top.str_normally_close);</script></option>
+                                                       </select>
+                                                    </td>
+                                                </tr>
+	                                        </table>
+	                                      </td>
+		                                </tr>
+	                              </table>
+		                        </td>
+	                          </tr>
+			
+			
+	                          <tr id="tr_outer_alarm2" style="height:35px;">
+	                            <td id="td_outalarm2_1" class="admintd" style="height: 35px; width: 150px"><strong class="mid04"><script>	                                                                                                                                 document.write(top.str_alarm2);</script></strong></td>
+                                <td id="td_outalarm2_2" style="padding-left:35px;">        
+                                  <table width="226" style="border:none" cellspacing="0" cellpadding="0" >
+		                            <tr>
+			                          <td>
+	                                    <table style="border:none">
+			                                <tr style="border:none">
+				                                <td style="border:none"><input type="checkbox" name="ckAlarm2" id="ckAlarm2" /><strong class="mid04"><script>				                                                                                                                                         document.write(top.str_start_using);</script></strong></td>
+				                                <td  style="border:none" align="right"><strong class="mid04"><script>				                                                                                                 document.write(top.str_model);</script> </strong>
+				                                  <select name="selectAlarm2" id="selectAlarm2" size="1" style="width:85px">
+				                                    <option value="0"><script>				                                                          document.write(top.str_normally_open);</script></option>
+				                                    <option value="1"><script>				                                                          document.write(top.str_normally_close);</script></option>
+				                                 </select>
+				                                </td>
+			                                </tr>
+		                                </table>
+			                          </td>
+		                            </tr>
+	                              </table>
+		                        </td>
+                              </tr>
+
+
+
+
+                              <tr style="height:35px">
+                                <td class="admintd"><strong class="mid04"><script>                                                                              document.write(top.str_action_with_alarm);</script></strong></td>
+                                <td style="padding-left:35px">
+		                          <table width="226" style="border:none" cellspacing="0" cellpadding="0">
+			                        <tr style="border:none">
+			                          <td style="border:none">
+			                            <table style="border:none">
+			                                <tr style="border:none">
+			                                  <td style="border:none">
+                                                <input type="checkbox" name="ckOutPut" id="ckOutPut" value="44" /><strong class="mid04"><script>                                                                                                                                            document.write(top.str_output_alarm);</script></strong><br />
+                                                <input type="checkbox" name="ckSDVideo" id="ckSDVideo" value="55" /><strong class="mid04"><script>                                                                                                                                              document.write(top.str_sd_videotape);</script></strong><br />
+                                                <input type="checkbox" name="ckSendEmail" id="ckSendEmail" value="66" /><strong class="mid04"><script>                                                                                                                                                  document.write(top.str_sent_email);</script></strong><br />
+                                                <input type="checkbox" name="ckFTPUpload" id="ckFTPUpload" value="77" /><strong class="mid04"><script>                                                                                                                                                  document.write(top.str_ftp_uploading);</script></strong><br />
+                                                <input type="checkbox" name="ckFTP_Video_Upload" id="ckFTP_Video_Upload" value="88" /><strong class="mid04"><script>                                                                                                                                                                document.write(top.str_ftp_video_uploading);</script></strong>
+                                              </td>
+                                            </tr>
+                                        </table>
+			                          </td>
+			                        </tr>
+		                          </table>
+	                            </td>
+                              </tr>
+      
+                              <tr style="height:35px; display:none">
+                                <td class="admintd"><strong class="mid04"><script>                                                                              document.write(top.str_alhttp_enable);</script></strong></td>
+                                <td style="padding-left:35px"><input type="checkbox" id="chk_alarmhttp_enable" name="chk_alarmhttp_enable" onclick="alarmhttp_onclick()" /></td>
+                              </tr>
+      
+                              <tr style="height:35px" id="tr_alarmhttp_url">
+                                <td class="admintd" ><strong class="mid04"><script>                                                                               document.write(top.str_alhttp_url);</script></strong></td>
+                                <td style="padding-left:35px"><input type="text" id="txt_alarmhttp_url" name="txt_alarmhttp_url" style="width:225px" /></td>
+                              </tr>	
+		        
+                              <tr style="height:35px">
+                                <td class="admintd"><strong class="mid04"><script>                                                                              document.write(top.str_schedule);</script></strong></td>
+                                <td style="padding-left:35px"><input type="checkbox" id="chk_enable_schedule" name="chk_enable_schedule" onclick="schedule_onclick()" /></td>
+                              </tr>
+		    
+                              <tr id="tr_schedule">
+                                <td class="mid05 bc4" colspan="2">
+                                  <table class="alh2 alv2 ff14" width="680" style="border-collapse:collapse;border-spacing:0;" border="1">
+                                  <tr><script>                                          document.write('<td>' + top.str_day + '<\/td>'); for (i = 0; i < 24; i++) document.write('<td width=22 colspan=4>' + i + '<\/td>');</script></tr>
+                                      <script>
+                                          var str_day = new Array();
+                                          str_day[0] = top.str_sun;
+                                          str_day[1] = top.str_mon;
+                                          str_day[2] = top.str_tue;
+                                          str_day[3] = top.str_wed;
+                                          str_day[4] = top.str_thu;
+                                          str_day[5] = top.str_fri;
+                                          str_day[6] = top.str_sat;
+                                          function set_schedule(id, dbl) {
+                                              var id_head = id.substring(0, id.lastIndexOf('_'));
+                                              var obj = document.getElementById(id);
+                                              if (obj.style.backgroundColor == '') {
+                                                  if (dbl) {
+                                                      for (i = 0; i < 4; i++) {
+                                                          var obj = document.getElementById(id_head + '_' + i);
+                                                          obj.style.backgroundColor = top.browser ? '#4B6EB6' : '';
+                                                      }
+                                                  }
+                                                  else
+                                                      obj.style.backgroundColor = '#4B6EB6';
+                                              }
+                                              else {
+                                                  if (dbl) {
+                                                      for (i = 0; i < 4; i++) {
+                                                          var obj = document.getElementById(id_head + '_' + i);
+                                                          obj.style.backgroundColor = top.browser ? '' : '#4B6EB6';
+                                                      }
+                                                  }
+                                                  else
+                                                      obj.style.backgroundColor = '';
+                                              }
+                                          }
+                                          for (i = 0; i < 7; i++) {
+                                              document.write('<tr><td class=\"ff12\">' + str_day[i] + '<\/td>');
+                                              for (j = 0; j < 24; j++) for (m = 0; m < 4; m++) document.write('<td onclick=\"set_schedule(id,0)\" ondblclick=\"set_schedule(id,1)\" id=\"schedule_' + i + '_' + j + '_' + m + '\"> <\/td>');
+                                              document.write('<\/tr>');
+                                          } 
+                                      </script>
+                              </table></td></tr>
+		    
+                            </table>
+                        
+                        </td>
+                   <td  class="rborder"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="ldcorner"></td>
+                   <td class="cdow"></td>
+                   <td class="rdcorner"></td>
+                  </tr>
+           
+                </table>
+            </td>
+        </tr>
+     </table>
+</body>
+</html>

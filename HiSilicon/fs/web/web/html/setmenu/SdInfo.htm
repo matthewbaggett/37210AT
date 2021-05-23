@@ -1,0 +1,461 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title></title>
+
+    <script language="javascript" src="../js/clearcache.js"></script>
+
+    <link href="../css/new.css" rel="stylesheet" type="text/css" />
+    <link href="../css/ceshi.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        body
+        {
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+        }
+    </style>
+
+    <script language="javascript" src="../js/select.js"></script>
+
+    <script>
+        document.write('<script src="/cgi-bin/check_user.cgi?user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+    </script>
+
+    <script>
+        document.write('<script src="/cgi-bin/get_sdc_status.cgi"><\/script>');
+    </script>
+
+    <script>
+        document.write('<script src="/cgi-bin/get_params.cgi?type=14&user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+    </script>
+
+</head>
+
+<script>
+    function init_manltime_slt() {
+        var i = 0;
+        var sel_text = '';
+        var sel_value = 0;
+
+        //先清空
+        select_removeall("select_PackTime");
+
+        //再填充
+        for (i = 10; i <= 60; i++) {
+            sel_text = '' + i;
+            sel_value = i;
+
+            //add
+            select_add("select_PackTime", sel_text, sel_value);
+        }
+    }
+
+    function body_onload() {
+
+        init_manltime_slt();
+
+        //SD卡名称
+        document.getElementById("txt_DeviceName").value = ret_sdc_status_name;
+        //SD卡总大小
+        document.getElementById("txt_AllSize").value = ret_sdc_status_allspace;
+        //SD卡剩余空间
+        document.getElementById("txt_SpaceAvailable").value = ret_sdc_status_freespace;
+        //SD卡状态                  
+        if (ret_sdc_status_normal == 0) {
+            document.getElementById("txt_State").value = top.str_sdc_pullout;
+            document.getElementById("btnsd").disabled = "disabled";
+        }
+        else {
+            document.getElementById("txt_State").value = top.str_sdc_normaol;
+
+        }
+        //        if (sdrec_bAudio == 0) {
+        //            document.getElementById("tr_enable_Mute").style.display = 'none';
+        //        }
+        //静音录制视频
+                if (sdrec_bAudio == 0) {
+                    document.getElementById("chk_enable_Mute").checked = true;
+                } else {
+                    document.getElementById("chk_enable_Mute").checked = false;
+                }
+
+        //开启自动覆盖
+        document.getElementById("ck_OpenAutomaticCover").checked = cover_enable ? true : false;
+
+        //开启预录像
+        //document.getElementById("ck_OpenPreVideo").checked = prerec_enable ? true : false;
+
+        //录像时间
+        // document.getElementById("select_PreVideoTime").value = prerec_time;
+
+        //录像码流
+        document.getElementById("select_rec_stream").value = rec_bs;
+
+        //报警抓拍到SD卡
+        document.getElementById("ck_sdsnap_enable").checked = sdsnap_enable ? true : false;
+
+        //手动录像
+        document.getElementById("select_rec_manual").value = sdnrec_enable;
+
+        //手动录像打包时间
+        document.getElementById("select_PackTime").value = sdnrec_time;
+
+        //SD卡录像时间
+        document.getElementById("alarm_time").value = sdalarmrec_time;
+
+        var location_href = window.location.href;
+        if (location_href.indexOf("format_sdc.cgi") > 0) {
+            alert(top.str_formatting + top.str_succeed);
+        }
+    }
+
+    //格式化的按钮事件
+    function set_format() {
+
+        url = "/cgi-bin/format_sdc.cgi?next_url=setmenu/SdInfo.htm&user=" + top.user + "&pwd=" + top.pwd;
+        if (ret_sdc_status_format = 1) {
+            document.getElementById("btnsd").disabled = "disabled";
+        } else {
+            alert(top.str_formatting + top.str_succeed);
+        }
+        location = url;
+    }
+
+    //保存按钮事件
+    function set_sdc() {
+        //开启自动覆盖
+        var tmp_Cover = 1;
+        if (document.getElementById("ck_OpenAutomaticCover").checked == false) {
+            tmp_Cover = 0;
+        }
+
+        //开启预录像
+        var tmp_prerec = 1;
+        //        if (document.getElementById("ck_OpenPreVideo").checked == false) {
+        //            tmp_prerec = 0;
+        //        }
+
+        //录像时间
+        var tmp_prerec_time = 1;
+        // var tmp_prerec_time = document.getElementById("select_PreVideoTime").value;
+
+        //录像码流
+        var tmp_rec_stream = document.getElementById("select_rec_stream").value;
+
+        //报警抓拍到SD卡
+        var tmp_sdsnap = 1;
+                if (document.getElementById("ck_sdsnap_enable").checked == false) {
+                    tmp_sdsnap = 0;
+                }
+
+        //手动录像
+        var tmp_manl_rec = document.getElementById("select_rec_manual").value;
+        //var tmp_manl_rec = 0;
+
+        //手动录像打包时间
+        var tmp_PackTime = document.getElementById("select_PackTime").value;
+
+        //录制视频是否录入音频
+        var tmp_enable_sdaudio = 1;
+                if (document.getElementById("tr_enable_Mute").style.display == '') {
+                if (document.getElementById("chk_enable_Mute").checked == true) {
+                    tmp_enable_sdaudio = 0;
+                } else {
+                    tmp_enable_sdaudio = 1;
+                }
+        }
+
+        var tmp_sdalarmrec_time = document.getElementById("alarm_time").value;
+        if (tmp_sdalarmrec_time < 7 || tmp_sdalarmrec_time > 25) {
+            alert("7~25");
+            return false;
+        }
+        url = "/cgi-bin/set_sdc_rec.cgi?next_url=setmenu/SdInfo.htm&enable_cover=" + tmp_Cover + "&enable_prerec=" + tmp_prerec + "&rec_time=" + tmp_prerec_time;
+        url += "&rec_bs=" + tmp_rec_stream + "&enable_sdsnap=" + tmp_sdsnap + "&enable_sdaudio=" + tmp_enable_sdaudio + "&sdalarmrec_time=" + tmp_sdalarmrec_time;
+        url += "&enable_sdnrec=" + tmp_manl_rec + "&sdnrec_time=" + tmp_PackTime + "&user=" + top.user + "&pwd=" + top.pwd;
+
+        location = url;
+    }
+    function reload() {
+        location.href = "/setmenu/SdInfo.htm";
+    }
+
+    function alarm_time_value() {
+        var tmp_sdalarmrec_time = document.getElementById("alarm_time").value;
+        if (tmp_sdalarmrec_time < 7 || tmp_sdalarmrec_time > 25) {
+            alert("7~25");
+        }
+
+    }
+
+</script>
+
+<body onload="body_onload()" class="body">
+     <table width="100%" cellpadding="0" cellspacing="0">
+        <tr class="adtop"><td>&nbsp;</td></tr>
+        <tr>
+            <td align="center">
+                <table cellpadding="0" cellspacing="0" >
+                   <tr>
+                    <td colspan="3" class="mid03_1">
+                        <strong class="mid03">
+                            <script type="text/javascript">                                document.write(top.str_sdcard_info);</script>
+                        </strong>
+                    </td>
+                   </tr>
+                  <tr  >
+                   <td class="lcorner" ></td>
+                   <td class="cbtop">
+                     <table cellpadding="0" cellspacing="0" style=" width:730px">
+                        <tr style=" width:100%">
+                            <td style="text-align: right;" align="right">
+                                <button class="resethbutton" onclick="set_sdc()">
+
+                                    <script>                                        document.write(top.str_save);</script>
+
+                                </button>
+                                <button id="btnreld" class="resethbutton" onclick="reload()">
+
+                                    <script>                                        document.write(top.str_refresh);</script>
+
+                                </button>
+                             
+                            </td>
+                      
+                        </tr>
+                     </table>
+                   </td>
+                   <td class="rcorner"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="lborder"></td>
+                   <td style=" margin-top:0px">
+                                    <table style="margin-top: 0px; width: 730px; height: 20%; border: 1px solid #828282;"class="admintr">
+               
+                            <tr style="height: 35px">
+                                <td class="admintd">
+                                    <strong class="mid04">
+
+                                        <script>                                            document.write(top.str_device_name);</script>
+
+                                    </strong>
+                                </td>
+                                <td width="223">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="txt_DeviceName" id="txt_DeviceName"
+                                        style="width: 100px" disabled />
+                                </td>
+                            </tr>
+                            <tr style="height: 35px">
+                                <td class="admintd">
+                                    <strong class="mid04">
+
+                                        <script>                                            document.write(top.str_all_size);</script>
+
+                                    </strong>
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="txt_AllSize" id="txt_AllSize" style="width: 100px"
+                                        disabled />&nbsp;<strong class="mid04">KB</strong>
+                                </td>
+                            </tr>
+                            <tr style="height: 35px">
+                                <td  class="admintd">
+                                    <strong class="mid04">
+
+                                        <script>                                            document.write(top.str_space_available);</script>
+
+                                    </strong>
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="txt_SpaceAvailable" id="txt_SpaceAvailable"
+                                        style="width: 100px" disabled />&nbsp;<strong class="mid04">KB</strong>
+                                </td>
+                            </tr>
+                            <tr style="height: 35px">
+                                <td class="admintd">
+                                    <strong class="mid04">
+
+                                        <script>                                            document.write(top.str_state);</script>
+
+                                    </strong>
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="txt_State" id="txt_State" style="width: 100px"
+                                        disabled />
+                                </td>
+                            </tr>
+                            <tr style="height: 35px">
+                                <td colspan="2" align="center">
+                                    <button id="btnsd" style="width: 85px" onclick="set_format()" class="mid042">
+
+                                        <script>                                            document.write(top.str_formatting);</script>
+
+                                    </button>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                   <!-- <button style="width: 85px" onclick="location.reload()" class="mid042">
+
+                                        <script>document.write(top.str_refresh);</script>
+
+                                    </button>-->
+                                </td>
+                            </tr>
+                            <tr style=" height:35px;" id="tr_enable_Mute">
+                                <td class="admintd"  height="35px">
+                                    <strong class="mid04">
+
+                                        <script>                                            document.write(top.str_Mute);</script>
+
+                                    </strong>
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="chk_enable_Mute" />
+                                </td>
+                            </tr>
+                            <!--<table border="1" style="width:100%" style=" border-bottom-color:Blue" cellspacing="0" cellpadding="0"><tr ><td class="t_lines"></td></tr></table>-->
+                            <tr style="height: 35px">
+                                <td  class="admintd">
+                                    <strong class="mid04">
+
+                                        <script>                                            document.write(top.str_open_automatic_cover);</script>
+
+                                    </strong>
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="ck_OpenAutomaticCover" name="ck_OpenAutomaticCover" />
+                                </td>
+                            </tr>
+                            <!--<tr style="height: 35px">
+                                <td  class="admintd">
+                                    <strong class="mid04">
+
+                                        <script>                                            document.write(top.str_open_pre_video);</script>
+
+                                    </strong>
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="ck_OpenPreVideo" name="ck_OpenPreVideo" />
+                                </td>
+                            </tr>-->
+                            <tr style="height: 35px">
+                                <td class="admintd">
+                                    <strong class="mid04">
+
+                                        <script>                                            document.write(top.str_sdsnap_pre_sd);</script>
+
+                                    </strong>
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="ck_sdsnap_enable" name="ck_sdsnap_enable" />
+                                </td>
+                            </tr>
+                            <!--<tr style="height: 35px">
+                                <td class="admintd">
+                                    <strong class="mid04">
+
+                                        <script>                                            document.write(top.str_pre_video_time);</script>
+
+                                    </strong>
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<select id="select_PreVideoTime" style="width: 100px"><option
+                                        value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                    </select>&nbsp;<strong class="mid04"><script>                                                                             document.write(top.str_second);</script></strong>
+                                </td>
+                            </tr>-->
+                            <!---->
+                            <tr style="height: 30px">
+                                <td width="25%" align="right" class="admintd">
+                                    <strong class="mid04">
+
+                                        <script>                                            document.write(top.str_rec_stream);</script>
+
+                                    </strong>
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<select name="select_rec_stream" style="width: 100px" id="select_rec_stream">
+                                        <option value="0">
+
+                                            <script>                                                document.write(top.str_lord_streaming);</script>
+
+                                        </option>
+                                        <option value="1">
+
+                                            <script>                                                document.write(top.str_son_streaming);</script>
+
+                                        </option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style="height: 35px; ">
+                                <td  align="right" class="admintd">
+                                    <strong class="mid04">
+
+                                        <script>                                            document.write(top.str_rec_manual);</script>
+
+                                    </strong>
+                                </td>
+                                <td >
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<select name="select_rec_manual" style="width: 100px" id="select_rec_manual">
+                                        <option value="0">
+
+                                            <script>                                                document.write(top.str_closes);</script>
+
+                                        </option>
+                                        <option value="1">
+
+                                            <script>                                                document.write(top.str_opens);</script>
+
+                                        </option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr style=" height:35px">
+                                <td class="style1" style="background:#C2E5F9;">
+                                    <strong class="mid04">
+
+                                        <script>                                            document.write(top.str_alarm_video_time);</script>
+
+                                    </strong>
+                                </td>
+                                <td class="style2">
+                                     &nbsp;&nbsp;&nbsp;&nbsp;<input id="alarm_time" type="text" style="width: 100px;" placeholder="7~25" onblur="alarm_time_value(this)" onkeyup="this.value=this.value.replace(/[^0-9]/gi,'')"/>&nbsp;<script>                                                                                                                                                                                                                                           document.write(top.str_second);</script>
+                                </td>
+                            </tr>
+                            <tr style="height: 35px; ">
+                                <td align="right" class="admintd" >
+                                    <strong class="mid04">
+
+                                        <script>                                            document.write(top.str_hard_video_pack_time);</script>
+
+                                    </strong>
+                                </td>
+                                <td >
+                                    &nbsp;&nbsp;&nbsp;&nbsp;<select id="select_PackTime" style="width: 100px">
+                                    </select>&nbsp;<strong class="mid04"><script>                                                                             document.write(top.str_minute);</script></strong>
+                                </td>
+                            </tr>
+                        </table>
+                   
+                   </td>
+                   <td  class="rborder"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="ldcorner"></td>
+                   <td class="cdow"></td>
+                   <td class="rdcorner"></td>
+                  </tr>
+           
+                </table>
+            </td>
+        </tr>
+     </table>
+</body>
+</html>

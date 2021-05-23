@@ -1,0 +1,246 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title></title>
+
+    <script language="javascript" src="../js/clearcache.js"></script>
+
+    <link href="../css/new.css" rel="stylesheet" type="text/css" />
+    <link href="../css/ceshi.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        body
+        {
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+        }
+        .table
+        {
+            margin-top: 10px;
+            width: 98%;
+            height: 85%;
+            border-bottom: 1px solid #EEE5DE;
+            border-left: 1px solid #EEE5DE;
+            border-right: 1px solid #EEE5DE;
+            border-top: 1px solid #EEE5DE;
+        }
+        .style1
+        {
+            width: 181px;
+        }
+       </style>
+
+    <script> 
+document.write('<script src="/cgi-bin/check_user.cgi?user='+top.user+'&pwd='+top.pwd+'"><\/script>');
+    </script>
+
+    <script>
+var add_count=0;
+
+function body_onload()
+{
+    document.fm_upgrade_sys.user.value=top.user;
+    document.fm_upgrade_sys.pwd.value=top.pwd;
+    
+    document.fm_upgrade_webui.user.value=top.user;
+    document.fm_upgrade_webui.pwd.value=top.pwd;
+}
+
+function restart()
+{
+    if ( confirm(top.str_sure_reboot) )
+    {
+        url="/cgi-bin/reboot.cgi?next_url=rebootf.htm&user="+top.user+"&pwd="+top.pwd;
+        location=url;
+    }
+}
+
+function restore_factory()
+{
+    if (confirm(top.str_sure_restore_fac)) {
+        url = "/cgi-bin/restore_factory.cgi?next_url=rebootme.htm&user=" + top.user + "&pwd=" + top.pwd;
+        location = url;
+    } else {
+        location = "backup.htm";
+    }
+}
+
+function Init_Upgrade()
+{
+    add_count=0;
+    
+    document.getElementById('td_upgrade_info').style.display='';
+    document.getElementById('tr_upgrade_info').style.display='none';
+    
+    document.getElementById('td_upgrade_info').innerHTML=top.str_sending_upgrade;
+    
+    setTimeout('Handle_Upgrade()',1000);
+}
+
+function Handle_Upgrade()
+{
+    var str_info_all='';   
+    str_info_all = top.str_sending_upgrade;
+    
+    add_count = add_count + 1;
+    if(1==add_count)
+    {
+        str_info_all += '.';
+    }
+    else if(2==add_count)
+    {
+        str_info_all += '..';
+    }
+    else if(3==add_count)
+    {
+        str_info_all += '...';
+        
+        add_count=0;
+    }
+    
+    document.getElementById('td_upgrade_info').innerHTML=str_info_all;
+    
+    setTimeout('Handle_Upgrade()',1000);
+}
+
+    </script>
+
+</head>
+<body onload="body_onload()" class="body">
+     <table width="100%" cellpadding="0" cellspacing="0">
+        <tr class="adtop"><td>&nbsp;</td></tr>
+        <tr>
+            <td align="center">
+                <table cellpadding="0" cellspacing="0" >
+                   <tr>
+                    <td colspan="3" class="mid03_1">
+                        <strong class="mid03">
+                            <script type="text/javascript">document.write(top.str_systool_set);</script>
+                        </strong>
+                    </td>
+                   </tr>
+                  <tr  >
+                   <td class="lcorner" ></td>
+                   <td class="cbtop">
+                     <table cellpadding="0" cellspacing="0" style=" width:730px">
+                        <tr style=" width:100%">
+                            <td style="text-align: right;" align="right">
+                                
+                             
+                            </td>
+                      
+                        </tr>
+                     </table>
+                   </td>
+                   <td class="rcorner"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="lborder"></td>
+                   <td style=" margin-top:0px">
+                          <table style="margin-top: 0px; width: 730px;" class="admintr">
+                            
+                            <tr >
+                                <td align="center"  valign="top"><table style="width:68%; height:30%;" algin="center" border="0">
+                                  <tr>
+                                    <td width="40%" align="center" colspan="2" style="height: 40px; border:0px">
+                                        <button style="width: 195px" onclick="restart()" class="mid042">
+
+                                            <script>document.write(top.str_restart_device);</script>
+
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="38" align="center" colspan="2" style="height: 40px;border:0px">
+                                        <button style="width: 195px" onclick="restore_factory()" class="mid042">
+
+                                            <script>document.write(top.str_factory_default);</script>
+
+                                        </button>
+                                    </td>
+                                </tr>
+          
+                                </table><br /><br />
+        
+                                <!--<table border="1" style="width:100%" style=" border-bottom-color:Black;" cellspacing="0" cellpadding="0"><tr ><td class="t_lines"></td></tr></table>-->
+                                <table border="0" style="width:100%" cellspacing="0" cellpadding="0">
+                                  <tr><td style="width:100%" class="t_lines2">&nbsp;</td></tr>
+                                </table>
+        
+                                <table  style="width:100%; border:0px">
+                                <tr style=" border:0px"><td id="td_upgrade_info" style="display:none; border:0px" class="mid04"></td></tr>
+                              <tr id="tr_upgrade_info" style=" background:0px" >
+                                <td align="center"  valign="top"  style=" background:0px">
+                                <table style="width:95%; height:30%; border:0px" >
+        
+                                  <tr style=" border:0px">
+                                   <td style="width: 180; height: 40px; border-right: 0px hidden; border:0px" align="right">
+                                        <strong class="mid04">
+
+                                            <script>                                document.write(top.str_firmware_upgrade_system);</script>
+
+                                        </strong>
+                                    </td>
+         
+                                    <form name="fm_upgrade_sys" action="/cgi-bin/upgrade_firmware.cgi" method="post" enctype="multipart/form-data">
+                                      <td style="padding-left: 17px; border:0px">
+                                            <input type="file" name="file" size="35">
+                                            <button style="width: 65px" onclick="top.reboot_seconds=60;Init_Upgrade();form.submit();"
+                                                class="mid042">
+                                                <script>document.write(top.str_start);</script>
+
+                                            </button>
+                                            <input type="hidden" name="user" value="" />
+                                            <input type="hidden" name="pwd" value="" />
+                                            <input type="hidden" name="next_url" value="rebootme.htm" />
+                                        </td>
+                                    </form>
+                                  </tr>
+          
+                                  <tr>
+                                    <td style="width: 180; height: 40px; border-right: 0px hidden; border:0px" align="right">
+                                        <span><strong class="mid04">
+
+                                            <script>document.write(top.str_firmware_update_applications);</script>
+
+                                        </strong></span>
+                                    </td>
+                                    <form name="fm_upgrade_webui" action="/cgi-bin/upgrade_webui.cgi" method="post" enctype="multipart/form-data">
+                                    <td style="padding-left: 17px; border:0px">
+                                        <input type="file" name="file" size="35">
+                                        <button style="width: 65px" onclick="top.reboot_seconds=60;Init_Upgrade();form.submit();"
+                                            class="mid042">
+
+                                            <script>document.write(top.str_start);</script>
+
+                                        </button>
+                                        <input type="hidden" name="user" value="" />
+                                        <input type="hidden" name="pwd" value="" />
+                                        <input type="hidden" name="next_url" value="rebootme.htm" />
+                                    </td>
+                                    </form>
+                                </tr>
+          
+                                </table></td>
+                              </tr>
+                            </table></td>
+                          </tr>
+                        </table>
+                   
+                   </td>
+                   <td  class="rborder"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="ldcorner"></td>
+                   <td class="cdow"></td>
+                   <td class="rdcorner"></td>
+                  </tr>
+           
+                </table>
+            </td>
+        </tr>
+     </table>
+</body>
+</html>

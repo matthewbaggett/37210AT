@@ -1,0 +1,188 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <script language="javascript" src="../js/clearcache.js"></script>
+
+    <link href="../css/new.css" rel="stylesheet" type="text/css" />
+    <link href="../css/ceshi.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        body
+        {
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+        }
+        .style1
+        {
+            width: 40%;
+            height: 5px;
+        }
+        .style2
+        {
+            height: 35px;
+        }
+        .tdTitleBgcolor
+        {
+            vertical-align: middle;
+            text-align: left;
+            border: 1px solid #CCC;
+            font-family: Arial;
+            font-size: 15px;
+            text-decoration: normal;
+            font-weight: lighter;
+        }
+    </style>
+    <title></title>
+
+    <script type="text/javascript"> 
+document.write('<script src="/cgi-bin/check_user.cgi?user='+top.user+'&pwd='+top.pwd+'"><\/script>');
+document.write('<script src="/cgi-bin/get_params.cgi?type=4&user='+top.user+'&pwd='+top.pwd+'"><\/script>');
+    </script>
+
+    <script type="text/javascript" src="/cgi-bin/get_cloud_params.cgi"></script>
+
+</head>
+
+<script type="text/javascript">
+
+    function body_onload() {
+
+    	if( ret_cloud_type == '0' )
+    	{
+			document.getElementById("SelectNone").checked = true;
+    	}
+    	else if( ret_cloud_type == '1')
+    	{
+			document.getElementById("SelectDropBox").checked = true;
+			show_DropBox();
+    	}
+    }
+
+    function set_devinfo() {
+        save_cloud_info();
+    }
+
+    function save_cloud_info() {
+
+		var tmp_cloud_type = 0;
+
+		if( document.getElementById("SelectNone").checked == true)
+		{
+			tmp_cloud_type = 0;
+			url = "/cgi-bin/set_cloud_params.cgi?cloudType=" + tmp_cloud_type + "&user=" + top.user + "&pwd=" + top.pwd;
+		}
+		else if( document.getElementById("SelectDropBox").checked == true)
+		{
+			tmp_cloud_type = 1;
+			var tmp_dropbox_access_token = document.getElementById("txt_dropbox_access_token").value;
+			url = "/cgi-bin/set_cloud_params.cgi?cloudType=" + tmp_cloud_type + "&dropbox_accessToken=" + tmp_dropbox_access_token + "&user=" + top.user + "&pwd=" + top.pwd;
+		}
+		else if( document.getElementById("SelectAmazon").checked == true)
+		{
+			tmp_cloud_type = 2;
+		}
+		
+        action_zone.location = url;
+    }
+
+	function show_None(){
+		document.getElementById("DropBoxOption").style.display = 'none';
+	}
+
+	function show_DropBox(){
+		document.getElementById("DropBoxOption").style.display = '';
+		document.getElementById("txt_dropbox_access_token").value = ret_dropbox_accessToken;
+	}
+
+	function  show_Amazon(){
+
+	}
+    
+</script>
+
+<body onload="body_onload()" class="body">
+<iframe id="action_zone" name="action_zone" style="display:none"></iframe>
+    <table width="100%" cellpadding="0" cellspacing="0">
+        <tr class="adtop"><td>&nbsp;</td></tr>
+        <tr>
+            <td align="center">
+                <table cellpadding="0" cellspacing="0" >
+                   <tr>
+                    <td colspan="3" class="mid03_1">
+                        <strong class="mid03">
+                            <script type="text/javascript">document.write(top.str_cloud_set);</script>
+                        </strong>
+                    </td>
+                   </tr>
+                  <tr  >
+                   <td class="lcorner" ></td>
+                   <td class="cbtop">
+                     <table cellpadding="0" cellspacing="0" style=" width:730px">
+                        <tr style=" width:100%">
+                            <td style="text-align: right;" align="right">
+                                <button class="resethbutton" onclick="set_devinfo()">
+
+                                    <script>document.write(top.str_save);</script>
+
+                                </button>
+                                <button class="resethbutton" onclick="location.reload()">
+
+                                    <script>document.write(top.str_refresh);</script>
+
+                                </button>
+                             
+                            </td>
+                      
+                        </tr>
+                     </table>
+                   </td>
+                   <td class="rcorner"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="lborder"></td>
+                   <td style=" margin-top:0px">
+                                    <table style="margin-top: 0px; width: 730px; height: 20%;" class="admintr">
+                
+                         	<form>
+                         	None
+							<input type="radio" name="Cloud" value="false" id="SelectNone" checked="checked" onclick="show_None()"/>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							DropBox
+							<input type="radio" name="Cloud" value="false" id="SelectDropBox" onclick="show_DropBox()"/>
+							<!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							Amazon
+							<input type="radio" name="Cloud" value="false" id="SelectAmazon" onclick="show_Amazon()"/>-->
+							</form>
+							
+                            <tr style=" display:none" id="DropBoxOption">
+                                <td class="admintd">
+                                    <strong class="mid04">
+
+                                        <script type="text/javascript">document.write("accessToken");</script>
+
+                                    </strong>
+                                </td>
+                                <td style="padding-left: 20px">
+                                    <input name="txt_dropbox_access_token" type="password" id="txt_dropbox_access_token" maxlength="64" style="width: 160px" />
+                                </td>
+                            </tr>
+                        </table>
+                   
+                   </td>
+                   <td  class="rborder"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="ldcorner"></td>
+                   <td class="cdow"></td>
+                   <td class="rdcorner"></td>
+                  </tr>
+           
+                </table>
+            </td>
+        </tr>
+     </table>
+</body>
+</html>

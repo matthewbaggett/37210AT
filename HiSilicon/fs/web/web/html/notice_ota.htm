@@ -1,0 +1,75 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title></title>
+<style type="text/css">
+body{
+margin-left: 0px;
+margin-top: 0px;
+background-color:#FFFFFF;
+}
+</style>
+<!--<script>
+    document.write('<script src="/cgi-bin/get_link_stat.cgi?user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+</script>-->
+<script>
+    document.write('<script src="/cgi-bin/get_params.cgi?type=4&user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+</script>
+</head>
+<script>
+    var add_count = 0;
+    function body_onload() {
+
+        left_seconds.innerHTML = top.str_upgreattime + "&nbsp;" + top.str_sending_upgrade;
+        setTimeout(Handle_Upgrade, 1000);
+        setTimeout("chk_cgi()", 300000);
+    }
+
+    function Handle_Upgrade() {
+
+        var str_info_all = '';
+        str_info_all = top.str_upgreattime + "&nbsp;" + top.str_sending_upgrade;
+
+        add_count = add_count + 1;
+
+        if (1 == add_count) {
+            str_info_all += '.';
+        }
+        else if (2 == add_count) {
+            str_info_all += '..';
+        }
+        else if (3 == add_count) {
+            str_info_all += '...';
+        }
+        else if (4 == add_count) {
+            str_info_all += '....';
+        } else if (5 == add_count) {
+            str_info_all += '.....';
+        } else if (6 == add_count) {
+            str_info_all += '......';
+            add_count = 0;
+        }
+        document.getElementById('left_seconds').innerHTML = str_info_all;
+        setTimeout('Handle_Upgrade()', 1000);
+    }
+
+    function chk_cgi() {
+
+        window.location.href = "../rebootme.htm";
+
+    }
+</script>	
+<body onLoad="body_onload()">
+  <table border="0" cellpadding="0" cellspacing="0" width="640" height="480">
+    <tr valign="top">
+      <td style="padding-left:10px;padding-right:10px;padding-top:20px;padding-bottom:20px">
+        <table border="0" cellpadding="0" cellspacing="0" style="font-size:14px">
+          <tr>
+            <td id="left_seconds"> </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

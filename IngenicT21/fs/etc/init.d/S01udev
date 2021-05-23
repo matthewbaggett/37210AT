@@ -1,0 +1,16 @@
+#!/bin/sh
+
+mkdir /dev/pts
+mount -t devpts devpts /dev/pts
+mount -t tmpfs none /tmp
+
+
+mount -t tmpfs none /var
+mkdir /var/lib/misc -p 
+touch /var/lib/misc/udhcpd.leases
+mkdir /var/run 
+
+mkdir -p /dev/.udev
+udevd --daemon
+udevadm trigger
+

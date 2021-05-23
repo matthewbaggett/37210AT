@@ -1,0 +1,77 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style>a{color:000000;TEXT-DECORATION:none}a:hover{color:FF0000;TEXT-DECORATION:underline}</style>
+<title></title>
+</head>
+
+<script>
+var now = new Date();
+var strnow = now.getFullYear() + '-' + (1 + now.getMonth()) + '-' + now.getDate() + ' ' + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
+
+
+function save()
+{
+   //SaveAs5( document.getElementById('image2save').src );
+   //SaveAs5( document.getElementById('img_Display').src );
+}
+function SaveAs5(imgURL) 
+{ 
+  var oPop = window.open(imgURL,"","width=100,height=100,top=500,left=500");   
+  
+  for(; oPop.document.readyState != "complete";   )   
+  { 
+    if(oPop.document.readyState=="complete") break; 
+  } 
+  
+  oPop.document.execCommand("SaveAs"); 
+  
+  oPop.close();   
+} 
+
+
+function load_video()
+{
+	setTimeout("reload_image()",15);
+}
+function reload_image()
+{
+    var xx = new Image();
+	xx.src = "/cgi-bin/video_snapshot.cgi?user="+opener.top.user+"&pwd="+opener.top.pwd;	
+	document.getElementById("img_Display").src = xx.src;
+	//window.status=" ";
+}
+</script>
+
+<body bgcolor="#d8d8d8" onload="load_video()">
+<table border="0" cellpadding="0" cellspacing="0" width="100%" height="100%" align="center" valign="middle">
+	<tr>
+	    <td height="30" style="font-size:13px; color:#004080">
+	        <div align="center">
+	            <strong>
+	                <!--
+	                <script language="javascript">document.write(strnow);</script> &nbsp;&nbsp;
+	                <a href="javascript:save();" style="font-size:13px; color:blue"><script language="javascript">document.write(opener.top.str_save);</script></a>
+	                -->
+	                <script language="javascript">document.write(opener.top.str_rightclick_sjpg);</script>
+	            </strong>
+	        </div>
+	    </td>
+	</tr>
+	
+	<tr>
+	    <td width="100%" height="100%" align="center" valign="middle"> 
+            <img ondragstart="return false;" alt="" id="img_Display" name="img_Display" />
+        </td>
+        
+        <!--
+	    <td width="100%" height="100%" align="center" valign="middle">
+		    <script language="javascript">
+		        document.write('<iframe marginheight="0" marginwidth="0" width="100%" height="100%" border="0" frameborder="0" scrolling="auto" id="image2save" src="/cgi-bin/video_snapshot.cgi?user='+ opener.top.user + '&pwd=' + opener.top.pwd + '"><\/iframe>');
+		    </script>		
+	    </td>
+	    -->
+	</tr>
+</table>
+</body>
+</html>

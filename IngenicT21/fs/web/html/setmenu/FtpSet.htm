@@ -1,0 +1,335 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title></title>
+
+    <script language="javascript" src="../js/clearcache.js"></script>
+
+    <link href="../css/new.css" rel="stylesheet" type="text/css" />
+    <link href="../css/ceshi.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+      
+         body
+        {
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+        }
+        </style>
+
+    <script> 
+document.write('<script src="/cgi-bin/check_user.cgi?user='+top.user+'&pwd='+top.pwd+'"><\/script>');
+document.write('<script src="/cgi-bin/get_params.cgi?type=5&user='+top.user+'&pwd='+top.pwd+'"><\/script>');
+
+    </script>
+
+    <script>
+
+function showftp()
+{
+    if(document.getElementById("ckOpenFtp").checked==true)
+    {
+        document.getElementById("txtFtpServer").disabled="";
+        document.getElementById("txtFtpPort").disabled="";
+        document.getElementById("txtFtpUser").disabled="";
+        document.getElementById("txtFtpPassword").disabled="";
+        document.getElementById("txtUserLoad").disabled="";
+        document.getElementById("selectFTPModel").disabled="";
+        
+        document.getElementById("chk_enable_upload").disabled="";
+        enable_upload_func();
+    }
+    else
+    {
+        document.getElementById("txtFtpServer").disabled="false";
+        document.getElementById("txtFtpPort").disabled="false";
+        document.getElementById("txtFtpUser").disabled="false";
+        document.getElementById("txtFtpPassword").disabled="false";
+        document.getElementById("txtUserLoad").disabled="false";
+        document.getElementById("selectFTPModel").disabled="false";
+        
+        document.getElementById("chk_enable_upload").disabled="false";
+        enable_upload_func2(false);
+    }
+}
+
+
+function enable_upload_func2(val)
+{
+    if(val)
+    {
+        document.getElementById("tr_upload_inter").style.display='';
+    }
+    else
+    {
+        document.getElementById("tr_upload_inter").style.display='none';
+    }
+}
+function enable_upload_func()
+{
+    var v = false;
+    v = document.getElementById("chk_enable_upload").checked;
+    
+    enable_upload_func2(v);
+}
+
+function body_onload()
+{   
+    document.getElementById("ckOpenFtp").checked=enable_ftp?true:false;
+    document.getElementById("txtFtpServer").value=ftp_serv;      //FTP服务器
+    document.getElementById("txtFtpPort").value=ftp_port;        //FTP端口
+    document.getElementById("txtFtpUser").value=ftp_user;        //FTP用户名
+    document.getElementById("txtFtpPassword").value=ftp_pwd;     //FTP密码
+    document.getElementById("txtUserLoad").value=ftp_dir;        //FTP上传目录
+    document.getElementById("selectFTPModel").value=ftp_mode;    //FTP传输模式
+    
+    document.getElementById("chk_enable_upload").checked=(ftp_upload_interval>0)?true:false;
+    document.getElementById("txt_upload_inter").value=ftp_upload_interval;
+    enable_upload_func();
+    
+    showftp();
+}
+
+function set_FtpSet()
+{
+    var ftp_on_off;   
+    if(document.getElementById("ckOpenFtp").checked==false)
+    {
+        ftp_on_off=0;
+    }
+    else
+    {
+        ftp_on_off=1;
+    }
+    
+    var tmp_ftp_time=0;
+    if(document.getElementById("chk_enable_upload").checked==true)
+    {
+        tmp_ftp_time = document.getElementById("txt_upload_inter").value;
+    }
+    
+    var txtFtpServer=document.getElementById("txtFtpServer").value;
+    var txtFtpPort=document.getElementById("txtFtpPort").value;
+    var txtFtpUser=document.getElementById("txtFtpUser").value;
+    var txtFtpPassword = document.getElementById("txtFtpPassword").value;
+    var txtUserLoad=document.getElementById("txtUserLoad").value;
+    var selectFTPModel = document.getElementById("selectFTPModel").value;
+
+    if (txtFtpServer.length > 30) { alert(top.str_ftp_server + " " + top.str_exceed); return false; }
+    if (txtFtpUser.length > 30) { alert(top.str_ftp_user + " " + top.str_exceed); return false; }
+    if (txtFtpPassword.length > 30) { alert(top.str_ftp_password + " " + top.str_exceed); return false; }
+    if (txtUserLoad.length > 30) { alert(top.str_userload + " " + top.str_exceede); return false; }
+
+    url="/cgi-bin/set_ftp.cgi?next_url=setmenu/FtpSet.htm&ftp_enable="+ftp_on_off+"&ftp_serv="+txtFtpServer+"&ftp_port="+txtFtpPort+"&ftp_user="+txtFtpUser+"&ftp_pwd="+txtFtpPassword+"&ftp_dir="+txtUserLoad+"&ftp_mode="+selectFTPModel+"&user="+top.user+"&pwd="+top.pwd;
+    url+="&ftp_upload_interval=" + tmp_ftp_time;
+    
+    location=url;
+}
+
+function testftp_func()
+{
+    var tftp_http_url='';
+	
+	if (location.port=='')
+	{
+		tftp_http_url="http://" + location.hostname + "/setmenu/test_ftp.htm";
+	}
+	else
+	{
+		tftp_http_url="http://" + location.hostname + ":" + location.port + "/setmenu/test_ftp.htm";
+	}
+		
+    window.open(tftp_http_url).focus();
+}
+    </script>
+
+</head>
+<body onload="body_onload()" class="body">
+    <table width="100%" cellpadding="0" cellspacing="0">
+        <tr class="adtop"><td>&nbsp;</td></tr>
+        <tr>
+            <td align="center">
+                <table cellpadding="0" cellspacing="0" >
+                   <tr>
+                    <td colspan="3" class="mid03_1">
+                        <strong class="mid03">
+                            <script type="text/javascript">document.write(top.str_ftp_set);</script>
+                        </strong>
+                    </td>
+                   </tr>
+                  <tr  >
+                   <td class="lcorner" ></td>
+                   <td class="cbtop">
+                     <table cellpadding="0" cellspacing="0" style=" width:730px">
+                        <tr style=" width:100%">
+                            <td style="text-align: right;" align="right">
+                                <button class="resethbutton" onclick="set_FtpSet()">
+                                    <script>document.write(top.str_save);</script>
+                                </button>
+                                <button class="resethbutton" onclick="location.reload()">
+                                    <script>document.write(top.str_refresh);</script>
+                                </button>
+                                <button class="resethbutton" onclick="testftp_func()">
+
+                                <script>document.write(top.str_test);</script>
+
+                            </button>
+                            </td>
+                      
+                        </tr>
+                     </table>
+                   </td>
+                   <td class="rcorner"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="lborder"></td>
+                   <td style=" margin-top:0px">
+                                     <table style="margin-top: 0px; width: 730px; height: 40%;" class="admintr">
+                        <tr style="height: 35px">
+                            <td width="20%" class="admintd">
+                                <strong class="mid04">
+
+                                    <script>document.write(top.str_open_ftp);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="ckOpenFtp" id="ckOpenFtp" onclick="showftp()">
+                            </td>
+                        </tr>
+                        <tr style="height: 35px">
+                            <td width="20%" class="admintd">
+                                <strong class="mid04">
+
+                                    <script>document.write(top.str_ftp_server);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="txtFtpServer" id="txtFtpServer"
+                                    style="width: 150px" disabled="false">
+                            </td>
+                        </tr>
+                        <tr style="height: 35px">
+                            <td width="20%" class="admintd">
+                                <strong class="mid04">
+
+                                    <script>document.write(top.str_ftp_port);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="txtFtpPort" id="txtFtpPort" style="width: 150px"
+                                    disabled="false">
+                            </td>
+                        </tr>
+                        <tr style="height: 35px">
+                            <td width="20%" class="admintd">
+                                <strong class="mid04">
+
+                                    <script>document.write(top.str_ftp_user);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="txtFtpUser" id="txtFtpUser" style="width: 150px"
+                                    disabled="false">
+                            </td>
+                        </tr>
+                        <tr style="height: 35px">
+                            <td width="20%" class="admintd">
+                                <strong class="mid04">
+
+                                    <script>document.write(top.str_ftp_password);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="password" name="txtFtpPassword" id="txtFtpPassword"
+                                    style="width: 150px" disabled="false">
+                            </td>
+                        </tr>
+                        <tr style="height: 35px">
+                            <td width="20%" class="admintd">
+                                <strong class="mid04">
+
+                                    <script>document.write(top.str_userload);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="txtUserLoad" id="txtUserLoad" style="width: 150px"
+                                    disabled="false">
+                            </td>
+                        </tr>
+                        <tr style="height: 35px">
+                            <td width="20%" class="admintd">
+                                <strong class="mid04">
+
+                                    <script>document.write(top.str_ftp_model);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<select name="selectFTPModel" id="selectFTPModel" style="width: 150px"
+                                    disabled="false" id="selectFtp">
+                                    <option value="0">PORT</option>
+                                    <option value="1">PASV</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr style="height: 35px">
+                            <td width="20%" class="admintd">
+                                <strong class="mid04">
+
+                                    <script>document.write(top.str_upload_now);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="chk_enable_upload" id="chk_enable_upload"
+                                    onclick="enable_upload_func()" />
+                            </td>
+                        </tr>
+                        <tr style="height: 35px" id="tr_upload_inter">
+                            <td width="20%" class="admintd">
+                                <strong class="mid04">
+
+                                    <script>document.write(top.str_upload_inter);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="txt_upload_inter" name="txt_upload_inter"
+                                    style="width: 150px" maxlength="5" onkeyup="this.value=this.value.replace(/[^0-9]/gi,'')"
+                                    onblur="this.value=this.value.replace(/[^0-9]/gi,'')" />
+                            </td>
+                        </tr>
+                        <tr style="height: 50px">
+                            <td colspan="2" align="center">
+                                <button style="width: 400px;height:30px;margin-top:2px; background-color: #AFD5EF;border:1px solid #AFD5EF" class="mid042">
+
+                                    <script>document.write(top.str_save_test);</script>
+
+                                </button>
+                            </td>
+                        </tr>
+                        </table>
+                  
+                   <td  class="rborder"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="ldcorner"></td>
+                   <td class="cdow"></td>
+                   <td class="rdcorner"></td>
+                  </tr>
+           
+                </table>
+            </td>
+        </tr>
+     </table>
+
+</body>
+</html>

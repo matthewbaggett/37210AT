@@ -1,0 +1,2525 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="css/camera.css" rel="stylesheet" type="text/css" />
+    <link href="css/news.css" rel="stylesheet" type="text/css" />
+    <link href="css/serverpush.css" rel="stylesheet" type="text/css" />
+
+    <script language="javascript" src="js/slider.js"></script>
+
+    <script type="text/javascript" src="js/public.js"></script>
+    <script language="javascript" src="js/customer.js"></script>
+
+    <style type="text/css">
+        body
+        {
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+            background-image: url(image/bg.gif);
+            width:100%;
+            height:100%;
+        }
+        .logo
+        {
+            float: left;
+        }
+        .cont
+        {
+            float: left;
+            margin-left: 150px;
+        }
+        .aa
+        {
+            float: right;
+            margin-top: 10px;
+            margin-right: 10px;
+            width: 140px;
+            text-align: right;
+        }
+        .nn
+        {
+            margin-right: -3px;
+        }
+        .img_back
+        {
+            width: 5px;
+            height: 30px;
+        }
+        #img_div
+        {
+            border: 0px;
+        }
+        body
+        {
+            margin-left: 0px;
+            margin-top: 0px;
+            margin-right: 0px;
+            margin-bottom: 0px;
+            background-color: #F9F9F9;
+        }
+        .childmenu
+        {
+            color: #ffffff;
+            text-decoration: none;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            font-stretch: ultra-expanded;
+        }
+        #top_td
+        {
+            background-image: url('image/logo.gif' );
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 20px;
+            text-align: left;
+        }
+        #Iframe1
+        {
+            width: 690px;
+            margin-right: 1px;
+        }
+        #span
+        {
+            margin-right: 22px;
+        }
+        img
+        {
+            vertical-align: top;
+            border: 0px;
+        }
+        a:focus {outline:none;}
+    </style>
+
+    <script type="text/javascript">
+    var e = navigator.userAgent.toLowerCase();
+var isOpera = e.indexOf("opera")!=-1;
+var isIE = document.all && e.indexOf("msie") != -1 && !isOpera;
+var isIE2 = e.indexOf("net clr") != -1;
+var isIE3 = e.indexOf(".net") != -1;
+  
+
+
+
+
+//*H264 2014-6-12 Jeen修改 End //
+    </script>
+
+    <script>
+    document.write('<script src="/cgi-bin/check_user.cgi?user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+    document.write('<script src="/cgi-bin/get_params.cgi?type=12&user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+    document.write('<script src="/cgi-bin/get_temhum_params.cgi?user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+    document.write('<script src="/cgi-bin/hisi_get_music_params.cgi?user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+    document.write('<script src="/cgi-bin/get_dev_funclist.cgi?"><\/script>');
+    document.write('<script src="/cgi-bin/get_list_cruise.cgi?user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+    </script>
+
+    <script>
+    if (0 != ret_check_user) 
+    {
+        top.login_succ = 0;
+        
+        alert(top.str_conterr_userpwd);
+        
+        top.location.reload("index.htm");
+    }
+    </script>
+
+    <script src="/cgi-bin/get_status.cgi"></script>
+
+    <script>
+        document.write('<script src="/cgi-bin/get_camera_vars.cgi?user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+        document.write('<script src="/cgi-bin/get_params.cgi?type=12"><\/script>');
+    </script>
+
+    <script src="/cgi-bin/get_infrared.cgi"></script>
+
+    <script>
+var divscam={};
+divscam.shide=new Array();
+divscam.count=2;
+divscam.shide[0]=divscam.shide[1]=0;
+
+divscam.handle_shide=function(index)
+{
+    if( (index>1) || (index<0) )
+    {
+        return ;
+    }
+    
+    switch(index)
+    {
+        //div-setpre
+    case 0:
+        {
+            if(1==divscam.shide[0])
+            {
+                hideprepos('div_usepreset');
+                showprepos('div_setpre', 'a_setpos');
+            }
+        }
+        break;
+        //div-usepre
+    case 1:
+        {
+            if(1==divscam.shide[1])
+            {
+                hideprepos('div_setpre'); 
+                showprepos('div_usepreset', 'a_usepos');
+            }
+        }
+        break;
+    default:
+        break;
+    }
+}
+    </script>
+
+    <script>
+//slider vars------begin//
+var ptzs_val = 0;
+var brightness_val = 0;
+var contrast_val = 0;
+var hue_val = 0;
+var saturation_val = 0;
+var music_val = 0;
+
+var ptzs_def_val = 0;
+var brightness_def_val = 0;
+var contrast_def_val = 0;
+var hue_def_val = 0;
+var saturation_def_val = 0;
+var music_audio_val = 0;
+
+//cur value
+ptzs_val = ptzspeed;
+brightness_val = brightness;
+contrast_val = contrast;
+hue_val = hue;
+saturation_val = saturation;
+music_val = music_vol;
+
+//default value
+ptzs_def_val = top.resolu_get_defptz(top.scene_s_type);
+//brightness_def_val = top.resolu_get_defbright(top.scene_s_type);
+if (customer_type == "a4gcam") {
+    brightness_def_val = 0;
+} else {
+    brightness_def_val = top.resolu_get_defbright(top.scene_s_type);
+}
+contrast_def_val = top.resolu_get_defcontrast(top.scene_s_type);
+hue_def_val = top.resolu_get_defhue(top.scene_s_type);
+saturation_def_val = top.resolu_get_defsatura(top.scene_s_type);
+music_audio_val = top.resolu_get_music(top.scene_s_type);
+
+//object
+var ob_sl_ptzs;
+var ob_sl_bright;
+var ob_sl_contrast;
+var ob_sl_hue;
+var ob_sl_satura;
+var ob_sl_musicvol;
+
+
+var PTZS_A_TPL =
+{
+    'b_vertical': false,
+    'b_watch': true,
+    'n_controlWidth': 100,
+    'n_controlHeight': 22,
+    'n_sliderWidth': 13,
+    'n_sliderHeight': 9,
+    'n_pathLeft': 0,
+    'n_pathTop': 7,
+    'n_pathLength': 87,
+    's_imgControl': 'image/guidao.gif',
+    's_imgSlider': 'image/huadongtiao.gif',
+    //'s_imgAlt': '',
+    'n_zIndex': 1
+}
+var PTZS_A_INIT =
+{
+    's_form': 0,
+    's_name': 'text_ptzs',
+    'n_minValue': 1,
+    'n_maxValue': 10,
+    'n_value': ptzs_val,
+    'n_step': 1
+}
+
+
+var BRIGHT_A_TPL =
+{
+    'b_vertical': false,
+    'b_watch': true,
+    'n_controlWidth': 100,
+    'n_controlHeight': 22,
+    'n_sliderWidth': 13,
+    'n_sliderHeight': 9,
+    'n_pathLeft': 0,
+    'n_pathTop': 7,
+    'n_pathLength': 87,
+    's_imgControl': 'image/guidao.gif',
+    's_imgSlider': 'image/huadongtiao.gif',
+    //'s_imgAlt': '',
+    'n_zIndex': 1
+}
+var BRIGHT_A_INIT =
+{
+    's_form': 0,
+    's_name': 'text_bright',
+    'n_minValue': 0,
+    'n_maxValue': 255,
+    'n_value': brightness_val,
+    'n_step': 1
+}
+
+
+var CONTRAST_A_TPL =
+{
+    'b_vertical': false,
+    'b_watch': true,
+    'n_controlWidth': 100,
+    'n_controlHeight': 22,
+    'n_sliderWidth': 13,
+    'n_sliderHeight': 9,
+    'n_pathLeft': 0,
+    'n_pathTop':7,
+    'n_pathLength': 87,
+    's_imgControl': 'image/guidao.gif',
+    's_imgSlider': 'image/huadongtiao.gif',
+    //'s_imgAlt': '',
+    'n_zIndex': 1
+}
+var CONTRAST_A_INIT =
+{
+    's_form': 0,
+    's_name': 'text_contrast',
+    'n_minValue': 0,
+    'n_maxValue': 255,
+    'n_value': contrast_val,
+    'n_step': 1
+}
+
+
+var HUE_A_TPL =
+{
+    'b_vertical': false,
+    'b_watch': true,
+    'n_controlWidth': 100,
+    'n_controlHeight': 22,
+    'n_sliderWidth': 13,
+    'n_sliderHeight': 9,
+    'n_pathLeft': 0,
+    'n_pathTop': 7,
+    'n_pathLength': 87,
+    's_imgControl': 'image/guidao.gif',
+    's_imgSlider': 'image/huadongtiao.gif',
+    //'s_imgAlt': '',
+    'n_zIndex': 1
+}
+var HUE_A_INIT =
+{
+    's_form': 0,
+    's_name': 'text_hue',
+    'n_minValue': -128,
+    'n_maxValue': 127,
+    'n_value': hue_val,
+    'n_step': 1
+}
+
+
+var SATURA_A_TPL =
+{
+    'b_vertical': false,
+    'b_watch': true,
+    'n_controlWidth': 100,
+    'n_controlHeight': 22,
+    'n_sliderWidth': 13,
+    'n_sliderHeight': 9,
+    'n_pathLeft': 0,
+    'n_pathTop': 7,
+    'n_pathLength': 87,
+    's_imgControl': 'image/guidao.gif',
+    's_imgSlider': 'image/huadongtiao.gif',
+    //'s_imgAlt': '',
+    'n_zIndex': 1
+}
+var SATURA_A_INIT =
+{
+    's_form': 0,
+    's_name': 'text_satura',
+    'n_minValue': 0,
+    'n_maxValue': 200,
+    'n_value': saturation_val,
+    'n_step': 1
+}
+//** 音量控制 ***
+var musicvol_A_TPL =
+{
+    'b_vertical': false,
+    'b_watch': true,
+    'n_controlWidth': 100,
+    'n_controlHeight': 22,
+    'n_sliderWidth': 13,
+    'n_sliderHeight': 9,
+    'n_pathLeft': 0,
+    'n_pathTop': 7,
+    'n_pathLength': 87,
+    's_imgControl': 'image/guidao.gif',
+    's_imgSlider': 'image/huadongtiao.gif',
+    //'s_imgAlt': '',
+    'n_zIndex': 1
+}
+var musicvol_A_INIT =
+{
+    's_form': 0,
+    's_name': 'text_music',
+    'n_minValue': 0,
+    'n_maxValue': 10,
+    'n_value': music_vol,
+    'n_step': 1
+}
+ 
+    </script>
+
+</head>
+
+<script>
+    //-------------------VAR-BEGIN----------------//
+    var USER_ADMIN = 0;
+    var USER_MANAGE = 1;
+    var USER_OPERATOR = 2;
+    var USER_VISITOR = 3;
+    var PLUGIN_QUICKTIME = 1;
+    var PLUGIN_VLC = 2;
+    var PLUGIN_PUSH = 3;
+
+    var PTZ_CMD_UP = 0;
+    var PTZ_CMD_DOWN = 1;
+    var PTZ_CMD_LEFT = 2;
+    var PTZ_CMD_RIGHT = 3;
+    var PTZ_CMD_FOCUSADD = 4;
+    var PTZ_CMD_FOCUSDEL = 5;
+    var PTZ_CMD_ZOOMADD = 6;
+    var PTZ_CMD_ZOOMDEL = 7;
+    var PTZ_CMD_IRISOPEN = 8;
+    var PTZ_CMD_IRISCLOSE = 9;
+    var PTZ_CMD_STOP = 10;
+    var PTZ_CMD_AUTOON = 11;
+    var PTZ_CMD_AUTOOFF = 12;
+    var PTZ_CMD_LEFTUP = 13;
+    var PTZ_CMD_LEFTDOWN = 14;
+    var PTZ_CMD_RIGHTUP = 15;
+    var PTZ_CMD_RIGHTDOWN = 16;
+    var PTZ_CMD_AUTOHOR = 17;
+    var PTZ_CMD_AUTOVER = 18;
+    var PTZ_CMD_STOP_AUTOHOR = 19;
+    var PTZ_CMD_STOP_AUTOVER = 20;
+
+    var SCAM_CMD_OSD = 1;
+    var SCAM_CMD_BRIGHT = 2;
+    var SCAM_CMD_CONTRAST = 3;
+    var SCAM_CMD_HUE = 4;
+    var SCAM_CMD_SATURA = 5;
+    var SCAM_CMD_PTZX = 6;
+    var SCAM_CMD_MIRROR = 7;
+    var SCAM_CMD_FLIP = 8;
+    var SCAM_CMD_HZ = 9;
+    var SCAM_CMD_MUSIC =10;
+
+    var SWITCH_CMD_ON = 1;
+    var SWITCH_CMD_OFF = 0;
+
+    var LEFTTOOL_SHOW_ON = 0;
+    var LEFTTOOL_SHOW_OFF = 1;
+    var lefttool_show_type;
+
+    //-------------------VAR-END------------------//
+    function getX(elem) {
+        var x = 0;
+        while (elem) {
+            x = x + elem.offsetLeft;
+            elem = elem.offsetParent;
+        }
+        return x;
+    }
+    function getY(elem) {
+        var y = 0;
+        while (elem) {
+            y = y + elem.offsetTop;
+            elem = elem.offsetParent;
+        }
+        return y;
+    }
+    function object_out_src(v, _v) {
+        v.src = _v;
+    }
+    function object_over_src(v, _v) {
+        v.src = _v;
+    }
+    function Judge_Manage() {
+        if (USER_ADMIN == top.h_right || USER_MANAGE == top.h_right) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    }
+    function Judge_Operator() {
+        if (USER_ADMIN == top.h_right || USER_MANAGE == top.h_right || USER_OPERATOR == top.h_right) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    }
+    function ffserv_write_log(value) {
+        action_zone.location = "/cgi-bin/write_log.cgi?type=" + value + "&user=" + top.user + "&pwd=" + top.pwd;
+    }
+    function all_ptz_control(type, value) {
+        action_zone.location = "/cgi-bin/decoder_control.cgi?type=" + type + "&cmd=" + value + "&user=" + top.user + "&pwd=" + top.pwd;
+    }
+    function live_setcam_control(command, value) {
+        action_zone.location = "/cgi-bin/set_camera_vars.cgi?type=" + command + "&value=" + value + "&user=" + top.user + "&pwd=" + top.pwd;
+    }
+    function live_ptz_control(command) {
+        all_ptz_control(0, command);
+    }
+    function preset_set_control(command) {
+        all_ptz_control(1, command);
+    }
+    function preset_call_control(command) {
+        all_ptz_control(2, command);
+    }
+    function switch_onoff_control(command) {
+        all_ptz_control(3, command);
+    }
+
+
+    //left_up
+    function leftup_onmousedown() {
+        if (1 == Judge_Operator()) {
+            live_ptz_control(PTZ_CMD_LEFTUP);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+    function leftup_onmouseup() {
+        if (1 == Judge_Operator()) {
+            live_ptz_control(PTZ_CMD_STOP);
+        }
+    }
+    //up
+    function up_onmousedown() {
+        if (1 == Judge_Operator()) {
+            live_ptz_control(PTZ_CMD_UP);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+    function up_onmouseup() {
+        if (1 == Judge_Operator()) {
+            live_ptz_control(PTZ_CMD_STOP);
+        }
+    }
+    //right up
+    function rightup_onmousedown() {
+        if (1 == Judge_Operator()) {
+            live_ptz_control(PTZ_CMD_RIGHTUP);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+    function rightup_onmouseup() {
+        if (1 == Judge_Operator()) {
+            live_ptz_control(PTZ_CMD_STOP);
+        }
+    }
+    //left
+    function left_onmousedown() {
+        if (1 == Judge_Operator()) {
+            live_ptz_control(PTZ_CMD_LEFT);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+    function left_onmouseup() {
+        if (1 == Judge_Operator()) {
+            live_ptz_control(PTZ_CMD_STOP);
+        }
+    }
+    //center
+    function center_onclick() {
+        if (1 == Judge_Operator()) {
+            live_ptz_control(PTZ_CMD_AUTOON);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+    //right
+    function right_onmousedown() {
+        if (1 == Judge_Operator()) {
+            live_ptz_control(PTZ_CMD_RIGHT);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+    function right_onmouseup() {
+        if (1 == Judge_Operator()) {
+            live_ptz_control(PTZ_CMD_STOP);
+        }
+    }
+    //left down
+    function leftdown_onmousedown() {
+        if (1 == Judge_Operator()) {
+            live_ptz_control(PTZ_CMD_LEFTDOWN);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+    function leftdown_onmouseup() {
+        if (1 == Judge_Operator()) {
+            live_ptz_control(PTZ_CMD_STOP);
+        }
+    }
+    //down
+    function down_onmousedown() {
+        if (1 == Judge_Operator()) {
+            live_ptz_control(PTZ_CMD_DOWN);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+    function down_onmouseup() {
+        if (1 == Judge_Operator()) {
+            live_ptz_control(PTZ_CMD_STOP);
+        }
+    }
+    //right down
+    function rightdown_onmousedown() {
+        if (1 == Judge_Operator()) {
+            live_ptz_control(PTZ_CMD_RIGHTDOWN);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+    function rightdown_onmouseup() {
+        if (1 == Judge_Operator()) {
+            live_ptz_control(PTZ_CMD_STOP);
+        }
+    }
+
+    function goto_setup() {
+        if (1 == Judge_Manage()) {
+            document.getElementById("top_href_setup").href = "admin.htm";
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+    function set_oper_preset() 
+    {
+        if (1 == Judge_Operator()) 
+        {
+            //hideprepos('div_usepreset');
+            close_use_preset();
+            
+            showprepos('div_setpre', 'a_setpos');
+            divscam.shide[0] = 1;
+        }
+        else 
+        {
+            divscam.shide[0] = 0;
+            alert(top.str_authority_lack);
+        }
+    }
+    function close_set_preset()
+    {
+        divscam.shide[0] = 0;
+        hideprepos('div_setpre');
+    }
+    
+    function use_oper_preset() 
+    {
+        if (1 == Judge_Operator()) 
+        {
+            //hideprepos('div_setpre');
+            close_set_preset();
+            
+            showprepos('div_usepreset', 'a_usepos');
+            divscam.shide[1] = 1;
+        }
+        else 
+        {
+            divscam.shide[1] = 0;
+            alert(top.str_authority_lack);
+        }
+    }
+    function close_use_preset()
+    {
+        divscam.shide[1] = 0;
+        hideprepos('div_usepreset');
+    }
+
+    function set_preset(cmd) {
+            preset_set_control(cmd);
+    }
+    function use_preset(cmd) {
+            preset_call_control(cmd);
+    }
+
+    function vpatrol_onclick() {
+        if (1 == Judge_Operator()) {
+            live_ptz_control(PTZ_CMD_AUTOVER);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+    function hpatrol_onclick() {
+        if (1 == Judge_Operator()) {
+            live_ptz_control(PTZ_CMD_AUTOHOR);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+    function switchon_onclick() {
+        if (1 == Judge_Operator()) {
+            switch_onoff_control(SWITCH_CMD_ON);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+    function vpatrolstop_onclick() {
+        if (1 == Judge_Operator()) {
+            live_ptz_control(PTZ_CMD_STOP_AUTOVER);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+    function hpatrolstop_onclick() {
+        if (1 == Judge_Operator()) {
+            live_ptz_control(PTZ_CMD_STOP_AUTOHOR);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+    function switchoff_onclick() {
+        if (1 == Judge_Operator()) {
+            switch_onoff_control(SWITCH_CMD_OFF);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+
+
+    function zoomdel_onclick() {
+        if (1 == Judge_Operator()) {
+            live_ptz_control(PTZ_CMD_ZOOMDEL);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+    function zoomadd_onclick() {
+        if (1 == Judge_Operator()) {
+            live_ptz_control(PTZ_CMD_ZOOMADD);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+    function irisdel_onclick() {
+        if (1 == Judge_Operator()) {
+            live_ptz_control(PTZ_CMD_IRISCLOSE);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+    function irisadd_onclick() {
+        if (1 == Judge_Operator()) {
+            live_ptz_control(PTZ_CMD_IRISOPEN);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+    function focusdel_onclick() {
+        if (1 == Judge_Operator()) {
+            live_ptz_control(PTZ_CMD_FOCUSDEL);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+    function focusadd_onclick() {
+        if (1 == Judge_Operator()) {
+            live_ptz_control(PTZ_CMD_FOCUSADD);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+    function ZIF_Stop() {
+        if (1 == Judge_Operator()) {
+            live_ptz_control(PTZ_CMD_STOP);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+
+
+    //slider funs------begin//
+    //音乐
+    function musicChg(val) {
+        if (1 == Judge_Operator()) {
+            live_setcam_control(SCAM_CMD_MUSIC, val);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+    function PtzsChg(val) {
+        if (1 == Judge_Operator()) {
+            live_setcam_control(SCAM_CMD_PTZX, val);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+    function BrightnessChg(val) {
+        if (1 == Judge_Operator()) {
+            live_setcam_control(SCAM_CMD_BRIGHT, val);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+    function ContrastChg(val) {
+        if (1 == Judge_Operator()) {
+            live_setcam_control(SCAM_CMD_CONTRAST, val);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+    function HueChg(val) {
+        if (1 == Judge_Operator()) {
+            live_setcam_control(SCAM_CMD_HUE, val);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+    function SaturationChg(val) {
+        if (1 == Judge_Operator()) {
+            live_setcam_control(SCAM_CMD_SATURA, val);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+
+    function musicspeed_onclick() {
+        if (1 == Judge_Operator()) {
+            ob_sl_musicvol.f_setValue(music_audio_val, 1);
+            musicChg(music_audio_val);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+       
+//        if (1 == Judge_Operator()) {
+//            set_music_value(music_audio_val);
+//            musicChg(music_audio_val);
+//        }
+//        else {
+//            alert(top.str_authority_lack);
+//        }
+    }
+    //default ptzspeed
+    function ptzspeed_onclick() {
+        if (1 == Judge_Operator()) {
+            ob_sl_ptzs.f_setValue(ptzs_def_val, 1);
+            PtzsChg(ptzs_def_val);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+    //default bright
+    function brightness_onclick() {
+        if (1 == Judge_Operator()) {
+            ob_sl_bright.f_setValue(brightness_def_val, 1);
+            BrightnessChg(brightness_def_val);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+    //default contrast
+    function contrast_onclick() {
+        if (1 == Judge_Operator()) {
+            ob_sl_contrast.f_setValue(contrast_def_val, 1);
+            ContrastChg(contrast_def_val);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+    //default hue
+    function hue_onclick() {
+        if (1 == Judge_Operator()) {
+            ob_sl_hue.f_setValue(hue_def_val, 1);
+            HueChg(hue_def_val);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+    //default satura
+    function satura_onclick() {
+        if (1 == Judge_Operator()) {
+            ob_sl_satura.f_setValue(saturation_def_val, 1);
+            SaturationChg(saturation_def_val);
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+    //slider funs------end--//
+
+    //--------------------------------------------//
+    function left_bar_oper() {
+        if (LEFTTOOL_SHOW_ON == lefttool_show_type) {
+            lefttool_show_type = LEFTTOOL_SHOW_OFF;
+            document.getElementById("td_left_tool").style.display = 'none';
+
+            document.getElementById("img_left_bar").src = "image/leftbar_open_sel.gif";
+        }
+        else if (LEFTTOOL_SHOW_OFF == lefttool_show_type) {
+            lefttool_show_type = LEFTTOOL_SHOW_ON;
+            document.getElementById("td_left_tool").style.display = '';
+
+            document.getElementById("img_left_bar").src = "image/leftbar_close_sel.gif";
+        }
+    }
+    function left_bar_mout() {
+        if (LEFTTOOL_SHOW_ON == lefttool_show_type) {
+            document.getElementById("img_left_bar").src = "image/leftbar_close_dis.gif";
+        }
+        else {
+            document.getElementById("img_left_bar").src = "image/leftbar_open_dis.gif";
+        }
+    }
+    function left_bar_mover() {
+        if (LEFTTOOL_SHOW_ON == lefttool_show_type) {
+            document.getElementById("img_left_bar").src = "image/leftbar_close_sel.gif";
+        }
+        else {
+            document.getElementById("img_left_bar").src = "image/leftbar_open_sel.gif";
+        }
+    }
+    //--------------------------------------------//
+
+    function live_autosize_show() {
+        live_content_frame.video_autosize_show();
+    }
+    function live_realsize_show() {
+        live_content_frame.video_realsize_show();
+    }
+
+    function show_tr_zoom() {
+        var iret = 0;
+        iret = top.ShowZoomSet(top.product_model);
+        //iret = 1;
+
+        if (1 == iret) {
+            //document.getElementById("tr_zoom").style.display = '';
+            //document.getElementById("tr1").style.display = 'none';
+        }
+        else {
+            //document.getElementById("tr_zoom").style.display = 'none';
+            //document.getElementById("tr1").style.display = '';
+        }
+    }
+    function show_tr_iris() {
+        var iret = 0;
+        iret = top.ShowIrisSet(top.product_model);
+        //iret = 1;
+
+        if (1 == iret) {
+            document.getElementById("tr_iris").style.display = '';
+            //document.getElementById("tr2").style.display = 'none';
+        }
+        else {
+            document.getElementById("tr_iris").style.display = 'none';
+            //document.getElementById("tr2").style.display = '';
+        }
+    }
+    function show_tr_focus() {
+        var iret = 0;
+        iret = top.ShowFocusSet(top.product_model);
+        //iret = 1;
+
+        if (1 == iret) {
+            document.getElementById("tr_focus").style.display = '';
+            //document.getElementById("tr3").style.display = 'none';
+        }
+        else {
+            document.getElementById("tr_focus").style.display = 'none';
+           // document.getElementById("tr3").style.display = '';
+        }
+    }
+    //获取音乐列表
+    function music_to_list() {
+        
+        if (0 == music_res) {
+           
+            for (i = 0; i < music_num; i++) {
+                
+                oOption = document.createElement("OPTION");
+                
+                select_Enable.options.add(oOption);
+               
+                //歌曲列表
+                s = music_name[i];
+              
+                oOption.innerHTML = s;
+                
+            }
+        }
+    }
+    //当前播放歌曲
+    function music_to_curid() {
+        var music_stat;
+        if (music_stat == 1) {
+            document.getElementById("Space").src = "image/mstop_sel.gif"; //现实停止图标
+        }
+        else if (music_stat == 2) {
+            document.getElementById("Space").src = "image/mplay.gif"; //现实开始图标
+        }
+
+    }
+    //音乐列表选择歌曲播放
+    function music_list_onclick(va) {
+        var index = 0;
+        for (index = 0; index < music_num; index++) {
+            if (music_name[index] == document.getElementById("select_Enable").value)
+                break;
+        }
+        var music_curid = index;
+        
+        //var music_curid = document.getElementById("select_Enable").value;
+        iframe_Music.location = "/cgi-bin/hisi_play_ctrl.cgi?ctrl_type=0&ctrl_id=" + music_curid + "&play_vol=" + music_vol + "&user=" + top.user + "&pwd=" + top.pwd;
+        document.getElementById("Space").src = "image/mstop_sel.gif"; //现实停止图标
+        
+    }
+
+    function dev_funclist() {
+        //云台
+        
+        if (ptz_support == 0) {
+           
+            document.getElementById("ptzsupport").style.display = 'none';
+            
+            document.getElementById("ptzspeed").style.display = 'none';
+           
+        }
+      
+       
+        //音乐功能
+        if (fixmusic_support == 0) {
+            document.getElementById("music").style.display = 'none';
+            document.getElementById("music_1").style.display = 'none';
+            
+        }
+
+        //温湿度
+        if (temhum_support == 0) {
+            document.getElementById("temhum").style.display = 'none';
+              
+        }
+
+        //变焦
+        if (zoom_support == 0) {
+            document.getElementById("tr_zoom").style.display = 'none';
+           
+        }
+
+        if( io_support == 0)
+        {
+			document.getElementById("img_switchon").style.display = 'none';
+			document.getElementById("img_switchoff").style.display = 'none';
+        }
+    }
+
+
+    function body_onload() 
+    {
+        
+        if (ret_user_right != 0) {
+            document.getElementById("music_1").style.display = "none";
+        }
+        dev_funclist();
+
+        show_tempra_value(temperature, humidity);
+        setTimeout('load_tempra()', 500); 
+//        var m_fram = m_framerate;
+//        if (m_fram < 15) {
+//            alert(top.m_fram);
+//        }
+        
+        lefttool_show_type = LEFTTOOL_SHOW_ON;
+        //title
+        show_ctrl_title();
+        hide_all_submenu();
+
+        for (var i = 0; i < ret_lcruise_name.length - 1; i++) {
+            document.getElementById("span_cruise_" + i).title = ret_lcruise_name[i];
+        }
+
+            if (isIE || isIE2 || isIE3) {
+                //document.getElementById("img_tool_rec").style.width = '24px'; //img_tool_rec
+                //document.getElementById("admin_top_table").style.width='75%';
+            }
+            else {
+                document.getElementById("voice_cen").style.display = 'none';
+                document.getElementById("admin_top_botton").style.background = 'url(image/admin_Center2.gif)  no-repeat 50% bottom';
+                document.getElementById("admin_top_table").style.width = '54%';
+            } 
+        
+       document.getElementById("select_osd").value=OSDTimer;
+       document.getElementById("chx_image_mirror").checked=mirror?true:false;
+       document.getElementById("chx_image_flip").checked=flip?true:false;
+       document.getElementById("select_hz").value=aec_value;
+        
+       
+        //login
+        if (0 == ret_check_user) {
+            top.h_right = ret_user_right;
+            top.login_succ = 1;
+            setTimeout('ffserv_write_log(3)', 200);
+        }
+        else 
+        {
+            top.login_succ = 0;
+            
+            alert(top.str_conterr_userpwd);
+            
+            top.location.reload("index.htm");
+        }
+        
+        //show_tr_zoom();
+        //show_tr_iris();
+        //show_tr_focus();
+
+        //mode
+        if (PLUGIN_QUICKTIME == top.plugin_mode) 
+        {
+            document.getElementById("img_autosize").style.display = 'none';
+            document.getElementById("img_realsize").style.display = 'none';
+            //document.getElementById("img3").style.display = 'none';
+            //document.getElementById("img4").style.display = 'none';
+
+            document.getElementById("live_content_frame").src = "quick_video.htm";
+        }
+        else if (PLUGIN_VLC == top.plugin_mode) {
+            document.getElementById("img_autosize").style.display = 'none';
+            document.getElementById("img_realsize").style.display = 'none';
+            document.getElementById("live_content_frame").src = "vlc_video.htm";
+        }
+        else if (PLUGIN_PUSH == top.plugin_mode) {
+            document.getElementById("img_autosize").style.display = 'none';
+            document.getElementById("img_realsize").style.display = 'none';
+            document.getElementById("live_content_frame").src = "push_video.htm";
+        }
+
+        document.getElementById("text_ptzs").value = ptzspeed;
+        document.getElementById("text_bright").value = brightness;
+        document.getElementById("text_contrast").value = contrast;
+        document.getElementById("text_hue").value = hue;
+        document.getElementById("text_satura").value = saturation;
+        //音乐播放提示
+        document.getElementById("text_music").value = music_vol;
+        //alert(12345);
+        //timeout
+        setTimeout('judge_div_show()', 500);
+
+        music_to_list();
+        music_to_curid();
+
+        //页面IR保存
+        if (ret_infrared_mode == 0) {
+            document.getElementById("select1").value = 0;
+        } else if (ret_infrared_mode == 1) {
+
+            if (ret_infrared_nSwitch == 0) {
+                document.getElementById("select1").value = 2;
+            } else {
+                document.getElementById("select1").value = 1;
+            }
+        } else if (ret_infrared_mode == 2) {
+            document.getElementById("select1").value = 3;
+            document.getElementById("ir_time").style.display = "";
+
+            var tmp_daytime;
+            var f = parseInt(ret_infrared_day_time % 60);     //分
+            var e = parseInt(ret_infrared_day_time / 60); //小时
+            f = String(f);
+            e = String(e);
+            if (e.length == 1 && f.length == 1) {
+                tmp_daytime = "0" + e + ":" + "0" + f;
+            } else if (e.length == 1 && f.length == 2) {
+                tmp_daytime = "0" + e + ":" + f;
+            } else if (e.length == 2 && f.length == 1) {
+                tmp_daytime = e + ":" + "0" + f;
+            } else if (e.length == 2 && f.length == 2) {
+                tmp_daytime = e + ":" + f;
+            }
+
+            var tmp_nighttime;
+            var m = parseInt(ret_infrared_night_time % 60) + 1;     //分
+            var n = parseInt(ret_infrared_night_time / 60); //小时
+            if (m == 60) {
+                m = 0;
+                n = n + 1;
+            }
+
+            m = String(m);
+            n = String(n);
+            if (n.length == 1 && m.length == 1) {
+                tmp_nighttime = "0" + n + ":" + "0" + m;
+            } else if (n.length == 1 && m.length == 2) {
+                tmp_nighttime = "0" + n + ":" + m;
+            } else if (n.length == 2 && m.length == 1) {
+                tmp_nighttime = n + ":" + "0" + m;
+            } else if (n.length == 2 && m.length == 2) {
+                tmp_nighttime = n + ":" + m;
+            }
+
+            document.getElementById("inp_day").value = tmp_daytime;
+            document.getElementById("inp_night").value = tmp_nighttime;
+        }
+    }
+
+    function show_ctrl_title() 
+    {
+        //toolbar title
+        document.getElementById("tool_video").title = top.str_title_livevideo;
+        document.getElementById("tool_set").title = top.str_title_setmenu;
+        
+        document.getElementById("img_leftup").title = top.str_title_leftup;
+        document.getElementById("img_up").title = top.str_title_up;
+        document.getElementById("img_rightup").title = top.str_title_rightup;
+        document.getElementById("img_left").title = top.str_title_left;
+        document.getElementById("img_gocenter").title = top.str_title_center;
+        document.getElementById("img_right").title = top.str_title_right;
+        document.getElementById("img_leftdown").title = top.str_title_leftdown;
+        document.getElementById("img_down").title = top.str_title_down;
+        document.getElementById("img_rightdown").title = top.str_title_rightdown;
+
+        document.getElementById("img_setpreset").title = top.str_title_setpreset;
+        document.getElementById("img_usepreset").title = top.str_title_usepreset;
+        document.getElementById("img_cruise").title = top.str_cruise_title;
+
+        document.getElementById("img_vpatrol").title = top.str_title_startVorP;
+        document.getElementById("img_hpatrol").title = top.str_title_startHorP;
+        document.getElementById("img_switchon").title = top.str_title_onswitch;
+        document.getElementById("img_vpatrolstop").title = top.str_title_stopVorP;
+        document.getElementById("img_hpatrolstop").title = top.str_title_stopHorP;
+        document.getElementById("img_switchoff").title = top.str_title_offswitch;
+
+        document.getElementById("img_ptzspeed").title = top.str_title_ptzspeed;
+        document.getElementById("img_brightness").title = top.str_title_bright;
+        document.getElementById("img_contrast").title = top.str_title_contrast;
+        document.getElementById("img_hue").title = top.str_ttile_hue;
+        document.getElementById("img_satura").title = top.str_title_satura;
+
+        document.getElementById("img_capture").title = top.str_title_snapshot;
+        document.getElementById("img_autosize").title = top.str_title_autosize;
+        document.getElementById("img_realsize").title = top.str_title_realsize;
+
+        //document.getElementById("img_zoomdel").title = top.str_title_zoomdel;
+        //document.getElementById("img_zoomadd").title = top.str_title_zoomadd;
+        //document.getElementById("img_irisdel").title = top.str_title_irisdel;
+        //document.getElementById("img_irisadd").title = top.str_title_irisadd;
+        //document.getElementById("img_focusdel").title = top.str_title_focusdel;
+        //document.getElementById("img_focusadd").title = top.str_title_focusadd;
+
+        //音乐播放提示
+        document.getElementById("Vid").title = top.str_music_Vid;
+        document.getElementById("Space").title = top.str_music_Space;
+        document.getElementById("Nid").title = top.str_music_Nid;
+
+        document.getElementById("img_search_file").title = top.str_music_Tim;
+        document.getElementById("img_tz").title = top.str_music_Cir;
+    }
+
+    function set_cruise() {
+        if (1 == Judge_Operator()) {
+            var curpos = document.getElementById('img_cruise');
+            var nleft = getX(curpos);
+            var ntop = getY(curpos);
+
+            var ht_left = nleft - 100;
+            var ht_top = ntop;
+
+            //var spec_str="height=220,width=400,top=0,left=0,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no";
+            var spec_str = "height=110,width=400,top=" + ht_top + ",left=" + ht_left + ",toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no";
+
+            window.open("cruise_set.htm", "cruise_setwnd", spec_str)
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+
+    function more_func() {
+        if (1 == Judge_Operator()) {
+            var curpos = document.getElementById('href_more');
+            var nleft = getX(curpos);
+            var ntop = getY(curpos);
+
+            var ht_left = nleft - 100;
+            var ht_top = ntop;
+
+            //var spec_str="height=220,width=400,top=0,left=0,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no";
+            var spec_str = "height=220,width=400,top=" + ht_top + ",left=" + ht_left + ",toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no";
+
+            window.open("osdset.htm", "more_setwnd", spec_str)
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+
+    function setup_page() {
+        if (1 == Judge_Manage()) {
+            document.getElementById("href_setup").href = "admin.htm";
+        }
+        else {
+            alert(top.str_authority_lack);
+        }
+    }
+
+    //preset-div
+    function hideallpre() 
+    {
+        hideprepos('div_setpre');
+        hideprepos('div_usepreset');
+    }
+    function hideprepos(panel) 
+    {
+        var tb = document.getElementById(panel);
+        tb.style.display = "none";
+    }
+    function showprepos(panel, btn) 
+    {
+        //hideallpre();
+
+        var tb = document.getElementById(panel);
+        var curpos = document.getElementById(btn);
+
+        var nleft = getX(curpos);
+        var ntop = getY(curpos);
+
+        if (panel == 'div_usepreset') 
+        {
+            tb.style.left = nleft - 80;
+            tb.style.top = ntop + 5;
+            tb.style.display = "block";
+        }
+        else 
+        {
+            tb.style.left = nleft + 20;
+            tb.style.top = ntop + 5;
+            tb.style.display = "block";
+        }
+    }
+    
+    function judge_div_show()
+    {
+        var i = 0;
+        for(i=0; i<divscam.count; i++)
+        {
+            divscam.handle_shide(i);   
+        }
+        
+        //timeout
+        setTimeout('judge_div_show()',500);
+    }
+    function ExitLogin()
+{
+    location.href="login.htm";
+}
+
+
+function load_tempra() {
+    window.get_tempra_iframe.location = "get_tempra.htm";
+}
+function show_tempra_value(v1, v2) {
+    var tmpwendu = "" + v1;
+    var tmphumidity = "" + v2;
+    var c = (v1 - 32) * 5 / 9;
+    var d = (v1 - 32) * 1.8;
+    var e = c.toString().indexOf(".");
+    if (c.toString().indexOf(".") > 0)
+        td_wendu_info.innerHTML = c.toString().substring(0, c.toString().indexOf(".") + 2) + "&#8451";
+    else
+        td_wendu_info.innerHTML = c + "&#8451";
+    //td_wendu_info.innerHTML = (v1-32)*5/9 + "&#8451";
+    td_wendu_info2.innerHTML = tmpwendu + "&deg" + "&#70";
+    td_shidu_info.innerHTML = tmphumidity + "%";
+}
+
+function C() {
+    document.getElementById("td_wendu_info").style.display = "block";
+    document.getElementById("td_wendu_info2").style.display = "none";
+}
+
+function F() {
+    document.getElementById("td_wendu_info").style.display = "none";
+    document.getElementById("td_wendu_info2").style.display = "block";
+}
+var jump = 0;
+var index = 1;
+function PlayMusic() {
+    var sound1 = ret_music_1;
+    var sound2 = ret_music_2;
+    var sound3 = ret_music_3;
+    var sound4 = ret_music_4;
+    var sound5 = ret_music_5;
+    var x = Math.round(Math.round() * 5)
+    if (x == 0) x = sound1
+    else if (x == 1) x = sound2
+    else if (x == 2) x = sound3
+    else if (x == 3) x = sound4
+    else if (x == 4) x = sound5
+
+    ret_music_typet = 0;
+    ret_music_status = 1;
+    ret_music_playtime = 0;
+    //    if (navigator.appName=="Microsoft Internet Explorer")
+    //        document.write('<bgsound src='+'"'+x+'"'+' loop="infinite">')
+    //    else 
+    //        document.write('<embed src='+'"'+x+'"'+'hidden="true" border="0" width="20" height="20" autostart="true" loop="true">')
+    if (ret_music_status == 1)
+        document.getElementById("Space").src = "image/mstop_sel.gif"; //现实停止图标 
+    var sd = "/cgi-bin/set_music_params.cgi?type=" + ret_music_typet + "&status=" + ret_music_status + "&playtime=" + ret_music_playtime + "&jump=" + jump + "&index=" + index + "&user=" + top.user + "&pwd=" + top.pwd + "&volume=" + ret_music_volume;
+    iframe_Music.location = sd;
+
+}
+
+function getX(elem) {
+    var x = 0;
+    while (elem) {
+        x = x + elem.offsetLeft;
+        elem = elem.offsetParent;
+    }
+    return x;
+}
+function getY(elem) {
+    var y = 0;
+    while (elem) {
+        y = y + elem.offsetTop;
+        elem = elem.offsetParent;
+    }
+    return y;
+}
+//上一曲
+function V() {
+    var playvol = document.getElementById("play_vol").value;
+    document.getElementById("Space").src = "image/mstop_sel.gif"; //现实停止图标
+    //iframe_Music.location = "/cgi-bin/set_music_params.cgi?type=" + ret_music_typet + "&status=" + ctrl_type + "&playtime=" + devicevol_mic + "&jump=" + 2 + "&index=" + index + "&user=" + top.user + "&pwd=" + top.pwd + "&volume=" + ret_music_volume;
+    iframe_Music.location = "/cgi-bin/hisi_play_ctrl.cgi?ctrl_type=5" + "&ctrl_id=0" + "&play_vol=" + music_vol + "&user=" + top.user + "&pwd=" + top.pwd;
+}
+//下一曲
+function N() {
+    var playvol = document.getElementById("play_vol").value;
+    document.getElementById("Space").src = "image/mstop_sel.gif"; //现实停止图标
+    //iframe_Music.location = "/cgi-bin/set_music_params.cgi?type=" + ret_music_typet + "&status=" + ctrl_type + "&playtime=" + devicevol_mic + "&jump=" + 2 + "&index=" + index + "&user=" + top.user + "&pwd=" + top.pwd + "&volume=" + ret_music_volume;
+    iframe_Music.location = "/cgi-bin/hisi_play_ctrl.cgi?ctrl_type=4" + "&ctrl_id=0" + "&play_vol=" + music_vol + "&user=" + top.user + "&pwd=" + top.pwd;
+}
+
+
+var play_ctrl_stat = 0; //0:暂停;  1：播放
+var first_come_in = 1;
+//播放
+function musicplay() {
+
+    var playvol = document.getElementById("play_vol").value;
+    var sleenb = 0;
+    if (music_curid != 0)
+        sleend = music_curid;
+    //alert("paly bt clicked" + img);
+    //判断停止/播放控制
+
+
+    if (first_come_in == 1) {
+        first_come_in = 0;
+        if (music_stat == 0) {
+            play_ctrl_stat = 1;
+        }
+        else {
+            play_ctrl_stat = 0;
+        }
+    }
+    //if (document.getElementById("Space").src = "image/mplay.gif") {
+
+
+    if (play_ctrl_stat == 0) {
+        play_ctrl_stat = 1;
+
+        document.getElementById("Space").src = "image/mstop_sel.gif"; //现实停止图标
+        iframe_Music.location = "/cgi-bin/hisi_play_ctrl.cgi?ctrl_type=0" + "&ctrl_id=" + sleenb + "&play_vol=" + music_vol + "&user=" + top.user + "&pwd=" + top.pwd;
+    }
+    //else if (document.getElementById("Space").src = "image/mstop_sel.gif") {
+    else if (play_ctrl_stat == 1) {
+        play_ctrl_stat = 0;
+        document.getElementById("Space").src = "image/mplay.gif"; //现实开始图标
+        iframe_Music.location = "/cgi-bin/hisi_play_ctrl.cgi?ctrl_type=1" + "&ctrl_id=" + sleenb + "&play_vol=" + music_vol + "&user=" + top.user + "&pwd=" + top.pwd;
+        //location = url;
+    }
+
+
+}
+
+function MusicvolChg(val) {
+    var url = "/cgi-bin/hisi_play_ctrl.cgi?ctrl_type=9&ctrl_id=" + "&play_vol=" + val + "&user=" + top.user + "&pwd=" + top.pwd;
+    iframe_Music.location = url;
+    music_vol = val;
+
+}
+function hide_all_submenu() {
+    document.getElementById("music_1").style.display = "none";
+    //        document.getElementById("colour").style.display = "none";
+    //        document.getElementById("other").style.display = "none";
+}
+function show_main_menu(val) {
+
+	if(document.getElementById("music_1").style.display == "none")
+	{
+		if (ret_user_right == 2) {
+
+            document.getElementById("music_1").style.display = 'none';
+            
+            alert(top.str_authority_lack);
+        }
+        else if (ret_user_right == 3) {
+            document.getElementById("music_1").style.display = 'none';
+            alert(top.str_authority_lack);
+        }
+        else {
+
+            document.getElementById("music_1").style.display = '';
+        }
+	}
+	else
+	{
+		document.getElementById("music_1").style.display = "none";
+	}
+}
+</script>
+
+<!-----------------------OSD Begin---------------------------->
+
+<script>
+var SCAM_CMD_OSD=1;
+var SCAM_CMD_BRIGHT=2;
+var SCAM_CMD_CONTRAST=3;
+var SCAM_CMD_HUE=4;
+var SCAM_CMD_SATURA=5;
+var SCAM_CMD_PTZX=6;
+var SCAM_CMD_MIRROR=7;
+var SCAM_CMD_FLIP=8;
+var SCAM_CMD_HZ = 9;
+var SCAM_CMD_MUSIC = 10;
+
+
+//function live_setcam_control(command,value)
+//{
+//    var a=value;
+//    var b=command;
+//    action_zone.location="/cgi-bin/set_camera_vars.cgi?type=" + command + "&value=" + value + "&user=" + top.user + "&pwd=" + top.pwd;
+//    action_zone.location="/cgi-bin/set_camera_vars.cgi?type=" + command + "&value=" + value + "&user=" + top.user + "&pwd=" + top.pwd;
+//                      // "/cgi-bin/set_camera_vars.cgi?type="+command+"&value="+value+"&user="+ top.user+"&pwd="+ top.pwd;
+//                      // "/cgi-bin/set_camera_vars.cgi?type=" + command + "&value=" + value + "&user=" + top.user + "&pwd=" + top.pwd;
+//}
+
+
+function live_osd_onchange(val)
+{
+    live_setcam_control(SCAM_CMD_OSD, val);
+}
+function live_mirror()
+{
+    value=document.getElementById("chx_image_mirror").checked?1:0;
+    live_setcam_control(SCAM_CMD_MIRROR, value);
+}
+function live_flip()
+{
+    value=document.getElementById("chx_image_flip").checked?1:0;
+    live_setcam_control(SCAM_CMD_FLIP, value);
+}
+function live_hz(val)
+{
+    live_setcam_control(SCAM_CMD_HZ,val);
+}
+
+//页面IR切换
+function timechange() {
+
+    var day_time_value = document.getElementById("inp_day").value;
+    var night_time_value = document.getElementById("inp_night").value;
+    var exp_time1 = /^(([0-1]\d)|(2[0-4])):[0-5]\d$/gi;
+    var booldate = exp_time1.test(day_time_value);
+    if (booldate == 0) {
+        alert("00:00~23:59");
+        return false;
+    } else if (booldate == 1) {
+        var a = day_time_value.substring(0, 2);
+        var b = day_time_value.substring(3, 5);
+        day_time_value = parseInt(a) * 60 + parseInt(b);
+        var c = night_time_value.substring(0, 2);
+        var d = night_time_value.substring(3, 5);
+        night_time_value = parseInt(c) * 60 + parseInt(d) - 1;
+        if (night_time_value < day_time_value) {
+            alert(top.str_lord_on + top.str_Time + ">" + top.str_lord_off + top.str_Time);
+            return false;
+        }
+    }
+    url = "/cgi-bin/set_infrared.cgi?mode=2&nSwitch=0&not_print=1&day_time=" + day_time_value + "&night_time=" + night_time_value + "&user=" + top.user + "&pwd=" + top.pwd;
+    //        location = url;
+    var rozen = document.getElementById("iframe_infrared");
+    rozen.src = url;
+    document.frames('iframe_infrared').location.reload();
+    //rozen.contentWindow.location.reload(true);
+}
+
+function check_day() {
+    timechange();
+}
+function check_night() {
+    timechange();
+}
+
+function ir_onchange() {
+    var infrared = document.getElementById("select1").value;
+    var value;
+    var type;
+    if (infrared == 0) {
+        document.getElementById("ir_time").style.display = "none";
+        document.getElementById("magnifier").style.height = "88px";
+        document.getElementById("div_more1").style.height = "110px";
+        
+        type = 0;
+        value = 0;
+        var day_time_value = ret_infrared_day_time;
+        var night_time_value = ret_infrared_night_time;
+    } else if (infrared == 1) {
+        document.getElementById("ir_time").style.display = "none";
+        document.getElementById("magnifier").style.height = "88px";
+        document.getElementById("div_more1").style.height = "110px";
+        
+        type = 1;
+        value = 1;
+        var day_time_value = ret_infrared_day_time;
+        var night_time_value = ret_infrared_night_time;
+    } else if (infrared == 2) {
+        document.getElementById("ir_time").style.display = "none";
+        document.getElementById("magnifier").style.height = "88px";
+        document.getElementById("div_more1").style.height = "110px";
+        
+        type = 1;
+        value = 0;
+        var day_time_value = ret_infrared_day_time;
+        var night_time_value = ret_infrared_night_time;
+    } else if (infrared == 3) {
+        document.getElementById("ir_time").style.display = "";
+        document.getElementById("magnifier").style.height = "63px";
+        document.getElementById("div_more1").style.height = "130px";
+        
+        type = 2;
+        value = 0;
+        var day_time_value = ret_infrared_day_time;
+        var night_time_value = ret_infrared_night_time;
+
+        var day_m = parseInt(ret_infrared_day_time % 60);     //分
+        var day_h = parseInt(ret_infrared_day_time / 60); //小时
+        day_h = String(day_h);
+        day_m = String(day_m);
+        tmp_daytime = '';
+        if (day_h.length == 1 && day_m.length == 1) {
+            tmp_daytime = "0" + day_h + ":" + "0" + day_m;
+        } else if (day_h.length == 1 && day_m.length == 2) {
+            tmp_daytime = "0" + day_h + ":" + day_m;
+        } else if (day_h.length == 2 && day_m.length == 1) {
+            tmp_daytime = day_h + ":" + "0" + day_m;
+        } else if (day_h.length == 2 && day_m.length == 2) {
+            tmp_daytime = day_h + ":" + day_m;
+        }
+
+        var night_m = parseInt(ret_infrared_night_time % 60);     //分
+        var night_h = parseInt(ret_infrared_night_time / 60); //小时
+
+        night_h = String(night_h);
+        night_m = String(night_m);
+        tmp_nighttime = '';
+        if (night_h.length == 1 && night_m.length == 1) {
+            tmp_nighttime = "0" + night_h + ":" + "0" + night_m;
+        } else if (night_h.length == 1 && night_m.length == 2) {
+            tmp_nighttime = "0" + night_h + ":" + night_m;
+        } else if (night_h.length == 2 && night_m.length == 1) {
+            tmp_nighttime = night_h + ":" + "0" + night_m;
+        } else if (night_h.length == 2 && night_m.length == 2) {
+            tmp_nighttime = night_h + ":" + night_m;
+        }
+
+        var day_input = document.getElementById("inp_day");
+        var night_input = document.getElementById("inp_night");
+
+        day_input.value = tmp_daytime;
+        night_input.value = tmp_nighttime;
+
+    }
+    url = "/cgi-bin/set_infrared.cgi?mode=" + type + "&nSwitch=" + value + "&not_print=1&day_time=" + day_time_value + "&night_time=" + night_time_value + "&user=" + top.user + "&pwd=" + top.pwd;
+    //        location = url;
+    var rozen = document.getElementById("iframe_infrared");
+    rozen.src = url;
+    //rozen.contentWindow.location.reload(true);
+    document.frames('iframe_infrared').location.reload();
+}
+
+
+//function body_onload()
+//{
+//    document.getElementById("select_osd").value=OSDTimer;
+//    document.getElementById("chx_image_mirror").checked=mirror?true:false;
+//    document.getElementById("chx_image_flip").checked=flip?true:false;
+//    document.getElementById("select_hz").value=aec_value;
+//}
+</script>
+
+<!-----------------------OSD End------------------------------>
+<body onload="body_onload()" style="">
+    <!--??DIV??????????-->
+    <iframe id="iframe_infrared" name="iframe_infrared" width="0" height="0" style="display:none"></iframe>
+    <iframe id="Iframe1" name="action_zone" style="display: none"></iframe>
+    <iframe id="iframe_Music" name="iframe_Music" style="display: none"></iframe>
+   <div style=" width:100%; height:100%">
+    <div id="div_setpre" style="display: none; position: absolute; left: 100px; top: 100px;
+        width: 101px; height: 104px; z-index: 1">
+        <table border="1" cellpadding="0" cellspacing="0" bgcolor="#8f939f">
+            <tr>
+                <td width="20">
+                    <div align="center">
+                        <span class="curspan3" onclick="set_preset(0);close_set_preset()">&nbsp;1&nbsp;</span></div>
+                </td>
+                <td width="20">
+                    <div align="center">
+                        <span class="curspan3" onclick="set_preset(1);close_set_preset()">&nbsp;2&nbsp;</span></div>
+                </td>
+                <td width="20">
+                    <div align="center">
+                        <span class="curspan3" onclick="set_preset(2);close_set_preset()">&nbsp;3&nbsp;</span></div>
+                </td>
+                <td width="20">
+                    <div align="center">
+                        <span class="curspan3" onclick="set_preset(3);close_set_preset()">&nbsp;4&nbsp;</span></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div align="center">
+                        <span class="curspan3" onclick="set_preset(4);close_set_preset()">&nbsp;5&nbsp;</span></div>
+                </td>
+                <td>
+                    <div align="center">
+                        <span class="curspan3" onclick="set_preset(5);close_set_preset()">&nbsp;6&nbsp;</span></div>
+                </td>
+                <td>
+                    <div align="center">
+                        <span class="curspan3" onclick="set_preset(6);close_set_preset()">&nbsp;7&nbsp;</span></div>
+                </td>
+                <td>
+                    <div align="center">
+                        <span class="curspan3" onclick="set_preset(7);close_set_preset()">&nbsp;8&nbsp;</span></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div align="center">
+                        <span class="curspan3" onclick="set_preset(8);close_set_preset()">&nbsp;9&nbsp;</span></div>
+                </td>
+                <td>
+                    <div align="center">
+                        <span class="curspan3" onclick="close_set_preset()">X</span></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="div_usepreset" style="display: none; position: absolute; left: 100px; top: 100px;
+        width: 101px; height: 104px; z-index: 1; margin-left: 40px">
+        <table border="1" cellpadding="0" cellspacing="0" bgcolor="#8f939f">
+            <tr>
+                <td width="20">
+                    <div align="center">
+                        <span id="span_cruise_0" class="curspan3" onclick="use_preset(0);close_use_preset()">&nbsp;1&nbsp;</span></div>
+                </td>
+                <td width="20">
+                    <div align="center">
+                        <span id="span_cruise_1" class="curspan3" onclick="use_preset(1);close_use_preset()">&nbsp;2&nbsp;</span></div>
+                </td>
+                <td width="20">
+                    <div align="center">
+                        <span id="span_cruise_2" class="curspan3" onclick="use_preset(2);close_use_preset()">&nbsp;3&nbsp;</span></div>
+                </td>
+                <td width="20">
+                    <div align="center">
+                        <span id="span_cruise_3" class="curspan3" onclick="use_preset(3);close_use_preset()">&nbsp;4&nbsp;</span></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div align="center">
+                        <span id="span_cruise_4" class="curspan3" onclick="use_preset(4);close_use_preset()">&nbsp;5&nbsp;</span></div>
+                </td>
+                <td>
+                    <div align="center">
+                        <span id="span_cruise_5" class="curspan3" onclick="use_preset(5);close_use_preset()">&nbsp;6&nbsp;</span></div>
+                </td>
+                <td>
+                    <div align="center">
+                        <span id="span_cruise_6" class="curspan3" onclick="use_preset(6);close_use_preset()">&nbsp;7&nbsp;</span></div>
+                </td>
+                <td>
+                    <div align="center">
+                        <span id="span_cruise_7" class="curspan3" onclick="use_preset(7);close_use_preset()">&nbsp;8&nbsp;</span></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div align="center">
+                        <span id="span_cruise_8" class="curspan3" onclick="use_preset(8);close_use_preset()">&nbsp;9&nbsp;</span></div>
+                </td>
+                <td>
+                    <div align="center">
+                        <span class="curspan3" onclick="close_use_preset()">X</span></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!--??DIV??????????-->
+    <!-- <div>
+                    <div class="contentb1"  style="border:5px solid red;">-->
+    <!-------------------------头部开始--------------------------------->
+    <table style="width: 100%;" cellpadding="0" cellspacing="0" border="0">
+        <tr style="width: 100%;" class="topb">
+            <td style="width: 250px; text-align: left; border: 0px solid red;" width="250">
+                <!--<a style="width: 222px" href="http://www.apexis.com.cn/" target="_blank">-->
+                    <img ondragstart="return false;" id="img_div" border="0" onclick="show_web()" src="image/apexislogo.gif" style="" /><!--</a>-->
+            </td>
+            <td style="width: 0px; text-align: center; border: 0px solid red;" align="center"
+                valign="bottom">
+                <div style="width: 486px; height: 50px; border: 0px solid red; margin: auto; text-align: center;"
+                    class="diva" align="center" valign="bottom" id="admin_top_botton">
+                    <table cellpadding="0" cellspacing="0" style="width: 400px; height: 32px; margin: auto;
+                        border: 0px solid blue;" id="admin_top_table">
+                        <tr>
+                            <td colspan="3" height="15">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="divb" align="center">
+                                <a id="top_href_video" href="#" onfocus="this.blur()" class="">
+                                    <img id="tool_video" style="border: 0;" src="image/tool_video_dis.gif" onmouseout="object_out_src(tool_video, 'image/tool_video_dis.gif')"
+                                        onmouseover="object_over_src(tool_video,'image/tool_video_sel.gif')" onclick="return tool_video_onclick()" ondragstart="return false;" /></a>
+                            </td>
+                            <td class="divb" id="voice_cen" align="center">
+                                <a id="top_href_replay" onclick="goto_replay()" align="center">
+                                    <img id="tool_rec" style="border: 0;" src="image/tool_rec_dis.gif" onmouseout="object_out_src(tool_rec, 'image/tool_rec_dis.gif')"
+                                        onmouseover="object_over_src( tool_rec,'image/tool_rec_sel.gif')" ondragstart="return false;" /></a>
+                            </td>
+                            <td class="divb">
+                                <a id="top_href_setup" onclick="goto_setup()" class="">
+                                    <img id="tool_set" style="border: 0;" src="image/tool_set_dis.gif" onmouseout="object_out_src(tool_set, 'image/tool_set_dis.gif')"
+                                        onmouseover="object_over_src( tool_set,'image/tool_set_sel.gif')" ondragstart="return false;" /></a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+            <td style="width: 100px;">
+                <!--img id="img1" src="image/camera.gif" style="border: 0px;" />-->
+                <table id="temhum">
+             <tr>
+              <td width="20"><img ondragstart="return false;" alt="" id="img_wendu" name="img_wendu" src="image/wendu.gif" width="25" height="40" /></td>
+              <td id="td_wendu_info" class="f1" ></td>
+              <td id="td_wendu_info2" class="f1" style=" display:none;"></td>
+              <td><img ondragstart="return false;" src="image/C.gif" height="20" id="C" onclick="C()"/><br /><img ondragstart="return false;" src="image/F.gif" height="20" id="F" onclick="F()" /></td>
+              <td>&nbsp;&nbsp;</td>
+              <td width="20"><img ondragstart="return false;" alt="" id="img_shidu" name="img_shidu" src="image/shidu.gif" width="24" height="40" /></td>
+              <td id="td_shidu_info" class="f1"></td>
+            </tr>
+           </table>
+            </td>
+            <td style="width: 50px;" valign="middle">
+                <img ondragstart="return false;" id="img4" src="image/Exit.png" style="border: 0px; margin-left: 5px;" onclick="ExitLogin()" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" style="border: 0px solid red; background: url(image/1111_05.gif)  top"
+                height="17">
+                <div style="width: 31; float: left; background: url(image/bk_left.gif) no-repeat  top;"
+                    border="0">
+                    <img ondragstart="return false;" src="image/bk_left.gif" />
+                </div>
+                <div style="width: 187; float: left; background: url(image/1111_03.gif) no-repeat  top;"border="0">
+                    <img ondragstart="return false;" src="image/1111_03.gif" />
+                </div>
+                <div style="width: 31; float: right; background: url(image/bk_right.gif) no-repeat top;border: 0px;" border="0">
+                    <img ondragstart="return false;" src="image/bk_right.gif" />
+                </div>
+            </td>
+        </tr>
+    </table>
+    <!-------------------------头部结束--------------------------------->
+    <!--    <table border="0" cellpadding="0" cellspacing="0" style="height: 100%; width: 100%;
+        border: 0px solid red;">
+        <tr>
+            <td style="width: 100%; border: 0px solid red;">
+                <table style="width: 100%; height: 100%; border: 0px solid yellow;" border="0" cellpadding="0"
+                    cellspacing="0">
+                    <tr>
+                        
+    <td style="padding-top: 0px; height: 100%;" valign="top" colspan="4">
+        -->
+    <!----------------------------------------------------------------------------------------------------->
+    <table style="padding-top: 0px; height: 90%; padding: 0px; margin: 0px; border: 0px solid red;"
+        border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="text-align: center; width: 250px; background: url(image/adminbg1.gif) repeat-y;
+                border: 0px solid yellow;" valign="top">
+                <table id="ptzsupport" width="245" border="0" cellspacing="0" cellpadding="0" align="center">
+                    <tr>
+                        <td valign="top" height="186">
+                            <table border="0" align="center" cellspacing="0" cellpadding="0" style="width: 158px;
+                                height: 161px;">
+                                <tr>
+                                    <td height="10">
+                                    </td>
+                                </tr>
+                                <tr style="">
+                                    <td>
+                                        <img ondragstart="return false;" onmouseout="object_out_src(img_leftup, 'image/leftup.gif')" onmouseover="object_over_src(img_leftup, 'image/leftup_sel.gif')"
+                                            onmousedown="leftup_onmousedown()" onmouseup="leftup_onmouseup()" id="img_leftup"
+                                            src="image/leftup.gif" name="img_leftup" />
+                                    </td>
+                                    <td>
+                                        <img ondragstart="return false;" onmouseout="object_out_src(img_up, 'image/up.gif')" onmouseover="object_over_src(img_up, 'image/up_sel.gif')"
+                                            onmousedown="up_onmousedown()" onmouseup="up_onmouseup()" id="img_up" src="image/up.gif"
+                                            name="img_up" />
+                                    </td>
+                                    <td>
+                                        <img ondragstart="return false;" onmouseout="object_out_src(img_rightup, 'image/rightup.gif')" onmouseover="object_over_src(img_rightup, 'image/rightup_sel.gif')"
+                                            onmousedown="rightup_onmousedown()" onmouseup="rightup_onmouseup()" id="img_rightup"
+                                            src="image/rightup.gif" name="img_rightup" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img ondragstart="return false;" onmouseout="object_out_src(img_left, 'image/left.gif')" onmouseover="object_over_src(img_left, 'image/left_sel.gif')"
+                                            onmousedown="left_onmousedown()" onmouseup="left_onmouseup()" src="image/left.gif"
+                                            name="img_left" border="0" id="img_left" />
+                                    </td>
+                                    <td>
+                                        <img ondragstart="return false;" onmouseout="object_out_src(img_gocenter,'image/center.gif')" onmouseover="object_over_src(img_gocenter,'image/center_sel.gif')"
+                                            onclick="center_onclick()" src="image/center.gif" name="img_gocenter" border="0"
+                                            id="img_gocenter" />
+                                    </td>
+                                    <td>
+                                        <img ondragstart="return false;" onmouseout="object_out_src(img_right, 'image/right.gif')" onmouseover="object_over_src(img_right, 'image/right_sel.gif')"
+                                            onmousedown="right_onmousedown()" onmouseup="right_onmouseup()" src="image/right.gif"
+                                            name="img_right" border="0" id="img_right" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img ondragstart="return false;" onmouseout="object_out_src(img_leftdown, 'image/leftdown.gif')" onmouseover="object_over_src(img_leftdown, 'image/leftdown_sel.gif')"
+                                            onmousedown="leftdown_onmousedown()" onmouseup="leftdown_onmouseup()" src="image/leftdown.gif"
+                                            name="img_leftdown" border="0" id="img_leftdown" />
+                                    </td>
+                                    <td>
+                                        <img ondragstart="return false;" onmouseout="object_out_src(img_down, 'image/down.gif')" onmouseover="object_over_src(img_down, 'image/down_sel.gif')"
+                                            onmousedown="down_onmousedown()" onmouseup="down_onmouseup()" src="image/down.gif"
+                                            name="img_down" border="0" id="img_down" />
+                                    </td>
+                                    <td>
+                                        <img ondragstart="return false;" onmouseout="object_out_src(img_rightdown, 'image/rightdown.gif')" onmouseover="object_over_src(img_rightdown, 'image/rightdown_sel.gif')"
+                                            onmousedown="rightdown_onmousedown()" onmouseup="rightdown_onmouseup()" src="image/rightdown.gif"
+                                            name="img_rightdown" border="0" id="img_rightdown" />
+                                    </td>
+                                </tr>
+                                <tr style="">
+                                    
+                                    </td>
+                                    <td style="">
+                                        <a id="a_setpos" href="javascript:set_oper_preset()">
+                                            <img ondragstart="return false;" id="img_setpreset" onmousedown="" src="image/level.gif"  name="img_setpreset"
+                                                border="0" onmouseout="object_out_src(img_setpreset, 'image/level.gif')" onmouseover="object_over_src(img_setpreset, 'image/level_sel.gif')" />
+                                        </a>
+                                    </td>
+                                    <td width="10" style="">
+                                        <a id="href_cruise" href="#"  onClick="set_cruise()" style="border: 0px">
+                                            <img ondragstart="return false;" id="img_cruise" onmousedown="" src="image/lengthways.gif" name="img_cruise"
+                                                style="margin-top: 0px;" border="0" onmouseout="object_out_src(img_cruise, 'image/lengthways.gif')"
+                                                onmouseover="object_over_src(img_cruise, 'image/lengthways_sel.gif')" /></a>
+                                    </td>
+                                    <td style="">
+                                        <a id="a_usepos" href="javascript:use_oper_preset()">
+                                            <img ondragstart="return false;" id="img_usepreset" onmousedown="" src="image/r.gif" name="img_usepreset" 
+                                                border="0" onmouseout="object_out_src(img_usepreset, 'image/r.gif')" onmouseover="object_over_src(img_usepreset, 'image/r_sel.gif')" /></a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <!--<tr style="">
+                                    <td height="5px" width="10px">
+                                        &nbsp;&nbsp;
+                                    </td>
+                                </tr>-->
+                    <tr>
+                        <td valign="top" height="90">
+                            <table width="170" height="90" border="0" align="center" cellpadding="0" cellspacing="0">
+                                
+                                <tr style="">
+                                    <td width="10">
+                                    </td>
+                                    <td>
+                                        <img ondragstart="return false;" id="img_vpatrol" onmousedown="vpatrol_onclick()" src="image/vertical_dis.gif"
+                                            name="img_vertical" width="38" height="23" border="0" onmouseout="object_out_src(img_vertical, 'image/vertical_dis.gif')"
+                                            onmouseover="object_over_src(img_vertical, 'image/vertical_sel.gif')" />
+                                    </td>
+                                    <td>
+                                        <img ondragstart="return false;" id="img_hpatrol" onmousedown="hpatrol_onclick()" src="image/hor_dis.gif" name="img_hpatrol"
+                                            width="38" height="23" border="0" onmouseout="object_out_src(img_hpatrol, 'image/hor_dis.gif')"
+                                            onmouseover="object_over_src(img_hpatrol, 'image/hor_sel.gif')" />
+                                    </td>
+                                    <td>
+                                        <img ondragstart="return false;" id="img_switchon" onmousedown="switchon_onclick()" src="image/onoff_dis.gif"
+                                            name="img_onoff" width="38" height="23" border="0" onmouseout="object_out_src(img_switchon, 'image/onoff_dis.gif')"
+                                            onmouseover="object_over_src(img_switchon, 'image/onoff_sel.gif')" />
+                                    </td>
+                                </tr>
+                                <tr style="">
+                                    <td width="10" style="">
+                                    </td>
+                                    <td>
+                                        <img ondragstart="return false;" id="img_vpatrolstop" onmousedown="vpatrolstop_onclick()" src="image/verpalstop_dis.gif"
+                                            name="img_vpatrolstop" width="38" height="23" border="0" onmouseout="object_out_src(img_vpatrolstop, 'image/verpalstop_dis.gif')"
+                                            onmouseover="object_over_src(img_vpatrolstop, 'image/verpalstop_sel.gif')" />
+                                    </td>
+                                    <td>
+                                        <img ondragstart="return false;" id="img_hpatrolstop" onmousedown="hpatrolstop_onclick()" src="image/horpalstop_dis.gif"
+                                            name="img_hpatrolstop" width="37" height="23" border="0" onmouseout="object_out_src(img_hpatrolstop, 'image/horpalstop_dis.gif')"
+                                            onmouseover="object_over_src(img_hpatrolstop, 'image/horpalstop_sel.gif')" />
+                                    </td>
+                                    <td>
+                                        <img ondragstart="return false;" id="img_switchoff" name="img_switchoff" src="image/onoffstop_dis.gif" onclick="switchoff_onclick()"
+                                            width="38" height="23" border="0" onmouseout="object_out_src(img_switchoff, 'image/onoffstop_dis.gif')"
+                                            onmouseover="object_over_src(img_switchoff, 'image/onoffstop_sel.gif')" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <hr style="size: 2; width: 90%"/>
+                <div id="div_more1" class="ap2" style="height: 110px; width: 200px;">
+                    <table width="200" border="0" cellspacing="0" cellpadding="0" style="display: none;">
+                        <tr>
+                            <td heigth="30" colspan="4">
+                                <br />
+                            </td>
+                        </tr>
+                        <tr style="margin-top: 40px">
+                            <td width="10">
+                            </td>
+                            <td>
+                                <img ondragstart="return false;" id="img_wnd1" onclick="set_wnd_mode(1)" src="image/wnd1_dis.gif" name="img_wnd1"
+                                    width="47" height="25" border="0" onmouseout="object_out_src(img_wnd1, 'image/wnd1_dis.gif')"
+                                    onmouseover="object_over_src(img_wnd1, 'image/wnd1_sel.gif')" />
+                            </td>
+                            <td>
+                                <img ondragstart="return false;" id="img_wnd4" onclick="set_wnd_mode(4)" src="image/wnd4_dis.gif" name="img_wnd4"
+                                    width="47" height="25" border="0" onmouseout="object_out_src(img_wnd4, 'image/wnd4_dis.gif')"
+                                    onmouseover="object_over_src(img_wnd4, 'image/wnd4_sel.gif')" />
+                            </td>
+                            <td>
+                                <img ondragstart="return false;" id="img_wnd9" onclick="set_wnd_mode(9)" src="image/wnd9_dis.gif" name="img_wnd9"
+                                    width="47" height="25" border="0" onmouseout="object_out_src(img_wnd9, 'image/wnd9_dis.gif')"
+                                    onmouseover="object_over_src(img_wnd9, 'image/wnd9_sel.gif')" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td heigth="30" colspan="4">
+                            </td>
+                        </tr>
+                    </table>
+                    <br />
+                    <iframe id="action_zone" name="action_zone" style="display: none"></iframe>
+                    <table width="200" border="0" align="center" cellpadding="0" cellspacing="0" style="margin: auto; margin-left:20px">
+                        <tr >
+                            <td width="40%" class="f2">
+                                &nbsp;&nbsp;OSD
+                            </td>
+                            <td width="60%" class="f2_1">
+                                <select id="select_osd" onchange="live_osd_onchange(this.value)" style="width: 100px">
+                                    <option value="0">
+
+                                        <script>document.write( top.str_disabled);</script>
+
+                                    </option>
+                                    <option value="1">
+
+                                        <script>document.write( top.str_rgb_black);</script>
+
+                                    </option>
+                                    <option value="2">
+
+                                        <script>document.write( top.str_rgb_red);</script>
+
+                                    </option>
+                                    <option value="3">
+
+                                        <script>document.write( top.str_rgb_green);</script>
+
+                                    </option>
+                                    <option value="4">
+
+                                        <script>document.write( top.str_rgb_blue);</script>
+
+                                    </option>
+                                    <option value="5">
+
+                                        <script>document.write( top.str_rgb_purple);</script>
+
+                                    </option>
+                                    <option value="6">
+
+                                        <script>document.write( top.str_rgb_gray);</script>
+
+                                    </option>
+                                    <option value="7">
+
+                                        <script>document.write( top.str_rgb_silver);</script>
+
+                                    </option>
+                                    <option value="8">
+
+                                        <script>document.write( top.str_rgb_yellow);</script>
+
+                                    </option>
+                                    <option value="9">
+
+                                        <script>document.write( top.str_rgb_olive);</script>
+
+                                    </option>
+                                    <option value="10">
+
+                                        <script>document.write( top.str_rgb_turquoise);</script>
+
+                                    </option>
+                                    <option value="11">
+
+                                        <script>document.write( top.str_rgb_white);</script>
+
+                                    </option>
+                                    <option value="12">
+
+                                        <script>document.write( top.str_rgb_lightblue);</script>
+
+                                    </option>
+                                </select>
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="30%" class="f2">
+                                &nbsp;&nbsp;<script>document.write(top.str_aec_hz);</script>
+
+                            </td>
+                            <td width="70%" class="f2_1">
+                                <select id="select_hz" onchange="live_hz(this.value)" style="width: 100px">
+                                    <option value="1">
+
+                                        <script>document.write( top.str_50_hz);</script>
+
+                                    </option>
+                                    <option value="2">
+
+                                        <script>document.write( top.str_60_hz);</script>
+
+                                    </option>
+                                    <option value="3">
+
+                                        <script>document.write( top.str_outer_hz);</script>
+
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+						    <td width="40%" class="f2">
+                                    &nbsp;&nbsp;<script type="text/javascript">                                                                        document.write(top.str_control);</script>
+
+                                </td>
+                                <td width="60%" class="f2_1">
+                                    <select id="select1" onchange="ir_onchange()" style="width: 100px">
+                                        <option value="0">
+
+                                            <script>                                                                    document.write(top.str_automatic);</script>
+
+                                        </option>
+                                        <option value="1">
+
+                                            <script>                                                                    document.write(top.str_lord_on);</script>
+
+                                        </option>
+                                        <option value="2">
+
+                                            <script>                                                                    document.write(top.str_lord_off);</script>
+
+                                        </option>
+                                        <option value="3">
+
+                                            <script>                                                document.write(top.str_Time);</script>
+
+                                        </option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr id="ir_time" style="display:none;height:25px;line-height:25px;">
+                                <td width="40%"><input type="text" style="width:45px" id="inp_day" placeholder="07:00" onblur="check_day()"/>
+                                    <span style="font-size:12px;"><script type="text/javascript">                                                                                          document.write(top.str_lord_off);</script></span>
+                                </td>  
+                                <td width="60%"><input type="text" style="width:45px;" id="inp_night" placeholder="18:00" onblur="check_night()"/>
+                                    <span style="font-size:12px;"><script type="text/javascript">                                                                                          document.write(top.str_lord_on);</script></span>
+                                </td>
+                            </tr>
+                            <td width="30%" class="f2">
+                                &nbsp;&nbsp;<input id="chx_image_mirror" type="checkbox" onclick="live_mirror()" />
+                                &nbsp;<script>document.write(top.str_image_mirror);</script>
+
+                            </td>
+                            <td width="70%" class="f2_1" style=" text-align:right">
+                                &nbsp;&nbsp;<input id="chx_image_flip" type="checkbox" onclick="live_flip()" />
+                                &nbsp;<script>document.write(top.str_image_flip);</script>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                            </td>
+                        </tr>
+                        <!-- <tr>
+                                        <td colspan="2" class="f2">
+                                            <input id="btn_close_morediv" type="button" onclick="div_more.style.display='none';" />
+                                        </td>
+                                    </tr>-->
+                    </table>
+                </div>
+                <hr id="hr_margin" style="size: 2px; width: 90%;margin-top:30px" />
+                
+                
+                
+                
+                
+                
+                <form name="form_slider" style="">
+                <table width="130" border="0" align="center" cellpadding="0" cellspacing="5">
+                    <tr id= "music" onclick="show_main_menu(1)">
+                     <td  class="music1">
+                       <script>                           document.write(top.str_music);</script>
+                     </td>
+                    </tr>
+                    <tr id="music_1" align="center">
+                     <td>
+                      <table class="music4" >
+                        <tr>
+                         <td><!--上一曲-->
+                           <img ondragstart="return false;" src="image/mup.gif" onclick="V()" id="Vid" alt="132" title="<script>document.write(top.str_music);</script>" onMouseOut="object_out_src(Vid, 'image/mup.gif')" onMouseOver="object_over_src(Vid, 'image/mup_sel.gif')" />
+                         </td>
+                         <td><!--播放，暂停-->
+                           <img ondragstart="return false;" src="image/mplay.gif" onclick="musicplay()" id="Space" alt="<script>document.write(top.str_music);</script>" />
+                         </td>
+                         <td><!--下一曲-->
+                           <img ondragstart="return false;" src="image/mdown.gif" onclick="N()" id="Nid" onMouseOut="object_out_src(Nid, 'image/mdown.gif')" onMouseOver="object_over_src(Nid, 'image/mdown_sel.gif')" />
+                         </td>
+                         <td style=" display:none"><!--播放列表-->
+                           <img ondragstart="return false;" src="image/mlie.gif" id="img_search_file" onClick="open_search_page()" />
+                         </td>
+                         <td style=" display:none"><!--循环播放-->
+                           <img ondragstart="return false;" src="image/ptz.gif" id="img_tz" onClick="star_search_page()" />  
+                         </td>
+                        </tr>
+                        <tr>
+                         <td colspan="2" class="f13">
+                          <script>document.write(top.str_musiclist);</script>
+                         </td>
+                         <td colspan="3">
+                           <select name="select_Enable" id="select_Enable" size="1" style="width:100px" onchange="music_list_onclick(this.value)">
+
+                          </select>
+                         </td>
+                        </tr>
+                         <tr>
+                         <td colspan="5" class="f13" style="text-align:center;" align="center">
+                           <table border="0" align="center" cellpadding="0" cellspacing="0" style="width: 130px" >
+      	                      <tr align="left" id="music_audio">                  	
+                                <td width="16" align="center">
+                                  <img ondragstart="return false;" src="image/msize.gif" onmousedown="ptzspeed_onclick()"/>
+                                </td>
+                                <td width="100">                    
+                                    <script language="javaScript" id="play_vol" >
+                                        ob_sl_musicvol = new slider(musicvol_A_INIT, musicvol_A_TPL, MusicvolChg);
+                                </script>
+                                </td>
+                                <td align="center" valign="bottom">
+                                        <input class="l3" type="text" id="text_music" name="text_music" size="3" maxlength="3"
+                                            readonly="readonly" />
+                                    </td>
+                              </tr>
+                           </table>
+                         </td>
+                       </tr>
+                      </table> 
+                     </td>
+                    </tr>
+                    
+                    
+                    <tr>
+                     <td>
+                      <table>
+                        
+                      
+                    <tr align="left" id ="ptzspeed">
+                        <td width="16" align="center">
+                            <img ondragstart="return false;" id="img_ptzspeed" name="img_ptzspeed" onmousedown="ptzspeed_onclick()" src="image/ptz_dis.gif"
+                                width="16" height="12" border="0" onmouseout="object_out_src(img_ptzspeed, 'image/ptz_dis.gif')"
+                                onmouseover="object_over_src(img_ptzspeed, 'image/ptz_sel.gif')" />
+                        </td>
+                        <td width="100">
+
+                            <script language="javaScript">
+                                ob_sl_ptzs = new slider(PTZS_A_INIT, PTZS_A_TPL, PtzsChg);
+                            </script>
+
+                        </td>
+                        <td align="center" valign="bottom">
+                            <input class="l3" type="text" id="text_ptzs" name="text_ptzs" size="3" maxlength="3"
+                                readonly="readonly" />
+                        </td>
+                    </tr>
+                    <tr align="left">
+                        <td width="16" align="center">
+                            <img ondragstart="return false;" id="img_brightness" name="img_brightness" onmousedown="brightness_onclick()"
+                                src="image/bright_dis.gif" width="16" height="16" border="0" onmouseout="object_out_src(img_brightness, 'image/bright_dis.gif')"
+                                onmouseover="object_over_src(img_brightness, 'image/bright_sel.gif')" />
+                        </td>
+                        <td width="100">
+
+                            <script language="javaScript">
+                                ob_sl_bright = new slider(BRIGHT_A_INIT, BRIGHT_A_TPL, BrightnessChg);
+                            </script>
+
+                        </td>
+                        <td align="center" valign="bottom">
+                            <input class="l3" type="text" id="text_bright" name="text_bright" size="3" maxlength="3"
+                                readonly="readonly" />
+                        </td>
+                    </tr>
+                    <tr align="left">
+                        <td width="16" align="center">
+                            <img ondragstart="return false;" id="img_contrast" name="img_contrast" onmousedown="contrast_onclick()" src="image/contrast_dis.gif"
+                                width="12" height="12" border="0" onmouseout="object_out_src(img_contrast, 'image/contrast_dis.gif')"
+                                onmouseover="object_over_src(img_contrast, 'image/contrast_sel.gif')" />
+                        </td>
+                        <td width="100">
+
+                            <script language="javaScript">
+                                ob_sl_contrast = new slider(CONTRAST_A_INIT, CONTRAST_A_TPL, ContrastChg);
+                            </script>
+
+                        </td>
+                        <td align="center" valign="bottom">
+                            <input class="l3" type="text" id="text_contrast" name="text_contrast" size="3" maxlength="3"
+                                readonly="readonly" />
+                        </td>
+                    </tr>
+                    <tr align="left">
+                        <td width="16" align="center" class="style1">
+                            <img ondragstart="return false;" id="img_hue" name="img_hue" onmousedown="hue_onclick()" src="image/hue_dis.gif"
+                                width="12" height="12" border="0" onmouseout="object_out_src(img_hue, 'image/hue_dis.gif')"
+                                onmouseover="object_over_src(img_hue, 'image/hue_sel.gif')" />
+                        </td>
+                        <td width="100" class="style1">
+
+                            <script language="javaScript">
+                                ob_sl_hue = new slider(HUE_A_INIT, HUE_A_TPL, HueChg);
+                            </script>
+
+                        </td>
+                        <td align="center" valign="bottom" class="style1">
+                            <input class="l3" type="text" id="text_hue" name="text_hue" size="4" maxlength="4"
+                                readonly="readonly" />
+                        </td>
+                    </tr>
+                    
+                    <!---------注释：第五个视频美化控制（阴影）--------->
+                    <tr align="left">
+                                    <td width="16" align="center">
+                                        <img ondragstart="return false;" id="img_satura" name="img_satura" onmousedown="satura_onclick()" src="image/satura_dis.gif"
+                                            width="12" height="10" border="0" onmouseout="object_out_src(img_satura, 'image/satura_dis.gif')"
+                                            onmouseover="object_over_src(img_satura, 'image/satura_sel.gif')" />
+                                    </td> 
+                                    <td width="100">
+
+                                        <script language="javaScript">
+                                            ob_sl_satura = new slider(SATURA_A_INIT, SATURA_A_TPL, SaturationChg);
+                                            function tool_video_onclick() {
+
+                                            }
+
+                                        </script>
+
+                                    </td>
+                                    <td align="center" valign="bottom">
+                                        <input class="l3" type="text" id="text_satura" name="text_satura" size="3" maxlength="3"
+                                            readonly="readonly" />
+                                    </td>
+                                </tr>
+                                </table>
+                     </td>
+                    </tr>
+                </table>
+                <table style=" margin-left:20px">
+                    <tr>
+                       <td id="magnifier" style="height:88px" >
+                        <table cellpadding="0" cellspacing="0" style=" width:160px; text-align:center">
+                         <tr id="tr_zoom" >
+                            <td class="style1"></td>
+                            <td align="center" class="style1">
+                              <img ondragstart="return false;" id="img_zoomdel" onMouseDown="zoomdel_onclick()" onMouseUp="ZIF_Stop()" src="image/zoomdel_dis.gif" name="img_zoomdel" width="23" height="23" border="0" onMouseOut="object_out_src(img_zoomdel, 'image/zoomdel_dis.gif')" onMouseOver="object_over_src(img_zoomdel, 'image/zoomdel_sel.gif')" />
+                            </td>
+                            <td class="style1"></td>
+                            <td align="center" class="style1">
+                              <img ondragstart="return false;" id="img_zoomadd" onMouseDown="zoomadd_onclick()" onMouseUp="ZIF_Stop()" src="image/zoomadd_dis.gif" name="img_zoomadd" width="23" height="23" border="0" onMouseOut="object_out_src(img_zoomadd,'image/zoomadd_dis.gif')" onMouseOver="object_over_src(img_zoomadd, 'image/zoomadd_sel.gif')" />
+                            </td>
+                          </tr>
+
+                          <tr id="tr_iris" style="display:none">
+                            <td></td>
+                            <td align="center">
+                                <img ondragstart="return false;" id="img_irisdel" onMouseDown="irisdel_onclick()" onMouseUp="ZIF_Stop()" src="image/irisdel_dis.gif" name="img_irisdel" width="23" height="23" border="0" onMouseOut="object_out_src(img_irisdel, 'image/irisdel_dis.gif')" onMouseOver="object_over_src(img_irisdel, 'image/irisdel_sel.gif')" />
+                            </td>
+                            <td></td>
+                            <td align="center">
+                                <img ondragstart="return false;" id="img_irisadd" onMouseDown="irisadd_onclick()" onMouseUp="ZIF_Stop()" src="image/irisadd_dis.gif" name="img_irisadd" width="23" height="23" border="0" onMouseOut="object_out_src(img_irisadd, 'image/irisadd_dis.gif')" onMouseOver="object_over_src(img_irisadd, 'image/irisadd_sel.gif')" />
+                            </td>
+                          </tr>
+
+                          <tr id="tr_focus" style="display:none">
+                            <td></td>
+                            <td align="center">
+                                <img ondragstart="return false;" id="img_focusdel" onMouseDown="focusdel_onclick()" onMouseUp="ZIF_Stop()" src="image/focusdel_dis.gif" name="img_focusdel" width="23" height="23" border="0" onMouseOut="object_out_src(img_focusdel, 'image/focusdel_dis.gif')" onMouseOver="object_over_src(img_focusdel, 'image/focusdel_sel.gif')" />
+                            </td>
+                            <td></td>
+                            <td align="center">
+                                <img ondragstart="return false;" id="img_focusadd" onMouseDown="focusadd_onclick()" onMouseUp="ZIF_Stop()" src="image/focusadd_dis.gif" name="img_focusadd" width="23" height="23" border="0" onMouseOut="object_out_src(img_focusadd, 'image/focusadd_dis.gif')" onMouseOver="object_over_src(img_focusadd, 'image/focusadd_sel.gif')" />
+                            </td>
+                          </tr>
+                        </table>
+                       </td>
+                      </tr>
+                </table>
+
+                </form>
+            </td>
+            <td style="width: 100%; border: 0px solid blue;">
+                <table style="width: 100%; height: 100%; border: 0px solid #00A99E;" cellpadding="0"
+                    cellspacing="0">
+                    <tr style="width: 100%; height: 95%;">
+                        <td style="height: 100%; width: 100%; border: 0px solid #ffffff; text-align: center">
+                            <iframe border="0" frameborder="0" id="live_content_frame" name="live_content_frame"
+                                src="" width="100%" height="100%" marginwidth="0" marginheight="0" scrolling="auto">
+                            </iframe>
+                        </td>
+                    </tr>
+                    <tr style="width: 100%; height: 5%;">
+                        <td style="border: 0px solid red;" class="tb1">
+                            <table style="height: 36px; float: left;" border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td width="20">
+                                    </td>
+                                    <!--<td style=" display:none">
+                                        <a href="#" onclick="more_func()" style="border: 0px"><span id="span">
+                                            <img ondragstart="return false;" id="href_more" src="image/osd_dis.png" width="30" height="31" style="border: 0px"
+                                                onmouseout="object_out_src(href_more, 'image/osd_dis.png')" onmouseover="object_over_src(href_more, 'image/osd_sel.png')" /></span></a>
+                                    </td>-->
+                                    <td>
+                                        <span id="span">
+                                            <img ondragstart="return false;" id="img_capture" onclick="window.open('snapshot2.htm').focus()" src="image/capture_dis.png"
+                                                width="30" height="31" onmouseout="object_out_src(img_capture, 'image/capture_dis.png')"
+                                                onmouseover="object_over_src(img_capture, 'image/capture_sel.png')" /></span>
+                                    </td>
+                                    <td>
+                                        <span id="span">
+                                            <img ondragstart="return false;" id="img_autosize" name="img_autosize" onclick="live_autosize_show()" width="30"
+                                                height="31" border="0" src="image/auto_dis.png" onmouseout="object_out_src( img_autosize, 'image/auto_dis.png')"
+                                                onmouseover="object_over_src( img_autosize,'image/auto_sel.png')" /></span>
+                                    </td>
+                                    <td>
+                                        <span id="span">
+                                            <img ondragstart="return false;" id="img_realsize" name="img_realsize" onclick="live_realsize_show()" width="30"
+                                                height="31" border="0" src="image/real_dis.png" onmouseout="object_out_src(img_realsize, 'image/real_dis.png')"
+                                                onmouseover="object_over_src(img_realsize, 'image/real_sel.png')" /></span>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table style="height: 36px; width: 50px; float: right" border="0" cellpadding="0"
+                                cellspacing="0">
+                                <tr>
+                                    <td>
+                                        <span class="st_span1" style=" display:none;">
+                                            <img ondragstart="return false;" id="img_auto" onmousedown="clearalarm_func1()" width="30" height="30" border="0"
+                                                src="image/auto_dis.png" onmouseout="object_out_src(img_auto, 'image/auto_dis.png')"
+                                                onmouseover="object_over_src(img_auto, 'image/auto_sel.png')" /></span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <script language="javascript" src="../js/clearcache.js"></script>
+
+    <link href="../css/new.css" rel="stylesheet" type="text/css" />
+    <link href="../css/ceshi.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        body
+        {
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+           
+        }
+       
+    </style>
+    <title></title>
+
+   <script type="text/javascript">
+       
+       document.write('<script src="/cgi-bin/get_devid_unabto.cgi?user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+</script>
+<script type="text/javascript" src="/cgi-bin/get_status.cgi"></script>
+<script type="text/javascript" src="/cgi-bin/get_real_status.cgi"></script>
+
+</head>
+
+<script type="text/javascript">
+    if (ret_alias_name == '') {
+        ret_alias_name = top.str_anonymous;
+    }
+    top.document.title = top.str_device + '(' + ret_alias_name + ')';
+
+    function body_onload() {
+
+        document.getElementById("dev_id").value = ret_getuid_unabto;    //–Ú¡–∫≈
+       
+    }
+
+   
+
+    function set_devinfo() {
+
+//        var ret_getuid = document.getElementById("dev_id").value;
+//        alert(ret_getuid);
+//        url = "/cgi-bin/set_devid_unabto.cgi?next_url=setmenu/DevIn.htm&uid_unabto=" + ret_getuid + "&uidusr_unabto=" + "&uidpwd_unabto=" + "&user=" + top.user + "&pwd=" + top.pwd;
+//        location = url;
+
+        location = setmenu/DevIn.htm;
+    }
+
+</script>
+
+<body onload="body_onload()" class="body">
+     <table width="100%" cellpadding="0" cellspacing="0">
+        <tr class="adtop"><td>&nbsp;</td></tr>
+        <tr>
+            <td align="center" >
+                <table cellpadding="0" cellspacing="0" >
+                   <tr>
+                    <td colspan="3" class="mid03_1">
+                        <strong class="mid03">
+                            <script type="text/javascript">document.write(top.str_dev_id);</script>
+                        </strong>
+                    </td>
+                   </tr>
+                  <tr  >
+                   <td class="lcorner" ></td>
+                   <td class="cbtop">
+                                 <table cellpadding="0" cellspacing="0" style=" width:730px">
+                                    <tr style=" width:100%">
+                                        <td style="text-align: right; " align="right">
+                                            <button class="resethbutton" onclick="location.reload()">
+                                                <script>document.write(top.str_save);</script>
+                                            </button>
+                                            <button class="resethbutton" onclick="location.reload()">
+                                                <script>document.write(top.str_refresh);</script>
+                                            </button>
+                             
+                                        </td>
+                      
+                                    </tr>
+                                 </table>
+                               </td>
+                               <td class="rcorner"></td>
+                              </tr>
+              
+                              <tr>
+                               <td class="lborder"></td>
+                               <td >
+                                   <table style="margin-top: 0px; width:100%; height: 20%;" class="admintr">
+               
+                           <!-- <table style="margin-top:10px;width:98%;height:70%;border:1px solid #EEE5DE;"  > --><!--solid black-->
+  
+                             
+                             
+                              
+                             
+                             
+                              <tr  style="height:35px">
+                                <td align="right" class="admintd"><strong class="mid04">
+                                  <script type="text/javascript">                                      document.write(top.str_dev_id);</script>
+                                </strong></td>
+                                <td style="padding-left:20px"><input  name="dev_id" type="text" id="dev_id" maxlength="64" disabled=disabled/></td>
+                              </tr>
+                                </table>
+                   </td>
+                   <td  class="rborder"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="ldcorner"></td>
+                   <td class="cdow"></td>
+                   <td class="rdcorner"></td>
+                  </tr>
+           
+                </table>
+            </td>
+        </tr>
+     </table>
+</body>
+</html>

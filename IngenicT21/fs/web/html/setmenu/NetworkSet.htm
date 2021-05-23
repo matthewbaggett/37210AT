@@ -1,0 +1,439 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <script language="javascript" src="../js/clearcache.js"></script>
+
+    <link href="../css/new.css" rel="stylesheet" type="text/css" />
+    <link href="../css/ceshi.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        body
+        {
+           margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+        }
+    </style>
+
+    <script>
+        document.write('<script src="/cgi-bin/check_user.cgi?user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+        document.write('<script src="/cgi-bin/get_params.cgi?type=7&user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+        document.write('<script src="/cgi-bin/get_params.cgi?type=13&user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+    </script>
+
+    <script>
+        function mySel(value) {
+            document.getElementById('tr_IpAddress').style.display = 'none';
+            document.getElementById('tr_Zwym').style.display = 'none';
+            document.getElementById('tr_GateWay').style.display = 'none';
+            //    document.getElementById('tr_Pppoe').style.display='none';
+            //    document.getElementById('tr_PppoeUser').style.display='none';
+            //    document.getElementById('tr_PppoePwd').style.display='none';
+            //    document.getElementById('tr_PppoeAddress').style.display='none';
+
+            if (0 == value) {
+                document.getElementById('tr_IpAddress').style.display = '';
+                document.getElementById('tr_Zwym').style.display = '';
+                document.getElementById('tr_GateWay').style.display = '';
+            }
+            else if (2 == value) {
+                //        document.getElementById('tr_Pppoe').style.display='';
+                //        document.getElementById('tr_PppoeUser').style.display='';
+                //        document.getElementById('tr_PppoePwd').style.display='';
+                //        document.getElementById('tr_PppoeAddress').style.display='';
+            }
+        }
+
+        function showppoe(value) {
+            if (value == 0) {
+                //        document.getElementById('txt_PppoeUser').disabled="false";
+                //        document.getElementById('txt_PppoePwd').disabled="false";
+                //        document.getElementById('txt_PppoeAddress').disabled="false";
+            } else {
+                //        document.getElementById('txt_PppoeUser').disabled="";
+                //        document.getElementById('txt_PppoePwd').disabled="";
+                //        document.getElementById('txt_PppoeAddress').disabled="";
+            }
+        }
+
+        function judge_showmac() {
+            if (top.user == top.str_fdefault_name) {
+                document.getElementById('txt_MacAddress').disabled = "";
+            }
+            else {
+                document.getElementById('txt_MacAddress').disabled = "false";
+            }
+        }
+
+        function body_load() {
+
+            judge_showmac();
+            document.getElementById("select_NetworkType").value = conn_mod;
+            if (document.getElementById("select_NetworkType").value == 0) {
+                document.getElementById('tr_IpAddress').style.display = '';
+                document.getElementById('tr_Zwym').style.display = '';
+                document.getElementById('tr_GateWay').style.display = '';
+            }
+
+
+            document.getElementById("txt_MediaPort").value = video_port;
+            document.getElementById("txt_WebPort").value = web_port;
+            document.getElementById("txt_pushPort").value = push_port;
+            document.getElementById("txt_PhonePort").value = mobi_port;
+            document.getElementById("txt_RtspPort").value = rtsp_port;
+
+            document.getElementById("txt_IpAddress").value = ipcamIP;
+            document.getElementById("txt_Zwym").value = ipcamIPMask;
+            document.getElementById("txt_GateWay").value = ipcamGatewayIP;
+
+            //    document.getElementById("select_OpenPppoe").value=dwPPPOE;
+            //    document.getElementById("txt_PppoeUser").value=sPPPoEUser;                           
+            //    document.getElementById("txt_PppoePwd").value=sPPPoEPassword;                         
+            //    document.getElementById("txt_PppoeAddress").value=sPPPoEIP;                           
+
+            document.getElementById("txt_DnsService").value = dns0;
+            document.getElementById("txt_MacAddress").value = byMACAddr;
+
+            //showppoe(dwPPPOE);
+            mySel(conn_mod);
+        }
+
+        function set_NetworkSet() {
+            var selectNetworkType = document.getElementById("select_NetworkType").value;
+
+            var txtMediaPort = document.getElementById("txt_MediaPort").value;
+            var txtWebPort = document.getElementById("txt_WebPort").value;
+            var txtpushPort = document.getElementById("txt_pushPort").value;
+            var txtPhonePort = document.getElementById("txt_PhonePort").value;
+
+            var txtIpAddress = document.getElementById("txt_IpAddress").value;
+            var txtZwym = document.getElementById("txt_Zwym").value;
+            var txtGateWay = document.getElementById("txt_GateWay").value;
+
+            //    var selectOpenPPPOE=document.getElementById("select_OpenPppoe").value;
+            //    var ppoeUser=document.getElementById("txt_PppoeUser").value;
+            //    var ppoePwd=document.getElementById("txt_PppoePwd").value;
+            //    var ppoeAddress=document.getElementById("txt_PppoeAddress").value;
+
+            var txtDnsService = document.getElementById("txt_DnsService").value;
+            var txtMacAddress = document.getElementById("txt_MacAddress").value;
+
+            var txtRtspPort = document.getElementById("txt_RtspPort").value;
+            //var txtRtcpPort=document.getElementById("txt_RtcpPort").value;
+            //var txtRtpPort=document.getElementById("txt_RtpPort").value;
+
+            if (txtMediaPort == txtWebPort || txtMediaPort == txtpushPort || txtMediaPort == txtPhonePort || txtMediaPort == txtRtspPort || txtpushPort == txtWebPort || txtPhonePort == txtWebPort || txtRtspPort == txtWebPort || txtpushPort == txtPhonePort || txtpushPort == txtRtspPort || txtPhonePort == txtRtspPort ) {
+                alert(top.str_notice);
+                return false;
+            }
+
+            if (selectNetworkType == 0) {
+                url = "/cgi-bin/set_static_ip.cgi?next_url=rebootme.htm&ip=" + txtIpAddress + "&mask=" + txtZwym + "&gateway=" + txtGateWay + "&dns0=" + txtDnsService + "&dns1=&mac=" + txtMacAddress + "&web_port=" + txtWebPort + "&push_port=" + txtpushPort + "&video_port=" + txtMediaPort + "&mobi_port=" + txtPhonePort + "&rtsp_port=" + txtRtspPort + "&user=" + top.user + "&pwd=" + top.pwd;
+            }
+            else if (selectNetworkType == 1) {
+                url = "/cgi-bin/set_dhcp_ip.cgi?next_url=rebootme.htm&web_port=" + txtWebPort + "&push_port=" + txtpushPort + "&video_port=" + txtMediaPort + "&mobi_port=" + txtPhonePort + "&rtsp_port=" + txtRtspPort + "&dns0=" + txtDnsService + "&dns1=&mac=" + txtMacAddress + "&user=" + top.user + "&pwd=" + top.pwd;
+            }
+            //    else if(selectNetworkType==2)
+            //    {
+            //        url="/cgi-bin/set_pppoe.cgi?next_url=rebootme.htm&web_port="+txtWebPort+"&video_port="+txtMediaPort+"&mobi_port="+txtPhonePort+"&rtsp_port="+txtRtspPort+"&poe_enable="+selectOpenPPPOE+"&poe_user="+ppoeUser+"&poe_pwd="+ppoePwd+"&poe_ip="+ppoeAddress+"&dns0="+txtDnsService+"&dns1=&mac="+txtMacAddress+"&user="+top.user+"&pwd="+top.pwd;
+            //    }
+
+            location = url;
+        }
+
+    </script>
+
+</head>
+<body onload="body_load()" class="body">
+     <table width="100%" cellpadding="0" cellspacing="0">
+        <tr class="adtop"><td>&nbsp;</td></tr>
+        <tr>
+            <td align="center">
+                <table cellpadding="0" cellspacing="0" >
+                   <tr>
+                    <td colspan="3" class="mid03_1">
+                        <strong class="mid03">
+                            <script type="text/javascript">                                document.write(top.str_basenet_set);</script>
+                        </strong>
+                    </td>
+                   </tr>
+                  <tr  >
+                   <td class="lcorner" ></td>
+                   <td class="cbtop">
+                     <table cellpadding="0" cellspacing="0" style=" width:730px">
+                        <tr style=" width:100%">
+                            <td style="text-align: right;" align="right">
+                                 <button class="resethbutton" onclick="set_NetworkSet()">
+
+                                    <script>                                        document.write(top.str_save);</script>
+
+                                </button>
+                                <button class="resethbutton" onclick="location.reload()">
+
+                                    <script>                                        document.write(top.str_refresh);</script>
+
+                                </button>
+                             
+                            </td>
+                      
+                        </tr>
+                     </table>
+                   </td>
+                   <td class="rcorner"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="lborder"></td>
+                   <td style=" margin-top:0px">
+                       <table style="margin-top:0px; width: 730px; height: 150px;" class="admintr">
+            
+                        <tr style=" height:35px">
+                            <td width="300px" height="30px"  align="right" class="admintd">
+                                <strong class="mid04">
+
+                                    <script>                                        document.write(top.str_network_type);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<select name="select_NetworkType" id="select_NetworkType"
+                                    size="1" style="width: 145px" onchange="mySel(this.value)" >
+                                    <option value="0"><strong>
+
+                                        <script>                                            document.write(top.str_static_address);</script>
+
+                                    </strong></option>
+                                    <option value="1"><strong>
+
+                                        <script>                                            document.write(top.str_trends_address);</script>
+
+                                    </strong></option>
+                                    <!--<option value="2"><strong>
+
+                                        <script>document.write(top.str_pppoe);</script>
+
+                                    </strong></option>-->
+                                </select>
+                            </td>
+                        </tr>
+                        <tr style=" height:35px">
+                            <td width="300px" height="30px"  align="right" class="admintd">
+                                <strong class="mid04">
+
+                                    <script>                                        document.write(top.str_media_port);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" onkeyup="this.value=this.value.replace(/[^0-9]/gi,'')"
+                                    onblur="this.value=this.value.replace(/[^0-9]/gi,'')" name="txt_MediaPort" id="txt_MediaPort"
+                                    style="width: 145px" /><span class="mid04">(0~65535)<span>
+                            </td>
+                        </tr>
+                        <tr style=" height:35px">
+                            <td width="300px" height="30px"  align="right" class="admintd">
+                                <strong class="mid04">
+
+                                    <script>                                        document.write(top.str_web_port);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" onkeyup="this.value=this.value.replace(/[^0-9]/gi,'')"
+                                    onblur="this.value=this.value.replace(/[^0-9]/gi,'')" name="txt_WebPort" id="txt_WebPort"
+                                    style="width: 145px" /><span class="mid04">(0~65535)<span>
+                            </td>
+                        </tr>
+                        <tr style=" height:35px">
+                            <td width="300px" height="30px"  align="right" class="admintd">
+                                <strong class="mid04">
+
+                                    <script>                                        document.write(top.str_push_port);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" onkeyup="this.value=this.value.replace(/[^0-9]/gi,'')"
+                                    onblur="this.value=this.value.replace(/[^0-9]/gi,'')" name="txt_pushPort" id="txt_pushPort"
+                                    style="width: 145px" /><span class="mid04">(0~65535)<span>
+                            </td>
+                        </tr>
+                        <tr style=" height:35px">
+                            <td width="300px" height="30px"  align="right" class="admintd">
+                                <strong class="mid04">
+
+                                    <script>                                        document.write(top.str_phone_port);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="txt_PhonePort" onkeyup="this.value=this.value.replace(/[^0-9]/gi,'')"
+                                    onblur="this.value=this.value.replace(/[^0-9]/gi,'')" id="txt_PhonePort" style="width: 145px" /><span class="mid04">(0~65535)<span>
+                            </td>
+                        </tr>
+                        <!--ÐÂ¼Ó¶Ë¿Ú-->
+                        <tr style=" height:35px">
+                            <td width="300px" height="30px"  align="right" class="admintd">
+                                <strong class="mid04">
+
+                                    <script>                                        document.write(top.str_rtsp_port);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="txt_RtspPort" onkeyup="this.value=this.value.replace(/[^0-9]/gi,'')"
+                                    onblur="this.value=this.value.replace(/[^0-9]/gi,'')" id="txt_RtspPort" style="width: 145px" /><span class="mid04">(0~65535)<span>
+                            </td>
+                        </tr> 
+                        <tr id="tr_IpAddress" style="display: none;height:35px">
+                            <td width="300px" height="30px"  align="right" class="admintd">
+                                <strong class="mid04">
+
+                                    <script>                                        document.write(top.str_ip_address);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" onkeyup="this.value=this.value.replace(/[^0-9.]/gi,'')"
+                                    onblur="this.value=this.value.replace(/[^0-9.]/gi,'')" name="txt_IpAddress" id="txt_IpAddress"
+                                    style="width: 145px" />
+                            </td>
+                        </tr>
+                        <tr id="tr_Zwym" style="display: none; height:35px">
+                            <td width="300px" height="30px"  align="right" class="admintd">
+                                <strong class="mid04">
+
+                                    <script>                                        document.write(top.str_subnet_mask);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="txt_Zwym" onkeyup="this.value=this.value.replace(/[^0-9.]/gi,'')"
+                                    onblur="this.value=this.value.replace(/[^0-9.]/gi,'')" id="txt_Zwym" style="width: 145px" />
+                            </td>
+                        </tr>
+                        <tr id="tr_GateWay" style="display: none ; height:35px">
+                            <td width="300px" height="30px"  align="right" class="admintd">
+                                <strong class="mid04">
+
+                                    <script>                                        document.write(top.str_gateway);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="txt_GateWay" onkeyup="this.value=this.value.replace(/[^0-9.]/gi,'')"
+                                    onblur="this.value=this.value.replace(/[^0-9.]/gi,'')" id="txt_GateWay" style="width: 145px" />
+                            </td>
+                        </tr>
+                       <!-- <tr id="tr_Pppoe" style="display: none; height:35px">
+                            <td width="300px" height="30px"  align="right" class="admintd">
+                                <strong class="mid04">
+
+                                    <script>document.write(top.str_open_pppoe);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<select name="select_OpenPppoe" id="select_OpenPppoe" size="1"
+                                    style="width: 145px" onchange="showppoe(this.value)">
+                                    <option value="1"><strong>
+
+                                        <script>document.write(top.str_opens);</script>
+
+                                    </strong></option>
+                                    <option value="0"><strong>
+
+                                        <script>document.write(top.str_closes);</script>
+
+                                    </strong></option>
+                                </select>
+                            </td>
+                        </tr>-->
+                        <!--<tr id="tr_PppoeUser" style="display: none;height:35px">
+                            <td width="300px" height="30px"  align="right" class="admintd">
+                                <strong class="mid04">
+
+                                    <script>document.write(top.str_user_pppoe);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="txt_PppoeUser" style="width: 145px"
+                                    id="txt_PppoeUser" />
+                            </td>
+                        </tr>
+                        <tr id="tr_PppoePwd" style="display: none; height:35px">
+                            <td width="300px" height="30px"  align="right" class="admintd">
+                                <strong class="mid04">
+
+                                    <script>document.write(top.str_password_pppoe);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="password" name="txt_PppoePwd" style="width: 145px"
+                                    id="txt_PppoePwd" />
+                            </td>
+                        </tr>-->
+                        <!--<tr id="tr_PppoeAddress" style="display: none;height:35px">
+                            <td width="300px" height="30px"  align="right" class="admintd">
+                                <strong class="mid04">
+
+                                    <script>document.write(top.str_address_pppoe);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" onkeyup="this.value=this.value.replace(/[^0-9.]/gi,'')"
+                                    onblur="this.value=this.value.replace(/[^0-9.]/gi,'')" name="txt_PppoeAddress"
+                                    style="width: 145px" id="txt_PppoeAddress" />
+                            </td>
+                        </tr>-->
+                        <tr style=" height:35px">
+                            <td align="right" width="300px" height="30px"  class="admintd">
+                                <strong class="mid04">
+
+                                    <script>                                        document.write(top.str_dns_service);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" onkeyup="this.value=this.value.replace(/[^0-9.]/gi,'')"
+                                    onblur="this.value=this.value.replace(/[^0-9.]/gi,'')" name="txt_DnsService"
+                                    id="txt_DnsService" style="width: 145px" />
+                            </td>
+                        </tr>
+                        <tr style=" height:35px">
+                            <td width="300px" height="30px"  align="right" class="admintd">
+                                <strong class="mid04">
+
+                                    <script>                                        document.write(top.str_physical_address);</script>
+
+                                </strong>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" onkeyup="this.value=this.value.replace(/[^0-9:]/gi,'')"
+                                    onblur="this.value=this.value.replace(/[^0-9:]/gi,'')" id="txt_MacAddress" name="txt_MacAddress"
+                                    style="width: 145px" />
+                            </td>
+                        </tr>
+                        <tr><td colspan='2' align='center'><script>                                                               document.write(top.str_notice);</script></td></tr>
+                    </table>
+                   
+                   </td>
+                   <td  class="rborder"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="ldcorner"></td>
+                   <td class="cdow"></td>
+                   <td class="rdcorner"></td>
+                  </tr>
+           
+                </table>
+            </td>
+        </tr>
+     </table>
+    
+</body>
+</html>

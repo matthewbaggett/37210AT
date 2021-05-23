@@ -1,0 +1,216 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+
+    <script language="javascript" src="../js/clearcache.js"></script>
+
+    <link href="../css/new.css" rel="stylesheet" type="text/css" />
+    <!--<link href="../css/ceshi.css" rel="stylesheet" type="text/css" />-->
+    <style type="text/css">
+         body
+        {
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-top: 0px;
+        }
+        </style>
+
+    <script> 
+document.write('<script src="/cgi-bin/check_user.cgi?user='+top.user+'&pwd='+top.pwd+'"><\/script>');
+document.write('<script src="/cgi-bin/get_params.cgi?type=3&user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+document.write('<script src="/cgi-bin/get_params.cgi?type=4&user=' + top.user + '&pwd=' + top.pwd + '"><\/script>');
+    </script>
+
+    <script>
+
+function AudioSet_check(v)
+{
+	//麦克风音量
+    document.getElementById("select_Volume").value=devicevol_mic;
+	
+	//扬声器音量
+    document.getElementById("select_Spaker").value=devicevol_speaker;
+}
+
+function body_onload()
+{
+    AudioSet_check(ChanNum);
+    var model = softwareFVersion.replace(/\./g, "");
+    model = model.substring(0, 4);
+    if (model == "8220") {
+        document.getElementById("tr_machine").style.display = "block";
+    }
+    document.getElementById("ckVoice").checked = speech_enable ? true : false;
+}
+
+function set_AudioSet()
+{
+    var check_AudioSet=1;
+    
+	//麦克风音量
+    var select_Volume=document.getElementById("select_Volume").value;
+	
+	//扬声器音量
+    var select_Spaker = document.getElementById("select_Spaker").value;
+
+    //在线声音提示
+    var ckVoice;
+    if (document.getElementById("ckVoice").checked == false) {
+        ckVoice = 0;
+    }
+    else {
+        ckVoice = 1;
+    }
+
+    url = "/cgi-bin/set_audio.cgi?next_url=/setmenu/AudioSet.htm&chan_num=" + check_AudioSet + "&mic_volume=" + select_Volume + "&speaker_volume=" + select_Spaker + "&sample_rate=" + "&speech_enable=" + ckVoice + "&user=" + top.user + "&pwd=" + top.pwd;
+
+    location=url;
+}
+
+    </script>
+
+</head>
+<body onload="body_onload()" class="body">
+     <table width="100%" cellpadding="0" cellspacing="0">
+        <tr class="adtop"><td>&nbsp;</td></tr>
+        <tr>
+            <td align="center">
+                <table cellpadding="0" cellspacing="0" >
+                   <tr>
+                    <td colspan="3" class="mid03_1">
+                        <strong class="mid03">
+                            <script type="text/javascript">document.write(top.str_audio_set);</script>
+                        </strong>
+                    </td>
+                   </tr>
+                  <tr>
+                   <td class="lcorner" ></td>
+                   <td class="cbtop">
+                     <table cellpadding="0" cellspacing="0" style=" width:730px">
+                        <tr style=" width:100%">
+                            <td style="text-align: right;" align="right">
+                                <button class="resethbutton" onclick="set_AudioSet()">
+                                    <script>document.write(top.str_save);</script>
+                                </button>
+                                <button class="resethbutton" onclick="location=location">
+                                    <script>document.write(top.str_refresh);</script>
+                                </button>
+                             
+                            </td>
+                      
+                        </tr>
+                     </table>
+                   </td>
+                   <td class="rcorner"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="lborder"></td>
+                   <td>
+                       <table style="margin-top: 0px; width: 730px; height: 20%;" class="admintr">
+               
+                    <!--<tr  id="tr_head"; style="height:35px;">
+                        <td class="admintd">
+                            <strong class="mid04">
+
+                                <script>document.write(top.str_external_headset);</script>
+
+                            </strong>
+                        </td>
+                        <td>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="external" id="external" onclick="AudioSet_check(2)">
+                        </td>
+                    </tr>
+                    <tr style="height: 35px">
+                        <td class="admintd">
+                            <strong class="mid04">
+
+                                <script>document.write(top.str_built_headset);</script>
+
+                            </strong>
+                        </td>
+                        <td>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="built" id="built" onclick="AudioSet_check(1)">
+                        </td>
+                    </tr>-->
+                    <tr style="height: 35px">
+                        <td class="admintd">
+                            <strong class="mid04">
+
+                                <script>document.write(top.str_volume);</script>
+
+                            </strong>
+                        </td>
+                        <td>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <select id="select_Volume" style="width: 100px">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                            <!--<script>document.write(top.str_second);</script>-->
+                        </td>
+                    </tr>
+                    <tr id="tr_spaker"; style="height: 35px;">
+                        <td class="admintd">
+                            <strong class="mid04">
+
+                                <script>document.write(top.str_Spaker);</script>
+
+                            </strong>
+                        </td>
+                        <td>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <select id="select_Spaker" style="width: 100px">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                            <!--<script>document.write(top.str_second);</script>-->
+                        </td>
+                    </tr>
+                    <tr id="tr_machine"; style="height: 35px;display:none;">
+                        <td class="admintd">
+                            <strong class="mid04">
+
+                                <script>                                    document.write(top.str_ckVoice);</script>
+
+                            </strong>
+                        </td>
+                        <td>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<input id="ckVoice" type="checkbox">
+                        </td>
+                    </tr>
+            </table>
+                   
+                   </td>
+                   <td  class="rborder"></td>
+                  </tr>
+              
+                  <tr>
+                   <td class="ldcorner"></td>
+                   <td class="cdow"></td>
+                   <td class="rdcorner"></td>
+                  </tr>
+           
+                </table>
+            </td>
+        </tr>
+     </table>
+</body>
+</html>

@@ -1,0 +1,35 @@
+﻿.f_cap {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: normal;
+	color: #FFFFFF;
+	text-decoration: none;
+	background-image: url(../image/sn.gif);
+	background-repeat: no-repeat;
+	padding-top: 5px;
+	padding-bottom: 11px;
+	padding-left: 36px;
+}
+.f_cap:hover{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: normal;
+	color: #FFFFFF;
+	text-decoration: none;
+	background-image: url(../image/sn_1.gif);
+	background-repeat: no-repeat;
+	padding-top: 5px;
+	padding-bottom: 11px;
+	padding-left: 36px;
+}
+.f2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #000000;
+	text-align: center;
+	line-height: 20px;
+}
+.tb1 
+{
+	border: 1px solid #C4EAFF;
+}

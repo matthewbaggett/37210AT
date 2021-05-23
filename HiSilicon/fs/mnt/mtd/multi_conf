@@ -1,0 +1,56 @@
+wnd_enable0 0
+wnd_num0 1
+ipcam_host0 
+web_port0 0
+data_port0 0
+ipcam_user0 
+ipcam_pwd0 
+wnd_enable1 0
+wnd_num1 2
+ipcam_host1 
+web_port1 0
+data_port1 0
+ipcam_user1 
+ipcam_pwd1 
+wnd_enable2 0
+wnd_num2 3
+ipcam_host2 
+web_port2 0
+data_port2 0
+ipcam_user2 
+ipcam_pwd2 
+wnd_enable3 0
+wnd_num3 4
+ipcam_host3 
+web_port3 0
+data_port3 0
+ipcam_user3 
+ipcam_pwd3 
+wnd_enable4 0
+wnd_num4 5
+ipcam_host4 
+web_port4 0
+data_port4 0
+ipcam_user4 
+ipcam_pwd4 
+wnd_enable5 0
+wnd_num5 6
+ipcam_host5 
+web_port5 0
+data_port5 0
+ipcam_user5 
+ipcam_pwd5 
+wnd_enable6 0
+wnd_num6 7
+ipcam_host6 
+web_port6 0
+data_port6 0
+ipcam_user6 
+ipcam_pwd6 
+wnd_enable7 0
+wnd_num7 8
+ipcam_host7 
+web_port7 0
+data_port7 0
+ipcam_user7 
+ipcam_pwd7 
